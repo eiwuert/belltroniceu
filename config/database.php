@@ -1,5 +1,15 @@
 <?php
 
+$mysql_array = array(
+    'driver'    => 'mysql',
+    'host'      => getenv('PRODUCTION_DB_HOST'),
+    'database'  => getenv('PRODUCTION_DB_NAME'),
+    'username'  => getenv('PRODUCTION_DB_USERNAME'),
+    'password'  => getenv('PRODUCTION_DB_PASSWORD'),
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+    'prefix'    => '',
+);
 return [
 
     /*
@@ -52,17 +62,7 @@ return [
             'prefix'   => '',
         ],
 
-        'mysql' => [
-            'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'db4free.net'),
-            'database'  => env('DB_DATABASE', 'belltronic'),
-            'username'  => env('DB_USERNAME', 'belltronic'),
-            'password'  => env('DB_PASSWORD', 'Stiv3n140'),
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-            'strict'    => false,
-        ],
+        'mysql' => $mysql_array,
 
         'pgsql' => [
             'driver'   => 'pgsql',
