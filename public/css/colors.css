@@ -1,0 +1,38 @@
+.blue{
+    background-color:#85C1F5;
+}
+.blue:hover{
+    background-color: #4A789C;
+}
+
+.red{
+    background-color:#ff656c;
+}
+
+.red:hover{
+    background-color:#7f3236;
+}
+
+.green{
+    background-color: #7FCA9F;
+}
+
+.green:hover{
+    background-color: #3f654f;
+}
+
+.gray{
+    background-color: rgba(20,20,20,0.4);
+}
+
+.gray:hover{
+    background-color: rgba(20,20,20,0.6);
+}
+
+.white{
+    color: #FFF;
+}
+
+::-webkit-input-placeholder {
+   color: #FFF;
+}
