@@ -272,3 +272,53 @@ function seleccionarSim(btnObj){
         }
     });
 }
+
+$('#datos_busqueda_sim_empaquetar').bind("enterKey",function(e){
+   var telefono = $('#datos_busqueda_sim_empaquetar').val();
+   $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+    $.ajax({
+        url:'simcard/buscar',
+        data:{dato:telefono},
+        type:'GET',
+        dataType: 'json',
+        success: function(data){
+            if(data != ''){
+                var today = new Date();
+                $('#datos_busqueda_sim_empaquetar').val('');  
+                var fecha_vencimiento_string = data[0].fecha_vencimiento.split("-");
+                var fecha_vencimiento = new Date(fecha_vencimiento_string[0], fecha_vencimiento_string[1]-1,fecha_vencimiento_string[2]);
+                var months = dayDiff(today, fecha_vencimiento);
+                var color;
+                if( data[0].fecha_activacion != null){
+                    if(months > 0){
+                        color = 'green';
+                    }else{
+                        color = 'red';
+                    }
+                }else{
+                    if(months > 0){
+                       color = 'blue'; 
+                    }else{
+                       color = 'red';
+                    }
+                }
+                var element = '<button class="button_simcards ' + color +' " style="flex-grow:2;width:auto;color:#000;font-weight:normal;font-size:1em" onClick="seleccionarSim(this)" value = ' + data[0].numero + '> ' + data[0].numero  + '</button>';
+                document.getElementById('container_simcards_empaquetado').innerHTML += element;
+            }else{
+                $('.modal-header #modal-tittle').html('Error');
+                $('.modal-body #modal-body').html('Simcard no encontrada');
+                $('#modal-content').modal('show');
+            }
+            $('#modal-loading').modal('hide');
+        }
+    });
+});
+$('#datos_busqueda_sim_empaquetar').keyup(function(e){
+    if(e.keyCode == 13)
+    {
+        $(this).trigger("enterKey");
+    }
+});

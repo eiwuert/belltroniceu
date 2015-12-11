@@ -76,6 +76,11 @@
                     <li>
                         <a class="page-scroll" href="#libres">Libres</a>
                     </li>
+                    @if($user->isAdmin)
+                    <li>
+                        <a class="page-scroll" href="#empaquetar">Empaquetar</a>
+                    </li>
+                    @endif
                     <li>
                         <a class="page-scroll" style="color:#7f3236" href="/auth/logout">Cerrar sesión</a>
                     </li>
@@ -258,6 +263,7 @@
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Planes Libres</h2>
                     <h3 class="section-subheading text-muted">Ingresa un numero de celular de una simcard libre y encontrarás toda la información del cliente asociado a ella.
+                    </h3>
                 </div>
             </div>
             <div class="row text-center ">
@@ -300,6 +306,26 @@
         </div>
     </section>
     
+    
+    <!-- SECCION EMPAQUETADO  -->
+    <section id="empaquetar" style="background:#d3d3d3">
+        <div class="container ">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Empaquetar Simcards</h2>
+                    <h3 class="section-subheading text-muted" style="margin-bottom:20px">Digita la ICC o el numero de teléfono de la simcard. Si existe, la veras abajo y estara lista para empaquetarse.</h3>
+                </div>
+            </div>
+            <div class="principal-view-body-container">
+                <div class ="package_form_container">
+                    <input class="data_package" type="number" id = "datos_busqueda_sim_empaquetar" placeholder="ICC / Tel" style="width:40%"></input>
+                </div>
+                <div class = "search_results_container" id ="container_simcards_empaquetado">
+                      
+                </div>
+            </div>
+        </div>
+    </section>
     <!--------------------------------------MODALS------------------------------------------------->
     <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">

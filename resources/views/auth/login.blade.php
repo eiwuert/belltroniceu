@@ -5,7 +5,7 @@
         @yield('title')
         <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" crossorigin="anonymous">
         <link rel="stylesheet" href="/css/utilities/utilities.css"/>
-        <link rel="stylesheet" href="/css/baseStyle.css"/>
+        <link rel="stylesheet" href="/css/base.css"/>
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <title>Login</title>

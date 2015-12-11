@@ -62,7 +62,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="/simcards">Simcards</a>
+                        <a class="page-scroll" href="/simcard">Simcards</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="/finanzas">Finanzas</a>
@@ -93,7 +93,13 @@
         <div class="carousel-inner">
             <div class="item active">
                 <!-- Set the first background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080/77aac7/FFFFFF/&text=Simcards');"></div>
+                <div class="fill" style="background-image:url('');">
+                    <div class="container" style="background:rgba(20,20,20,0.4);width:100%;height:100%">
+                        <div class="intro-text">
+                            <div class="intro-heading">Simcards</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="carousel-caption">
                     <a href="/simcard" class="page-scroll btn btn-xl">Ingresar</a>
                 </div>
