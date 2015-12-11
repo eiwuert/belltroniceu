@@ -11,9 +11,9 @@
 |
 */
 
-
-Route::get('', array('middleware' => 'auth','as' => 'simcard', 'uses'=> 'FrontController@simcard'));
-Route::get('/home', array('middleware' => 'auth','as' => 'simcard', 'uses'=> 'FrontController@simcard'));
+// VISTAS
+Route::get('', array('middleware' => 'auth','as' => 'simcard', 'uses'=> 'FrontController@home'));
+Route::get('/home', array('middleware' => 'auth','as' => 'simcard', 'uses'=> 'FrontController@home'));
 Route::get('/simcard', array('middleware' => 'auth','as' => 'simcard', 'uses'=> 'FrontController@simcard'));
 
 // BUSCAR SIMCARD

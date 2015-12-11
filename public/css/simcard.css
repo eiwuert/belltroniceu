@@ -85,7 +85,7 @@
 }
 .button {
     height: 40px;
-    min-width:100px;
+    min-width:80px;
     background: #7FCA9F;
     box-sizing: border-box;
     border-radius: 5px;

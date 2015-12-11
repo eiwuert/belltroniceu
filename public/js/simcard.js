@@ -114,6 +114,7 @@ function limpiar_campos(){
     $('#tipo-resultado').val('');
     $('#fecha_vencimiento-resultado').val('');
     $('#fecha_activacion-resultado').val('');
+    $('#fecha_entrega-resultado').val('');
     $('#dato_buscar_sim').val('');
     changeClass("gray"); 
 }

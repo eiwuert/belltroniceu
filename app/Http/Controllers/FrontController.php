@@ -20,4 +20,8 @@ class FrontController extends Controller
         
         return view('/simcard', array('user' => $user, 'subdistribuidores'=>$subdistribuidores, 'distribuidores' => $distribuidores));
    }
+   
+   public function home(){
+       return view('home');
+   }
 }

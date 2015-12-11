@@ -23,6 +23,9 @@
     <!-- Colors CSS -->
     <link href="css/colors.css" rel="stylesheet">
     
+    <!-- Colors CSS -->
+    <link href="css/base.css" rel="stylesheet">
+    
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -74,10 +77,7 @@
                         <a class="page-scroll" href="#libres">Libres</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#">Cartera</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" style="color:gray" href="/auth/logout">Cerrar sesión</a>
+                        <a class="page-scroll" style="color:#7f3236" href="/auth/logout">Cerrar sesión</a>
                     </li>
                 </ul>
             </div>
@@ -92,18 +92,18 @@
             <div class="intro-text">
                 <div class="intro-lead-in">Bienvenido a tu portal</div>
                 <div class="intro-heading">Revisa tus simcards</div>
-                <a href="#services" class="page-scroll btn btn-xl">Volver</a>
+                <a href="/" class="page-scroll btn btn-xl">Volver</a>
             </div>
         </div>
     </header>
 
     <!-- BUSCAR SIMCARD   -->
-    <section id="buscar">
+    <section id="buscar" style="background:#77aac7">
         <div class="container ">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Encuentra tus Simcards</h2>
-                    <h3 class="section-subheading text-muted">Ingresa la ICC o el numero de telefono. 
+                    <h3 class="section-subheading text-muted" style="color:white">Ingresa la ICC o el numero de telefono. 
                     Recuerda que <span class ="red_text"> Rojo </span> es Vencida, <span class ="blue_text">Azul</span> es Disponible y <span class ="green_text">Verde</span> es Activada.</h3>
                 </div>
             </div>
@@ -113,9 +113,9 @@
     float: none;">
                     <div id="search_container" class = "search_container">
                         <h3 class = "section_body_content white" style="margin-top:0">Busca una simcard</h3>
-                            <input class = "data" type="number" style="text-align:center;padding:0" placeholder = "ICC / Tel" id = "dato_buscar_sim" />
+                            <input class = "data" type="number" placeholder = "ICC / Tel" id = "dato_buscar_sim" />
                         <div style="margin:auto">
-                            <button class="button button_delete" style="margin-right:4%;width:45%" onClick="limpiar_campos()">Limpiar</button>
+                            <button class="button gray" style="margin-right:4%;width:45%" onClick="limpiar_campos()">Limpiar</button>
                             <button class = "button" style="width:45%" onClick = "buscarSim()">Buscar</button>
                         </div>
                     </div>
@@ -215,12 +215,12 @@
     </section>
     
     <!-- SECCION MI ESTADO -->
-    <section id="miestado">
+    <section id="miestado"  style="background:#77aac7">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Estado Simcards</h2>
-                    <h3 class="section-subheading text-muted">Revisa el estado de tus simcards separadas por tipo y mes.
+                    <h3 class="section-subheading text-muted" style="color:white">Revisa el estado de tus simcards separadas por tipo y mes.
                     Recuerda que <span class ="red_text"> Rojo </span> son las Vencidas en el mes y <span class ="green_text">Verde</span> son las Activadas en el mes.</h3>
                 </div>
             </div>
@@ -360,23 +360,23 @@
                 <div class="modal-body">
                     <div class="search_results_container" style="margin:0">
                         <div class ="gray" style="flex-grow:2">
-                            <input class="center white white_input" type="text" id = "nombre_responsable_resultado" placeholder="Responsable"></input>
+                            <input class="center white white_input" style="width:100%" type="text" id = "nombre_responsable_resultado" placeholder="Responsable"></input>
                         </div>
                         <div class ="gray" style="flex-grow:2">
-                            <input class="center white white_input" type="text" id = "fijo_responsable_resultado" placeholder="Telefono"></input>
+                            <input class="center white white_input" style="width:100%"  type="text" id = "fijo_responsable_resultado" placeholder="Telefono"></input>
                         </div>
                         <div class ="gray" style="flex-grow:2">
-                            <input class="center white white_input" type="text" id = "celular_responsable_resultado" placeholder="Celular"></input>
+                            <input class="center white white_input" style="width:100%"  type="text" id = "celular_responsable_resultado" placeholder="Celular"></input>
                         </div>
                         <div class ="gray" style="flex-grow:2">
-                            <input class="center white white_input" type="text" id = "ciudad_responsable_resultado" placeholder="Ciudad"></input>
+                            <input class="center white white_input" style="width:100%"  type="text" id = "ciudad_responsable_resultado" placeholder="Ciudad"></input>
                         </div>
                         <div class ="gray" style="flex-grow:2">
-                            <input class="center white white_input" type="text" id = "barrio_responsable_resultado" placeholder="Barrio"></input>
+                            <input class="center white white_input" style="width:100%"  type="text" id = "barrio_responsable_resultado" placeholder="Barrio"></input>
                         </div>
                         <div class ="gray" style="flex-grow:2">
-                            <p class ="white"  style ="margin-top:5px;"> Entregada </p>
-                            <input class="center white white_input" type="date" id = "fecha_entrega_cliente_resultado"></input>
+                            <p class ="white"  style ="margin-top:5px;width:100%;text-align:center"> Entregada </p>
+                            <input class="center white white_input" style="width:100%"  type="date" id = "fecha_entrega_cliente_resultado"></input>
                         </div style="align-self:flex-end">
                     </div>
                 </div>

@@ -9,17 +9,13 @@ $(document).ready(function(){
                     {
                         label: "Vencidas",
                         fillColor: "#ff656c",
-                        strokeColor: "rgba(220,220,220,0.8)",
                         highlightFill: "#7f3236",
-                        highlightStroke: "rgba(220,220,220,1)",
                         data: [data[0][3],data[0][4],data[0][5]]
                     },
                     {
                         label: "Activas",
                         fillColor: "#7FCA9F",
-                        strokeColor: "rgba(151,187,205,0.8)",
                         highlightFill: "#3f654f",
-                        highlightStroke: "rgba(151,187,205,1)",
                         data: [data[0][0],data[0][1],data[0][2]]
                     }
                 ]
