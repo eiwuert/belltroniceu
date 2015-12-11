@@ -76,6 +76,9 @@
                     <li>
                         <a class="page-scroll" href="#">Cartera</a>
                     </li>
+                    <li>
+                        <a class="page-scroll" style="color:gray" href="/auth/logout">Cerrar sesión</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -110,7 +113,7 @@
     float: none;">
                     <div id="search_container" class = "search_container">
                         <h3 class = "section_body_content white" style="margin-top:0">Busca una simcard</h3>
-                            <input class = "data" type="number" placeholder = "ICC / Tel" id = "dato_buscar_sim" />
+                            <input class = "data" type="number" style="text-align:center;padding:0" placeholder = "ICC / Tel" id = "dato_buscar_sim" />
                         <div style="margin:auto">
                             <button class="button button_delete" style="margin-right:4%;width:45%" onClick="limpiar_campos()">Limpiar</button>
                             <button class = "button" style="width:45%" onClick = "buscarSim()">Buscar</button>
@@ -121,32 +124,69 @@
     vertical-align: middle;
     float: none;">
                     <div class = "search_results_container" style="margin-top:0">
-                        <div class ="gray" style="flex-grow:2" id="ICC-container">
-                            <input class="center white white_input" type="number" id = "ICC-resultado" placeholder="ICC"></input>
-                        </div>
-                        <div class ="gray" style="flex-grow:2" id="telefono-container">
-                            <input class="center white white_input" type="number" id = "telefono-resultado" placeholder="Teléfono"></input>
-                        </div>
-                        <div class ="gray" style="flex-grow:2" id="paquete-container">
-                            <input class="center white white_input" type="text" id = "paquete-resultado" placeholder="Paquete"></input>
-                        </div>
-                        <div class ="gray" style="flex-grow:2" id="tipo-container">
-                            <input class="center white white_input" type="text" id = "tipo-resultado" placeholder="Tipo"></input>
-                        </div>
-                        <div class ="gray" style="flex-grow:2" id="distribuidor-container">
-                            <button class="center white white_input" id ="distribuidor-resultado" onClick="$('#modal-distribuidor').modal('show')" style="background:none;border:none;" >Distribuidor</button>
-                        </div>
-                        <div class ="gray" style="flex-grow:2" id="subdistribuidor-container">
-                            <button class="center white white_input" id ="subdistribuidor-resultado" onClick="$('#modal-subdistribuidor').modal('show')" style="background:none;border:none;">Subdistribuidor</button>
-                        </div>
-                        <div class ="gray" style="flex-grow:2" id="fecha_vencimiento-container">
-                            <p class ="white" style ="margin-top:5px;"> Vencimiento </p>
-                            <input class="center white white_input" type="date" id = "fecha_vencimiento-resultado" placeholder="Vencimiento"></input>
-                        </div>
-                        <div class ="gray" style="flex-grow:2" id="fecha_activacion-container">
-                            <p class ="white"  style ="margin-top:5px;"> Activación </p>
-                            <input class="center white white_input" type="date" id = "fecha_activacion-resultado" placeholder="Activación"></input>
-                        </div style="align-self:flex-end">
+                        @if ($user->isAdmin)
+                            <div class ="gray" style="flex-grow:2" id="ICC-container">
+                                <input class="center white white_input" type="number" id = "ICC-resultado" placeholder="ICC"></input>
+                            </div>
+                            <div class ="gray" style="flex-grow:2" id="telefono-container">
+                                <input class="center white white_input" type="number" id = "telefono-resultado" placeholder="Teléfono"></input>
+                            </div>
+                            <div class ="gray" style="flex-grow:2" id="paquete-container">
+                                <input class="center white white_input" type="text" id = "paquete-resultado" placeholder="Paquete"></input>
+                            </div>
+                            <div class ="gray" style="flex-grow:2" id="tipo-container">
+                                <input class="center white white_input" type="text" id = "tipo-resultado" placeholder="Tipo"></input>
+                            </div>
+                            <div class ="gray" style="flex-grow:2" id="distribuidor-container">
+                                <button class="center white white_input" id ="distribuidor-resultado" onClick="$('#modal-distribuidor').modal('show')" style="background:none;border:none;" >Distribuidor</button>
+                            </div>
+                            <div class ="gray" style="flex-grow:2" id="subdistribuidor-container">
+                                <button class="center white white_input" id ="subdistribuidor-resultado" onClick="$('#modal-subdistribuidor').modal('show')" style="background:none;border:none;">Subdistribuidor</button>
+                            </div>
+                            <div class ="gray" style="flex-grow:2" id="fecha_vencimiento-container">
+                                <p class ="white" style ="margin-top:5px;"> Vencimiento </p>
+                                <input class="center white white_input" type="date" id = "fecha_vencimiento-resultado" placeholder="Vencimiento"></input>
+                            </div>
+                            <div class ="gray" style="flex-grow:2" id="fecha_activacion-container">
+                                <p class ="white"  style ="margin-top:5px;"> Activación </p>
+                                <input class="center white white_input" type="date" id = "fecha_activacion-resultado" placeholder="Activación"></input>
+                            </div>
+                            <div class ="gray" style="flex-grow:2" id="fecha_entrega-container">
+                                <p class ="white"  style ="margin-top:5px;"> Entregada </p>
+                                <input class="center white white_input" type="date" id = "fecha_entrega-resultado"></input>
+                            </div style="align-self:flex-end">
+                        @else
+                            <div class ="gray"style="flex-grow:2" id="ICC-container">
+                                <input disabled=true class="center white white_input" type="number" id = "ICC-resultado" placeholder="ICC"></input>
+                            </div>
+                            <div class ="gray" style="flex-grow:2" id="telefono-container">
+                                <input disabled=true class="center white white_input" type="number" id = "telefono-resultado" placeholder="Teléfono"></input>
+                            </div>
+                            <div class ="gray" style="flex-grow:2" id="paquete-container">
+                                <input disabled=true class="center white white_input" type="text" id = "paquete-resultado" placeholder="Paquete"></input>
+                            </div>
+                            <div class ="gray" style="flex-grow:2" id="tipo-container">
+                                <input  disabled=true class="center white white_input" type="text" id = "tipo-resultado" placeholder="Tipo"></input>
+                            </div>
+                            <div class ="gray" style="flex-grow:2" id="distribuidor-container">
+                                <button class="center white white_input" disabled=true id ="distribuidor-resultado" onClick="$('#modal-distribuidor').modal('show')" style="background:none;border:none;" >Distribuidor</button>
+                            </div>
+                            <div class ="gray" style="flex-grow:2" id="subdistribuidor-container">
+                                <button class="center white white_input" disabled =true id ="subdistribuidor-resultado" onClick="$('#modal-subdistribuidor').modal('show')" style="background:none;border:none;">Subdistribuidor</button>
+                            </div>
+                            <div class ="gray" style="flex-grow:2" id="fecha_vencimiento-container">
+                                <p class ="white" style ="margin-top:5px;"> Vencimiento </p>
+                                <input disabled=true class="center white white_input" type="date" id = "fecha_vencimiento-resultado" placeholder="Vencimiento"></input>
+                            </div>
+                            <div class ="gray" style="flex-grow:2" id="fecha_activacion-container">
+                                <p class ="white"  style ="margin-top:5px;"> Activación </p>
+                                <input class="center white white_input" disabled=true type="date" id = "fecha_activacion-resultado" placeholder="Activación"></input>
+                            </div>
+                            <div class ="gray" style="flex-grow:2" id="fecha_entrega-container">
+                                <p class ="white"  style ="margin-top:5px;"> Entregada </p>
+                                <input class="center white white_input" disabled=true type="date" id = "fecha_entrega-resultado"></input>
+                            </div style="align-self:flex-end">
+                        @endif
                     </div>
                 </div>
             </div>
@@ -180,7 +220,8 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Estado Simcards</h2>
-                    <h3 class="section-subheading text-muted">Revisa el estado de tus simcards separadas por tipo y mes.</h3>
+                    <h3 class="section-subheading text-muted">Revisa el estado de tus simcards separadas por tipo y mes.
+                    Recuerda que <span class ="red_text"> Rojo </span> son las Vencidas en el mes y <span class ="green_text">Verde</span> son las Activadas en el mes.</h3>
                 </div>
             </div>
             <div class="row">
@@ -211,7 +252,53 @@
     </section>
 
     <!-- SECCION LIBRES  -->
-    
+    <section id="libres">
+        <div class="container ">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Planes Libres</h2>
+                    <h3 class="section-subheading text-muted">Ingresa un numero de celular de una simcard libre y encontrarás toda la información del cliente asociado a ella.
+                </div>
+            </div>
+            <div class="row text-center ">
+                <div class="col-md-4" style="display: inline-block;
+    vertical-align: middle;
+    float: none;">
+                    <div id="search_container" class = "search_container">
+                        <h3 class = "section_body_content white" style="margin-top:0">Busca una simcard</h3>
+                            <input class = "data" type="number" placeholder = "Teléfono" id = "dato_buscar_sim_libre" />
+                        <div style="margin:auto">
+                            <button class="button button_delete" style="margin-right:4%;width:45%" onClick="limpiar_campos_libre()">Limpiar</button>
+                            <button class = "button" style="width:45%" onClick = "buscarSim_libre()">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7" style="display: inline-block;
+    vertical-align: middle;
+    float: none;">
+                    <div class = "search_results_container" style="margin-top:0">
+                        <div class ="gray" style="flex-grow:2" id="nit_container">
+                            <button class="center white white_input" id ="nit-resultado" onClick="$('#modal-cliente_libre').modal('show')" style="background:none;border:none;">NIT</button>
+                        </div>
+                        <div class ="gray" style="flex-grow:2" id="nombre_empresa_container">
+                            <input class="center white white_input" type="text" id = "nombre_empresa_resultado" placeholder="Empresa"></input>
+                        </div>
+                        <div class ="gray" style="flex-grow:2" id="plan_container">
+                            <input class="center white white_input" type="text" id = "plan_resultado" placeholder="Plan"></input>
+                        </div>
+                        <div class ="gray" style="flex-grow:2" id="valor_container">
+                            <input class="center white white_input" type="text" id = "valor_resultado" placeholder="Valor"></input>
+                        </div>
+                        <div class ="gray" style="flex-grow:2" id="fecha_activacion_libre_container">
+                            <p class ="white" style ="margin-top:5px;"> Activación </p>
+                            <input class="center white white_input" type="date" id = "fecha_activacion_libreresultado"></input>
+                        </div>
+                        </div style="align-self:flex-end">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     
     <!--------------------------------------MODALS------------------------------------------------->
     <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
@@ -236,7 +323,7 @@
                     <h3 class = "section-body section-body-title"> Seleccionar Distribuidor</h3>
                 </div>
                 <div class="modal-body">
-                    <div class=".container" id ="modal-body-distribuidores">
+                    <div class="container" id ="modal-body-distribuidores">
                     @foreach($distribuidores as $distribuidor)
                         <button class="button-simcards button-default" style="flex-grow:2; margin-top:10px" onClick="seleccionar_distribuidor(this)" value ="{{$distribuidor->name}}">{{$distribuidor->name}}</button>
                     @endforeach
@@ -261,8 +348,48 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>  
 
+    <div id="modal-cliente_libre" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3 class = "section-body section-body-title"> Datos Responsable </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="search_results_container" style="margin:0">
+                        <div class ="gray" style="flex-grow:2">
+                            <input class="center white white_input" type="text" id = "nombre_responsable_resultado" placeholder="Responsable"></input>
+                        </div>
+                        <div class ="gray" style="flex-grow:2">
+                            <input class="center white white_input" type="text" id = "fijo_responsable_resultado" placeholder="Telefono"></input>
+                        </div>
+                        <div class ="gray" style="flex-grow:2">
+                            <input class="center white white_input" type="text" id = "celular_responsable_resultado" placeholder="Celular"></input>
+                        </div>
+                        <div class ="gray" style="flex-grow:2">
+                            <input class="center white white_input" type="text" id = "ciudad_responsable_resultado" placeholder="Ciudad"></input>
+                        </div>
+                        <div class ="gray" style="flex-grow:2">
+                            <input class="center white white_input" type="text" id = "barrio_responsable_resultado" placeholder="Barrio"></input>
+                        </div>
+                        <div class ="gray" style="flex-grow:2">
+                            <p class ="white"  style ="margin-top:5px;"> Entregada </p>
+                            <input class="center white white_input" type="date" id = "fecha_entrega_cliente_resultado"></input>
+                        </div style="align-self:flex-end">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MODAL LOADING -->
+    <div id="modal-loading" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-body">
+            <a class="btn btn-danger loading" style = "width:100%;">Cargando información</a>
+        </div>
+    </div>
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 

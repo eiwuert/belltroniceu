@@ -1,4 +1,5 @@
 
+
 function seleccionar_distribuidor(objButton){
     $('#distribuidor-resultado').html(objButton.value);
     $('#modal-distribuidor').modal('hide');
@@ -56,6 +57,7 @@ function buscarSim(){
                 $('#subdistribuidor-resultado').html(data[0].nombreSubdistribuidor);
                 $('#fecha_vencimiento-resultado').val(data[0].fecha_vencimiento);
                 $('#fecha_activacion-resultado').val(data[0].fecha_activacion);
+                $('#fecha_entrega-resultado').val(data[0].fecha_entrega);
                 $.ajax({
                     url: 'subdistribuidor/buscarTodos',
                     data:{distribuidor:data[0].name},
@@ -98,6 +100,7 @@ function changeClass(color){
     $("#subdistribuidor-container").attr("class", color);
     $("#fecha_vencimiento-container").attr("class", color);
     $("#fecha_activacion-container").attr("class", color);
+    $("#fecha_entrega-container").attr("class", color);
     $("#search_container").attr("class", color + " search_container");
 }
 function dayDiff(d1, d2) {
@@ -183,7 +186,7 @@ function buscarPaquete(){
         $('#modal-loading').modal({
         backdrop: 'static',
         keyboard: false
-    })
+        })
         $.ajax({
             url:'simcard/buscarPaquete',
             data:{dato_paquete:dato_paquete},
@@ -198,9 +201,6 @@ function buscarPaquete(){
                     $('#container_simcards_paquete').html("");   
                 }
                 $('#modal-loading').modal('hide');
-                $('html, body').animate({
-                    scrollTop: $("#container_simcards_paquete").offset().top
-                    }, 500);
             }
         });
     }

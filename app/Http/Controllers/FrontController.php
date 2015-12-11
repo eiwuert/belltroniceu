@@ -13,12 +13,7 @@ class FrontController extends Controller
        $user =  \Auth::User();
         $distribuidores = [];
         $subdistribuidores = [];
-        
-        if($user->isAdmin){
-            $distribuidores = \DB::table('users')->get();
-        }else{
-            array_push($distribuidores,$user);
-        }
+        $distribuidores = \DB::table('users')->get();
         foreach($distribuidores as $distribuidor){
             $subdistribuidores[$distribuidor->name] = \DB::table('subdistribuidores')->where('emailDistribuidor', $distribuidor->email)->get();
         }
