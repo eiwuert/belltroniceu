@@ -71,7 +71,7 @@
                         <a class="page-scroll" href="#miestado">Mi Estado</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#">Finanzas</a>
+                        <a class="page-scroll" href="#libres">Libres</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#">Cartera</a>
@@ -96,15 +96,15 @@
 
     <!-- BUSCAR SIMCARD   -->
     <section id="buscar">
-        <div class="container">
+        <div class="container ">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Encuentra tus Simcards</h2>
                     <h3 class="section-subheading text-muted">Ingresa la ICC o el numero de telefono. 
-                    Recuerda que <span class ="red_text"> Rojo </span> es Vencida, <span class ="blue_text">Azul</span> es Disponible y <span class ="green_text">verde</span> es Activada.</h3>
+                    Recuerda que <span class ="red_text"> Rojo </span> es Vencida, <span class ="blue_text">Azul</span> es Disponible y <span class ="green_text">Verde</span> es Activada.</h3>
                 </div>
             </div>
-            <div class="row text-center">
+            <div class="row text-center ">
                 <div class="col-md-4" style="display: inline-block;
     vertical-align: middle;
     float: none;">
@@ -120,7 +120,7 @@
                 <div class="col-md-7" style="display: inline-block;
     vertical-align: middle;
     float: none;">
-                    <div class = "search_results_container" >
+                    <div class = "search_results_container" style="margin-top:0">
                         <div class ="gray" style="flex-grow:2" id="ICC-container">
                             <input class="center white white_input" type="number" id = "ICC-resultado" placeholder="ICC"></input>
                         </div>
@@ -128,7 +128,7 @@
                             <input class="center white white_input" type="number" id = "telefono-resultado" placeholder="Teléfono"></input>
                         </div>
                         <div class ="gray" style="flex-grow:2" id="paquete-container">
-                            <input class="center white white_input" type="number" id = "paquete-resultado" placeholder="Paquete"></input>
+                            <input class="center white white_input" type="text" id = "paquete-resultado" placeholder="Paquete"></input>
                         </div>
                         <div class ="gray" style="flex-grow:2" id="tipo-container">
                             <input class="center white white_input" type="text" id = "tipo-resultado" placeholder="Tipo"></input>
@@ -140,9 +140,11 @@
                             <button class="center white white_input" id ="subdistribuidor-resultado" onClick="$('#modal-subdistribuidor').modal('show')" style="background:none;border:none;">Subdistribuidor</button>
                         </div>
                         <div class ="gray" style="flex-grow:2" id="fecha_vencimiento-container">
+                            <p class ="white" style ="margin-top:5px;"> Vencimiento </p>
                             <input class="center white white_input" type="date" id = "fecha_vencimiento-resultado" placeholder="Vencimiento"></input>
                         </div>
                         <div class ="gray" style="flex-grow:2" id="fecha_activacion-container">
+                            <p class ="white"  style ="margin-top:5px;"> Activación </p>
                             <input class="center white white_input" type="date" id = "fecha_activacion-resultado" placeholder="Activación"></input>
                         </div style="align-self:flex-end">
                     </div>
@@ -157,12 +159,12 @@
              <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Encuentra tus paquetes</h2>
-                    <h3 class="section-subheading text-muted">Ingresa el numero de paquete que quieres buscar. Puedes darle click a una simcard para obtener más información de ella.</h3>
+                    <h3 class="section-subheading text-muted">Ingresa el numero de telefono o de ICC y encontrarás todas las simcards del paquete a la que pertenezca. Puedes darle click a una simcard para obtener más información de ella.</h3>
                 </div>
             </div>
             <div class="principal-view-body-container">
                 <div class ="package_form_container">
-                    <input class="data_package" type="number" id = "paquete-busqueda" placeholder="Paquete" style="width:40%"></input>
+                    <input class="data_package" type="number" id = "datos_busqueda_paquete" placeholder="ICC / Tel" style="width:40%"></input>
                     <button class="button" onClick="buscarPaquete()" style="height:42px;width:10%">Buscar</button>
                 </div>
                 <div class = "search_results_container" id ="container_simcards_paquete">
@@ -208,6 +210,9 @@
         </div>
     </section>
 
+    <!-- SECCION LIBRES  -->
+    
+    
     <!--------------------------------------MODALS------------------------------------------------->
     <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">

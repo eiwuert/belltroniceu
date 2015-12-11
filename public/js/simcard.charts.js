@@ -15,14 +15,6 @@ $(document).ready(function(){
                         data: [data[0][3],data[0][4],data[0][5]]
                     },
                     {
-                        label: "Disponible",
-                        fillColor: "#85C1F5",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "#4A789C",
-                        highlightStroke: "rgba(151,187,205,1)",
-                        data: [data[0][6],data[0][7],data[0][8]]
-                    },
-                    {
                         label: "Activas",
                         fillColor: "#7FCA9F",
                         strokeColor: "rgba(151,187,205,0.8)",
@@ -42,14 +34,6 @@ $(document).ready(function(){
                         highlightFill: "#7f3236",
                         highlightStroke: "rgba(220,220,220,1)",
                         data: [data[1][3],data[1][4],data[1][5]]
-                    },
-                    {
-                        label: "Disponible",
-                        fillColor: "#85C1F5",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "#4A789C",
-                        highlightStroke: "rgba(151,187,205,1)",
-                        data: [data[1][6],data[1][7],data[1][8]]
                     },
                     {
                         label: "Activas",

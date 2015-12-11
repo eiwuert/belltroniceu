@@ -42,7 +42,11 @@ function buscarSim(){
                 $('#telefono').val(data[0].numero);
                 $('#ICC-resultado').val(data[0].ICC);
                 $('#telefono-resultado').val(data[0].numero);
-                $('#paquete-resultado').val(data[0].paquete);
+                if(data[0].paquete != -1){
+                    $('#paquete-resultado').val(data[0].paquete);
+                }else{
+                    $('#paquete-resultado').val('NA');
+                }
                 if(data[0].tipo == 1){
                     $('#tipo-resultado').val('PREPAGO PACK');    
                 }else{
@@ -107,8 +111,7 @@ function limpiar_campos(){
     $('#tipo-resultado').val('');
     $('#fecha_vencimiento-resultado').val('');
     $('#fecha_activacion-resultado').val('');
-    $('#ICC').val('');
-    $('#telefono').val('');
+    $('#dato_buscar_sim').val('');
     changeClass("gray"); 
 }
 
@@ -175,15 +178,15 @@ function estadoSimSubDistri(){
 /*  SECCION PAQUETE   */
 
 function buscarPaquete(){
-    var paquete = $('#paquete-busqueda').val();
-    if(paquete > 0){
+    var dato_paquete = $('#datos_busqueda_paquete').val();
+    if(dato_paquete != ''){
         $('#modal-loading').modal({
         backdrop: 'static',
         keyboard: false
     })
         $.ajax({
             url:'simcard/buscarPaquete',
-            data:{paquete:paquete},
+            data:{dato_paquete:dato_paquete},
             type:'GET',
             success: function(data){
                 if(data != []){
@@ -204,7 +207,6 @@ function buscarPaquete(){
 }
 
 function seleccionarSim(btnObj){
-    var icc = '';
     var telefono = btnObj.value;
     $('#modal-loading').modal({
         backdrop: 'static',
@@ -212,7 +214,7 @@ function seleccionarSim(btnObj){
     })
     $.ajax({
         url:'simcard/buscar',
-        data:{icc:icc, telefono:telefono},
+        data:{dato:telefono},
         type:'GET',
         dataType: 'json',
         success: function(data){
