@@ -1,110 +1,3 @@
-var firstTime = true;
-var donnutChart;
-var donnutChartLibres;
-
-$(document).ready(function(){
-    $.ajax({
-        url:'diagrama/simcards',
-        type:'GET',
-        success: function(data){
-            var datos = {
-                labels: [data[1][0], data[1][1], data[1][2]],
-                datasets: [
-                    {
-                        label: "Vencidas",
-                        fillColor: "#ff656c",
-                        strokeColor: "rgba(220,220,220,0.8)",
-                        highlightFill: "#7f3236",
-                        highlightStroke: "rgba(220,220,220,1)",
-                        data: [data[0][3],data[0][4],data[0][5]]
-                    },
-                    {
-                        label: "Disponible",
-                        fillColor: "#85C1F5",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "#4A789C",
-                        highlightStroke: "rgba(151,187,205,1)",
-                        data: [data[0][6],data[0][7],data[0][8]]
-                    },
-                    {
-                        label: "Activas",
-                        fillColor: "#7FCA9F",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "#3f654f",
-                        highlightStroke: "rgba(151,187,205,1)",
-                        data: [data[0][0],data[0][1],data[0][2]]
-                    }
-                ]
-            };
-            
-            var options = {
-                scaleBeginAtZero : true,
-                scaleShowGridLines : false,
-                barShowStroke : true,
-                barStrokeWidth : 2,
-                barValueSpacing : 5,
-                barDatasetSpacing : 1,
-                responsive: true,
-                scaleFontFamily: 'regular',
-                scaleFontSize: 15,
-                scaleFontColor: "#FFF",
-                maintainAspectRatio:false,
-            };
-            
-            var ctx = document.getElementById("canvas").getContext("2d");
-            new Chart(ctx).Bar(datos, options);
-        }
-    });
-
-    $("#collapseOne").on('shown.bs.collapse', function(){
-      $('html, body').animate({
-                        scrollTop: $("#simcard-crud-container").offset().top
-                        }, 500);
-    });
-    
-    $("#collapseTwo").on('shown.bs.collapse', function(){
-        if (firstTime){
-            var data = [
-                {
-                    value: 300,
-                    color:"#d3d3d3",
-                    highlight: "#d3d3d3"
-                },
-                {
-                    value: 50,
-                    color: "#d3d3d3",
-                    highlight: "#d3d3d3"
-                },
-                {
-                    value: 100,
-                    color: "#d3d3d3",
-                    highlight: "#d3d3d3"
-                }
-            ];
-            
-            var options ={
-                segmentShowStroke : true,
-                segmentStrokeColor : "#fff",
-                segmentStrokeWidth : 2,
-                percentageInnerCutout : 50, 
-                animationSteps : 100,
-                animationEasing : "easeOutBounce",
-                animateRotate : true,
-                animateScale : true,
-                responsive:true,
-            };
-            
-            var ctx = document.getElementById("canvas_estado_subs").getContext("2d");
-            var ctxLibres = document.getElementById("canvas_estado_subs_libres").getContext("2d");
-            donnutChart = new Chart(ctx).Doughnut(data,options);
-            donnutChartLibres = new Chart(ctxLibres).Doughnut(data,options);
-            firstTime = false;
-        }
-        $('html, body').animate({
-                    scrollTop: $("#subs-state-container").offset().top
-                    }, 500);
-    });
-});
 
 function seleccionar_distribuidor(objButton){
     $('#distribuidor-resultado').html(objButton.value);
@@ -132,15 +25,14 @@ function seleccionar_sub(objButton){
 }
 
 function buscarSim(){
-    var icc = document.getElementById("ICC").value;
-    var telefono = document.getElementById("telefono").value;
+    var dato = document.getElementById("dato_buscar_sim").value;
     $('#modal-loading').modal({
         backdrop: 'static',
         keyboard: false
     })
     $.ajax({
         url:'simcard/buscar',
-        data:{icc:icc, telefono:telefono},
+        data:{dato:dato},
         type:'GET',
         dataType: 'json',
         success: function(data){
@@ -150,8 +42,9 @@ function buscarSim(){
                 $('#telefono').val(data[0].numero);
                 $('#ICC-resultado').val(data[0].ICC);
                 $('#telefono-resultado').val(data[0].numero);
+                $('#paquete-resultado').val(data[0].paquete);
                 if(data[0].tipo == 1){
-                    $('#tipo-resultado').val('PREPAGO PACK');
+                    $('#tipo-resultado').val('PREPAGO PACK');    
                 }else{
                     $('#tipo-resultado').val('LIBRE');
                 }
@@ -212,92 +105,12 @@ function limpiar_campos(){
     $('#telefono-resultado').val('');
     $('#paquete-resultado').val('');
     $('#tipo-resultado').val('');
-    $('#subdistribuidor-resultado').html('SELECCIONA');
     $('#fecha_vencimiento-resultado').val('');
     $('#fecha_activacion-resultado').val('');
     $('#ICC').val('');
     $('#telefono').val('');
     changeClass("gray"); 
 }
-
-function eliminar_simcard(){
-    var icc = $('#ICC-resultado').val();
-    $('#modal-loading').modal({
-        backdrop: 'static',
-        keyboard: false
-    })
-    $.ajax({
-        url:'simcard/eliminar',
-        data:{icc:icc},
-        type:'GET',
-        dataType: 'json',
-        success: function(data){
-            if(data == -2){
-                $('.modal-header #modal-tittle').html('Error');
-                $('.modal-body #modal-body').html('No puedes eliminar una simcard que no te pertenezca');
-                $('#modal-content').modal('show');
-            }else if(data == -1){
-                $('.modal-header #modal-tittle').html('Error');
-                $('.modal-body #modal-body').html('Debes ingresar un ICC');
-                $('#modal-content').modal('show');
-            }else{
-                $('.modal-header #modal-tittle').html('Exito');
-                $('.modal-body #modal-body').html('Simcard eliminada satisfactoriamente');
-                $('#ICC-resultado').val('');
-                $('#telefono-resultado').val('');
-                $('#paquete-resultado').val('');
-                $('#tipo-resultado').val('');
-                $('#distribuidor-resultado').val('');
-                $('#subdistribuidor-resultado').val('SELECCIONA');
-                $('#fecha_vencimiento-resultado').val('');
-                $('#fecha_activacion-resultado').val('');
-            }
-            $('#modal-loading').modal('hide');
-        }
-    });
-}
-
-function actualizar_simcard(){
-    var icc = document.getElementById("ICC").value;
-    var iccNuevo = $('#ICC-resultado').val();
-    var telefono = $('#telefono-resultado').val();
-    var paquete = $('#paquete-resultado').val();
-    var tipo = $('#tipo-resultado').val();
-    var fecha_vencimiento = $('#fecha_vencimiento-resultado').val();
-    var fecha_activacion = $('#fecha_activacion-resultado').val();
-    var subdistribuidor = $('#subdistribuidor-resultado').html();
-    $('#modal-loading').modal({
-        backdrop: 'static',
-        keyboard: false
-    })
-    $.ajax({
-        url:'simcard/actualizar',
-        data:{icc:icc, iccNuevo:iccNuevo, telefono:telefono, paquete:paquete, tipo:tipo, subdistribuidor:subdistribuidor, fecha_vencimiento:fecha_vencimiento,fecha_activacion:fecha_activacion},
-        type:'GET',
-        dataType: 'json',
-        success: function(data){
-            if(data == -3){
-                $('.modal-header #modal-tittle').html('Error');
-                $('.modal-body #modal-body').html('La ICC ya existe');
-                $('#modal-content').modal('show');
-            }else if(data == -2){
-                $('.modal-header #modal-tittle').html('Error');
-                $('.modal-body #modal-body').html('No puedes editar una simcard que no te pertenezca');
-                $('#modal-content').modal('show');
-            }else if(data == -1){
-                $('.modal-header #modal-tittle').html('Error');
-                $('.modal-body #modal-body').html('Debes ingresar un ICC');
-                $('#modal-content').modal('show');
-            }else{
-                $('.modal-header #modal-tittle').html('Exito');
-                $('.modal-body #modal-body').html('Simcard actualizada satisfactoriamente');
-                $('#modal-content').modal('show');
-            }
-            $('#modal-loading').modal('hide');
-        }
-    });
-}
-
 
 function printDonnutChart(data,tipo){
     var data = [
@@ -357,4 +170,101 @@ function estadoSimSubDistri(){
             }
         });
     }
+}
+
+/*  SECCION PAQUETE   */
+
+function buscarPaquete(){
+    var paquete = $('#paquete-busqueda').val();
+    if(paquete > 0){
+        $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+        $.ajax({
+            url:'simcard/buscarPaquete',
+            data:{paquete:paquete},
+            type:'GET',
+            success: function(data){
+                if(data != []){
+                    $('#container_simcards_paquete').html(data);    
+                }else{
+                    $('.modal-header #modal-tittle').html('Error');
+                    $('.modal-body #modal-body').html('Paquete no encontrado');
+                    $('#modal-content').modal('show');
+                    $('#container_simcards_paquete').html("");   
+                }
+                $('#modal-loading').modal('hide');
+                $('html, body').animate({
+                    scrollTop: $("#container_simcards_paquete").offset().top
+                    }, 500);
+            }
+        });
+    }
+}
+
+function seleccionarSim(btnObj){
+    var icc = '';
+    var telefono = btnObj.value;
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+    $.ajax({
+        url:'simcard/buscar',
+        data:{icc:icc, telefono:telefono},
+        type:'GET',
+        dataType: 'json',
+        success: function(data){
+            if(data != ''){
+                var today = new Date();
+                $('#ICC').val(data[0].ICC);
+                $('#telefono').val(data[0].numero);
+                $('#ICC-resultado').val(data[0].ICC);
+                $('#telefono-resultado').val(data[0].numero);
+                $('#paquete-resultado').val(data[0].paquete);
+                if(data[0].tipo == 1){
+                    $('#tipo-resultado').val('PREPAGO PACK');    
+                }else{
+                    $('#tipo-resultado').val('LIBRE');
+                }
+                $('#distribuidor-resultado').html(data[0].name);
+                $('#subdistribuidor-resultado').html(data[0].nombreSubdistribuidor);
+                $('#fecha_vencimiento-resultado').val(data[0].fecha_vencimiento);
+                $('#fecha_activacion-resultado').val(data[0].fecha_activacion);
+                $.ajax({
+                    url: 'subdistribuidor/buscarTodos',
+                    data:{distribuidor:data[0].name},
+                    type: "GET", // not POST, laravel won't allow it
+                    success: function(data){
+                        $('#modal-body-subdistribuidores').html(data);    
+                    }
+                  });
+                  var fecha_vencimiento_string = data[0].fecha_vencimiento.split("-");
+                    var fecha_vencimiento = new Date(fecha_vencimiento_string[0], fecha_vencimiento_string[1]-1,fecha_vencimiento_string[2]);
+                    var months = dayDiff(today, fecha_vencimiento);
+                    if( data[0].fecha_activacion != null){
+                        if(months > 0){
+                            changeClass("green");
+                        }else{
+                            changeClass("red");
+                        }
+                    }else{
+                        if(months > 0){
+                           changeClass("blue"); 
+                        }else{
+                           changeClass("red");
+                        }
+                    }
+                  $('html, body').animate({
+                    scrollTop: $("#buscar").offset().top
+                    }, 500);
+            }else{
+                $('.modal-header #modal-tittle').html('Error');
+                $('.modal-body #modal-body').html('Simcard no encontrada');
+                $('#modal-content').modal('show');
+            }
+            $('#modal-loading').modal('hide');
+        }
+    });
 }

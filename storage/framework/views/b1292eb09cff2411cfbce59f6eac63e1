@@ -1,0 +1,3 @@
+<?php foreach($subdistribuidores as $subdistribuidor): ?>
+    <button class="button-simcards button-default" style="flex-grow:2;width:auto" onClick="seleccionar_sub(this)" value ="<?php echo e($subdistribuidor->nombre); ?>"><?php echo e($subdistribuidor->nombre); ?></button>
+<?php endforeach; ?>

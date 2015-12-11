@@ -52,8 +52,22 @@
     background:#FFF;
 }
 
+.data_package{
+    width: 40%;
+    height: 42px;
+    margin-right:20px;
+    box-sizing: border-box;
+    text-align:center;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    font-family: regular;
+    outline: none;
+    background:#FFF;
+}
 .button {
     height: 40px;
+    min-width:100px;
     background: #7FCA9F;
     box-sizing: border-box;
     border-radius: 5px;
@@ -92,6 +106,7 @@
     justify-content:space-between;
     padding: 0;
     margin: 0;
+    margin-top:30px;
     list-style: none;
     min-width:200px;
     display: -webkit-box;
@@ -144,6 +159,56 @@
 }
 
 .chart_container{
-    height:400px;
-    width:400px;
+    height:300px;
+}
+
+.mystatus_container{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    align-content:center;
+}
+
+.button_simcards{
+    height: 60px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border:none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.5em;
+    font-family: regular;
+    outline: none;
+    cursor: pointer;
+    margin:0 10px 10px 0;
+    width:22%;
+}
+
+.package_form_container{
+    height:auto;
+    justify-content:center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    min-width:250px;
+    display: flex;
+    align-items:center;
+    align-content: center;
+    flex-direction:row;
+    flex-wrap: nowrap;
+}
+@media screen and (max-width:1000px){
+    .chart_container{
+        width:250px;
+        margin:0;
+    }
+}
+
+@media screen and (min-width:1000px){
+    .chart_container{
+        width:500px;
+        margin-left:50px;
+    }
 }

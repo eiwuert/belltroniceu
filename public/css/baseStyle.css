@@ -1,0 +1,15 @@
+
+
+@font-face {
+    font-family: titleFont;
+    src: url('/fonts/title.ttf');
+}
+
+@font-face {
+    font-family: regular;
+    src: url('/fonts/regular.otf');
+}
+
+h3,input,p,a,th,button{
+    font-family:regular;
+}

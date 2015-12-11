@@ -1,70 +1,84 @@
 $(document).ready(function(){
-    var data = [
-                {
-                    value: 100,
-                    color:"#ff656c",
-                    highlight: "#7f3236",
-                    label: "Vencidas",
-                },
-                {
-                    value: 300,
-                    color: "#85C1F5",
-                    highlight: "#4A789C",
-                    label: "Disponibles"
-                },
-                {
-                    value: 200,
-                    color: "#7FCA9F",
-                    highlight: "#3f654f",
-                    label: "Activas"
-                }
-                ];
-    
-    var options = {
-        scaleBeginAtZero : true,
-        scaleShowGridLines : false,
-        barShowStroke : true,
-        barStrokeWidth : 2,
-        barValueSpacing : 5,
-        barDatasetSpacing : 1,
-        responsive: true,
-        scaleFontFamily: 'regular',
-        scaleFontSize: 15,
-        scaleFontColor: "#FFF",
-        maintainAspectRatio:false,
-    };
-    
-    var data2 = {
-    labels: ["Octubre", "Septiembre", "Noviembre"],
-    datasets: [
-        {
-            label: "Vencidas",
-            fillColor: "rgba(220,220,220,0.5)",
-            strokeColor: "rgba(220,220,220,0.8)",
-            highlightFill: "rgba(220,220,220,0.75)",
-            highlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80]
-        },
-        {
-            label: "Disponibles",
-            fillColor: "rgba(151,187,205,0.5)",
-            strokeColor: "rgba(151,187,205,0.8)",
-            highlightFill: "rgba(151,187,205,0.75)",
-            highlightStroke: "rgba(151,187,205,1)",
-            data: [28, 48, 40]
-        },
-        {
-            label: "Activas",
-            fillColor: "rgba(151,187,205,0.5)",
-            strokeColor: "rgba(151,187,205,0.8)",
-            highlightFill: "rgba(151,187,205,0.75)",
-            highlightStroke: "rgba(151,187,205,1)",
-            data: [28, 48, 40]
+    $.ajax({
+        url:'diagrama/simcards',
+        type:'GET',
+        success: function(data){
+            var datosPrepago = {
+                labels: [data[2][0], data[2][1], data[2][2]],
+                datasets: [
+                    {
+                        label: "Vencidas",
+                        fillColor: "#ff656c",
+                        strokeColor: "rgba(220,220,220,0.8)",
+                        highlightFill: "#7f3236",
+                        highlightStroke: "rgba(220,220,220,1)",
+                        data: [data[0][3],data[0][4],data[0][5]]
+                    },
+                    {
+                        label: "Disponible",
+                        fillColor: "#85C1F5",
+                        strokeColor: "rgba(151,187,205,0.8)",
+                        highlightFill: "#4A789C",
+                        highlightStroke: "rgba(151,187,205,1)",
+                        data: [data[0][6],data[0][7],data[0][8]]
+                    },
+                    {
+                        label: "Activas",
+                        fillColor: "#7FCA9F",
+                        strokeColor: "rgba(151,187,205,0.8)",
+                        highlightFill: "#3f654f",
+                        highlightStroke: "rgba(151,187,205,1)",
+                        data: [data[0][0],data[0][1],data[0][2]]
+                    }
+                ]
+            };
+            var datosLibre = {
+                labels: [data[2][0], data[2][1], data[2][2]],
+                datasets: [
+                    {
+                        label: "Vencidas",
+                        fillColor: "#ff656c",
+                        strokeColor: "rgba(220,220,220,0.8)",
+                        highlightFill: "#7f3236",
+                        highlightStroke: "rgba(220,220,220,1)",
+                        data: [data[1][3],data[1][4],data[1][5]]
+                    },
+                    {
+                        label: "Disponible",
+                        fillColor: "#85C1F5",
+                        strokeColor: "rgba(151,187,205,0.8)",
+                        highlightFill: "#4A789C",
+                        highlightStroke: "rgba(151,187,205,1)",
+                        data: [data[1][6],data[1][7],data[1][8]]
+                    },
+                    {
+                        label: "Activas",
+                        fillColor: "#7FCA9F",
+                        strokeColor: "rgba(151,187,205,0.8)",
+                        highlightFill: "#3f654f",
+                        highlightStroke: "rgba(151,187,205,1)",
+                        data: [data[1][0],data[1][1],data[1][2]]
+                    }
+                ]
+            };
+            var options = {
+                scaleBeginAtZero : true,
+                scaleShowGridLines : false,
+                barShowStroke : true,
+                barStrokeWidth : 2,
+                barValueSpacing : 5,
+                barDatasetSpacing : 1,
+                responsive: true,
+                scaleFontFamily: 'regular',
+                scaleFontSize: 15,
+                scaleFontColor: "#000",
+                maintainAspectRatio:false,
+            };
+                    
+            var ctx = document.getElementById("canvasPrepago").getContext("2d");
+            new Chart(ctx).Bar(datosPrepago, options);
+            var ctx = document.getElementById("canvasLibre").getContext("2d");
+            new Chart(ctx).Bar(datosLibre, options);    
         }
-    ]
-};
-    var ctx = document.getElementById("canvas1").getContext("2d");
-    new Chart(ctx).Bar(data2, options);
-    var ctx = document.getElementById("canvas2").getContext("2d");
-    new Chart(ctx).Bar(data2, options);
+    });
 });

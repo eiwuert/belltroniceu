@@ -33,6 +33,19 @@
     color: #FFF;
 }
 
-::-webkit-input-placeholder {
+.white_input::-webkit-input-placeholder {
    color: #FFF;
+}
+
+.blue_text{
+    color:#85C1F5;
+}
+
+.red_text {
+    color:#ff656c;
+}
+
+
+.green_text{
+    color: #7FCA9F;
 }

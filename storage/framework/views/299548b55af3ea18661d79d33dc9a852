@@ -158,22 +158,28 @@
                 </div>
             </div>
             <div class="row">
-                    <div class="chart_container">
-                        <div style="weight:100%;height:100%">
-                            <canvas id="canvas1"></canvas>
+                <div class ="mystatus_container">
+                    <div>
+                        <div class="chart_container">
+                            <div style="weight:100%;height:100%">
+                                <canvas id="canvasPrepago"></canvas>
+                            </div>
+                        </div>
+                        <div class="portfolio-caption">
+                            <h4 style ="text-align:center;">Prepago Pack</h4>
                         </div>
                     </div>
-                    <div class="portfolio-caption">
-                        <h4>Prepago Pack</h4>
-                    </div>
-                    <div class="chart_container">
-                        <div style="weight:100%;height:100%">
-                            <canvas id="canvas2"></canvas>
+                    <div>
+                        <div class="chart_container">
+                            <div style="weight:100%;height:100%">
+                                <canvas id="canvasLibre"></canvas>
+                            </div>
                         </div>
+                        <div class="portfolio-caption">
+                            <h4 style ="text-align:center;">Libre</h4>
+                        </div>  
                     </div>
-                    <div class="portfolio-caption">
-                        <h4>Libre</h4>
-                    </div>
+                </div>
             </div>
         </div>
     </section>
