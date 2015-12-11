@@ -88,7 +88,7 @@
 
     <!-- Header -->
     <header>
-        <div class="container">
+        <div class="container" style="background:rgba(20,20,20,0.4);width:100%">
             <div class="intro-text">
                 <div class="intro-lead-in">Bienvenido a tu portal</div>
                 <div class="intro-heading">Revisa tus simcards</div>
@@ -98,12 +98,12 @@
     </header>
 
     <!-- BUSCAR SIMCARD   -->
-    <section id="buscar" style="background:#77aac7">
+    <section id="buscar" style="background:#d3d3d3">
         <div class="container ">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Encuentra tus Simcards</h2>
-                    <h3 class="section-subheading text-muted" style="color:white">Ingresa la ICC o el numero de telefono. 
+                    <h3 class="section-subheading text-muted" style="color:black">Ingresa la ICC o el numero de telefono. 
                     Recuerda que <span class ="red_text"> Rojo </span> es Vencida, <span class ="blue_text">Azul</span> es Disponible y <span class ="green_text">Verde</span> es Activada.</h3>
                 </div>
             </div>
@@ -215,12 +215,12 @@
     </section>
     
     <!-- SECCION MI ESTADO -->
-    <section id="miestado"  style="background:#77aac7">
+    <section id="miestado"  style="background:#d3d3d3">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Estado Simcards</h2>
-                    <h3 class="section-subheading text-muted" style="color:white">Revisa el estado de tus simcards separadas por tipo y mes.
+                    <h3 class="section-subheading text-muted" style="color:black">Revisa el estado de tus simcards separadas por tipo y mes.
                     Recuerda que <span class ="red_text"> Rojo </span> son las Vencidas en el mes y <span class ="green_text">Verde</span> son las Activadas en el mes.</h3>
                 </div>
             </div>
@@ -323,7 +323,7 @@
                     <h3 class = "section-body section-body-title"> Seleccionar Distribuidor</h3>
                 </div>
                 <div class="modal-body">
-                    <div class="container" id ="modal-body-distribuidores">
+                    <div class="container" style="width:100%" id ="modal-body-distribuidores">
                     @foreach($distribuidores as $distribuidor)
                         <button class="button-simcards button-default" style="flex-grow:2; margin-top:10px" onClick="seleccionar_distribuidor(this)" value ="{{$distribuidor->name}}">{{$distribuidor->name}}</button>
                     @endforeach
@@ -340,7 +340,7 @@
                     <h3 class = "section-body section-body-title"> Seleccionar subdistribuidor</h3>
                 </div>
                 <div class="modal-body">
-                    <div class=".container" id ="modal-body-subdistribuidores">
+                    <div class="container" style="width:100%" id ="modal-body-subdistribuidores">
                     @foreach($subdistribuidores[$user->name] as $subdistribuidor)
                         <button class="button-simcards button-default" style="flex-grow:2; margin-top:10px" onClick="seleccionar_sub(this)" value ="{{$subdistribuidor->nombre}}">{{$subdistribuidor->nombre}}</button>
                     @endforeach

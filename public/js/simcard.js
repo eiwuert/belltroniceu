@@ -221,6 +221,7 @@ function seleccionarSim(btnObj){
         success: function(data){
             if(data != ''){
                 var today = new Date();
+                $('#dato_buscar_sim').val('');  
                 $('#ICC').val(data[0].ICC);
                 $('#telefono').val(data[0].numero);
                 $('#ICC-resultado').val(data[0].ICC);

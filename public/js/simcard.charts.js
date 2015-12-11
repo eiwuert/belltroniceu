@@ -8,7 +8,7 @@ $(document).ready(function(){
                 datasets: [
                     {
                         label: "Vencidas",
-                        fillColor: "#ff656c",
+                        fillColor: "#DB5466",
                         highlightFill: "#7f3236",
                         data: [data[0][3],data[0][4],data[0][5]]
                     },
@@ -25,7 +25,7 @@ $(document).ready(function(){
                 datasets: [
                     {
                         label: "Vencidas",
-                        fillColor: "#ff656c",
+                        fillColor: "#DB5466",
                         strokeColor: "rgba(220,220,220,0.8)",
                         highlightFill: "#7f3236",
                         highlightStroke: "rgba(220,220,220,1)",
