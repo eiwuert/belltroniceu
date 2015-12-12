@@ -80,9 +80,12 @@
                     <li>
                         <a class="page-scroll" href="#empaquetar">Empaquetar</a>
                     </li>
+                    <li>
+                        <a class="page-scroll" onClick="subir_archivo()" href="#"><span class="glyphicon glyphicon-cloud-upload"></span></a>
+                    </li>
                     @endif
                     <li>
-                        <a class="page-scroll" style="color:#7f3236" href="/auth/logout">Cerrar sesión</a>
+                        <a class="page-scroll" href="/auth/logout"><span class="glyphicon glyphicon-off"></span></a>
                     </li>
                 </ul>
             </div>
@@ -102,6 +105,11 @@
         </div>
     </header>
 
+    <!-- CARGAR ARCHIVO -->
+    <div class="hiddenfile">
+      <input name="upload" type="file" id="fileinput"/>
+    </div>
+    <div id="progress_bar"><div class="percent">0%</div></div>
     <!-- BUSCAR SIMCARD   -->
     <section id="buscar" style="background:#d3d3d3">
         <div class="container ">
@@ -388,6 +396,7 @@
         </div>
     </div>  
 
+    <!-- MODAL RESPONSABLE LIBRES  -->
     <div id="modal-cliente_libre" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">

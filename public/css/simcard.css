@@ -239,3 +239,10 @@
     flex-direction:row;
     flex-wrap: nowrap;
 }
+
+/* FILES   */
+.hiddenfile {
+ width: 0px;
+ height: 0px;
+ overflow: hidden;
+}

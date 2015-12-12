@@ -87,10 +87,11 @@ class SimcardController extends Controller
             // ------------
             
             // REVISAR SIMS VENCIDAS
-            $simsVencidasEsteMes = \DB::table('simcards')->where(\DB::raw('MONTH(fecha_vencimiento)'),$today->format('m'))->where(\DB::raw('YEAR(fecha_vencimiento)'),$today->format('Y'))->where('tipo','1')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
+            $today = new \DateTime('today');
+            $simsVencidasEsteMes = \DB::table('simcards')->where(\DB::raw('MONTH(fecha_vencimiento)'),'=',$today->format('m'))->where(\DB::raw('YEAR(fecha_vencimiento)'),'=',$today->format('Y'))->where('tipo','1')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
             
             date_sub($today, date_interval_create_from_date_string('1 month'));
-            $simsVencidasMesAnterior = \DB::table('simcards')->where(\DB::raw('MONTH(fecha_vencimiento)'),$today->format('m'))->where(\DB::raw('YEAR(fecha_vencimiento)'),$today->format('Y'))->where('tipo','1')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
+            $simsVencidasMesAnterior = \DB::table('simcards')->where(\DB::raw('MONTH(fecha_vencimiento)'),'=',$today->format('m'))->where(\DB::raw('YEAR(fecha_vencimiento)'),'=',$today->format('Y'))->where('tipo','1')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
             
             date_sub($today, date_interval_create_from_date_string('1 month'));
             $simsVencidas2MesAnterior =\DB::table('simcards')->where(\DB::raw('MONTH(fecha_vencimiento)'),$today->format('m'))->where(\DB::raw('YEAR(fecha_vencimiento)'),$today->format('Y'))->where('tipo','1')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
@@ -100,6 +101,7 @@ class SimcardController extends Controller
             
             // REVISAR SIMS LIBRES
             // REVISAR SIMS ACTIVAS
+            $today = new \DateTime('today');
             $simsActivasEsteMes = \DB::table('simcards')->where(\DB::raw('MONTH(fecha_activacion)'),$today->format('m'))->where(\DB::raw('YEAR(fecha_activacion)'),$today->format('Y'))->where('tipo','2')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
             date_sub($today, date_interval_create_from_date_string('1 month'));
             $simsActivasMesAnterior = \DB::table('simcards')->where(\DB::raw('MONTH(fecha_activacion)'),$today->format('m'))->where(\DB::raw('YEAR(fecha_activacion)'),$today->format('Y'))->where('tipo','2')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
@@ -109,6 +111,7 @@ class SimcardController extends Controller
             // ------------
             
             // REVISAR SIMS VENCIDAS
+            $today = new \DateTime('today');
             $simsVencidasEsteMes = \DB::table('simcards')->where(\DB::raw('MONTH(fecha_vencimiento)'),$today->format('m'))->where(\DB::raw('YEAR(fecha_vencimiento)'),$today->format('Y'))->where('tipo','2')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
             
             date_sub($today, date_interval_create_from_date_string('1 month'));

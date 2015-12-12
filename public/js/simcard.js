@@ -455,3 +455,7 @@ function empaquetar(){
         }
     });
 }
+
+function subir_archivo(){
+    $('#fileinput').trigger('click'); 
+}

@@ -22,6 +22,7 @@ class FrontController extends Controller
    }
    
    public function home(){
-       return view('home');
+       $user =  \Auth::User();
+       return view('/home', array('user' => $user));
    }
 }

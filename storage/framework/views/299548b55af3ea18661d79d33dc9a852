@@ -70,6 +70,11 @@
                     <li>
                         <a class="page-scroll" href="/cartera">Cartera</a>
                     </li>
+                    <?php if(user->isAdmin): ?>
+                        <li>
+                            <a class="page-scroll" href="/configuración"><span class="glyphicon glyphicon-cloud-upload"></span></a>
+                        </li>
+                    <?php endif; ?>
                     <li>
                         <a class="page-scroll" style="color:#7f3236" href="/auth/logout">Cerrar sesión</a>
                     </li>
