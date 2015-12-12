@@ -107,7 +107,7 @@
 
     <!-- CARGAR ARCHIVO -->
     <div class="hiddenfile">
-      <input name="upload" type="file" id="fileinput"/>
+      <input name="upload" type="file" accept=".csv" id="fileinput"/>
     </div>
     <!-- BUSCAR SIMCARD   -->
     <section id="buscar" style="background:#d3d3d3">
