@@ -284,7 +284,7 @@
     float: none;">
                     <div class = "search_results_container" style="margin-top:0">
                         <div class ="gray" style="flex-grow:2" id="nit_container">
-                            <button class="center white white_input" id ="nit-resultado" onClick="$('#modal-cliente_libre').modal('show')" style="background:none;border:none;">NIT</button>
+                            <button class="center white white_input" id ="nit_resultado" onClick="$('#modal-cliente_libre').modal('show')" style="background:none;border:none;">NIT</button>
                         </div>
                         <div class ="gray" style="flex-grow:2" id="nombre_empresa_container">
                             <input class="center white white_input" type="text" id = "nombre_empresa_resultado" placeholder="Empresa"></input>
@@ -297,8 +297,16 @@
                         </div>
                         <div class ="gray" style="flex-grow:2" id="fecha_activacion_libre_container">
                             <p class ="white" style ="margin-top:5px;"> Activación </p>
-                            <input class="center white white_input" type="date" id = "fecha_activacion_libreresultado"></input>
+                            <input class="center white white_input" type="date" id = "fecha_activacion_libre_resultado"></input>
                         </div>
+                        <div class ="gray" style="flex-grow:2" id="cod_scl_container">
+                            <input class="center white white_input" type="text" id = "cod_scl_resultado" placeholder="Cod scl"></input>
+                        </div>
+                        <div class ="gray" style="flex-grow:2" id="cod_punto_container">
+                            <input class="center white white_input" type="text" id = "cod_punto_resultado" placeholder="Cod Punto"></input>
+                        </div>
+                        <div class ="gray" style="flex-grow:2" id="direccion_container">
+                            <input class="center white white_input" type="text" id = "direccion_resultado" placeholder="Dirección"></input>
                         </div style="align-self:flex-end">
                     </div>
                 </div>
@@ -318,7 +326,11 @@
             </div>
             <div class="principal-view-body-container">
                 <div class ="package_form_container">
-                    <input class="data_package" type="number" id = "datos_busqueda_sim_empaquetar" placeholder="ICC / Tel" style="width:40%"></input>
+                    <input class="data_package" type="number" id = "datos_busqueda_sim_empaquetar" placeholder="ICC / Tel" style="width:40%;min-width:300px"></input>
+                    <div class ="package_buttons_container">
+                        <button class="button button_delete" onClick="limpiar_paquete()" style="height:42px;margin-right:20px">Limpiar</button>
+                        <button class="button" onClick="empaquetar()" style="height:42px;">Empaquetar</button>
+                    </div>
                 </div>
                 <div class = "search_results_container" id ="container_simcards_empaquetado">
                       
@@ -389,7 +401,7 @@
                             <input class="center white white_input" style="width:100%" type="text" id = "nombre_responsable_resultado" placeholder="Responsable"></input>
                         </div>
                         <div class ="gray" style="flex-grow:2">
-                            <input class="center white white_input" style="width:100%"  type="text" id = "fijo_responsable_resultado" placeholder="Telefono"></input>
+                            <input class="center white white_input" style="width:100%" type="text" id = "cedula_responsable_resultado" placeholder="Cedula"></input>
                         </div>
                         <div class ="gray" style="flex-grow:2">
                             <input class="center white white_input" style="width:100%"  type="text" id = "celular_responsable_resultado" placeholder="Celular"></input>
@@ -399,11 +411,21 @@
                         </div>
                         <div class ="gray" style="flex-grow:2">
                             <input class="center white white_input" style="width:100%"  type="text" id = "barrio_responsable_resultado" placeholder="Barrio"></input>
-                        </div>
-                        <div class ="gray" style="flex-grow:2">
-                            <p class ="white"  style ="margin-top:5px;width:100%;text-align:center"> Entregada </p>
-                            <input class="center white white_input" style="width:100%"  type="date" id = "fecha_entrega_cliente_resultado"></input>
                         </div style="align-self:flex-end">
+                        <div class ="gray" style="flex-grow:2">
+                            <p class ="white"  style ="margin-top:5px;text-align:center"> Entregada </p>
+                            <input class="center white white_input" style="width:100%"  type="date" id = "fecha_entrega_libre_resultado" placeholder="Barrio"></input>
+                        </div style="align-self:flex-end">
+                        <div class ="gray" style="flex-grow:2">
+                            <p class ="white"  style ="margin-top:5px;text-align:center"> LLamado </p>
+                            <input class="center white white_input" style="width:100%"  type="date" id = "fecha_llamada_libre_resultado" placeholder="Barrio"></input>
+                        </div style="align-self:flex-end">
+                        <div class ="gray" style="flex-grow:2;width:100%;height:70px">
+                            <textarea class="center white white_input" style="width:100%;height:90%;background-color:transparent;" id = "detalle_llamada_resultado" placeholder="Detalle llamada"></textarea>
+                        </div style="align-self:flex-end">
+                        <div style="margin:auto;">
+                        <button class="button"  onClick="guardar_responsable()" style="height:42px;flex-grow=2;">Guardar</button>
+                        </div>
                     </div>
                 </div>
             </div>

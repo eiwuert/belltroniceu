@@ -16,8 +16,11 @@ Route::get('', array('middleware' => 'auth','as' => 'simcard', 'uses'=> 'FrontCo
 Route::get('/home', array('middleware' => 'auth','as' => 'simcard', 'uses'=> 'FrontController@home'));
 Route::get('/simcard', array('middleware' => 'auth','as' => 'simcard', 'uses'=> 'FrontController@simcard'));
 
-// BUSCAR SIMCARD
+// ACCIONES SIMCARD
+Route::get('simcard/empaquetar', array('middleware' => 'auth','uses'=> 'SimcardController@empaquetar'));
 Route::get('simcard/buscar', array('middleware' => 'auth','uses'=> 'SimcardController@buscarSimcard'));
+Route::get('simcard/buscarLibre', array('middleware' => 'auth','uses'=> 'SimcardController@buscarSimcardLibre'));
+Route::get('simcard/actualizarLibre', array('middleware' => 'auth','uses'=> 'SimcardController@actualizarLibre'));
 Route::get('simcard/buscarPaquete', array('middleware' => 'auth','as' => 'buscarPaquete', 'uses'=> 'SimcardController@buscarPaquete'));
 Route::get('subdistribuidor/buscarTodos', array('middleware' => 'auth','as' => 'buscarSubdistribuidores', 'uses'=> 'SimcardController@buscarSubdistribuidores'));
 // DATOS DIAGRAMAS SIMCARDS

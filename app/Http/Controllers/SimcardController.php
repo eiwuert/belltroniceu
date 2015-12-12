@@ -21,12 +21,58 @@ class SimcardController extends Controller
         }
     }
     
+    public function buscarSimcardLibre(Request $request)
+    {
+        if($request->ajax()){
+            if($request['dato'] != null){
+                $simcard = \DB::table('libres')->where('numero', '=', $request['dato'])->get();
+            }else{
+                $simcard = [];
+            }
+            return $simcard;
+        }
+    }
+    
+    public function actualizarLibre(Request $request)
+    {
+        if($request->ajax()){
+            if($request['dato'] != null){
+                $dato = $request['dato']; 
+                $simcard = \App\Libre::find($dato[0]);
+                $simcard->responsable = $dato[1];
+                $simcard->cedula = $dato[2];
+                $simcard->telefono = $dato[3];
+                $simcard->ciudad_responsable = $dato[4];
+                $simcard->barrio_responsable = $dato[5];
+                $simcard->fecha_entrega = $dato[6];
+                $simcard->fecha_llamada = $dato[7];
+                $simcard->detalle_llamada = $dato[8];
+                $simcard->save();
+                return 1;
+            }else{
+                $simcard = [];
+            }
+            return $simcard;
+        }
+    }
+    public function empaquetar(Request $request){
+        if($request->ajax()){
+            $datos = $request['datos'];
+            $paquete = \DB::table('simcards')->select(\DB::raw('max(paquete) as paquete'))->first();
+            foreach($datos as $dato){
+                $simcard = \DB::table('simcards')->where('numero', '=',$dato)->first();
+                $sim = \App\Simcard::find($simcard->ICC);
+                $sim->paquete = $paquete->paquete+1;
+                $sim->save();
+            }
+            return '1';
+        }
+    }
+    
     public function datosSimcard(Request $request){
         if($request->ajax()){
             $user =  \Auth::User();
-            //$user =  Auth::User();
             $today = new \DateTime('today');
-            
             
             // REVISAR SIMS PREPAGO
             // REVISAR SIMS ACTIVAS

@@ -1,4 +1,4 @@
-
+var paquete = [];
 
 function seleccionar_distribuidor(objButton){
     $('#distribuidor-resultado').html(objButton.value);
@@ -24,7 +24,81 @@ function seleccionar_sub(objButton){
     $('#subdistribuidor-resultado').html(objButton.value);
     $('#modal-subdistribuidor').modal('hide');
 }
+function buscarSim_libre(){
+    var dato = document.getElementById("dato_buscar_sim_libre").value;
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+    $.ajax({
+        url:'simcard/buscarLibre',
+        data:{dato:dato},
+        type:'GET',
+        dataType: 'json',
+        success: function(data){
+            if(data != ''){
+                $('#nit_resultado').html(data[0].NIT);
+                $('#nombre_empresa_resultado').val(data[0].nombre_empresa);
+                $('#plan_resultado').val('Plan: ' + data[0].plan);
+                $('#valor_resultado').val('Valor: ' + data[0].valor);
+                $('#cod_scl_resultado').val('Scl: ' + data[0].cod_scl);
+                $('#cod_punto_resultado').val('Punto: ' + data[0].cod_punto);
+                $('#direccion_resultado').val(data[0].direccion_empresa);
+                $('#fecha_activacion_libre_resultado').val(data[0].fecha_activacion);
+                // RESPONSABLE
+                $('#nombre_responsable_resultado').val(data[0].responsable);
+                $('#cedula_responsable_resultado').val(data[0].cedula);
+                $('#celular_responsable_resultado').val(data[0].telefono);
+                $('#ciudad_responsable_resultado').val(data[0].ciudad_responsable);
+                $('#barrio_responsable_resultado').val(data[0].barrio_responsable);
+                $('#fecha_entrega_libre_resultado').val(data[0].fecha_entrega);
+                $('#fecha_llamada_libre_resultado').val(data[0].fecha_llamada);
+                $('#detalle_llamada_resultado').val(data[0].detalle_llamada);
+            }else{
+                $('.modal-header #modal-tittle').html('Error');
+                $('.modal-body #modal-body').html('Simcard no encontrada');
+                $('#modal-content').modal('show');
+            }
+            $('#modal-loading').modal('hide');
+        }
+    });
+}
 
+function guardar_responsable(){
+    var dato = [];
+    dato.push(document.getElementById("dato_buscar_sim_libre").value);
+    dato.push($('#nombre_responsable_resultado').val());
+    dato.push($('#cedula_responsable_resultado').val());
+    dato.push($('#celular_responsable_resultado').val());
+    dato.push($('#ciudad_responsable_resultado').val());
+    dato.push($('#barrio_responsable_resultado').val());
+    dato.push($('#fecha_entrega_libre_resultado').val());
+    dato.push($('#fecha_llamada_libre_resultado').val());
+    dato.push($('#detalle_llamada_resultado').val());
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+    $.ajax({
+        url:'simcard/actualizarLibre',
+        data:{dato:dato},
+        type:'GET',
+        dataType: 'json',
+        success: function(data){
+            if(data != ''){
+                $('.modal-header #modal-tittle').html('Exito');
+                $('.modal-body #modal-body').html('Datos actualizados');
+                $('#modal-content').modal('show');
+            }else{
+                $('.modal-header #modal-tittle').html('Error');
+                $('.modal-body #modal-body').html('Error actualizando datos');
+                $('#modal-content').modal('show');
+            }
+            $('#modal-loading').modal('hide');
+            $('#modal-cliente_libre').modal('hide');
+        }
+    });
+}
 function buscarSim(){
     var dato = document.getElementById("dato_buscar_sim").value;
     $('#modal-loading').modal({
@@ -119,6 +193,26 @@ function limpiar_campos(){
     changeClass("gray"); 
 }
 
+function limpiar_campos_libre(){
+    $('#dato_buscar_sim_libre').val('');
+    $('#nit_resultado').html('NIT');
+    $('#nombre_empresa_resultado').val('');
+    $('#plan_resultado').val('');
+    $('#valor_resultado').val('');
+    $('#cod_scl_resultado').val('');
+    $('#cod_punto_resultado').val('');
+    $('#direccion_resultado').val('');
+    $('#fecha_activacion_libre_resultado').val('');
+    // RESPONSABLE
+    $('#nombre_responsable_resultado').val('');
+    $('#cedula_responsable_resultado').val('');
+    $('#celular_responsable_resultado').val('');
+    $('#ciudad_responsable_resultado').val('');
+    $('#barrio_responsable_resultado').val('');
+    $('#fecha_entrega_libre_resultado').val('');
+    $('#fecha_llamada_libre_resultado').val('');
+    $('#detalle_llamada_resultado').val('');
+}
 function printDonnutChart(data,tipo){
     var data = [
             {
@@ -285,9 +379,10 @@ $('#datos_busqueda_sim_empaquetar').bind("enterKey",function(e){
         type:'GET',
         dataType: 'json',
         success: function(data){
+            $('#datos_busqueda_sim_empaquetar').val('');
+            $('#datos_busqueda_sim_empaquetar').focus();
             if(data != ''){
                 var today = new Date();
-                $('#datos_busqueda_sim_empaquetar').val('');  
                 var fecha_vencimiento_string = data[0].fecha_vencimiento.split("-");
                 var fecha_vencimiento = new Date(fecha_vencimiento_string[0], fecha_vencimiento_string[1]-1,fecha_vencimiento_string[2]);
                 var months = dayDiff(today, fecha_vencimiento);
@@ -307,6 +402,7 @@ $('#datos_busqueda_sim_empaquetar').bind("enterKey",function(e){
                 }
                 var element = '<button class="button_simcards ' + color +' " style="flex-grow:2;width:auto;color:#000;font-weight:normal;font-size:1em" onClick="seleccionarSim(this)" value = ' + data[0].numero + '> ' + data[0].numero  + '</button>';
                 document.getElementById('container_simcards_empaquetado').innerHTML += element;
+                paquete.push(data[0].numero);
             }else{
                 $('.modal-header #modal-tittle').html('Error');
                 $('.modal-body #modal-body').html('Simcard no encontrada');
@@ -319,6 +415,43 @@ $('#datos_busqueda_sim_empaquetar').bind("enterKey",function(e){
 $('#datos_busqueda_sim_empaquetar').keyup(function(e){
     if(e.keyCode == 13)
     {
-        $(this).trigger("enterKey");
+        var telefono = $('#datos_busqueda_sim_empaquetar').val();
+        if(paquete.indexOf(telefono) != -1){
+            $('.modal-header #modal-tittle').html('Error');
+            $('.modal-body #modal-body').html('Ya está la simcard');
+            $('#modal-content').modal('show');
+            $('#datos_busqueda_sim_empaquetar').val('');
+            $('#datos_busqueda_sim_empaquetar').focus();
+        }else{
+            $(this).trigger("enterKey");
+        }
     }
 });
+
+function limpiar_paquete(){
+    paquete = [];
+    document.getElementById('container_simcards_empaquetado').innerHTML = '';
+}
+
+function empaquetar(){
+    $.ajax({
+        url:'simcard/empaquetar',
+        data:{datos:paquete},
+        type:'GET',
+        dataType: 'json',
+        success: function(data){
+            if(data != -1){
+               $('.modal-header #modal-tittle').html('Exito');
+                $('.modal-body #modal-body').html('Simcards empaquetadas. Desde ahora puedes buscarlas en la sección de paquetes.');
+                $('#modal-content').modal('show');
+                paquete = [];
+                document.getElementById('container_simcards_empaquetado').innerHTML = '';
+            }else{
+                $('.modal-header #modal-tittle').html('Error');
+                $('.modal-body #modal-body').html('Simcard no encontrada');
+                $('#modal-content').modal('show');
+            }
+            $('#modal-loading').modal('hide');
+        }
+    });
+}
