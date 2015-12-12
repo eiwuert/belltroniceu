@@ -434,6 +434,10 @@ function limpiar_paquete(){
 }
 
 function empaquetar(){
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
     $.ajax({
         url:'simcard/empaquetar',
         data:{datos:paquete},
@@ -457,5 +461,71 @@ function empaquetar(){
 }
 
 function subir_archivo(){
-    $('#fileinput').trigger('click'); 
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+      $('#fileinput').trigger('click'); 
+    } else {
+      alert('The File APIs are not fully supported in this browser.');
+    }
 }
+
+function updateFinish(evt) {
+    
+   var lines = this.result.split('\n');
+   if(lines[0].indexOf('AGREGAR') != -1){
+        for(var line = 1; line < lines.length; line++){
+            $.ajax({
+                url:'simcard/agregar',
+                data:{dato:lines[line]},
+                type:'GET',
+                dataType: 'json',
+                success: function(data){
+                    if(data != 1){
+                        $('.modal-header #modal-tittle').html('Error');
+                        $('.modal-body #modal-body').html('Simcard no agregada');
+                        $('#modal-content').modal('show');
+                    }
+                }
+            });  
+        }
+        $('.modal-header #modal-tittle').html('Exito');
+        $('.modal-body #modal-body').html('Simcards agregadas');
+        $('#modal-content').modal('show');
+    }else if(lines[0].indexOf('ACTIVAR') != -1){
+        for(var line = 1; line < lines.length; line++){
+            $.ajax({
+                url:'simcard/activar',
+                data:{dato:lines[line]},
+                type:'GET',
+                dataType: 'json',
+                success: function(data){
+                    if(data != 1){
+                        $('.modal-header #modal-tittle').html('Error');
+                        $('.modal-body #modal-body').html('Simcard no agregada');
+                        $('#modal-content').modal('show');
+                    }
+                }
+            });  
+        }
+        $('.modal-header #modal-tittle').html('Exito');
+        $('.modal-body #modal-body').html('Simcard activadas');
+        $('#modal-content').modal('show');
+    }else{
+        $('.modal-header #modal-tittle').html('Error');
+        $('.modal-body #modal-body').html('Olvido la cabezera que indica la acción.');
+        $('#modal-content').modal('show');
+    }
+    $('#modal-loading').modal('hide');
+}
+
+function handleFileSelect(evt) {
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+    var reader = new FileReader();
+    
+    // Closure to capture the file information.
+    reader.onload = updateFinish;
+     reader.readAsText(evt.target.files[0]);
+}
+document.getElementById('fileinput').addEventListener('change', handleFileSelect, false);

@@ -109,7 +109,6 @@
     <div class="hiddenfile">
       <input name="upload" type="file" id="fileinput"/>
     </div>
-    <div id="progress_bar"><div class="percent">0%</div></div>
     <!-- BUSCAR SIMCARD   -->
     <section id="buscar" style="background:#d3d3d3">
         <div class="container ">
