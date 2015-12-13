@@ -197,7 +197,7 @@
       		<div class="row">
       			<div class="col-sm-12 col-lg-12">
       			<logo class="logo">Belltronic</logo>
-      			<p>Desarrollado y mantenido por <span class="mySpan"> Stiven Avila</span></p>
+      			<p>Desarrollado y mantenido por <span class="mySpan">Stiven Avila</span></p>
       			</div>
 
       		</div><!-- /row -->

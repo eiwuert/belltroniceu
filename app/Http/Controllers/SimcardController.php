@@ -203,28 +203,10 @@ class SimcardController extends Controller
         if($request->ajax()){
             $colors = [];
             if($request['dato_paquete'] != null){
-                $sim = \DB::table('simcards')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->join('users','subdistribuidores.emailDistribuidor','=','users.email')->where('numero', '=', $request['dato_paquete'])->orWhere('ICC', '=', $request['dato_paquete'])->get();
+                $sim = \DB::table('simcards')->where('numero', '=', $request['dato_paquete'])->orWhere('ICC', '=', $request['dato_paquete'])->get();
                 if($sim != null){
                     if($sim[0]->paquete != 0){
-                        $simcard = \DB::table('simcards')->where('paquete',$sim[0]->paquete)->get();
-                        $months = \DB::table('simcards')->select(\DB::raw('DATEDIFF(CURDATE(),fecha_vencimiento) as month'))->where('paquete',$sim[0]->paquete)->get(); 
-                        $i = 0;
-                        foreach($months as $month){
-                            if($simcard[$i]->fecha_activacion != null){
-                                if($month->month <= 0){
-                                    array_push($colors,'green');
-                                }else{
-                                    array_push($colors,'red');
-                                }
-                            }else{
-                                if($month->month <= 0){
-                                    array_push($colors,'blue');
-                                }else{
-                                    array_push($colors,'red');
-                                }
-                            }
-                            $i++;
-                        }
+                        $simcard = \DB::table('simcards')->select(\DB::raw('DATEDIFF(CURDATE(),fecha_vencimiento) as month'),'numero','fecha_activacion')->where('paquete',$sim[0]->paquete)->get();
                     }else{
                         $simcard = [];
                         $months= [];
@@ -237,8 +219,7 @@ class SimcardController extends Controller
                 $simcard = [];
             }
             
-                
-            return view('/simcardsPaquete', array('simcards'=>$simcard, 'colors' => $colors));
+            return view('/simcardsPaquete', array('simcards'=>$simcard));
         }
     }
     

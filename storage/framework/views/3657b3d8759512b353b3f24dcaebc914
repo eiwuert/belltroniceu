@@ -1,4 +1,16 @@
 
 <?php for($i = 0; $i < count($simcards); $i++): ?>
-    <button class="button_simcards <?php echo e($colors[$i]); ?>" style="flex-grow:2;width:auto;color:#000;font-weight:normal;font-size:1em" onClick="seleccionarSim(this)" value ="<?php echo e($simcards[$i]->numero); ?>"><?php echo e($simcards[$i]->numero); ?></button>
+    <?php if($simcards[$i]->fecha_activacion != null): ?>
+        <?php if($simcards[$i]->month <= 0): ?>
+        <button class="button_simcards green" style="flex-grow:2;width:auto;color:#000;font-weight:normal;font-size:1em" onClick="seleccionarSim(this)" value ="<?php echo e($simcards[$i]->numero); ?>"><?php echo e($simcards[$i]->numero); ?></button>
+        <?php else: ?>
+        <button class="button_simcards red" style="flex-grow:2;width:auto;color:#000;font-weight:normal;font-size:1em" onClick="seleccionarSim(this)" value ="<?php echo e($simcards[$i]->numero); ?>"><?php echo e($simcards[$i]->numero); ?></button>
+        <?php endif; ?>
+    <?php else: ?>
+        <?php if($simcards[$i]->month <= 0): ?>
+        <button class="button_simcards blue" style="flex-grow:2;width:auto;color:#000;font-weight:normal;font-size:1em" onClick="seleccionarSim(this)" value ="<?php echo e($simcards[$i]->numero); ?>"><?php echo e($simcards[$i]->numero); ?></button>
+        <?php else: ?>
+        <button class="button_simcards red" style="flex-grow:2;width:auto;color:#000;font-weight:normal;font-size:1em" onClick="seleccionarSim(this)" value ="<?php echo e($simcards[$i]->numero); ?>"><?php echo e($simcards[$i]->numero); ?></button>
+        <?php endif; ?>
+    <?php endif; ?>
 <?php endfor; ?>
