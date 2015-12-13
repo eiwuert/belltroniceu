@@ -25,7 +25,7 @@
     <!-- Colors CSS -->
     <link href="css/colors.css" rel="stylesheet">
     
-    <!-- Colors CSS -->
+    <!-- Base CSS -->
     <link href="css/base.css" rel="stylesheet">
     
     <!-- Custom Fonts -->
@@ -328,28 +328,30 @@
     
     
     <!-- SECCION EMPAQUETADO  -->
-    <section id="empaquetar" style="background:#d3d3d3">
-        <div class="container ">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Empaquetar Simcards</h2>
-                    <h3 class="section-subheading text-muted" style="margin-bottom:20px">Digita la ICC o el numero de teléfono de la simcard. Si existe, la veras abajo y estara lista para empaquetarse.</h3>
-                </div>
-            </div>
-            <div class="principal-view-body-container">
-                <div class ="package_form_container">
-                    <input class="data_package" type="number" id = "datos_busqueda_sim_empaquetar" placeholder="ICC / Tel" style="width:40%;min-width:300px"></input>
-                    <div class ="package_buttons_container">
-                        <button class="button button_delete" onClick="limpiar_paquete()" style="height:42px;margin-right:20px">Limpiar</button>
-                        <button class="button" onClick="empaquetar()" style="height:42px;">Empaquetar</button>
+    @if($user->isAdmin)
+        <section id="empaquetar" style="background:#d3d3d3">
+            <div class="container ">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">Empaquetar Simcards</h2>
+                        <h3 class="section-subheading text-muted" style="margin-bottom:20px">Digita la ICC o el numero de teléfono de la simcard. Si existe, la veras abajo y estara lista para empaquetarse.</h3>
                     </div>
                 </div>
-                <div class = "search_results_container" id ="container_simcards_empaquetado">
-                      
+                <div class="principal-view-body-container">
+                    <div class ="package_form_container">
+                        <input class="data_package" type="number" id = "datos_busqueda_sim_empaquetar" placeholder="ICC / Tel" style="width:40%;min-width:300px"></input>
+                        <div class ="package_buttons_container">
+                            <button class="button button_delete" onClick="limpiar_paquete()" style="height:42px;margin-right:20px">Limpiar</button>
+                            <button class="button" onClick="empaquetar()" style="height:42px;">Empaquetar</button>
+                        </div>
+                    </div>
+                    <div class = "search_results_container" id ="container_simcards_empaquetado">
+                          
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
     <!--------------------------------------MODALS------------------------------------------------->
     <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">

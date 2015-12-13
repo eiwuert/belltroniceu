@@ -1,46 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Home</title>
-    
-     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Colors CSS -->
-    <link href="css/colors.css" rel="stylesheet">
-    
-     <!-- Custom CSS -->
-    <link href="css/full-slider.css" rel="stylesheet">
-    
-    <!-- Base CSS -->
-    <link href="css/base.css" rel="stylesheet">
-    
-    <!-- Custom Fonts -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Home</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/animate.min.css" rel="stylesheet"> 
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/lightbox.css" rel="stylesheet">
+  <link href="css/home.css" rel="stylesheet">
+  <link id="css-preset" href="css/presets/preset6.css" rel="stylesheet">
+  <link href="css/responsive.css" rel="stylesheet">
+  <!-- Colors CSS -->
+  <link href="css/colors.css" rel="stylesheet">
+  <!-- Base CSS -->
+  <link href="css/base.css" rel="stylesheet">
+  
+  <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
+  <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+  <![endif]-->
+  
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+  <link rel="shortcut icon" href="images/favicon.ico">
+</head><!--/head-->
 
 <body>
-    
+
+  <!--.preloader-->
+  <div class="preloader"> <i class="fa fa-circle-o-notch fa-spin"></i></div>
+  <!--/.preloader-->
+  
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -82,67 +80,44 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-
-    <!-- Full Page Image Background Carousel Header -->
-    <header id="myCarousel" class="carousel slide">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-
-        <!-- Wrapper for Slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <!-- Set the first background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('');">
-                    <div class="container" style="background:rgba(20,20,20,0.4);width:100%;height:100%">
-                        <div class="intro-text">
-                            <div class="intro-heading">Simcards</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-caption">
-                    <a href="/simcard" class="page-scroll btn btn-xl">Ingresar</a>
-                </div>
-            </div>
-            <div class="item">
-                <!-- Set the second background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080/77aac7/FFFFFF/&text=Cartera');"></div>
-                <div class="carousel-caption">
-                    <a href="/cartera" class="page-scroll btn btn-xl">Ingresar</a>
-                </div>
-            </div>
-            <div class="item">
-                <!-- Set the third background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080/77aac7/FFFFFF/&text=Finanzas');"></div>
-                <div class="carousel-caption">
-                    <a href="/Finanzas" class="page-scroll btn btn-xl">Ingresar</a>
-                </div>
-            </div>
+  <header id="home">
+    <div id="home-slider" class="carousel slide carousel-fade" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="item active" style="">
+          <div class="caption">
+            <h1 class="animated fadeInLeftBig">Administra tus <span>Simcards</span></h1>
+            <p class="animated fadeInRightBig">Crea, busca, asigna y mucho más...</p>
+            <a data-scroll class="btn btn-start animated fadeInUpBig" href="/simcard">Ingresar</a>
+          </div>
         </div>
+        <div class="item" style="">
+          <div class="caption">
+            <h1 class="animated fadeInLeftBig">Controla tus <span>Finanzas</span></h1>
+            <p class="animated fadeInRightBig">Analiza, consulta, verifica y mucho más...</p>
+            <a data-scroll class="btn btn-start animated fadeInUpBig" href="/finanzas">Ingresar</a>
+          </div>
+        </div>  
+        <div class="item" style="">
+          <div class="caption">
+            <h1 class="animated fadeInLeftBig">Revisa tu <span>Cartera</span></h1>
+            <p class="animated fadeInRightBig"></p>
+            <a data-scroll class="btn btn-start animated fadeInUpBig" href="/cartera">Ingresar</a>
+          </div>
+        </div>
+      </div>
+      <a class="left-control" href="#home-slider" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+      <a class="right-control" href="#home-slider" data-slide="next"><i class="fa fa-angle-right"></i></a>
+  </header>
+  
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/jquery.inview.min.js"></script>
+  <script type="text/javascript" src="js/wow.min.js"></script>
+  <script type="text/javascript" src="js/mousescroll.js"></script>
+  <script type="text/javascript" src="js/smoothscroll.js"></script>
+  <script type="text/javascript" src="js/jquery.countTo.js"></script>
+  <script type="text/javascript" src="js/lightbox.min.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
 
-        <!-- Controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="icon-next"></span>
-        </a>
-
-    </header>
-    
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-    
-    <!-- Script to Activate the Carousel -->
-    <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-    </script>
 </body>
+</html>
