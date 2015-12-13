@@ -262,3 +262,17 @@ body{
  height: 0px;
  overflow: hidden;
 }
+
+/*  LOADING  */
+.preloader {
+  height:100%;
+  width:100%;
+  background: none;
+}
+
+.preloader > i {
+  font-size: 50px;
+  position: relative;
+  top: 50%;
+  left:42%;
+}

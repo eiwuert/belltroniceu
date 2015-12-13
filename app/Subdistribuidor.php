@@ -9,10 +9,7 @@ class Subdistribuidor extends Model
     protected $table = 'subdistribuidores';
     protected $primaryKey = 'nombre';
     
-    protected $fillable = ['cedula', 'nombre', 'telefono', 'email', 'nombreDistribuidor'];
+    protected $fillable = ['cedula', 'nombre', 'telefono', 'email', 'emailDistribuidor'];
     
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
+    
 }

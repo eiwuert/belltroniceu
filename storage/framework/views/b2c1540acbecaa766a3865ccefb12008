@@ -24,6 +24,10 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <!-- Google Fonts call. Font Used Open Sans & Raleway -->
+	<link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+  
   <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -69,7 +73,7 @@
                         <a class="page-scroll" href="/cartera">Cartera</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="/configuracion"><span class="glyphicon glyphicon-cog"></span></a>
+                        <a class="page-scroll" href="/settings"><span class="glyphicon glyphicon-cog"></span></a>
                     </li>
                     <li>
                         <a class="page-scroll" href="/auth/logout"><span class="glyphicon glyphicon-off"></span></a>

@@ -246,6 +246,7 @@
                     <div>
                         <div class="chart_container">
                             <div style="weight:100%;height:100%">
+                                <div class="preloader" id ="loader_prepago"> <i class="fa fa-cog fa-spin  blue_strong_text"></i></div>
                                 <canvas id="canvasPrepago"></canvas>
                             </div>
                         </div>
@@ -256,6 +257,7 @@
                     <div>
                         <div class="chart_container">
                             <div style="weight:100%;height:100%">
+                                <div class="preloader"  id ="loader_libre"> <i class="fa fa-cog fa-spin blue_strong_text"></i></div>
                                 <canvas id="canvasLibre"></canvas>
                             </div>
                         </div>

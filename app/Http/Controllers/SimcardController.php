@@ -193,8 +193,6 @@ class SimcardController extends Controller
             
             $labelMeses = [$mes2Anterior, $mesAnterior,$mesActual];
             //*/
-            // Activas - Vencidas - Disponibles
-            //$labelMeses = ['octubre','noviembre','diciembre'];
             $response = array($simsPrepago, $simsLibre, $labelMeses);
             return $response;;
         }
