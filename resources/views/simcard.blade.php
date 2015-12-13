@@ -14,6 +14,8 @@
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Bootstrap Selectpicker CSS -->
+    <link href="css/utilities/bootstrap-select.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/agency.css" rel="stylesheet">
 
@@ -32,7 +34,7 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -43,7 +45,7 @@
 </head>
 
 <body id="page-top" class="index">
-
+    
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -216,8 +218,11 @@
             </div>
             <div class="principal-view-body-container">
                 <div class ="package_form_container">
-                    <input class="data_package" type="number" id = "datos_busqueda_paquete" placeholder="ICC / Tel" style="width:40%"></input>
-                    <button class="button" onClick="buscarPaquete()" style="height:42px;width:10%">Buscar</button>
+                    <input class="data_package" type="number" id = "datos_busqueda_paquete" placeholder="ICC / Tel"></input>
+                    <button class="button" onClick="buscarPaquete()" style="height:42px;width:10%;margin-right:20px">Buscar</button>
+                    @if($user->isAdmin)
+                        <button class="button button_assign" onClick="$('#modal_seleccionar_subdistri').modal('show')" style="height:42px;width:10%">Asignar</button>
+                    @endif
                 </div>
                 <div class = "search_results_container" id ="container_simcards_paquete">
                       
@@ -394,7 +399,29 @@
             </div>
         </div>
     </div>  
-
+    <!-- MODAL SELECCIONAR SUBDISTRIBUIDOR PARA ASIGNAR-->
+    <div id="modal_seleccionar_subdistri" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3 class = "section-body section-body-title"> Seleccionar subdistribuidor </h3>
+                </div>
+                <div class="modal-body" style="text-align:center;">
+                    <select class="selectpicker" data-width="100%" data-style="data" id ="subPicker">
+                        @foreach ($distribuidores as $distribuidor)
+                        <optgroup label="{{$distribuidor->name}}">
+                            @foreach ($subdistribuidores[$distribuidor->name] as $subdistribuidor)
+                            <option>{{$subdistribuidor->nombre}}</option>
+                            @endforeach
+                        </optgroup>
+                        @endforeach
+                    </select>
+                    <button class="button button_assign" onClick="asignar_paquete()" style="height:42px;width:100px;margin:0 auto">Asignar</button>
+                </div>
+            </div>
+        </div>
+    </div>    
     <!-- MODAL RESPONSABLE LIBRES  -->
     <div id="modal-cliente_libre" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
@@ -471,6 +498,8 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/agency.js"></script>
 
+    <!-- Bootstrap Select JS -->
+    <script src ="/js/utilities/bootstrap-select.js" ></script>
 </body>
 
 </html>

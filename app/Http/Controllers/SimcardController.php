@@ -68,6 +68,27 @@ class SimcardController extends Controller
         }
     }
     
+    public function asignarPaquete(Request $request)
+    {
+        if($request->ajax()){
+           $sim = \DB::table('simcards')->where('numero', '=', $request['dato'])->orWhere('ICC', '=', $request['dato'])->get();
+           if($sim != null){
+               if($sim[0]->paquete != 0){
+                   $sims = \DB::table('simcards')->where('paquete', '=', $sim[0]->paquete)->get();
+                   foreach($sims as $simcard){
+                       $toModify = $simcard = \App\Simcard::find($simcard->ICC);
+                       $toModify->nombreSubdistribuidor = $request['sub'];
+                       $toModify->save();
+                   }
+                   return 1;
+               }else{
+                   return -2;
+               }
+           }else{
+               return -1;
+           }
+        }
+    }
     public function buscarSimcardLibre(Request $request)
     {
         if($request->ajax()){

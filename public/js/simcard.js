@@ -213,65 +213,6 @@ function limpiar_campos_libre(){
     $('#fecha_llamada_libre_resultado').val('');
     $('#detalle_llamada_resultado').val('');
 }
-function printDonnutChart(data,tipo){
-    var data = [
-            {
-                value: data[0],
-                color:"#ff656c",
-                highlight: "#7f3236",
-                label: "Vencidas",
-            },
-            {
-                value: data[1],
-                color: "#85C1F5",
-                highlight: "#4A789C",
-                label: "Disponibles"
-            },
-            {
-                value: data[2],
-                color: "#7FCA9F",
-                highlight: "#3f654f",
-                label: "Activas"
-            }
-        ];
-        
-        var options ={
-            segmentShowStroke : true,
-            segmentStrokeColor : "#fff",
-            segmentStrokeWidth : 2,
-            percentageInnerCutout : 50, 
-            animationSteps : 100,
-            animationEasing : "easeOutBounce",
-            animateRotate : true,
-            animateScale : true,
-            responsive:true,
-        };
-        if(tipo == 1){
-            var ctx = document.getElementById("canvas_estado_subs").getContext("2d");
-            donnutChart = new Chart(ctx).Doughnut(data,options);
-        }else{
-            var ctx = document.getElementById("canvas_estado_subs_libres").getContext("2d");
-            donnutChartLibres = new Chart(ctx).Doughnut(data,options);
-        }
-}
-
-function estadoSimSubDistri(){
-    var sub = $('[data-id="subPicker"]').text();
-    var dateSub = $('#dateSub').val();
-    if(dateSub != ''){
-        $.ajax({
-            url:'diagrama/simcardsSub',
-            data:{subdistribuidor:sub,requestDate:dateSub},
-            type:'GET',
-            success: function(data){
-                donnutChart.destroy();
-                donnutChartLibres.destroy();
-                printDonnutChart(data,1);
-                printDonnutChart([100,100,100],2);
-            }
-        });
-    }
-}
 
 /*  SECCION PAQUETE   */
 
@@ -458,6 +399,46 @@ function empaquetar(){
             $('#modal-loading').modal('hide');
         }
     });
+}
+
+function asignar_paquete(){
+    $('#modal_seleccionar_subdistri').modal('hide');
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+    var dato = $('#datos_busqueda_paquete').val();
+    var sub = $('[data-id="subPicker"]').text();
+    if(dato != ''){
+        $.ajax({
+            url:'simcard/asignarPaquete',
+            data:{dato:dato, sub:sub},
+            type:'GET',
+            dataType: 'json',
+            success: function(data){
+                if(data == 1){
+                   $('.modal-header #modal-tittle').html('Exito');
+                    $('.modal-body #modal-body').html('Paquete asignado satisfactoriamente.');
+                    $('#modal-content').modal('show');
+                    paquete = [];
+                    document.getElementById('container_simcards_empaquetado').innerHTML = '';
+                }else if(data == -1){
+                    $('.modal-header #modal-tittle').html('Error');
+                    $('.modal-body #modal-body').html('No se encontro la simcard de base.');
+                    $('#modal-content').modal('show');
+                }else if(data == -2){
+                    $('.modal-header #modal-tittle').html('Error');
+                    $('.modal-body #modal-body').html('La simcard de base no tiene paquete.');
+                    $('#modal-content').modal('show');
+                }
+                $('#modal-loading').modal('hide');
+            }
+        });
+    }else{
+        $('.modal-header #modal-tittle').html('Error');
+        $('.modal-body #modal-body').html('Debe ingresar un dato.');
+        $('#modal-content').modal('show');
+    }
 }
 
 function subir_archivo(){

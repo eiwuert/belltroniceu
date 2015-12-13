@@ -79,8 +79,10 @@
 
 .data_package{
     width: 40%;
+    min-width:200px;
     height: 42px;
     margin-right:20px;
+    margin-left:20px;
     box-sizing: border-box;
     text-align:center;
     border-radius: 5px;
@@ -109,6 +111,17 @@
 
 .button:hover {
     background: #3f654f;
+}
+
+.button_assign{
+    background:#FFF;
+    min-width:100px;
+    border: 2px solid #003366;
+    color:#003366;
+}
+.button_assign:hover{
+    background:#003366;
+    color:#FFF;
 }
 
 .button_delete{
