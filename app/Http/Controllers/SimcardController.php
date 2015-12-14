@@ -115,6 +115,7 @@ class SimcardController extends Controller
                 $simcard->fecha_entrega = $dato[6];
                 $simcard->fecha_llamada = $dato[7];
                 $simcard->detalle_llamada = $dato[8];
+                $simcard->direccion_empresa = $dato[9];
                 $simcard->save();
                 return 1;
             }else{
