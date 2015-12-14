@@ -3,41 +3,51 @@ $.ajax({
     type:'GET',
     success: function(data){
         var datosPrepago = {
-            labels: [data[1][0], data[1][1], data[1][2]],
+            labels: [data[1][0], data[1][1], data[1][2],data[1][3],data[1][4]],
             datasets: [
                 {
                     label: "Vencidas",
-                    fillColor: "#DB5466",
-                    highlightFill: "#7f3236",
-                    data: [data[0][3],data[0][4],data[0][5]]
+                    fillColor: "rgba(219, 84, 102,.5)",
+                    strokeColor: "rgba(219, 84, 102,1)",
+                    pointColor: "rgba(219, 84, 102,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(219, 84, 102,1)",
+                    data: [data[0][5],data[0][6],data[0][7],data[0][8],data[0][9]]
                 },
                 {
                     label: "Activas",
-                    fillColor: "#7FCA9F",
-                    highlightFill: "#3f654f",
-                    data: [data[0][0],data[0][1],data[0][2]]
+                    fillColor: "rgba(127, 202, 159,.5)",
+                    strokeColor: "rgba(127, 202, 159,1)",
+                    pointColor: "rgba(127, 202, 159,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(127, 202, 159,1)",
+                    data: [data[0][0],data[0][1],data[0][2],data[0][3],data[0][4]]
                 }
             ]
         };
         var options = {
-            scaleBeginAtZero : true,
             scaleShowGridLines : false,
-            barShowStroke : true,
-            barStrokeWidth : 2,
-            barValueSpacing : 5,
-            barDatasetSpacing : 1,
-            responsive: true,
-            scaleFontFamily: 'regular',
-            scaleFontSize: 15,
-            scaleFontColor: "#000",
+            scaleShowHorizontalLines: false,
+            scaleShowVerticalLines: false,
+            bezierCurve : true,
+            bezierCurveTension : 0.4,
+            pointDot : true,
+            pointDotRadius : 4,
+            pointDotStrokeWidth : 1,
+            pointHitDetectionRadius : 20,
+            datasetStroke : true,
+            datasetStrokeWidth : 2,
+            datasetFill : true,
+            responsive:true,
             maintainAspectRatio:false,
+            multiTooltipTemplate: "<%= datasetLabel %>: <%= value %>",
         };
         
-        var elem = document.getElementById('loader_libre');
-        elem.parentNode.removeChild(elem);      
         var elem = document.getElementById('loader_prepago');
         elem.parentNode.removeChild(elem); 
         var ctx = document.getElementById("canvasPrepago").getContext("2d");
-        new Chart(ctx).Bar(datosPrepago, options);  
+        new Chart(ctx).Line(datosPrepago, options);  
     }
 });

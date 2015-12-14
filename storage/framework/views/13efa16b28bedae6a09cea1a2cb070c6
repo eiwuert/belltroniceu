@@ -192,12 +192,11 @@
         
 	</div> <!-- /container -->
 	<div id="footerwrap">
-      	<footer class="clearfix"></footer>
       	<div class="container">
       		<div class="row">
       			<div class="col-sm-12 col-lg-12">
       			<logo class="logo">Belltronic</logo>
-      			<p>Desarrollado y mantenido por <span class="mySpan"> Stiven Avila</span></p>
+      			<p>Desarrollado por <span class="mySpan">Stiven Avila</span> - stiven140@hotmail.com</p>
       			</div>
 
       		</div><!-- /row -->

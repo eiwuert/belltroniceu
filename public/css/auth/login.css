@@ -1,5 +1,5 @@
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family:Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 16px;
     font-weight: 300;
     color: #888;
@@ -10,12 +10,14 @@ body {
 strong { font-weight: 500; }
 
 a, a:hover, a:focus {
+	font-family:Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
 	color: #de615e;
 	text-decoration: none;
     -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
 }
 
 h1, h2 {
+	font-family:Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
 	margin-top: 10px;
 	font-size: 38px;
     font-weight: 100;
@@ -24,6 +26,7 @@ h1, h2 {
 }
 
 h3 {
+	font-family:Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size: 22px;
     font-weight: 300;
     color: #555;
@@ -186,3 +189,7 @@ img { max-width: 100%; }
 
 }
 
+strong{
+	color:#fed136;
+	font-family:"Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive
+}

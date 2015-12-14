@@ -40,7 +40,7 @@ function buscarSim_libre(){
                 $('#nit_resultado').html(data[0].NIT);
                 $('#nombre_empresa_resultado').val(data[0].nombre_empresa);
                 $('#plan_resultado').val('Plan: ' + data[0].plan);
-                $('#valor_resultado').val('Valor: ' + data[0].valor);
+                $('#valor_resultado').val('Valor: $' + data[0].valor);
                 $('#cod_scl_resultado').val('Scl: ' + data[0].cod_scl);
                 $('#cod_punto_resultado').val('Punto: ' + data[0].cod_punto);
                 $('#direccion_resultado').val(data[0].direccion_empresa);

@@ -15,6 +15,16 @@
         <link rel="stylesheet" href="/css/font-awesome.min.css">
     	<link rel="stylesheet" href="/css/auth/form-elements.css">
         <link rel="stylesheet" href="/css/auth/login.css">
+        
+        <!-- Colors CSS -->
+        <link href="css/colors.css" rel="stylesheet">
+        
+        <!-- Custom Fonts -->
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     </head>
 
     <body>
@@ -26,7 +36,7 @@
                         <div class="col-sm-8 col-sm-offset-2 text">
                             <h1 style="text-align:center">Bienvenido a <strong>Belltronic</strong></h1>
                             <div class="description">
-                            	<p style="text-align:center">Portal empesarial de Belltronic para monitoreo de progreso.</p>
+                            	<p style="text-align:center;font-size:18px">Portal empesarial de Belltronic para monitoreo de progreso.</p>
                             </div>
                         </div>
                     </div>
