@@ -54,6 +54,7 @@ function buscarSim_libre(){
                 $('#fecha_entrega_libre_resultado').val(data[0].fecha_entrega);
                 $('#fecha_llamada_libre_resultado').val(data[0].fecha_llamada);
                 $('#detalle_llamada_resultado').val(data[0].detalle_llamada);
+                $('#direccion_responsable_resultado').val(data[0].direccion_responsable);
             }else{
                 $('.modal-header #modal-tittle').html('Error');
                 $('.modal-body #modal-body').html('Simcard no encontrada');
