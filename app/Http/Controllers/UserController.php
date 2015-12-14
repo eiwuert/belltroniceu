@@ -21,7 +21,7 @@ class UserController extends Controller
             $updated = false;
             if (Hash::check($password, $user->password)){
                 $aux = \App\User::find($email);
-                if($aux != null){
+                if($aux == null){
                     $user->email = $email;
                     $updated = true;
                 }else{
