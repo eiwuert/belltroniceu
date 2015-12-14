@@ -138,9 +138,8 @@
                 </div>
             </div>
         </div>
-        
+        @if($user->isAdmin)
         <div class="row">
-
         <!-- USER PROFILE BLOCK -->
             <div class="col-lg-12">
           	    <div class="dash-unit">
@@ -149,32 +148,13 @@
     	      		<h3>Administra tus subdistribuidores.</h3>
         			<p style="margin-top:30px;padding-left:15px;padding-right:15px" align="justify">Modifica los nombres de tus subdistribuidores y dale click a guardar. Si quieres eliminar uno, solo debes darle click al boton que aparece al lado derecho.</p>
         			<hr>
-    	      		@if($user->isAdmin)
-    	      		    @foreach($distribuidores as $distribuidor)
-        	      		    <div>
-        	      		        <input class="orange_text" type="text" value="{{$distribuidor->name}}" style="width:200px;border:none;margin-top:0px"></input>
-        	      		        <a style="float:right;margin-right:50px"><i class="fa fa-times fa-2x"></i></a>
-    	      		        </div>
-    	      		        <hr style="margin-top:20px">
-    	      		        @foreach($subdistribuidores[$distribuidor->name] as $subdistribuidor)
-    	      		            <div class="flex_container">
-        	      		            <input type="text" style="margin-top:0px;width:200px;border:none" value="{{$subdistribuidor->nombre}}"></input>
-        	      		            <a style="margin-left:10px"><i class="fa fa-times fa-2x"></i></a>
-    	      		            </div>
-    	      		            <br>
-    	      		        @endforeach
-    	      		        <hr style="margin-top:0px">
-    	      		    @endforeach
-    	      		    <div style="text-align:center">
-        	      		    <button style="margin-bottom:20px;margin-top:10px" onClick="actualizar_subdistris()">Guardar</button>
-    	      		    </div>
-    	      		@else
+	      		    @foreach($distribuidores as $distribuidor)
     	      		    <div>
-    	      		        <input class="orange_text" type="text" value="{{$user->name}}" style="width:200px;border:none;margin-top:0px"></input>
+    	      		        <input class="orange_text" type="text" value="{{$distribuidor->name}}" style="width:200px;border:none;margin-top:0px"></input>
     	      		        <a style="float:right;margin-right:50px"><i class="fa fa-times fa-2x"></i></a>
 	      		        </div>
 	      		        <hr style="margin-top:20px">
-	      		        @foreach($subdistribuidores as $subdistribuidor)
+	      		        @foreach($subdistribuidores[$distribuidor->name] as $subdistribuidor)
 	      		            <div class="flex_container">
     	      		            <input type="text" style="margin-top:0px;width:200px;border:none" value="{{$subdistribuidor->nombre}}"></input>
     	      		            <a style="margin-left:10px"><i class="fa fa-times fa-2x"></i></a>
@@ -182,14 +162,14 @@
 	      		            <br>
 	      		        @endforeach
 	      		        <hr style="margin-top:0px">
-    	      		    <div style="text-align:center">
-        	      		    <button style="margin-bottom:20px;margin-top:10px" onClick="actualizar_subdistris()">Guardar</button>
-    	      		    </div>
-    	      		@endif
+	      		    @endforeach
+	      		    <div style="text-align:center">
+    	      		    <button style="margin-bottom:20px;margin-top:10px" onClick="actualizar_subdistris()">Guardar</button>
+	      		    </div>
                 </div>
             </div>
         </div>
-        
+        @endif
 	</div> <!-- /container -->
 	<div id="footerwrap">
       	<div class="container">
