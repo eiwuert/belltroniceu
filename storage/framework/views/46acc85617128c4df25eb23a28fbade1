@@ -302,6 +302,9 @@
                                 <input class="center white white_input"  disabled=true type="text" id = "plan_resultado" placeholder="Plan"></input>
                             </div>
                             <div class ="gray_dark" style="flex-grow:2" id="valor_container">
+                                <input class="center white white_input"  disabled=true type="text" id = "minutos_resultado" placeholder="Min"></input>
+                            </div>
+                            <div class ="gray_dark" style="flex-grow:2" id="valor_container">
                                 <input class="center white white_input"  disabled=true type="text" id = "valor_resultado" placeholder="Valor"></input>
                             </div>
                             <div class ="gray_dark" style="flex-grow:2" id="fecha_activacion_libre_container">

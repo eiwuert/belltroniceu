@@ -39,7 +39,21 @@ function buscarSim_libre(){
             if(data != ''){
                 $('#nit_resultado').html(data[0].NIT);
                 $('#nombre_empresa_resultado').val(data[0].nombre_empresa);
-                $('#plan_resultado').val('Plan: ' + data[0].plan);
+                var plan = data[0].plan;
+                $('#plan_resultado').val('Plan: ' + plan);
+                var minutos = '';
+                if(plan.indexOf("PM") != -1){
+                        minutos = '400 mins';
+                }else if(plan.indexOf("MM") != -1){
+                        minutos = '1015 mins';
+                }else if(plan.indexOf("1E") != -1){
+                        minutos = '1475 mins';
+                }else if(plan.indexOf("1I") != -1){
+                        minutos = '2050 mins';
+                }else{
+                        minutos = 'NA';
+                }
+                $('#minutos_resultado').val(minutos);
                 $('#valor_resultado').val('Valor: $' + data[0].valor);
                 $('#cod_scl_resultado').val('Scl: ' + data[0].cod_scl);
                 $('#cod_punto_resultado').val('Punto: ' + data[0].cod_punto);
