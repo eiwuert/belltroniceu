@@ -12,6 +12,7 @@ class FinanzasController extends Controller
     public function agregar(Request $request){
         $file = $request->file('image');
         if (($gestor = fopen($file, "r")) !== FALSE) {
+            fgetcsv($gestor, 1000, ",");
             while (($vars = fgetcsv($gestor, 1000, ",")) !== FALSE) {
                $numero = str_replace('"', '',$vars[12]);
                $periodo = str_replace('"', '',$vars[27]);
