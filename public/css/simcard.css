@@ -273,8 +273,8 @@ body{
 }
 
 /** IMAGES **/
-#miestado,#buscar{
-    background-image:url('/img/texture/handmadepaper.png');
+#miestado,#buscar,#empaquetar{
+    background-image:url('/img/texture/simcard.png');
 }
 #paquetes{
     background-image:url('/img/simcard/1.jpg');

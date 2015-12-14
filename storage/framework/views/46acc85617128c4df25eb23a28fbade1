@@ -87,6 +87,9 @@
                     </li>
                     <?php endif; ?>
                     <li>
+                        <a class="page-scroll" href="/settings"><span class="glyphicon glyphicon-cog"></span></a>
+                    </li>
+                    <li>
                         <a class="page-scroll" href="/auth/logout"><span class="glyphicon glyphicon-off"></span></a>
                     </li>
                 </ul>
