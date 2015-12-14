@@ -86,7 +86,7 @@
                     </li>
                     @if($user->isAdmin)
                     <li>
-                        <a class="page-scroll" onClick="subir_archivo()" href="#"><span class="glyphicon glyphicon-cloud-upload"></span></a>
+                        <a class="page-scroll" data-target="#modal_upload" data-toggle="modal" href="#modal_upload"><span class="glyphicon glyphicon-cloud-upload"></span></a>
                     </li>
                     @endif
                     <li>
@@ -113,10 +113,6 @@
         </div>
     </header>
 
-    <!-- CARGAR ARCHIVO -->
-    <div class="hiddenfile">
-      <input name="upload" type="file" accept=".csv" id="fileinput"/>
-    </div>
     <!-- BUSCAR SIMCARD   -->
     <section id="buscar">
         <div class="container ">
@@ -427,7 +423,7 @@
                         </optgroup>
                         @endforeach
                     </select>
-                    <button class="button button_assign" onClick="asignar_paquete()" style="height:42px;width:100px;margin:0 auto">Asignar</button>
+                    <button class="button" onClick="asignar_paquete()" style="height:42px;width:100px;margin:0 auto">Asignar</button>
                 </div>
             </div>
         </div>
@@ -484,6 +480,37 @@
     <div id="modal-loading" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-body">
             <a class="btn btn-danger loading" style = "width:100%;">Cargando información</a>
+        </div>
+    </div>
+    
+    <!-- CARGAR ARCHIVO -->
+    <div id="modal_upload" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3 id ="modal-tittle">Subir archivo Simcards</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Al presionar SUBIR se debe esperar que se recarge la página.</p>
+                    {!! Form::open(
+                    array(
+                        'route' => 'subirArchivoSimcards', 
+                        'class' => 'form', 
+                        'novalidate' => 'novalidate', 
+                        'files' => true)) !!}
+                    <input name="_token" hidden value="{!! csrf_token() !!}" />
+                    <div class="form-group">
+                        {!! Form::label('Product Image') !!}
+                        {!! Form::file('image', null) !!}
+                    </div>
+                    
+                    <div class="form-group">
+                        {!! Form::submit('Subir') !!}
+                    </div>
+                    {!! Form::close() !!}        
+                </div>
+            </div>
         </div>
     </div>
     <!-- jQuery -->

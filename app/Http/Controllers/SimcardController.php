@@ -10,51 +10,63 @@ use App\Http\Controllers\Controller;
 class SimcardController extends Controller
 {
     
-   public function agregar(Request $request){
-       if($request->ajax()){
-           try{
-               $today = new \DateTime('today');
-               $dato = $request['dato'];
-               $vars = explode(",",$dato);
-               $fecha_vencimiento = date_create_from_format("d/m/y",$vars[4]);
-                \App\Simcard::create([
-                     'numero' => $vars[0],
-                     'ICC' => $vars[1],
-                     'fecha_vencimiento' => $fecha_vencimiento,
-                     'fecha_activacion' =>  null,
-                     'nombreSubdistribuidor' => $vars[3],
-                     'tipo' => $vars[5],
-                     'paquete' => 0,
-                     'fecha_entrega' => $today
-                     ]);   
-                     return 1;
-           }catch(Exception $e){
-               return $e;
-           }
-       }
+    public function subirArchivo(Request $request){
+        $file = $request->file('image');
+        if (($gestor = fopen($file, "r")) !== FALSE) {
+            $opcion = fgetcsv($gestor, 1000, ",");
+            if($opcion == 'AGREGAR'){
+                while (($vars = fgetcsv($gestor, 1000, ",")) !== FALSE) {
+                    agregar($vars);
+                }
+            }else if($opcion == 'ACTIVAR'){
+                while (($vars = fgetcsv($gestor, 1000, ",")) !== FALSE) {
+                    activar($vars);
+                }
+            }
+            fclose($gestor);
+        }
+        return \Redirect::route('simcard'); 
+    }
+        
+   public function agregar($vars){
+       try{
+           $today = new \DateTime('today');
+           $dato = $request['dato'];
+           $vars = explode(",",$dato);
+           $fecha_vencimiento = date_create_from_format("d/m/y",$vars[4]);
+            \App\Simcard::create([
+                 'numero' => $vars[0],
+                 'ICC' => $vars[1],
+                 'fecha_vencimiento' => $fecha_vencimiento,
+                 'fecha_activacion' =>  null,
+                 'nombreSubdistribuidor' => $vars[3],
+                 'tipo' => $vars[5],
+                 'paquete' => 0,
+                 'fecha_entrega' => $today
+                 ]);   
+                 return 1;
+       }catch(Exception $e){
+           return $e;
+       }    
    }
-   public function activar(Request $request){
-       if($request->ajax()){
-           try{
-               $dato = $request['dato'];
-               $vars = explode(",",$dato);
-               $fecha_activacion = date_create_from_format("d/m/y",$vars[1]);
-               $simc = \DB::table('simcards')->where('numero', '=',$vars[0])->orwhere('ICC', '=',$vars[0])->first();
-               $sim = \App\Simcard::find($simc->ICC);
-               if($sim->tipo == 1){
-                    $fecha_vencimiento = date_add($fecha_activacion,date_interval_create_from_date_string("9 months"));
-               }else{
-                   $fecha_vencimiento = date_add($fecha_activacion,date_interval_create_from_date_string("12 months"));
-               }
-               $fecha_activacion = date_create_from_format("d/m/y",$vars[1]);
-               $sim->fecha_activacion = $fecha_activacion;
-               $sim->fecha_vencimiento = $fecha_vencimiento;
-               $sim->save();
-               return 1;
-           }catch(Exception $e){
-               return $e;
+   public function activar($vars){
+        try{
+           $fecha_activacion = date_create_from_format("d/m/y",$vars[1]);
+           $simc = \DB::table('simcards')->where('numero', '=',$vars[0])->orwhere('ICC', '=',$vars[0])->first();
+           $sim = \App\Simcard::find($simc->ICC);
+           if($sim->tipo == 1){
+                $fecha_vencimiento = date_add($fecha_activacion,date_interval_create_from_date_string("9 months"));
+           }else{
+               $fecha_vencimiento = date_add($fecha_activacion,date_interval_create_from_date_string("12 months"));
            }
-       }
+           $fecha_activacion = date_create_from_format("d/m/y",$vars[1]);
+           $sim->fecha_activacion = $fecha_activacion;
+           $sim->fecha_vencimiento = $fecha_vencimiento;
+           $sim->save();
+           return 1;
+        }catch(Exception $e){
+           return $e;
+        }
    }
    public function buscarSimcard(Request $request)
     {

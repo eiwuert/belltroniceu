@@ -17,7 +17,7 @@ Route::get('/prueba', function(){
 // VISTAS
 Route::get('', array('middleware' => 'auth', 'uses'=> 'FrontController@home'));
 Route::get('/home', array('middleware' => 'auth', 'uses'=> 'FrontController@home'));
-Route::get('/simcard', array('middleware' => 'auth', 'uses'=> 'FrontController@simcard'));
+Route::get('/simcard', array('middleware' => 'auth','as' => 'simcard', 'uses'=> 'FrontController@simcard'));
 Route::get('/settings', array('middleware' => 'auth','uses'=> 'FrontController@settings'));
 Route::get('/finanzas', array('middleware' => 'auth','as' => 'finanzas','uses'=> 'FrontController@finanzas'));
 
@@ -26,9 +26,8 @@ Route::get('finanzas/datos_subdistribuidor', array('middleware' => 'auth','uses'
 Route::post('finanzas/agregar', array('middleware' => 'auth','as' => 'agregarComisiones','uses'=> 'FinanzasController@agregar'));
 
 // ACCIONES SIMCARD
+Route::post('simcard/subirArchivo', array('middleware' => 'auth','as' => 'subirArchivoSimcards','uses'=> 'SimcardController@subirArchivo'));
 Route::get('simcard/asignarPaquete', array('middleware' => 'auth','uses'=> 'SimcardController@asignarPaquete'));
-Route::get('simcard/activar', array('middleware' => 'auth','uses'=> 'SimcardController@activar'));
-Route::get('simcard/agregar', array('middleware' => 'auth','uses'=> 'SimcardController@agregar'));
 Route::get('simcard/empaquetar', array('middleware' => 'auth','uses'=> 'SimcardController@empaquetar'));
 Route::get('simcard/buscar', array('middleware' => 'auth','uses'=> 'SimcardController@buscarSimcard'));
 Route::get('simcard/buscarLibre', array('middleware' => 'auth','uses'=> 'SimcardController@buscarSimcardLibre'));
