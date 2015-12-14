@@ -98,7 +98,7 @@
 
     <!-- Header -->
     <header>
-        <div class="container" style="background:rgba(20,20,20,0.4);width:100%">
+        <div class="container dark_cover">
             <div class="intro-text">
                 <div class="intro-lead-in">Bienvenido a tu portal</div>
                 <div class="intro-heading">Revisa tus simcards</div>
@@ -112,7 +112,7 @@
       <input name="upload" type="file" accept=".csv" id="fileinput"/>
     </div>
     <!-- BUSCAR SIMCARD   -->
-    <section id="buscar" style="background:#d3d3d3">
+    <section id="buscar">
         <div class="container ">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -208,31 +208,33 @@
     </section>
 
     <!-- SECCION PAQUETES -->
-    <section id="paquetes" class="bg-light-gray">
-        <div class="container">
-             <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Encuentra tus paquetes</h2>
-                    <h3 class="section-subheading text-muted">Ingresa el numero de telefono o de ICC y encontrarás todas las simcards del paquete a la que pertenezca. Puedes darle click a una simcard para obtener más información de ella.</h3>
+    <section id="paquetes" class ="parallax">
+        <div class="container dark_cover">
+            <div class="container">
+                 <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading orange_text">Encuentra tus paquetes</h2>
+                        <h3 class="section-subheading text-muted white" style="font-size:18px">Ingresa el numero de telefono o de ICC y encontrarás todas las simcards del paquete a la que pertenezca. Puedes darle click a una simcard para obtener más información de ella.</h3>
+                    </div>
                 </div>
-            </div>
-            <div class="principal-view-body-container">
-                <div class ="package_form_container">
-                    <input class="data_package" type="number" id = "datos_busqueda_paquete" placeholder="ICC / Tel"></input>
-                    <button class="button" onClick="buscarPaquete()" style="height:42px;width:10%;margin-right:20px">Buscar</button>
-                    <?php if($user->isAdmin): ?>
-                        <button class="button button_assign" onClick="$('#modal_seleccionar_subdistri').modal('show')" style="height:42px;width:10%">Asignar</button>
-                    <?php endif; ?>
-                </div>
-                <div class = "search_results_container" id ="container_simcards_paquete">
-                      
+                <div class="principal-view-body-container">
+                    <div class ="package_form_container">
+                        <input class="data_package white white_input" style="background:none;font-size:18px" type="number" id = "datos_busqueda_paquete" placeholder="ICC / Tel"></input>
+                        <button class="button" onClick="buscarPaquete()" style="height:42px;width:10%;margin-right:20px">Buscar</button>
+                        <?php if($user->isAdmin): ?>
+                            <button class="button button_assign" onClick="$('#modal_seleccionar_subdistri').modal('show')" style="height:42px;width:10%">Asignar</button>
+                        <?php endif; ?>
+                    </div>
+                    <div class = "search_results_container" id ="container_simcards_paquete">
+                          
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     
     <!-- SECCION MI ESTADO -->
-    <section id="miestado"  style="background:#d3d3d3">
+    <section id="miestado">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -271,57 +273,59 @@
     </section>
 
     <!-- SECCION LIBRES  -->
-    <section id="libres">
-        <div class="container ">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Planes Libres</h2>
-                    <h3 class="section-subheading text-muted">Ingresa un numero de celular de una simcard libre y encontrarás toda la información del cliente asociado a ella.
-                    </h3>
-                </div>
-            </div>
-            <div class="row text-center ">
-                <div class="col-md-4" style="display: inline-block;
-    vertical-align: middle;
-    float: none;">
-                    <div id="search_container" class = "search_container">
-                        <h3 class = "section_body_content white" style="margin-top:0">Busca una simcard</h3>
-                            <input class = "data" type="number" placeholder = "Teléfono" id = "dato_buscar_sim_libre" />
-                        <div style="margin:auto">
-                            <button class="button button_delete" style="margin-right:4%;width:45%" onClick="limpiar_campos_libre()">Limpiar</button>
-                            <button class = "button" style="width:45%" onClick = "buscarSim_libre()">Buscar</button>
-                        </div>
+    <section id="libres" class ="parallax">
+        <div class="container dark_cover" style="padding:50px 0">
+            <div class="container ">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading orange_text">Planes Libres</h2>
+                        <h3 class="section-subheading text-muted white" style="font-size:18px;margin-bottom:30px">Ingresa un numero de celular de una simcard libre y encontrarás toda la información del cliente asociado a ella.
+                        </h3>
                     </div>
                 </div>
-                <div class="col-md-7" style="display: inline-block;
-    vertical-align: middle;
-    float: none;">
-                    <div class = "search_results_container" style="margin-top:0">
-                        <div class ="gray" style="flex-grow:2" id="nit_container">
-                            <button class="center white white_input" id ="nit_resultado" onClick="$('#modal-cliente_libre').modal('show')" style="background:none;border:none;">NIT</button>
+                <div class="row text-center ">
+                    <div class="col-md-4" style="display: inline-block;
+        vertical-align: middle;
+        float: none;">
+                        <div id="search_container" class = "search_container orange">
+                            <h3 class = "section_body_content white" style="margin-top:0">Busca una simcard</h3>
+                                <input class = "data" type="number" placeholder = "Teléfono" id = "dato_buscar_sim_libre" />
+                            <div style="margin:auto">
+                                <button class="button button_delete" style="margin-right:4%;width:45%" onClick="limpiar_campos_libre()">Limpiar</button>
+                                <button class = "button" style="width:45%" onClick = "buscarSim_libre()">Buscar</button>
+                            </div>
                         </div>
-                        <div class ="gray" style="flex-grow:2" id="nombre_empresa_container">
-                            <input class="center white white_input" type="text" id = "nombre_empresa_resultado" placeholder="Empresa"></input>
+                    </div>
+                    <div class="col-md-7" style="display: inline-block;
+        vertical-align: middle;
+        float: none;">
+                        <div class = "search_results_container" style="margin-top:0">
+                            <div class ="orange" style="flex-grow:2" id="nit_container">
+                                <button class="center white white_input" id ="nit_resultado" onClick="$('#modal-cliente_libre').modal('show')" style="background:none;border:none;">NIT</button>
+                            </div>
+                            <div class ="orange" style="flex-grow:2" id="nombre_empresa_container">
+                                <input class="center white white_input" type="text" id = "nombre_empresa_resultado" placeholder="Empresa"></input>
+                            </div>
+                            <div class ="orange" style="flex-grow:2" id="plan_container">
+                                <input class="center white white_input" type="text" id = "plan_resultado" placeholder="Plan"></input>
+                            </div>
+                            <div class ="orange" style="flex-grow:2" id="valor_container">
+                                <input class="center white white_input" type="text" id = "valor_resultado" placeholder="Valor"></input>
+                            </div>
+                            <div class ="orange" style="flex-grow:2" id="fecha_activacion_libre_container">
+                                <p class ="white" style ="margin-top:5px;"> Activación </p>
+                                <input class="center white white_input" type="date" id = "fecha_activacion_libre_resultado"></input>
+                            </div>
+                            <div class ="orange" style="flex-grow:2" id="cod_scl_container">
+                                <input class="center white white_input" type="text" id = "cod_scl_resultado" placeholder="Cod scl"></input>
+                            </div>
+                            <div class ="orange" style="flex-grow:2" id="cod_punto_container">
+                                <input class="center white white_input" type="text" id = "cod_punto_resultado" placeholder="Cod Punto"></input>
+                            </div>
+                            <div class ="orange" style="flex-grow:2" id="direccion_container">
+                                <input class="center white white_input" type="text" id = "direccion_resultado" placeholder="Dirección"></input>
+                            </div style="align-self:flex-end">
                         </div>
-                        <div class ="gray" style="flex-grow:2" id="plan_container">
-                            <input class="center white white_input" type="text" id = "plan_resultado" placeholder="Plan"></input>
-                        </div>
-                        <div class ="gray" style="flex-grow:2" id="valor_container">
-                            <input class="center white white_input" type="text" id = "valor_resultado" placeholder="Valor"></input>
-                        </div>
-                        <div class ="gray" style="flex-grow:2" id="fecha_activacion_libre_container">
-                            <p class ="white" style ="margin-top:5px;"> Activación </p>
-                            <input class="center white white_input" type="date" id = "fecha_activacion_libre_resultado"></input>
-                        </div>
-                        <div class ="gray" style="flex-grow:2" id="cod_scl_container">
-                            <input class="center white white_input" type="text" id = "cod_scl_resultado" placeholder="Cod scl"></input>
-                        </div>
-                        <div class ="gray" style="flex-grow:2" id="cod_punto_container">
-                            <input class="center white white_input" type="text" id = "cod_punto_resultado" placeholder="Cod Punto"></input>
-                        </div>
-                        <div class ="gray" style="flex-grow:2" id="direccion_container">
-                            <input class="center white white_input" type="text" id = "direccion_resultado" placeholder="Dirección"></input>
-                        </div style="align-self:flex-end">
                     </div>
                 </div>
             </div>
@@ -331,7 +335,7 @@
     
     <!-- SECCION EMPAQUETADO  -->
     <?php if($user->isAdmin): ?>
-        <section id="empaquetar" style="background:#d3d3d3">
+        <section id="empaquetar">
             <div class="container ">
                 <div class="row">
                     <div class="col-lg-12 text-center">

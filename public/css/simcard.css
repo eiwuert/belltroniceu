@@ -117,12 +117,13 @@ body{
 }
 
 .button_assign{
-    background:#FFF;
+    background:none;
     min-width:100px;
-    border: 2px solid #003366;
-    color:#003366;
+    border: 1px solid #FFF;
+    color:#FFF;
 }
 .button_assign:hover{
+    border: 2px solid #003366;
     background:#003366;
     color:#FFF;
 }
@@ -275,4 +276,28 @@ body{
   position: relative;
   top: 50%;
   left:42%;
+}
+
+/** IMAGES **/
+
+#paquetes{
+    background-image:url('/img/simcard/1.jpg');
+}
+
+#libres{
+    background-image:url('/img/simcard/2.jpg');
+}
+
+.parallax{
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-attachment:fixed;
+    padding:0;
+}
+
+.dark_cover{
+    background:rgba(20,20,20,0.4);
+    width:100%;
+    padding:100px 0;
 }

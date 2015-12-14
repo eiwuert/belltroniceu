@@ -1,3 +1,7 @@
+.orange{
+    background-color:rgba(209, 202, 176,.7);
+}
+
 .blue{
     background-color:#85C1F5;
 }
@@ -33,6 +37,10 @@
     color: #FFF;
 }
 
+.black{
+    color: #000;
+}
+
 .white_input::-webkit-input-placeholder {
    color: #FFF;
 }
@@ -56,4 +64,8 @@
 
 .blue_strong_text{
     color:#003366;
+}
+
+.blue_semiStrong_text{
+    color:#336699;
 }

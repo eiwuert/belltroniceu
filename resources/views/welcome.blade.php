@@ -1,625 +1,814 @@
-<!doctype html>
-<html><head>
-    <meta charset="utf-8">
-    <title>BLOCKS - Bootstrap Dashboard Theme</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Carlos Alvarez - Alvarez.is">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Oxygen - One Page HTML Template | Themeum</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/animate.min.css" rel="stylesheet"> 
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/lightbox.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <link id="css-preset" href="css/presets/preset1.css" rel="stylesheet">
+  <link href="css/responsive.css" rel="stylesheet">
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="css/settings/settings.css" rel="stylesheet">
-    <link href="css/settings/font-style.css" rel="stylesheet">
-    
-    <script type="text/javascript" src="/js/jquery.js"></script>    
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript" src="js/settings/admin.js"></script>
-	
-	<!-- You can add more layouts if you want -->
-	<script type="text/javascript" src="js/noty/themes/default.js"></script>
-    <!-- <script type="text/javascript" src="assets/js/dash-noty.js"></script> This is a Noty bubble when you init the theme-->
-	<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
-	<script src="js/jquery.flexslider.js" type="text/javascript"></script>
-
-    <script type="text/javascript" src="js/admin.js"></script>
-      
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-      }
-    </style>
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-   
-
-  	<!-- Google Fonts call. Font Used Open Sans & Raleway -->
-	<link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
-  	<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        $("#btn-blog-next").click(function () {
-            $('#blogCarousel').carousel('next')
-        });
-        $("#btn-blog-prev").click(function () {
-            $('#blogCarousel').carousel('prev')
-        });
-
-        $("#btn-client-next").click(function () {
-            $('#clientCarousel').carousel('next')
-        });
-        $("#btn-client-prev").click(function () {
-            $('#clientCarousel').carousel('prev')
-        });
-
-    });
-
-    $(window).load(function () {
-
-        $('.flexslider').flexslider({
-            animation: "slide",
-            slideshow: true,
-            start: function (slider) {
-                $('body').removeClass('loading');
-            }
-        });
-    });
-
-</script>    
-  </head>
-  <body>
+  <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+  <![endif]-->
   
-  	<!-- NAVIGATION MENU -->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+  <link rel="shortcut icon" href="images/favicon.ico">
+</head><!--/head-->
 
-    <div class="navbar-nav navbar-inverse navbar-fixed-top">
-        <div class="container">
+<body>
+
+  <!--.preloader-->
+  <div class="preloader"> <i class="fa fa-circle-o-notch fa-spin"></i></div>
+  <!--/.preloader-->
+
+  <header id="home">
+    <div id="home-slider" class="carousel slide carousel-fade" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="item active" style="background-image: url(images/slider/1.jpg)">
+          <div class="caption">
+            <h1 class="animated fadeInLeftBig">Welcome to <span>Oxygen</span></h1>
+            <p class="animated fadeInRightBig">Bootstrap - Responsive Design - Retina Ready - Parallax</p>
+            <a data-scroll class="btn btn-start animated fadeInUpBig" href="#services">Start now</a>
+          </div>
+        </div>
+        <div class="item" style="background-image: url(images/slider/2.jpg)">
+          <div class="caption">
+            <h1 class="animated fadeInLeftBig">Say Hello to <span>Oxygen</span></h1>
+            <p class="animated fadeInRightBig">Bootstrap - Responsive Design - Retina Ready - Parallax</p>
+            <a data-scroll class="btn btn-start animated fadeInUpBig" href="#services">Start now</a>
+          </div>
+        </div>
+        <div class="item" style="background-image: url(images/slider/3.jpg)">
+          <div class="caption">
+            <h1 class="animated fadeInLeftBig">We are <span>Creative</span></h1>
+            <p class="animated fadeInRightBig">Bootstrap - Responsive Design - Retina Ready - Parallax</p>
+            <a data-scroll class="btn btn-start animated fadeInUpBig" href="#services">Start now</a>
+          </div>
+        </div>
+      </div>
+      <a class="left-control" href="#home-slider" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+      <a class="right-control" href="#home-slider" data-slide="next"><i class="fa fa-angle-right"></i></a>
+
+      <a id="tohash" href="#services"><i class="fa fa-angle-down"></i></a>
+
+    </div><!--/#home-slider-->
+    <div class="main-nav">
+      <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html"><img src="images/logo30.png" alt=""> BLOCKS Dashboard</a>
-        </div> 
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="index.html"><i class="icon-home icon-white"></i> Home</a></li>                            
-              <li><a href="tables.html"><i class="icon-th icon-white"></i> Tables</a></li>
-              <li><a href="login.html"><i class="icon-lock icon-white"></i> Login</a></li>
-              <li><a href="user.html"><i class="icon-user icon-white"></i> User</a></li>
-
-            </ul>
-          </div><!--/.nav-collapse -->
+          <a class="navbar-brand" href="index.html">
+            <h1><img class="img-responsive" src="images/logo.png" alt="logo"></h1>
+          </a>                    
         </div>
-    </div>
-
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">                 
+            <li class="scroll active"><a href="#home">Home</a></li>
+            <li class="scroll"><a href="#services">Service</a></li> 
+            <li class="scroll"><a href="#about-us">About Us</a></li>                     
+            <li class="scroll"><a href="#portfolio">Portfolio</a></li>
+            <li class="scroll"><a href="#team">Team</a></li>
+            <li class="scroll"><a href="#blog">Blog</a></li>
+            <li class="scroll"><a href="#contact">Contact</a></li>       
+          </ul>
+        </div>
+      </div>
+    </div><!--/#main-nav-->
+  </header><!--/#home-->
+  <section id="services">
     <div class="container">
-
-	  <!-- FIRST ROW OF BLOCKS -->     
-      <div class="row">
-
-      <!-- USER PROFILE BLOCK -->
-        <div class="col-sm-3 col-lg-3">
-      		<div class="dash-unit">
-	      		<dtitle>User Profile</dtitle>
-	      		<hr>
-				<div class="thumbnail">
-					<img src="images/face80x80.jpg" alt="Marcel Newman" class="img-circle">
-				</div><!-- /thumbnail -->
-				<h1>Marcel Newman</h1>
-				<h3>Madrid, Spain</h3>
-				<br>
-					<div class="info-user">
-						<span aria-hidden="true" class="li_user fs1"></span>
-						<span aria-hidden="true" class="li_settings fs1"></span>
-						<span aria-hidden="true" class="li_mail fs1"></span>
-						<span aria-hidden="true" class="li_key fs1"></span>
-					</div>
-				</div>
-        </div>
-
-      <!-- DONUT CHART BLOCK -->
-        <div class="col-sm-3 col-lg-3">
-      		<div class="dash-unit">
-		  		<dtitle>Site Bandwidth</dtitle>
-		  		<hr>
-	        	<div id="load"></div>
-	        	<h2>45%</h2>
-			</div>
-        </div>
-
-      <!-- DONUT CHART BLOCK -->
-        <div class="col-sm-3 col-lg-3">
-      		<div class="dash-unit">
-		  		<dtitle>Disk Space</dtitle>
-		  		<hr>
-	        	<div id="space"></div>
-	        	<h2>65%</h2>
-			</div>
-        </div>
-        
-        <div class="col-sm-3 col-lg-3">
-
-      <!-- LOCAL TIME BLOCK -->
-      		<div class="half-unit">
-	      		<dtitle>Local Time</dtitle>
-	      		<hr>
-		      		<div class="clockcenter">
-			      		<digiclock>12:45:25</digiclock>
-		      		</div>
-			</div>
-
-      <!-- SERVER UPTIME -->
-			<div class="half-unit">
-	      		<dtitle>Server Uptime</dtitle>
-	      		<hr>
-	      		<div class="cont">
-					<p><img src="images/up.png" alt=""> <bold>Up</bold> | 356ms.</p>
-				</div>
-			</div>
-
-        </div>
-      </div><!-- /row -->
-      
-      
-	  <!-- SECOND ROW OF BLOCKS -->     
-      <div class="row">
-        <div class="col-sm-3 col-lg-3">
-       <!-- MAIL BLOCK -->
-      		<div class="dash-unit">
-      		<dtitle>Inbox (1)</dtitle>
-      		<hr>
-      		<div class="framemail">
-    			<div class="window">
-			        <ul class="mail">
-			            <li>
-			                <i class="unread"></i>
-			                <img class="avatar" src="images/photo01.jpeg" alt="avatar">
-			                <p class="sender">Adam W.</p>
-			                <p class="message"><strong>Working</strong> - This is the last...</p>
-			                <div class="actions">
-			                    <a><img src="http://png-1.findicons.com/files//icons/2232/wireframe_mono/16/undo.png" alt="reply"></a>
-			                    <a><img src="http://png-1.findicons.com/files//icons/2232/wireframe_mono/16/star_fav.png" alt="favourite"></a>
-			                    <a><img src="http://png-4.findicons.com/files//icons/2232/wireframe_mono/16/tag.png" alt="label"></a>
-			                    <a><img src="http://png-4.findicons.com/files//icons/2232/wireframe_mono/16/trash.png" alt="delete"></a>
-			                </div>
-			            </li>
-			            <li>
-			                <i class="read"></i>
-			                <img class="avatar" src="images/photo02.jpg" alt="avatar">
-			                <p class="sender">Dan E.</p>
-			                <p class="message"><strong>Hey man!</strong> - You have to taste ...</p>
-			                <div class="actions">
-			                    <a><img src="http://png-1.findicons.com/files//icons/2232/wireframe_mono/16/undo.png" alt="reply"></a>
-			                    <a><img src="http://png-1.findicons.com/files//icons/2232/wireframe_mono/16/star_fav.png" alt="favourite"></a>
-			                    <a><img src="http://png-4.findicons.com/files//icons/2232/wireframe_mono/16/tag.png" alt="label"></a>
-			                    <a><img src="http://png-4.findicons.com/files//icons/2232/wireframe_mono/16/trash.png" alt="delete"></a>
-			                </div>
-			            </li>
-			            <li>
-			                <i class="read"></i>
-			                <img class="avatar" src="images/photo03.jpg" alt="avatar">
-			                <p class="sender">Leonard N.</p>
-			                <p class="message"><strong>New Mac :D</strong> - So happy with ...</p>
-			                <div class="actions">
-			                    <a><img src="http://png-1.findicons.com/files//icons/2232/wireframe_mono/16/undo.png" alt="reply"></a>
-			                    <a><img src="http://png-1.findicons.com/files//icons/2232/wireframe_mono/16/star_fav.png" alt="favourite"></a>
-			                    <a><img src="http://png-4.findicons.com/files//icons/2232/wireframe_mono/16/tag.png" alt="label"></a>
-			                    <a><img src="http://png-4.findicons.com/files//icons/2232/wireframe_mono/16/trash.png" alt="delete"></a>
-			                </div>
-			            </li>
-			            <li>
-			                <i class="read"></i>
-			                <img class="avatar" src="images/photo04.jpg" alt="avatar">
-			                <p class="sender">Peter B.</p>
-			                <p class="message"><strong>Thank you</strong> - Finally I can ...</p>
-			                <div class="actions">
-			                    <a><img src="http://png-1.findicons.com/files//icons/2232/wireframe_mono/16/undo.png" alt="reply"></a>
-			                    <a><img src="http://png-1.findicons.com/files//icons/2232/wireframe_mono/16/star_fav.png" alt="favourite"></a>
-			                    <a><img src="http://png-4.findicons.com/files//icons/2232/wireframe_mono/16/tag.png" alt="label"></a>
-			                    <a><img src="http://png-4.findicons.com/files//icons/2232/wireframe_mono/16/trash.png" alt="delete"></a>
-			                </div>
-			            </li>
-			        </ul>
-    			</div>
-			</div>
-		</div><!-- /dash-unit -->
-    </div><!-- /span3 -->
-
-	  <!-- GRAPH CHART - lineandbars.js file -->     
-        <div class="col-sm-3 col-lg-3">
-      		<div class="dash-unit">
-      		<dtitle>Other Information</dtitle>
-      		<hr>
-			    <div class="section-graph">
-			      <div id="importantchart"></div>
-			      <br>
-			      <div class="graph-info">
-			        <i class="graph-arrow"></i>
-			        <span class="graph-info-big">634.39</span>
-			        <span class="graph-info-small">+2.18 (3.71%)</span>
-			      </div>
-			    </div>
-			</div>
-        </div>
-
-	  <!-- LAST MONTH REVENUE -->     
-        <div class="col-sm-3 col-lg-3">
-      		<div class="dash-unit">
-	      		<dtitle>Last Month Revenue</dtitle>
-	      		<hr>
-	      		<div class="cont">
-					<p><bold>$879</bold> | <ok>Approved</ok></p>
-					<br>
-					<p><bold>$377</bold> | Pending</p>
-					<br>
-					<p><bold>$156</bold> | <bad>Denied</bad></p>
-					<br>
-					<p><img src="images/up-small.png" alt=""> 12% Compared Last Month</p>
-
-				</div>
-
-			</div>
-        </div>
-        
-	  <!-- 30 DAYS STATS - CAROUSEL FLEXSLIDER -->     
-        <div class="col-sm-3 col-lg-3">
-      		<div class="dash-unit">
-	      		<dtitle>Last 30 Days Stats</dtitle>
-	      		<hr>
-	      		<br>
-	      		<br>
-	            <div class="flexslider">
-					<ul class="slides">
-						<li><img src="images/slide01.png" alt="slider"></li>
-						<li><img src="images/slide02.png" alt="slider"></li>
-					</ul>
+      <div class="heading wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+        <div class="row">
+          <div class="text-center col-sm-8 col-sm-offset-2">
+            <h2>Our Services</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam</p>
+          </div>
+        </div> 
+      </div>
+      <div class="text-center our-services">
+        <div class="row">
+          <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <div class="service-icon">
+              <i class="fa fa-flask"></i>
             </div>
-				<div class="cont">
-					<p>StatCounter Information</p>
-				</div>   
-			</div>
+            <div class="service-info">
+              <h3>Brand Identity</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+            </div>
+          </div>
+          <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="450ms">
+            <div class="service-icon">
+              <i class="fa fa-umbrella"></i>
+            </div>
+            <div class="service-info">
+              <h3>Creative Idea</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+            </div>
+          </div>
+          <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="550ms">
+            <div class="service-icon">
+              <i class="fa fa-cloud"></i>
+            </div>
+            <div class="service-info">
+              <h3>Awesome Support</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+            </div>
+          </div>
+          <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="650ms">
+            <div class="service-icon">
+              <i class="fa fa-coffee"></i>
+            </div>
+            <div class="service-info">
+              <h3>Professional Design</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+            </div>
+          </div>
+          <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="750ms">
+            <div class="service-icon">
+              <i class="fa fa-bitbucket"></i>
+            </div>
+            <div class="service-info">
+              <h3>App Development</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+            </div>
+          </div>
+          <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="850ms">
+            <div class="service-icon">
+              <i class="fa fa-gift"></i>
+            </div>
+            <div class="service-info">
+              <h3>Clean Code</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+            </div>
+          </div>
         </div>
-      </div><!-- /row -->
-     
- 
-	  <!-- THIRD ROW OF BLOCKS -->     
+      </div>
+    </div>
+  </section><!--/#services-->
+  <section id="about-us" class="parallax">
+    <div class="container">
       <div class="row">
-      	<div class="col-sm-3 col-lg-3">
-	  
-	  <!-- BARS CHART - lineandbars.js file -->     
-      		<div class="half-unit">
-	      		<dtitle>Stock Information</dtitle>
-	      		<hr>
-	      		<div class="cont">
-	      		 <div class="info-aapl">
-			        <h4>AAPL</h4>
-			        <ul>
-			          <li><span class="orange" style="height: 37.5%"></span></li>
-			          <li><span class="orange" style="height: 47.5%"></span></li>
-			          <li><span class="orange" style="height: 70%"></span></li>
-			          <li><span class="orange" style="height: 85%"></span></li>
-			          <li><span class="green" style="height: 75%"></span></li>
-			          <li><span class="green" style="height: 50%"></span></li>
-			          <li><span class="green" style="height: 15%"></span></li>
-			        </ul>
-			      </div>
-			      </div>
-      		</div>
+        <div class="col-sm-6">
+          <div class="about-info wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <h2>About us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.Ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="our-skills wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <div class="single-skill wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+              <p class="lead">User Experiances</p>
+              <div class="progress">
+                <div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar"  aria-valuetransitiongoal="95">95%</div>
+              </div>
+            </div>
+            <div class="single-skill wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="400ms">
+              <p class="lead">Web Design</p>
+              <div class="progress">
+                <div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar"  aria-valuetransitiongoal="75">75%</div>
+              </div>
+            </div>
+            <div class="single-skill wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="500ms">
+              <p class="lead">Programming</p>
+              <div class="progress">
+                <div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar"  aria-valuetransitiongoal="60">60%</div>
+              </div>
+            </div>
+            <div class="single-skill wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+              <p class="lead">Fun</p>
+              <div class="progress">
+                <div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar"  aria-valuetransitiongoal="85">85%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!--/#about-us-->
 
-	  <!-- TO DO LIST -->     
-      		<div class="half-unit">
-	      		<dtitle>To Do List</dtitle>
-	      		<hr>
-	      		<div class="cont">
-					<p><bold>13</bold> | Pending Tasks</p>
-				</div>
-		             <div class="progress">
-				        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%;"><span class="sr-only">60% Complete</span>
-					        
-				        </div>
-				     </div>
-      		</div>
-      	</div>
+  <section id="portfolio">
+    <div class="container">
+      <div class="row">
+        <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+          <h2>Our Portfolio</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam</p>
+        </div>
+      </div> 
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="folio-item wow fadeInRightBig" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <div class="folio-image">
+              <img class="img-responsive" src="images/portfolio/1.jpg" alt="">
+            </div>
+            <div class="overlay">
+              <div class="overlay-content">
+                <div class="overlay-text">
+                  <div class="folio-info">
+                    <h3>Time Hours</h3>
+                    <p>Design, Photography</p>
+                  </div>
+                  <div class="folio-overview">
+                    <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" ><i class="fa fa-link"></i></a></span>
+                    <span class="folio-expand"><a href="images/portfolio/portfolio-details.jpg" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="folio-item wow fadeInLeftBig" data-wow-duration="1000ms" data-wow-delay="400ms">
+            <div class="folio-image">
+              <img class="img-responsive" src="images/portfolio/2.jpg" alt="">
+            </div>
+            <div class="overlay">
+              <div class="overlay-content">
+                <div class="overlay-text">
+                  <div class="folio-info">
+                    <h3>Time Hours</h3>
+                    <p>Design, Photography</p>
+                  </div>
+                  <div class="folio-overview">
+                    <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" ><i class="fa fa-link"></i></a></span>
+                    <span class="folio-expand"><a href="images/portfolio/portfolio-details.jpg" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="folio-item wow fadeInRightBig" data-wow-duration="1000ms" data-wow-delay="500ms">
+            <div class="folio-image">
+              <img class="img-responsive" src="images/portfolio/3.jpg" alt="">
+            </div>
+            <div class="overlay">
+              <div class="overlay-content">
+                <div class="overlay-text">
+                  <div class="folio-info">
+                    <h3>Time Hours</h3>
+                    <p>Design, Photography</p>
+                  </div>
+                  <div class="folio-overview">
+                    <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" ><i class="fa fa-link"></i></a></span>
+                    <span class="folio-expand"><a href="images/portfolio/portfolio-details.jpg" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="folio-item wow fadeInLeftBig" data-wow-duration="1000ms" data-wow-delay="600ms">
+            <div class="folio-image">
+              <img class="img-responsive" src="images/portfolio/4.jpg" alt="">
+            </div>
+            <div class="overlay">
+              <div class="overlay-content">
+                <div class="overlay-text">
+                  <div class="folio-info">
+                    <h3>Time Hours</h3>
+                    <p>Design, Photography</p>
+                  </div>
+                  <div class="folio-overview">
+                    <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" ><i class="fa fa-link"></i></a></span>
+                    <span class="folio-expand"><a href="images/portfolio/portfolio-details.jpg" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="folio-item wow fadeInRightBig" data-wow-duration="1000ms" data-wow-delay="700ms">
+            <div class="folio-image">
+              <img class="img-responsive" src="images/portfolio/5.jpg" alt="">
+            </div>
+            <div class="overlay">
+              <div class="overlay-content">
+                <div class="overlay-text">
+                  <div class="folio-info">
+                    <h3>Time Hours</h3>
+                    <p>Design, Photography</p>
+                  </div>
+                  <div class="folio-overview">
+                    <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" ><i class="fa fa-link"></i></a></span>
+                    <span class="folio-expand"><a href="images/portfolio/portfolio-details.jpg" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="folio-item wow fadeInLeftBig" data-wow-duration="1000ms" data-wow-delay="800ms">
+            <div class="folio-image">
+              <img class="img-responsive" src="images/portfolio/6.jpg" alt="">
+            </div>
+            <div class="overlay">
+              <div class="overlay-content">
+                <div class="overlay-text">
+                  <div class="folio-info">
+                    <h3>Time Hours</h3>
+                    <p>Design, Photography</p>
+                  </div>
+                  <div class="folio-overview">
+                    <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" ><i class="fa fa-link"></i></a></span>
+                    <span class="folio-expand"><a href="images/portfolio/portfolio-details.jpg" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="folio-item wow fadeInRightBig" data-wow-duration="1000ms" data-wow-delay="900ms">
+            <div class="folio-image">
+              <img class="img-responsive" src="images/portfolio/7.jpg" alt="">
+            </div>
+            <div class="overlay">
+              <div class="overlay-content">
+                <div class="overlay-text">
+                  <div class="folio-info">
+                    <h3>Time Hours</h3>
+                    <p>Design, Photography</p>
+                  </div>
+                  <div class="folio-overview">
+                    <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" ><i class="fa fa-link"></i></a></span>
+                    <span class="folio-expand"><a href="images/portfolio/portfolio-details.jpg" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="folio-item wow fadeInLeftBig" data-wow-duration="1000ms" data-wow-delay="1000ms">
+            <div class="folio-image">
+              <img class="img-responsive" src="images/portfolio/8.jpg" alt="">
+            </div>
+            <div class="overlay">
+              <div class="overlay-content">
+                <div class="overlay-text">
+                  <div class="folio-info">
+                    <h3>Time Hours</h3>
+                    <p>Design, Photography</p>
+                  </div>
+                  <div class="folio-overview">
+                    <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" ><i class="fa fa-link"></i></a></span>
+                    <span class="folio-expand"><a href="images/portfolio/portfolio-details.jpg" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="portfolio-single-wrap">
+      <div id="portfolio-single">
+      </div>
+    </div><!-- /#portfolio-single-wrap -->
+  </section><!--/#portfolio-->
 
-      	<div class="col-sm-3 col-lg-3">
+  <section id="team">
+    <div class="container">
+      <div class="row">
+        <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1200ms" data-wow-delay="300ms">
+          <h2>The Team</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam</p>
+        </div>
+      </div>
+      <div class="team-members">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="team-member wow flipInY" data-wow-duration="1000ms" data-wow-delay="300ms">
+              <div class="member-image">
+                <img class="img-responsive" src="images/team/1.jpg" alt="">
+              </div>
+              <div class="member-info">
+                <h3>Marian Dixon</h3>
+                <h4>CEO &amp; Founder</h4>
+                <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt</p>
+              </div>
+              <div class="social-icons">
+                <ul>
+                  <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                  <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                  <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                  <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                  <li><a class="rss" href="#"><i class="fa fa-rss"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="team-member wow flipInY" data-wow-duration="1000ms" data-wow-delay="500ms">
+              <div class="member-image">
+                <img class="img-responsive" src="images/team/2.jpg" alt="">
+              </div>
+              <div class="member-info">
+                <h3>Lawrence Lane</h3>
+                <h4>UI/UX Designer</h4>
+                <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt</p>
+              </div>
+              <div class="social-icons">
+                <ul>
+                  <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                  <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                  <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                  <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                  <li><a class="rss" href="#"><i class="fa fa-rss"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="team-member wow flipInY" data-wow-duration="1000ms" data-wow-delay="800ms">
+              <div class="member-image">
+                <img class="img-responsive" src="images/team/3.jpg" alt="">
+              </div>
+              <div class="member-info">
+                <h3>Lois Clark</h3>
+                <h4>Developer</h4>
+                <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt</p>
+              </div>
+              <div class="social-icons">
+                <ul>
+                  <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                  <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                  <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                  <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                  <li><a class="rss" href="#"><i class="fa fa-rss"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="team-member wow flipInY" data-wow-duration="1000ms" data-wow-delay="1100ms">
+              <div class="member-image">
+                <img class="img-responsive" src="images/team/4.jpg" alt="">
+              </div>
+              <div class="member-info">
+                <h3>Marian Dixon</h3>
+                <h4>Support Manager</h4>
+                <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt</p>
+              </div>
+              <div class="social-icons">
+                <ul>
+                  <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                  <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                  <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                  <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                  <li><a class="rss" href="#"><i class="fa fa-rss"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>            
+    </div>
+  </section><!--/#team-->
 
-	  <!-- LIVE VISITORS BLOCK -->     
-      		<div class="half-unit">
-	      		<dtitle>Live Visitors</dtitle>
-	      		<hr>
-	      		<div class="cont">
-      			<p><bold>388</bold></p>
-      			<p><img src="images/up-small.png" alt=""> 412 Max. | <img src="images/down-small.png" alt=""> 89 Min.</p>
-	      		</div>
-      		</div>
-      		
-	  <!-- PAGE VIEWS BLOCK -->     
-      		<div class="half-unit">
-	      		<dtitle>Page Views</dtitle>
-	      		<hr>
-	      		<div class="cont">
-      			<p><bold>145.0K</bold></p>
-      			<p><img src="images/up-small.png" alt=""> 23.88%</p>
-	      		</div>
-      		</div>
-      	</div>
+  <section id="features" class="parallax">
+    <div class="container">
+      <div class="row count">
+        <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="300ms">
+          <i class="fa fa-user"></i>
+          <h3 class="timer">4000</h3>
+          <p>Happy Clients</p>
+        </div>
+        <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="500ms">
+          <i class="fa fa-desktop"></i>
+          <h3 class="timer">200</h3>                    
+          <p>Modern Websites</p>
+        </div> 
+        <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="700ms">
+          <i class="fa fa-trophy"></i>
+          <h3 class="timer">10</h3>                    
+          <p>WINNING AWARDS</p>
+        </div> 
+        <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="900ms">
+          <i class="fa fa-comment-o"></i>                    
+          <h3>24/7</h3>
+          <p>Fast Support</p>
+        </div>                 
+      </div>
+    </div>
+  </section><!--/#features-->
 
-      	<div class="col-sm-3 col-lg-3">
-	  <!-- TOTAL SUBSCRIBERS BLOCK -->     
-      		<div class="half-unit">
-	      		<dtitle>Total Subscribers</dtitle>
-	      		<hr>
-	      		<div class="cont">
-      			<p><bold>14.744</bold></p>
-      			<p>98 Subscribed Today</p>
-	      		</div>
-      		</div>
-      		
-	  <!-- FOLLOWERS BLOCK -->     
-      		<div class="half-unit">
-	      		<dtitle>Twitter Followers</dtitle>
-	      		<hr>
-	      		<div class="cont">
-      			<p><bold>17.833 Followers</bold></p>
-      			<p>SomeUser</p>
-	      		</div>
-      		</div>
-      	</div>
+  <section id="pricing">
+    <div class="container">
+      <div class="row">
+        <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1200ms" data-wow-delay="300ms">
+          <h2>Pricing Table</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam</p>
+        </div>
+      </div>
+      <div class="pricing-table">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="single-table wow flipInY" data-wow-duration="1000ms" data-wow-delay="300ms">
+              <h3>Basic</h3>
+              <div class="price">
+                $9<span>/Month</span>                          
+              </div>
+              <ul>
+                <li>Free Setup</li>
+                <li>10GB Storage</li>
+                <li>100GB Bandwith</li>
+                <li>5 Products</li>
+              </ul>
+              <a href="#" class="btn btn-lg btn-primary">Sign up</a>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="single-table wow flipInY" data-wow-duration="1000ms" data-wow-delay="500ms">
+              <h3>Standard</h3>
+              <div class="price">
+                $19<span>/Month</span>                                
+              </div>
+              <ul>
+                <li>Free Setup</li>
+                <li>10GB Storage</li>
+                <li>100GB Bandwith</li>
+                <li>5 Products</li>
+              </ul>
+              <a href="#" class="btn btn-lg btn-primary">Sign up</a>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="single-table featured wow flipInY" data-wow-duration="1000ms" data-wow-delay="800ms">
+              <h3>Featured</h3>
+              <div class="price">
+                $29<span>/Month</span>                                
+              </div>
+              <ul>
+                <li>Free Setup</li>
+                <li>10GB Storage</li>
+                <li>100GB Bandwith</li>
+                <li>5 Products</li>
+              </ul>
+              <a href="#" class="btn btn-lg btn-primary">Sign up</a>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="single-table wow flipInY" data-wow-duration="1000ms" data-wow-delay="1100ms">
+              <h3>Professional</h3>
+              <div class="price">
+                $49<span>/Month</span>                    
+              </div>
+              <ul>
+                <li>Free Setup</li>
+                <li>10GB Storage</li>
+                <li>100GB Bandwith</li>
+                <li>5 Products</li>
+              </ul>
+              <a href="#" class="btn btn-lg btn-primary">Sign up</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!--/#pricing-->
 
-	  <!-- LATEST NEWS BLOCK -->     
-      	<div class="col-sm-3 col-lg-3">
-      		<div class="dash-unit">
-	      		<dtitle>Latest News</dtitle>
-	      		<hr>
-				<div class="info-user">
-					<span aria-hidden="true" class="li_news fs2"></span>
-				</div>
-				<br>
-      			<div class="text">
-      				<p><b>Alvarez.is:</b> A beautiful new Dashboard theme has been realised by Carlos Alvarez. Please, visit <a href="http://alvarez.is">Alvarez.is</a> for more details.</p>
-      				<p><grey>Last Update: 5 minutes ago.</grey></p>
-      			</div>
-      		</div>
-      	</div>
-      </div><!-- /row -->
-      
-	  <!-- FOURTH ROW OF BLOCKS -->     
-	<div class="row">
-	
-	  <!-- TWITTER WIDGET BLOCK -->     
-		<div class="col-sm-3 col-lg-3">
-			<div class="dash-unit">
-	      		<dtitle>Twitter Widget</dtitle>
-	      		<hr>
-				<div class="info-user">
-					<span aria-hidden="true" class="li_megaphone fs2"></span>
-				</div>
-				<br>
-		 		<div id="jstwitter" class="clearfix">
-					<ul id="twitter_update_list"></ul>
-				</div>
-				<script src="http://twitter.com/javascripts/blogger.js"></script><!-- Script Needed to load the Tweets -->
-				<script src="http://api.twitter.com/1/statuses/user_timeline/wrapbootstrap.json?callback=twitterCallback2&amp;count=1"></script>
-				<!-- To show your tweets replace "wrapbootstrap", in the line above, with your user. -->
-				<div class="text">
-				<p><grey>Show your tweets here!</grey></p>
-				</div>
-			</div>
-		</div>
+  <section id="twitter" class="parallax">
+    <div>
+      <a class="twitter-left-control" href="#twitter-carousel" role="button" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+      <a class="twitter-right-control" href="#twitter-carousel" role="button" data-slide="next"><i class="fa fa-angle-right"></i></a>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+            <div class="twitter-icon text-center">
+              <i class="fa fa-twitter"></i>
+              <h4>Themeum</h4>
+            </div>
+            <div id="twitter-carousel" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                <div class="item active wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
+                  <p>Introducing Shortcode generator for Helix V2 based templates <a href="#"><span>#helixframework #joomla</span> http://bit.ly/1qlgwav</a></p>
+                </div>
+                <div class="item">
+                  <p>Introducing Shortcode generator for Helix V2 based templates <a href="#"><span>#helixframework #joomla</span> http://bit.ly/1qlgwav</a></p>
+                </div>
+                <div class="item">                                
+                  <p>Introducing Shortcode generator for Helix V2 based templates <a href="#"><span>#helixframework #joomla</span> http://bit.ly/1qlgwav</a></p>
+                </div>
+              </div>                        
+            </div>                    
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!--/#twitter-->
 
-	  <!-- NOTIFICATIONS BLOCK -->     
-		<div class="col-sm-3 col-lg-3">
-			<div class="dash-unit">
-	      		<dtitle>Notifications</dtitle>
-	      		<hr>
-	      		<div class="info-user">
-					<span aria-hidden="true" class="li_bubble fs2"></span>
-				</div>
-	      		<div class="cont">
-	      			<p><button class="btnnew noty" data-noty-options="{&quot;text&quot;:&quot;This is a success notification&quot;,&quot;layout&quot;:&quot;topRight&quot;,&quot;type&quot;:&quot;success&quot;}">Top Right</button></p>
-	      			<p><button class="btnnew noty" data-noty-options="{&quot;text&quot;:&quot;This is an informaton notification&quot;,&quot;layout&quot;:&quot;topLeft&quot;,&quot;type&quot;:&quot;information&quot;}">Top Left</button></p>
-	      			<p><button class="btnnew noty" data-noty-options="{&quot;text&quot;:&quot;This is an alert notification with fade effect.&quot;,&quot;layout&quot;:&quot;topCenter&quot;,&quot;type&quot;:&quot;alert&quot;,&quot;animateOpen&quot;: {&quot;opacity&quot;: &quot;show&quot;}}">Top Center (fade)</button></p>
-	      		</div>
-			</div>
-		</div>
+  <section id="blog">
+    <div class="container">
+      <div class="row">
+        <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1200ms" data-wow-delay="300ms">
+          <h2>Blog Posts</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam</p>
+        </div>
+      </div>
+      <div class="blog-posts">
+        <div class="row">
+          <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="400ms">
+            <div class="post-thumb">
+              <a href="#"><img class="img-responsive" src="images/blog/1.jpg" alt=""></a> 
+              <div class="post-meta">
+                <span><i class="fa fa-comments-o"></i> 3 Comments</span>
+                <span><i class="fa fa-heart"></i> 0 Likes</span> 
+              </div>
+              <div class="post-icon">
+                <i class="fa fa-pencil"></i>
+              </div>
+            </div>
+            <div class="entry-header">
+              <h3><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit</a></h3>
+              <span class="date">June 26, 2014</span>
+              <span class="cetagory">in <strong>Photography</strong></span>
+            </div>
+            <div class="entry-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+            </div>
+          </div>
+          <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="600ms">
+            <div class="post-thumb">
+              <div id="post-carousel"  class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#post-carousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#post-carousel" data-slide-to="1"></li>
+                  <li data-target="#post-carousel" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <a href="#"><img class="img-responsive" src="images/blog/2.jpg" alt=""></a>
+                  </div>
+                  <div class="item">
+                    <a href="#"><img class="img-responsive" src="images/blog/1.jpg" alt=""></a>
+                  </div>
+                  <div class="item">
+                    <a href="#"><img class="img-responsive" src="images/blog/3.jpg" alt=""></a>
+                  </div>
+                </div>                               
+                <a class="blog-left-control" href="#post-carousel" role="button" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+                <a class="blog-right-control" href="#post-carousel" role="button" data-slide="next"><i class="fa fa-angle-right"></i></a>
+              </div>                            
+              <div class="post-meta">
+                <span><i class="fa fa-comments-o"></i> 3 Comments</span>
+                <span><i class="fa fa-heart"></i> 0 Likes</span> 
+              </div>
+              <div class="post-icon">
+                <i class="fa fa-picture-o"></i>
+              </div>
+            </div>
+            <div class="entry-header">
+              <h3><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit</a></h3>
+              <span class="date">June 26, 2014</span>
+              <span class="cetagory">in <strong>Photography</strong></span>
+            </div>
+            <div class="entry-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+            </div>
+          </div>
+          <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="800ms">
+            <div class="post-thumb">
+              <a href="#"><img class="img-responsive" src="images/blog/3.jpg" alt=""></a>
+              <div class="post-meta">
+                <span><i class="fa fa-comments-o"></i> 3 Comments</span>
+                <span><i class="fa fa-heart"></i> 0 Likes</span> 
+              </div>
+              <div class="post-icon">
+                <i class="fa fa-video-camera"></i>
+              </div>
+            </div>
+            <div class="entry-header">
+              <h3><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit</a></h3>
+              <span class="date">June 26, 2014</span>
+              <span class="cetagory">in <strong>Photography</strong></span>
+            </div>
+            <div class="entry-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+            </div>
+          </div>                    
+        </div>
+        <div class="load-more wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="500ms">
+          <a href="#" class="btn-loadmore"><i class="fa fa-repeat"></i> Load More</a>
+        </div>                
+      </div>
+    </div>
+  </section><!--/#blog-->
 
-	  <!-- SWITCHES BLOCK -->     
-		<div class="col-sm-3 col-lg-3">
-			<div class="dash-unit">
-	      		<dtitle>Switches</dtitle>
-	      		<hr>
-	      		<div class="info-user">
-					<span aria-hidden="true" class="li_params fs2"></span>
-				</div>
-				<br>
-				<div class="switch">
-					<input type="radio" class="switch-input" name="view" value="on" id="on" checked="">
-					<label for="on" class="switch-label switch-label-off">On</label>
-					<input type="radio" class="switch-input" name="view" value="off" id="off">
-					<label for="off" class="switch-label switch-label-on">Off</label>
-					<span class="switch-selection"></span>
-				</div>
-				<div class="switch switch-blue">
-					<input type="radio" class="switch-input" name="view2" value="week2" id="week2" checked="">
-					<label for="week2" class="switch-label switch-label-off">Week</label>
-					<input type="radio" class="switch-input" name="view2" value="month2" id="month2">
-					<label for="month2" class="switch-label switch-label-on">Month</label>
-					<span class="switch-selection"></span>
-				</div>
-				
-				<div class="switch switch-yellow">
-					<input type="radio" class="switch-input" name="view3" value="yes" id="yes" checked="">
-					<label for="yes" class="switch-label switch-label-off">Yes</label>
-					<input type="radio" class="switch-input" name="view3" value="no" id="no">
-					<label for="no" class="switch-label switch-label-on">No</label>
-					<span class="switch-selection"></span>
-				</div>
-			</div>
-		</div>
+  <section id="contact">
+    <div id="google-map" class="wow fadeIn" data-latitude="52.365629" data-longitude="4.871331" data-wow-duration="1000ms" data-wow-delay="400ms"></div>
+    <div id="contact-us" class="parallax">
+      <div class="container">
+        <div class="row">
+          <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <h2>Contact Us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam</p>
+          </div>
+        </div>
+        <div class="contact-form wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
+          <div class="row">
+            <div class="col-sm-6">
+              <form id="main-contact-form" name="contact-form" method="post" action="#">
+                <div class="row  wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <input type="text" name="name" class="form-control" placeholder="Name" required="required">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <input type="email" name="email" class="form-control" placeholder="Email Address" required="required">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="subject" class="form-control" placeholder="Subject" required="required">
+                </div>
+                <div class="form-group">
+                  <textarea name="message" id="message" class="form-control" rows="4" placeholder="Enter your message" required="required"></textarea>
+                </div>                        
+                <div class="form-group">
+                  <button type="submit" class="btn-submit">Send Now</button>
+                </div>
+              </form>   
+            </div>
+            <div class="col-sm-6">
+              <div class="contact-info wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                <ul class="address">
+                  <li><i class="fa fa-map-marker"></i> <span> Address:</span> 2400 South Avenue A </li>
+                  <li><i class="fa fa-phone"></i> <span> Phone:</span> +928 336 2000  </li>
+                  <li><i class="fa fa-envelope"></i> <span> Email:</span><a href="mailto:someone@yoursite.com"> support@oxygen.com</a></li>
+                  <li><i class="fa fa-globe"></i> <span> Website:</span> <a href="#">www.sitename.com</a></li>
+                </ul>
+              </div>                            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>        
+  </section><!--/#contact-->
+  <footer id="footer">
+    <div class="footer-top wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+      <div class="container text-center">
+        <div class="footer-logo">
+          <a href="index.html"><img class="img-responsive" src="images/logo.png" alt=""></a>
+        </div>
+        <div class="social-icons">
+          <ul>
+            <li><a class="envelope" href="#"><i class="fa fa-envelope"></i></a></li>
+            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li> 
+            <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+            <li><a class="tumblr" href="#"><i class="fa fa-tumblr-square"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            <p>&copy; 2014 Oxygen Theme.</p>
+          </div>
+          <div class="col-sm-6">
+            <p class="pull-right">Designed by <a href="http://www.themeum.com/">Themeum</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-	  <!-- GAUGE CHART BLOCK -->     
-		<div class="col-sm-3 col-lg-3">
-			<div class="dash-unit">
-	      		<dtitle>Gauge Chart</dtitle>
-	      		<hr>
-	      		<div class="info-user">
-					<span aria-hidden="true" class="li_lab fs2"></span>
-				</div>
-				<canvas id="canvas" width="300" height="300">
-			</canvas></div>
-		</div>
-	
-	</div><!--/row -->     
-      
- 	  <!-- FOURTH ROW OF BLOCKS -->     
-		<div class="row">
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+  <script type="text/javascript" src="js/jquery.inview.min.js"></script>
+  <script type="text/javascript" src="js/wow.min.js"></script>
+  <script type="text/javascript" src="js/mousescroll.js"></script>
+  <script type="text/javascript" src="js/smoothscroll.js"></script>
+  <script type="text/javascript" src="js/jquery.countTo.js"></script>
+  <script type="text/javascript" src="js/lightbox.min.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
 
- 	  <!-- ACCORDION BLOCK -->     
-			<div class="col-sm-3 col-lg-3">
-				<div class="dash-unit">
-	      		<dtitle>Accordion</dtitle>
-	      		<hr>
-					<div class="accordion" id="accordion2">
-		                <div class="accordion-group">
-		                    <div class="accordion-heading">
-		                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-		                        Collapsible Group Item #1
-		                        </a>
-		                    </div>
-		                    <div id="collapseOne" class="accordion-body collapse in">
-		                        <div class="accordion-inner">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem.                        
-								</div>
-		                    </div>
-		                </div>
-		
-		                <div class="accordion-group">
-		                    <div class="accordion-heading">
-		                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-		                        Collapsible Group Item #2
-		                        </a>
-		                    </div>
-		                    <div id="collapseTwo" class="accordion-body collapse">
-		                        <div class="accordion-inner">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem.                      
-								</div>
-		                    </div>
-		                </div>
-		
-		                 <div class="accordion-group">
-		                    <div class="accordion-heading">
-		                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-		                        Collapsible Group Item #3
-		                        </a>
-		                    </div>
-		                    <div id="collapseThree" class="accordion-body collapse">
-		                        <div class="accordion-inner">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem.                        
-		                        </div>
-		                    </div>
-		                </div>
-		            </div><!--/accordion -->
-				</div>
-			</div>
-			
-			<div class="col-sm-3 col-lg-3">
-
- 	  		<!-- LAST USER BLOCK -->     
-				<div class="half-unit">
-	      		<dtitle>Last Registered User</dtitle>
-	      		<hr>
-	      			<div class="cont2">
-	      				<img src="images/user-avatar.jpg" alt="">
-	      				<br>
-	      				<br>
-	      				<p>Paul Smith</p>
-	      				<p><bold>Liverpool, England</bold></p>
-	      			</div>
-				</div>
-				
- 	  		<!-- MODAL BLOCK -->     
-				<div class="half-unit">
-	      		<dtitle>Modal</dtitle>
-	      		<hr>
-		            <div class="cont">
-		                <a href="#myModal" role="button" class="btnnew" data-toggle="modal">Example Modal Window</a>
-		            </div>
-				</div>
-			</div>
-			<!-- Modal -->
-			  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			    <div class="modal-dialog">
-			      <div class="modal-content">
-			        <div class="modal-header">
-			          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			          <h4 class="modal-title">Modal title</h4>
-			        </div>
-			        <div class="modal-body">
-			          ...
-			        </div>
-			        <div class="modal-footer">
-			          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			          <button type="button" class="btn btn-primary">Save changes</button>
-			        </div>
-			      </div><!-- /.modal-content -->
-			    </div><!-- /.modal-dialog -->
-			  </div><!-- /.modal -->
- 	  		<!-- FAST CONTACT BLOCK -->     
-			<div class="col-sm-3 col-lg-3">
-				<div class="dash-unit">
-	      		<dtitle>Fast Contact</dtitle>
-	      		<hr>
-	      		<div class="cont">
-                	<form action="#get-in-touch" method="POST" id="contact">
-                    	<input type="text" id="contactname" name="contactname" placeholder="Name">
-                    	<input type="text" id="email" name="email" placeholder="Email">
-                    	<div class="textarea-container"><textarea id="message" name="message" placeholder="Message"></textarea></div>
-                    	<input type="submit" id="submit" name="submit" value="Send">
-                    </form>
-				</div>
-				</div>
-			</div>
-
- 	  		<!-- INFORMATION BLOCK -->     
-			<div class="col-sm-3 col-lg-3">
-				<div class="dash-unit">
-	      		<dtitle>Block Dashboard</dtitle>
-	      		<hr>
-	      		<div class="info-user">
-					<span aria-hidden="true" class="li_display fs2"></span>
-				</div>
-				<br>
-				<div class="text">
-				<p>Block Dashboard created by Basicoh.</p>
-				<p>Special Thanks to Highcharts, Linecons and Bootstrap for their amazing tools.</p>
-				</div>
-
-				</div>
-			</div>
-
-		</div><!--/row -->
-     
-      
-      
-	</div> <!-- /container -->
-	<div id="footerwrap">
-      	<footer class="clearfix"></footer>
-      	<div class="container">
-      		<div class="row">
-      			<div class="col-sm-12 col-lg-12">
-      			<p><img src="images/logo.png" alt=""></p>
-      			<p>Blocks Dashboard Theme - Crafted With Love - Copyright 2013</p>
-      			</div>
-
-      		</div><!-- /row -->
-      	</div><!-- /container -->		
-	</div><!-- /footerwrap -->
-          
-</body></html>
+</body>
+</html>
