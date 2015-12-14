@@ -7,6 +7,9 @@
     
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Loading Animation CSS -->
+    <link href="css/utilities/utilities.css" rel="stylesheet">
 
     <link href="css/settings/settings.css" rel="stylesheet">
     <link href="css/settings/font-style.css" rel="stylesheet">
@@ -86,7 +89,6 @@
         <!-- /.container-fluid -->
     </nav>
     <div class="container">
-
 	  <!-- FIRST ROW OF BLOCKS -->     
         <div class="row" style="margin-top:20px">
 
@@ -126,7 +128,7 @@
         			<div style="text-align:center; margin-top:20px">
         			    <input type="text" id="new_user_name" style="margin-top:5px" placeholder="Nombre">
             			<input type="email" id ="new_user_email" placeholder="Email">
-            			<div class="switch switch-blue" style="margin-bottom:10px">
+            			<div class="switch switch-green" style="margin-bottom:10px">
         					<input type="radio" class="switch-input" name="view" value="on" id="on" checked="">
         					<label for="on" class="switch-label switch-label-off">Administrador</label>
         					<input type="radio" class="switch-input" name="view" value="off" id="off">
@@ -149,19 +151,21 @@
         			<p style="margin-top:30px;padding-left:15px;padding-right:15px" align="justify">Modifica los nombres de tus subdistribuidores y dale click a guardar. Si quieres eliminar uno, solo debes darle click al boton que aparece al lado derecho.</p>
         			<hr>
 	      		    @foreach($distribuidores as $distribuidor)
+	      		    <row>
     	      		    <div>
     	      		        <input class="orange_text" type="text" value="{{$distribuidor->name}}" style="width:200px;border:none;margin-top:0px"></input>
-    	      		        <a style="float:right;margin-right:50px"><i class="fa fa-times fa-2x"></i></a>
+    	      		        <a style="float:right;margin-right:50px" id ="distri_{{$distribuidor->name}}" href="javascript:void(0);" onclick="borrar_distribuidor(this.id)" ><i class="fa fa-times fa-2x"></i></a>
 	      		        </div>
 	      		        <hr style="margin-top:20px">
 	      		        @foreach($subdistribuidores[$distribuidor->name] as $subdistribuidor)
 	      		            <div class="flex_container">
     	      		            <input type="text" style="margin-top:0px;width:200px;border:none" value="{{$subdistribuidor->nombre}}"></input>
-    	      		            <a style="margin-left:10px"><i class="fa fa-times fa-2x"></i></a>
+    	      		            <a style="margin-left:10px" id ="{{$subdistribuidor->nombre}}" href="javascript:void(0);" onclick="borrar_subdistribuidor(this.id)"><i class="fa fa-times fa-2x"></i></a>
 	      		            </div>
 	      		            <br>
 	      		        @endforeach
 	      		        <hr style="margin-top:0px">
+  		            </row>
 	      		    @endforeach
 	      		    <div style="text-align:center">
     	      		    <button style="margin-bottom:20px;margin-top:10px" onClick="actualizar_subdistris()">Guardar</button>
@@ -197,6 +201,11 @@
             </div>
         </div>
     </div>
-    
+    <!-- MODAL LOADING -->
+    <div id="modal-loading" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-body">
+            <a class="btn btn-primary loading" style = "width:100%;">Cargando información</a>
+        </div>
+    </div>
     <script type="text/javascript" src="js/settings/settings.js"></script>    
 </body></html>

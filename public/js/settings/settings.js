@@ -25,6 +25,10 @@ function crear_usuario(){
         $('.modal-body #modal-body').html('Existen campos sin datos');
         $('#modal-content').modal('show');  
     }else{
+        $('#modal-loading').modal({
+            backdrop: 'static',
+            keyboard: false
+        })
         $.ajax({
             url:'user/crear',
             data:{email:email, name:name, admin:admin},
@@ -48,6 +52,7 @@ function crear_usuario(){
                     $('.modal-body #modal-body').html('Error al ingresar: ' + data);
                     $('#modal-content').modal('show');       
                 }
+                $('#modal-loading').modal('hide');
             }
         });
     }
@@ -65,6 +70,10 @@ function actualizar_usuario(){
         $('.modal-body #modal-body').html('La contraseña debe tener mas de 5 caracteres');
         $('#modal-content').modal('show');  
     }else{
+        $('#modal-loading').modal({
+            backdrop: 'static',
+            keyboard: false
+        })
         $.ajax({
             url:'user/actualizar',
             data:{email:email, password:password, new_password:new_password},
@@ -84,7 +93,65 @@ function actualizar_usuario(){
                     $('.modal-body #modal-body').html('Email ya existente');
                     $('#modal-content').modal('show');
                 }
+                $('#modal-loading').modal('hide');
             }
         });
     }
+}
+
+function borrar_subdistribuidor(nombre){
+    
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+    $.ajax({
+        url:'subdistribuidor/eliminar',
+        data:{nombre:nombre},
+        type:'GET',
+        dataType: 'json',
+        success: function(data){
+            if(data == 1){
+                $('.modal-header #modal-tittle').html('Exito');
+                $('.modal-body #modal-body').html('Subdistribuidor eliminado');
+                $('#modal-content').modal('show');
+            }else{
+                $('.modal-header #modal-tittle').html('Error');
+                $('.modal-body #modal-body').html(data);
+                $('#modal-content').modal('show');       
+            }
+            $('#'+nombre).parent().remove();
+            $('#modal-loading').modal('hide');
+        }
+    });
+}
+
+
+function borrar_distribuidor(tag){
+    var aux = tag.split("_");
+    var nombre = aux[1];
+    return;
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+    $.ajax({
+        url:'user/eliminar',
+        data:{nombre:nombre},
+        type:'GET',
+        dataType: 'json',
+        success: function(data){
+            if(data == 1){
+                $('.modal-header #modal-tittle').html('Exito');
+                $('.modal-body #modal-body').html('Distribuidor eliminado');
+                $('#modal-content').modal('show');
+            }else{
+                $('.modal-header #modal-tittle').html('Error');
+                $('.modal-body #modal-body').html(data);
+                $('#modal-content').modal('show');       
+            }
+            $('#'+nombre).parent().parent().remove();
+            $('#modal-loading').modal('hide');
+        }
+    });
 }

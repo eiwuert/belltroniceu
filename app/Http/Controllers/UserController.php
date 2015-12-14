@@ -78,4 +78,20 @@ class UserController extends Controller
             }
         }
     }
+    
+    public function eliminar(Request $request)
+    {
+        if($request->ajax()){
+            try{
+                $aux = \DB::table('users')->where('users.name','=',$request['nombre'])->first();
+                $user = \App\User::find($aux->email);
+                $sims = \DB::select("update simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre set nombreSubdistribuidor = 'SIN ASIGNAR' where subdistribuidores.emailDistribuidor = ?", [$user->emailDistribuidor]);
+                $subs = \DB::select("delete from subdistribuidores where subdistribuidores.emailDistribuidor = ?", $user->emailDistribuidor);
+                $user->delete();
+                return 1;
+            }catch( Exception $e){
+                return $e->getMessage();
+            }
+        }
+    }
 }

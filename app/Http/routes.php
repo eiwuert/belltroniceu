@@ -29,11 +29,15 @@ Route::get('simcard/buscar', array('middleware' => 'auth','uses'=> 'SimcardContr
 Route::get('simcard/buscarLibre', array('middleware' => 'auth','uses'=> 'SimcardController@buscarSimcardLibre'));
 Route::get('simcard/actualizarLibre', array('middleware' => 'auth','uses'=> 'SimcardController@actualizarLibre'));
 Route::get('simcard/buscarPaquete', array('middleware' => 'auth','as' => 'buscarPaquete', 'uses'=> 'SimcardController@buscarPaquete'));
-Route::get('subdistribuidor/buscarTodos', array('middleware' => 'auth','as' => 'buscarSubdistribuidores', 'uses'=> 'SimcardController@buscarSubdistribuidores'));
 
 // ACCIONES USUARIOS
 Route::post('user/actualizar', array('middleware' => 'auth','uses'=> 'UserController@actualizar'));
 Route::post('user/crear', array('middleware' => 'auth','uses'=> 'UserController@crear'));
+Route::get('user/eliminar', array('middleware' => 'auth','uses'=> 'UserController@eliminar'));
+
+// ACCIONES SUBDISTRIBUIDORES
+Route::get('subdistribuidor/buscarTodos', array('middleware' => 'auth', 'uses'=> 'SubdistribuidorController@buscarSubdistribuidores'));
+Route::get('subdistribuidor/eliminar', array('middleware' => 'auth','uses'=> 'SubdistribuidorController@eliminar'));
 
 // DATOS DIAGRAMAS SIMCARDS
 Route::get('diagrama/simcards', array('middleware' => 'auth', 'uses'=> 'SimcardController@datosSimcard'));

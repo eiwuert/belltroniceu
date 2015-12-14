@@ -202,10 +202,5 @@ class SimcardController extends Controller
         }
     }
     
-    public function buscarSubdistribuidores(Request $request){
-        if($request->ajax()){
-            $subdistribuidores = \DB::table('subdistribuidores')->join('users','subdistribuidores.emailDistribuidor','=','users.email')->where('users.name', $request['distribuidor'])->get();
-        }
-        return view('/subdistribuidoresModal', array('subdistribuidores' => $subdistribuidores));
-    }
+    
 }

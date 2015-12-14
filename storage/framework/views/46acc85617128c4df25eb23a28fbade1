@@ -331,7 +331,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Empaquetar Simcards</h2>
-                    <h3 class="section-subheading text-muted" style="margin-bottom:20px">Digita la ICC o el numero de teléfono de la simcard. Si existe, la veras abajo y estara lista para empaquetarse.</h3>
+                    <h3 class="section-subheading text-muted" style="margin-bottom:20px">Digita la ICC o el numero de teléfono de la simcard y presiona Enter. Si existe, la veras abajo y estara lista para empaquetarse.</h3>
                 </div>
             </div>
             <div class="principal-view-body-container">
