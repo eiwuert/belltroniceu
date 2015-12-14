@@ -287,9 +287,9 @@
                     <div class="col-md-4" style="display: inline-block;
         vertical-align: middle;
         float: none;">
-                        <div id="search_container" class = "search_container orange">
+                        <div id="search_container" class = "search_container gray_dark">
                             <h3 class = "section_body_content white" style="margin-top:0">Busca una simcard</h3>
-                                <input class = "data" type="number" placeholder = "Teléfono" id = "dato_buscar_sim_libre" />
+                                <input class = "data white white_input" type="number" placeholder = "Teléfono" id = "dato_buscar_sim_libre" style="background:none;font-size:18px;text-align:center;padding:0" />
                             <div style="margin:auto">
                                 <button class="button button_delete" style="margin-right:4%;width:45%" onClick="limpiar_campos_libre()">Limpiar</button>
                                 <button class = "button" style="width:45%" onClick = "buscarSim_libre()">Buscar</button>
@@ -300,29 +300,29 @@
         vertical-align: middle;
         float: none;">
                         <div class = "search_results_container" style="margin-top:0">
-                            <div class ="orange" style="flex-grow:2" id="nit_container">
+                            <div class ="gray_dark" style="flex-grow:2" id="nit_container">
                                 <button class="center white white_input" id ="nit_resultado" onClick="$('#modal-cliente_libre').modal('show')" style="background:none;border:none;">NIT</button>
                             </div>
-                            <div class ="orange" style="flex-grow:2" id="nombre_empresa_container">
+                            <div class ="gray_dark" style="flex-grow:2" id="nombre_empresa_container">
                                 <input class="center white white_input" type="text" id = "nombre_empresa_resultado" placeholder="Empresa"></input>
                             </div>
-                            <div class ="orange" style="flex-grow:2" id="plan_container">
+                            <div class ="gray_dark" style="flex-grow:2" id="plan_container">
                                 <input class="center white white_input" type="text" id = "plan_resultado" placeholder="Plan"></input>
                             </div>
-                            <div class ="orange" style="flex-grow:2" id="valor_container">
+                            <div class ="gray_dark" style="flex-grow:2" id="valor_container">
                                 <input class="center white white_input" type="text" id = "valor_resultado" placeholder="Valor"></input>
                             </div>
-                            <div class ="orange" style="flex-grow:2" id="fecha_activacion_libre_container">
+                            <div class ="gray_dark" style="flex-grow:2" id="fecha_activacion_libre_container">
                                 <p class ="white" style ="margin-top:5px;"> Activación </p>
                                 <input class="center white white_input" type="date" id = "fecha_activacion_libre_resultado"></input>
                             </div>
-                            <div class ="orange" style="flex-grow:2" id="cod_scl_container">
+                            <div class ="gray_dark" style="flex-grow:2" id="cod_scl_container">
                                 <input class="center white white_input" type="text" id = "cod_scl_resultado" placeholder="Cod scl"></input>
                             </div>
-                            <div class ="orange" style="flex-grow:2" id="cod_punto_container">
+                            <div class ="gray_dark" style="flex-grow:2" id="cod_punto_container">
                                 <input class="center white white_input" type="text" id = "cod_punto_resultado" placeholder="Cod Punto"></input>
                             </div>
-                            <div class ="orange" style="flex-grow:2" id="direccion_container">
+                            <div class ="gray_dark" style="flex-grow:2" id="direccion_container">
                                 <input class="center white white_input" type="text" id = "direccion_resultado" placeholder="Dirección"></input>
                             </div style="align-self:flex-end">
                         </div>
