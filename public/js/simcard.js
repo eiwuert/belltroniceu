@@ -395,26 +395,33 @@ function empaquetar(){
         backdrop: 'static',
         keyboard: false
     })
-    $.ajax({
-        url:'simcard/empaquetar',
-        data:{datos:paquete},
-        type:'GET',
-        dataType: 'json',
-        success: function(data){
-            if(data != -1){
-               $('.modal-header #modal-tittle').html('Exito');
-                $('.modal-body #modal-body').html('Simcards empaquetadas. Desde ahora puedes buscarlas en la sección de paquetes.');
-                $('#modal-content').modal('show');
-                paquete = [];
-                document.getElementById('container_simcards_empaquetado').innerHTML = '';
-            }else{
-                $('.modal-header #modal-tittle').html('Error');
-                $('.modal-body #modal-body').html('Simcard no encontrada');
-                $('#modal-content').modal('show');
+    if(paquete.length == 50){
+        $.ajax({
+            url:'simcard/empaquetar',
+            data:{datos:paquete},
+            type:'GET',
+            dataType: 'json',
+            success: function(data){
+                if(data != -1){
+                   $('.modal-header #modal-tittle').html('Exito');
+                    $('.modal-body #modal-body').html('Simcards empaquetadas. Desde ahora puedes buscarlas en la sección de paquetes.');
+                    $('#modal-content').modal('show');
+                    paquete = [];
+                    document.getElementById('container_simcards_empaquetado').innerHTML = '';
+                }else{
+                    $('.modal-header #modal-tittle').html('Error');
+                    $('.modal-body #modal-body').html('Simcard no encontrada');
+                    $('#modal-content').modal('show');
+                }
+                $('#modal-loading').modal('hide');
             }
-            $('#modal-loading').modal('hide');
-        }
-    });
+        });
+    }else{
+        $('.modal-header #modal-tittle').html('Error');
+        $('.modal-body #modal-body').html('Recuerda que solo pueden ser 50. Tienes: ' + paquete.length);
+        $('#modal-content').modal('show');
+        $('#modal-loading').modal('hide');
+    }
 }
 
 function asignar_paquete(){
