@@ -3,7 +3,7 @@ $.ajax({
     type:'GET',
     success: function(data){
         var datosPrepago = {
-            labels: [data[2][0], data[2][1], data[2][2]],
+            labels: [data[1][0], data[1][1], data[1][2]],
             datasets: [
                 {
                     label: "Vencidas",
@@ -16,27 +16,6 @@ $.ajax({
                     fillColor: "#7FCA9F",
                     highlightFill: "#3f654f",
                     data: [data[0][0],data[0][1],data[0][2]]
-                }
-            ]
-        };
-        var datosLibre = {
-            labels: [data[2][0], data[2][1], data[2][2]],
-            datasets: [
-                {
-                    label: "Vencidas",
-                    fillColor: "#DB5466",
-                    strokeColor: "rgba(220,220,220,0.8)",
-                    highlightFill: "#7f3236",
-                    highlightStroke: "rgba(220,220,220,1)",
-                    data: [data[1][3],data[1][4],data[1][5]]
-                },
-                {
-                    label: "Activas",
-                    fillColor: "#7FCA9F",
-                    strokeColor: "rgba(151,187,205,0.8)",
-                    highlightFill: "#3f654f",
-                    highlightStroke: "rgba(151,187,205,1)",
-                    data: [data[1][0],data[1][1],data[1][2]]
                 }
             ]
         };
@@ -59,8 +38,6 @@ $.ajax({
         var elem = document.getElementById('loader_prepago');
         elem.parentNode.removeChild(elem); 
         var ctx = document.getElementById("canvasPrepago").getContext("2d");
-        new Chart(ctx).Bar(datosPrepago, options);
-        var ctx = document.getElementById("canvasLibre").getContext("2d");
-        new Chart(ctx).Bar(datosLibre, options);    
+        new Chart(ctx).Bar(datosPrepago, options);  
     }
 });

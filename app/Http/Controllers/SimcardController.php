@@ -140,60 +140,23 @@ class SimcardController extends Controller
     public function datosSimcard(Request $request){
         if($request->ajax()){
             $user =  \Auth::User();
-            $today = new \DateTime('today');
+            $year =  date('Y', time());
+            $mesActualLabel = date('M', time());
+            $mesAnteriorLabel = date('M', strtotime(date('Y-m')." -1 month"));
+            $mes2AnteriorLabel = date('M', strtotime(date('Y-m')." -2month"));
+            $mesActual = date('m', time());
+            $mesAnterior = date('m', strtotime(date('Y-m')." -1 month"));
+            $mes2Anterior = date('m', strtotime(date('Y-m')." -2month"));
             
-            // REVISAR SIMS PREPAGO
-            // REVISAR SIMS ACTIVAS
-            $simsActivasEsteMes = \DB::table('simcards')->where(\DB::raw('MONTH(fecha_activacion)'),$today->format('m'))->where(\DB::raw('YEAR(fecha_activacion)'),$today->format('Y'))->where('tipo','1')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
-            $mesActual = $today->format('F');
-            date_sub($today, date_interval_create_from_date_string('1 month'));
-            $simsActivasMesAnterior = \DB::table('simcards')->where(\DB::raw('MONTH(fecha_activacion)'),$today->format('m'))->where(\DB::raw('YEAR(fecha_activacion)'),$today->format('Y'))->where('tipo','1')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
-            $mesAnterior = $today->format('F');
-            date_sub($today, date_interval_create_from_date_string('1 month'));
-            $simsActivas2MesAnterior =\DB::table('simcards')->where(\DB::raw('MONTH(fecha_activacion)'),$today->format('m'))->where(\DB::raw('YEAR(fecha_activacion)'),$today->format('Y'))->where('tipo','1')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
-            $mes2Anterior = $today->format('F');
-            // ------------
+            $labelMeses = [$mes2AnteriorLabel, $mesAnteriorLabel,$mesActualLabel];
+            $sims = \DB::select("SELECT count(case when Month(sim.fecha_activacion) = ? and Year(sim.fecha_activacion) = ? then numero end) hoyActivas, count( case when Month(sim.fecha_activacion) = ? and Year(sim.fecha_activacion) = ? then numero end) mesAntesActivas, count( case when Month(sim.fecha_activacion) = ? and Year(sim.fecha_activacion) = ? then numero end) mes2AntesActivas, count(case when Month(sim.fecha_vencimiento) = ? and Year(sim.fecha_vencimiento) = ? then numero end) hoyVencidas, count(case when Month(sim.fecha_vencimiento) = ? and Year(sim.fecha_vencimiento) = ? then numero end) mesAntesVencidas,count(case when Month(sim.fecha_vencimiento) = ? and Year(sim.fecha_vencimiento) = ? then numero end) mes2AntesVencidas from simcards sim inner join subdistribuidores sub on sim.nombreSubdistribuidor = sub.nombre inner join users u on sub.emailDistribuidor = u.email where u.email = ? and sim.tipo=1",[$mesActual,$year,$mesAnterior,$year,$mes2Anterior,$year,$mesActual,$year,$mesAnterior,$year,$mes2Anterior,$year,$user->email]);
             
-            // REVISAR SIMS VENCIDAS
-            $today = new \DateTime('today');
-            $simsVencidasEsteMes = \DB::table('simcards')->where(\DB::raw('MONTH(fecha_vencimiento)'),'=',$today->format('m'))->where(\DB::raw('YEAR(fecha_vencimiento)'),'=',$today->format('Y'))->where('tipo','1')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
+            $simsPrepago = [$sims[0]->mes2AntesActivas,$sims[0]->mesAntesActivas,$sims[0]->hoyActivas,$sims[0]->mes2AntesVencidas,$sims[0]->mesAntesVencidas,$sims[0]->hoyVencidas];
             
-            date_sub($today, date_interval_create_from_date_string('1 month'));
-            $simsVencidasMesAnterior = \DB::table('simcards')->where(\DB::raw('MONTH(fecha_vencimiento)'),'=',$today->format('m'))->where(\DB::raw('YEAR(fecha_vencimiento)'),'=',$today->format('Y'))->where('tipo','1')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
             
-            date_sub($today, date_interval_create_from_date_string('1 month'));
-            $simsVencidas2MesAnterior =\DB::table('simcards')->where(\DB::raw('MONTH(fecha_vencimiento)'),$today->format('m'))->where(\DB::raw('YEAR(fecha_vencimiento)'),$today->format('Y'))->where('tipo','1')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
-            //------------
             
-            $simsPrepago = [$simsActivas2MesAnterior,$simsActivasMesAnterior,$simsActivasEsteMes,$simsVencidas2MesAnterior,$simsVencidasMesAnterior,$simsVencidasEsteMes];
-            
-            // REVISAR SIMS LIBRES
-            // REVISAR SIMS ACTIVAS
-            $today = new \DateTime('today');
-            $simsActivasEsteMes = \DB::table('simcards')->where(\DB::raw('MONTH(fecha_activacion)'),$today->format('m'))->where(\DB::raw('YEAR(fecha_activacion)'),$today->format('Y'))->where('tipo','2')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
-            date_sub($today, date_interval_create_from_date_string('1 month'));
-            $simsActivasMesAnterior = \DB::table('simcards')->where(\DB::raw('MONTH(fecha_activacion)'),$today->format('m'))->where(\DB::raw('YEAR(fecha_activacion)'),$today->format('Y'))->where('tipo','2')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
-            date_sub($today, date_interval_create_from_date_string('1 month'));
-            $simsActivas2MesAnterior =\DB::table('simcards')->where(\DB::raw('MONTH(fecha_activacion)'),$today->format('m'))->where(\DB::raw('YEAR(fecha_activacion)'),$today->format('Y'))->where('tipo','2')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
-
-            // ------------
-            
-            // REVISAR SIMS VENCIDAS
-            $today = new \DateTime('today');
-            $simsVencidasEsteMes = \DB::table('simcards')->where(\DB::raw('MONTH(fecha_vencimiento)'),$today->format('m'))->where(\DB::raw('YEAR(fecha_vencimiento)'),$today->format('Y'))->where('tipo','2')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
-            
-            date_sub($today, date_interval_create_from_date_string('1 month'));
-            $simsVencidasMesAnterior = \DB::table('simcards')->where(\DB::raw('MONTH(fecha_vencimiento)'),$today->format('m'))->where(\DB::raw('YEAR(fecha_vencimiento)'),$today->format('Y'))->where('tipo','2')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
-            
-            date_sub($today, date_interval_create_from_date_string('1 month'));
-            $simsVencidas2MesAnterior =\DB::table('simcards')->where(\DB::raw('MONTH(fecha_vencimiento)'),$today->format('m'))->where(\DB::raw('YEAR(fecha_vencimiento)'),$today->format('Y'))->where('tipo','2')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->where('subdistribuidores.emailDistribuidor',$user->email)->count();
-            //------------
-            
-            $simsLibre = [$simsActivas2MesAnterior,$simsActivasMesAnterior,$simsActivasEsteMes,$simsVencidas2MesAnterior,$simsVencidasMesAnterior,$simsVencidasEsteMes];
-            
-            $labelMeses = [$mes2Anterior, $mesAnterior,$mesActual];
             //*/
-            $response = array($simsPrepago, $simsLibre, $labelMeses);
+            $response = array($simsPrepago, $labelMeses);
             return $response;;
         }
     }
