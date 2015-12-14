@@ -296,26 +296,26 @@
                                 <button class="center white white_input" id ="nit_resultado" onClick="$('#modal-cliente_libre').modal('show')" style="background:none;border:none;">NIT</button>
                             </div>
                             <div class ="gray_dark" style="flex-grow:2" id="nombre_empresa_container">
-                                <input class="center white white_input" type="text" id = "nombre_empresa_resultado" placeholder="Empresa"></input>
+                                <input class="center white white_input"  disabled=true type="text" id = "nombre_empresa_resultado" placeholder="Empresa"></input>
                             </div>
                             <div class ="gray_dark" style="flex-grow:2" id="plan_container">
-                                <input class="center white white_input" type="text" id = "plan_resultado" placeholder="Plan"></input>
+                                <input class="center white white_input"  disabled=true type="text" id = "plan_resultado" placeholder="Plan"></input>
                             </div>
                             <div class ="gray_dark" style="flex-grow:2" id="valor_container">
-                                <input class="center white white_input" type="text" id = "valor_resultado" placeholder="Valor"></input>
+                                <input class="center white white_input"  disabled=true type="text" id = "valor_resultado" placeholder="Valor"></input>
                             </div>
                             <div class ="gray_dark" style="flex-grow:2" id="fecha_activacion_libre_container">
                                 <p class ="white" style ="margin-top:5px;"> Activación </p>
-                                <input class="center white white_input" type="date" id = "fecha_activacion_libre_resultado"></input>
+                                <input class="center white white_input"  disabled=true type="date" id = "fecha_activacion_libre_resultado"></input>
                             </div>
                             <div class ="gray_dark" style="flex-grow:2" id="cod_scl_container">
-                                <input class="center white white_input" type="text" id = "cod_scl_resultado" placeholder="Cod scl"></input>
+                                <input class="center white white_input"  disabled=true type="text" id = "cod_scl_resultado" placeholder="Cod scl"></input>
                             </div>
                             <div class ="gray_dark" style="flex-grow:2" id="cod_punto_container">
-                                <input class="center white white_input" type="text" id = "cod_punto_resultado" placeholder="Cod Punto"></input>
+                                <input class="center white white_input"  disabled=true type="text" id = "cod_punto_resultado" placeholder="Cod Punto"></input>
                             </div>
                             <div class ="gray_dark" style="flex-grow:2" id="direccion_container">
-                                <input class="center white white_input" type="text" id = "direccion_resultado" placeholder="Dirección"></input>
+                                <input class="center white white_input"  disabled=true type="text" id = "direccion_resultado" placeholder="Dirección"></input>
                             </div style="align-self:flex-end">
                         </div>
                     </div>
@@ -456,6 +456,9 @@
                         <div class ="gray" style="flex-grow:2">
                             <p class ="white"  style ="margin-top:5px;text-align:center"> Entregada </p>
                             <input class="center white white_input" style="width:100%"  type="date" id = "fecha_entrega_libre_resultado" placeholder="Barrio"></input>
+                        </div>
+                        <div class ="gray" style="flex-grow:2">
+                            <input class="center white white_input" style="width:100%"  type="text" id = "direccion_responsable_resultado" placeholder="Dirección"></input>
                         </div style="align-self:flex-end">
                         <div class ="gray" style="flex-grow:2">
                             <p class ="white"  style ="margin-top:5px;text-align:center"> LLamado </p>

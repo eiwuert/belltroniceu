@@ -57,7 +57,7 @@ class UserController extends Controller
                                         'name' => $name,
                                         'email' => $email,
                                         'isAdmin' => $admin,
-                                        'password' => bcrypt($request['password']),
+                                        'password' => bcrypt('password'),
                                     ]);
                         \App\Subdistribuidor::create([
                                                      'cedula' => '-',

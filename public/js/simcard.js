@@ -75,14 +75,7 @@ function guardar_responsable(){
     dato.push($('#fecha_entrega_libre_resultado').val());
     dato.push($('#fecha_llamada_libre_resultado').val());
     dato.push($('#detalle_llamada_resultado').val());
-    // EMPRESA
-    dato.push($('#direccion_resultado').val());
-    //dato.push($('#cod_punto_resultado').val());
-    //dato.push($('#cod_scl_resultado').val());
-    //dato.push($('#valor_resultado').val());
-    //dato.push($('#plan_resultado').val());
-    //dato.push($('#nombre_empresa_resultado').val());
-    //dato.push($('#nit_resultado').html());
+    dato.push($('#direccion_responsable_resultado').val());
     $('#modal-loading').modal({
         backdrop: 'static',
         keyboard: false
