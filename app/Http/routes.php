@@ -19,6 +19,11 @@ Route::get('', array('middleware' => 'auth', 'uses'=> 'FrontController@home'));
 Route::get('/home', array('middleware' => 'auth', 'uses'=> 'FrontController@home'));
 Route::get('/simcard', array('middleware' => 'auth', 'uses'=> 'FrontController@simcard'));
 Route::get('/settings', array('middleware' => 'auth','uses'=> 'FrontController@settings'));
+Route::get('/finanzas', array('middleware' => 'auth','as' => 'finanzas','uses'=> 'FrontController@finanzas'));
+
+// FINANZAS
+Route::get('finanzas/datos_subdistribuidor', array('middleware' => 'auth','uses'=> 'FinanzasController@datos_subdistribuidor'));
+Route::post('finanzas/agregar', array('middleware' => 'auth','as' => 'agregarComisiones','uses'=> 'FinanzasController@agregar'));
 
 // ACCIONES SIMCARD
 Route::get('simcard/asignarPaquete', array('middleware' => 'auth','uses'=> 'SimcardController@asignarPaquete'));

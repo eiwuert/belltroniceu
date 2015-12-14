@@ -1,0 +1,359 @@
+
+/*        CELLPHONES        */
+@media screen and (max-width:400px){
+    
+    .chart_container{
+        width:250px;
+        height:150px;
+        margin:auto;
+    }
+    
+    .package_buttons_container{
+        margin:0;
+        margin-top:10px;
+    }
+    header{
+       background-image:url(/img/finanzas_background_phone.jpg); 
+    }
+}
+
+
+/*        COMPUTER:         */
+
+@media screen and (min-width:400px) and (max-width:1000px){
+    .chart_container{
+        width:400px;
+        height:300px;
+        margin:auto;
+    }    
+    .package_buttons_container{
+        margin:0;
+    }
+    header{
+       background-image:url(/img/finanzas_background_phone.jpg); 
+    }
+}
+
+@media screen and (min-width:1000px){
+    .chart_container{
+        width:400px;
+        height:300px;
+        margin-left:50px;
+    }
+    .package_buttons_container{
+        margin:0;
+    }
+    header{
+       background-image:url(/img/finanzas_background_phone.jpg); 
+    }
+}
+
+body{
+    padding:0;
+}
+
+header{
+
+    background-repeat:none;
+
+    background-attachment:scroll;
+
+    background-position:center center;
+
+    -webkit-background-size:cover;
+
+    -moz-background-size:cover;
+
+    background-size:cover;
+
+    -o-background-size:cover;
+
+    text-align:center;
+    
+    color:#fff
+}
+
+.search_container{
+    max-width:500px;
+    min-width:200px;
+    padding: 20px 7%;
+    margin:5px;
+    border-radius:10px;
+    background:rgba(20,20,20,0.4);
+}
+
+.search_container h3{
+    margin-bottom:20px;
+}
+
+.section_body_content{
+    font-weight:normal;
+    font-size:20px;
+}
+
+.data {
+    width: 100%;
+    height: 42px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    font-family: regular;
+    padding: 0 20px 0 50px;
+    margin-bottom: 1em;
+    outline: none;
+    background:#FFF;
+}
+
+.data_package{
+    width: 40%;
+    min-width:200px;
+    height: 42px;
+    margin-right:20px;
+    margin-left:20px;
+    box-sizing: border-box;
+    text-align:center;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    font-family: regular;
+    outline: none;
+    background:#FFF;
+}
+.button {
+    height: 40px;
+    min-width:80px;
+    background: #7FCA9F;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border:none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.5em;
+    font-family: regular;
+    outline: none;
+    cursor: pointer;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.button:hover {
+    background: #3f654f;
+}
+
+.button_assign{
+    background:none;
+    min-width:100px;
+    border: 1px solid #FFF;
+    color:#FFF;
+}
+.button_assign:hover{
+    border: 2px solid #003366;
+    background:#003366;
+    color:#FFF;
+}
+
+.button_delete{
+    background: #ff656c;
+    border: 1px solid #ff656c;
+}
+
+.button_delete:hover {
+    background-color: #d64b51;
+    border: 1px solid #d64b51;
+    opacity: .9;
+    color: white; 
+}
+
+
+.search_results_container{
+    height:auto;
+    padding-top:10px;
+    -webkit-flex-flow: row wrap;
+    margin:0;
+    margin-top:50px;
+    align-content: flex-start;
+    justify-content:space-between;
+    padding: 0;
+    list-style: none;
+    min-width:200px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.search_results_container input,button,textarea{
+    background:none;
+    border:none;
+    text-align:center;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+    border-radius:5px;
+    font-size:16px;
+    font-weight:normal;
+    font-style: italic; 
+}
+
+
+.search_results_container input:focus{
+    background:#85C1F5;
+}
+.search_results_container span{
+    text-align:center;
+    color:#000;
+}
+
+.search_results_container div{
+    height:55px;
+    padding:0 10px 0 10px;
+    margin:5px;
+    border-radius:10px;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.search_results_container div:hover{
+    opacity: .9;
+    color: white;   
+}
+
+.center{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.chart_container{
+    height:300px;
+}
+
+.mystatus_container{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    align-content:center;
+}
+
+.button_simcards{
+    height: 60px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border:none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.5em;
+    font-family: regular;
+    outline: none;
+    cursor: pointer;
+    margin:0 10px 10px 0;
+    width:22%;
+}
+
+.package_form_container{
+    height:auto;
+    justify-content:center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    min-width:250px;
+    display: flex;
+    align-items:center;
+    align-content: center;
+    flex-direction:row;
+    flex-wrap: wrap;
+}
+
+.package_buttons_container{
+    height:auto;
+    justify-content:center;
+    padding: 0;
+    list-style: none;
+    min-width:250px;
+    display: flex;
+    align-items:center;
+    align-content: center;
+    flex-direction:row;
+    flex-wrap: nowrap;
+}
+
+/* FILES   */
+.hiddenfile {
+ width: 0px;
+ height: 0px;
+ overflow: hidden;
+}
+
+/*  LOADING  */
+.preloader {
+  height:100%;
+  width:100%;
+  background: none;
+}
+
+.preloader > i {
+  font-size: 50px;
+  position: relative;
+}
+
+/** IMAGES **/
+#miestado,#buscar,#empaquetar{
+    background-image:url('/img/texture/simcard.png');
+}
+#paquetes{
+    background-image:url('/img/simcard/1.jpg');
+}
+
+#libres{
+    background-image:url('/img/simcard/2.jpg');
+}
+
+.parallax{
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-attachment:fixed;
+    padding:0;
+}
+
+.dark_cover{
+    background:rgba(20,20,20,0.4);
+    width:100%;
+    padding:100px 0;
+}
+
+/**********FooterWrap Section**********/   
+#footerwrap {
+    width: 100%;
+    background:#262626;
+	background-image:url('/img/sep-half.png');
+    padding-top:20px;
+    padding-bottom: 20px;
+	border-top-style: solid;
+    border-top-width:8px;
+    border-top-color:#1d1d1d;
+    text-align:center
+
+}
+
+#footerwrap p {
+	color:white;
+	font-size:12px;
+} 
+
+.mySpan{
+	font-size:15px;
+	font-weight:bold;
+	font-family:Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.logo{
+	color:#fed136;
+	font-family:"Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive
+}
+

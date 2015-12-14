@@ -28,6 +28,9 @@
     <!-- Base CSS -->
     <link href="css/base.css" rel="stylesheet">
     
+    <!-- Loading Animation CSS -->
+    <link href="css/utilities/utilities.css" rel="stylesheet">
+    
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -57,7 +60,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Belltronic</a>
+                <a class="navbar-brand page-scroll" href="/">Belltronic</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
