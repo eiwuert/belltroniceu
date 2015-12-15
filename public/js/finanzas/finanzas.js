@@ -17,6 +17,8 @@ var options = {
     animateScale : false,
     responsive:true,
     maintainAspectRatio:false,
+    tooltipTemplate: "<%if (label){%><%=label%>: <%}%>$<%= addCommas(value) %>",
+    multiTooltipTemplate: "$<%= addCommas(value) %>",
 }
 var ctx = document.getElementById("canvasHistorial").getContext("2d");
 var diagramaPrepVsLibre = new Chart(ctx).Doughnut(datosDiagrama, options);  
@@ -26,6 +28,10 @@ var colors = ['#BDAEC6', '#C1DAD6', '#89E894', '#FFFF66', '#E86850', '#ffb366', 
 function consultar_distribuidor_admin(){
     var distribuidor = $('[data-id="subPicker_distri"]').text();
     var periodo = $('[data-id="subPicker_periodo"]').text();
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
     $.ajax({
         url:'diagrama/comisiones',
         data:{distribuidor:distribuidor, periodo:periodo},
@@ -48,9 +54,9 @@ function consultar_distribuidor_admin(){
                     aux = datos.get(data[i].nombre);
                 }
                 if(data[i].tipo == 1){
-                    aux[0] = Math.floor(data[i].valor*0.5786);
+                    aux[0] = Math.floor(data[i].valor*0.63);
                 }else{
-                    aux[1] = Math.ceil(data[i].valor*0.4386);
+                    aux[1] = Math.ceil(data[i].valor*0.49);
                 }
                 datos.set(data[i].nombre,aux);
             }
@@ -61,46 +67,50 @@ function consultar_distribuidor_admin(){
                 totalLibre += values[1];
                 i++;
             }, datos)
+            
+            var retencionPrepago = Math.floor(totalPrepago * 0.01);
+            var retencionLibre = Math.floor(totalLibre * 0.01);
+            var reteIcaPrepago = Math.floor(totalPrepago * 0.0413);
+            var reteIcaLibre = Math.floor(totalLibre * 0.0413);
+            html += '<h3 class="section-heading text-muted" style="color:black;margin-bottom:20px">SUBTOTAL</h3><hr><label class="historial_label_total">$' + addCommas(totalPrepago) + '</label><label class="historial_label_total">$' + addCommas(totalLibre) + '</label>';
+            html += '<h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">RETENCION</h3><hr><label class="historial_label_total">$' + addCommas(retencionPrepago) + '</label><label class="historial_label_total">$' + addCommas(retencionLibre) + '</label>';
+            html += '<h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">RETEICA</h3><hr><label class="historial_label_total">$' + addCommas(reteIcaPrepago) + '</label><label class="historial_label_total">$' + addCommas(reteIcaLibre) + '</label>';
+            
+            totalPrepago -= (retencionPrepago + reteIcaPrepago);
+            totalLibre -= (retencionLibre + reteIcaLibre);
+            
             html += '<h3 class="section-heading text-muted" style="color:black;margin-bottom:20px">TOTAL A PAGAR</h3><hr><label class="historial_label_total">$' + addCommas(totalPrepago) + '</label><label class="historial_label_total">$' + addCommas(totalLibre) + '</label>';
             var total=totalPrepago+totalLibre;
             datosDiagrama.push(
                         {
-                            value: Math.floor(totalLibre*100/total),
+                            value: totalLibre,
                             color:"#7FCA9F",
                             highlight: "#3f654f",
-                            label: "Libre"
+                            label: "Libre",
                         }
                     );
             datosDiagrama.push(
                         {
-                            value: Math.ceil(totalPrepago*100/total),
+                            value: totalPrepago,
                             color:"#85C1F5",
                             highlight: "#4A789C",
-                            label: "Prepago"
+                            label: "Prepago",
                         }
                     );
-                    
-            var options = {
-                segmentShowStroke : true,
-                segmentStrokeColor : "#fff",
-                segmentStrokeWidth : 2,
-                percentageInnerCutout : 50,
-                animationSteps : 100,
-                animationEasing : "easeOutBounce",
-                animateRotate : true,
-                animateScale : false,
-                responsive:true,
-                maintainAspectRatio:false,
-            }
             $('#valores_subs').html(html);
             diagramaPrepVsLibre.destroy();
             var ctx = document.getElementById("canvasHistorial").getContext("2d");
-            diagramaPrepVsLibre = new Chart(ctx).Doughnut(datosDiagrama, options);  
+            diagramaPrepVsLibre = new Chart(ctx).Doughnut(datosDiagrama, options);
+            $('#modal-loading').modal('hide');
         }
     });  
 }
 function consultar_distribuidor(){
     var periodo = $('[data-id="subPicker_periodo"]').text();
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
     $.ajax({
         url:'diagrama/comisiones',
         data:{distribuidor: null, periodo:periodo},
@@ -136,41 +146,43 @@ function consultar_distribuidor(){
                 totalLibre += values[1];
                 i++;
             }, datos)
-            html += '<label style="margin:0 10px;min-width:150px;margin-bottom:10px;color:#FFF">$' + addCommas(totalPrepago) + '</label><label style="margin:0 10px;min-width:150px;margin-bottom:10px;color:#FFF">$' + addCommas(totalLibre) + '</label>';
+            
+            var retencionPrepago = Math.floor(totalPrepago * 0.01);
+            var retencionLibre = Math.floor(totalLibre * 0.01);
+            var reteIcaPrepago = Math.floor(totalPrepago * 0.0413);
+            var reteIcaLibre = Math.floor(totalLibre * 0.0413);
+            
+            html += '<h3 class="section-heading text-muted" style="color:black;margin-bottom:20px">SUBTOTAL</h3><hr><label class="historial_label_total">$' + addCommas(totalPrepago) + '</label><label class="historial_label_total">$' + addCommas(totalLibre) + '</label>';
+            html += '<h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">RETENCION</h3><hr><label class="historial_label_total">$' + addCommas(retencionPrepago) + '</label><label class="historial_label_total">$' + addCommas(retencionLibre) + '</label>';
+            html += '<h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">RETEICA</h3><hr><label class="historial_label_total">$' + addCommas(reteIcaPrepago) + '</label><label class="historial_label_total">$' + addCommas(reteIcaLibre) + '</label>';
+            
+            totalPrepago -= (retencionPrepago + reteIcaPrepago);
+            totalLibre -= (retencionLibre + reteIcaLibre);
+            
+            html += '<h3 class="section-heading text-muted" style="color:black;margin-bottom:20px">TOTAL A PAGAR</h3><hr><label class="historial_label_total">$' + addCommas(totalPrepago) + '</label><label class="historial_label_total">$' + addCommas(totalLibre) + '</label>';
             var total=totalPrepago+totalLibre;
             datosDiagrama.push(
                         {
-                            value: Math.floor(totalLibre*100/total),
+                            value: totalLibre,
                             color:"#7FCA9F",
                             highlight: "#3f654f",
-                            label: "Libre"
+                            label: "Libre",
                         }
                     );
             datosDiagrama.push(
                         {
-                            value: Math.floor(totalPrepago*100/total),
+                            value: totalPrepago,
                             color:"#85C1F5",
                             highlight: "#4A789C",
-                            label: "Prepago"
+                            label: "Prepago",
                         }
                     );
                     
-            var options = {
-                segmentShowStroke : true,
-                segmentStrokeColor : "#fff",
-                segmentStrokeWidth : 2,
-                percentageInnerCutout : 50,
-                animationSteps : 100,
-                animationEasing : "easeOutBounce",
-                animateRotate : true,
-                animateScale : false,
-                responsive:true,
-                maintainAspectRatio:false,
-            }
             $('#valores_subs').html(html);
             diagramaPrepVsLibre.destroy();
             var ctx = document.getElementById("canvasHistorial").getContext("2d");
             diagramaPrepVsLibre = new Chart(ctx).Doughnut(datosDiagrama, options);  
+            $('#modal-loading').modal('hide');
         }
     });
 }
