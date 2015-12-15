@@ -502,8 +502,6 @@
 
                     <input name="_token" hidden value="<?php echo csrf_token(); ?>" />
                     <div class="form-group">
-                        <?php echo Form::label('Product Image'); ?>
-
                         <?php echo Form::file('image', null); ?>
 
                     </div>

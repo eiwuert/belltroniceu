@@ -62,21 +62,7 @@
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
-                    <li>
-                        <a class="page-scroll" href="#buscar">Buscar</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#paquetes">Paquetes</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#miestado">Mi Estado</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#libres">Libres</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#empaquetar">Empaquetar</a>
-                    </li>
+                    
                     <?php if($user->isAdmin): ?>
                     <li>
                         <a class="page-scroll" data-target="#modal_upload" data-toggle="modal" href="#modal_upload"><span class="glyphicon glyphicon-cloud-upload"></span></a>
@@ -112,38 +98,40 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Historial Finanzas</h2>
-                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las ganancias separadas en tus subdistribuidores.</h3>
+                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las ganancias separadas en tus subdistribuidores, el total ganado por cada tipo de simcard y la distribución en porcentaje de cada una.</h3>
                 </div>
             </div>
             <div class="row text-center ">
                 <div style="display: inline-block;vertical-align: middle;float: none;width:100%">
                     <div class="flex_container" style="width:100%">
                         <?php if($user->isAdmin): ?>
-                        <select class="selectpicker" data-width="40%" data-style="data" id ="subPicker_subdistri">
+                        <select class="selectpicker" data-width="40%" data-style="data" id ="subPicker_distri">
                             <?php foreach($distribuidores as $distribuidor): ?>
-                                <option><?php echo e($distribuidor->nombre); ?></option>
+                                <option><?php echo e($distribuidor->name); ?></option>
                             <?php endforeach; ?>
                         </select>
                         <?php else: ?>
-                        <select class="selectpicker" data-width="40%" data-style="data" id ="subPicker_subdistri">
-                            <?php foreach($subdistribuidores as $subdistribuidor): ?>
-                            <option><?php echo e($subdistribuidor->nombre); ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                        <label style="margin-right:10px">Escoge un periodo para ver tus ganancias</label>
                         <?php endif; ?>
-                        <select class="selectpicker" data-width="20%%" data-style="data" id ="subPicker_periodo">
+                        <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_periodo">
                             <?php foreach($periodos as $periodo): ?>
                             <option><?php echo e($periodo->periodo); ?></option>
                             <?php endforeach; ?>
                         </select>
+                        <?php if($user->isAdmin): ?>
+                        <button class="button button_assign" onClick="consultar_distribuidor_admin()" style=";width:100px;padding:0;">Consultar</button>
+                        <?php else: ?>
                         <button class="button button_assign" onClick="consultar_distribuidor()" style=";width:100px;padding:0;">Consultar</button>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
             <div class="row text-center" style="margin-top:20px">
                 <div class="col-md-4" style="display: inline-block;vertical-align: middle;float: none;">
                     <div class = "valores_sub_container">
-                        <h3 class="section-subheading text-muted" style="color:white;margin-bottom:20px">GANANCIAS</h3>
+                        <h3 class="section-heading text-muted" style="color:black;margin-bottom:20px">GANANCIAS</h3>
+                        <hr>
+                        <label style="margin:0 10px;min-width:150px;margin-bottom:10px;color:black">PREPAGO</label><label style="margin:0 10px;min-width:150px;margin-bottom:10px;color:black">LIBRE</label>
                         <div id = "valores_subs">
                             
                         </div>
@@ -154,91 +142,15 @@
                         <div style="width:250px;height:250px">
                             <canvas id="canvasHistorial"></canvas>
                         </div>
+                        <div class="portfolio-caption">
+                            <h4 style ="text-align:center;">Distribución ganancias</h4>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- SECCION FINANZAS SUBS  -->
-    <section id="finanzas_subs" class="parallex">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Ganancias subdistribuidores</h2>
-                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:0">Selecciona un subdistribuidor y un periodo para ver las ganancias en el gráfico.</h3>
-                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">En primer lugar veras el total ganado y en segundo lugar el total despues de impuestos <strong>(1% retención a la comisión + 4.14% ICA).</strong></h3>
-                </div>
-            </div>
-            <div class="row text-center ">
-                <div class="col-md-4" style="display: inline-block;vertical-align: middle;float: none;">
-                    <div id="search_container" class = "search_container">
-                        <h3 class = "section_body_content white" style="margin-top:0">Elige un subdistribuidor</h3>
-                        <?php if($user->isAdmin): ?>
-                        <select class="selectpicker" data-width="100%" data-style="data" id ="subPicker_subdistri">
-                            <?php foreach($distribuidores as $distribuidor): ?>
-                            <optgroup label="<?php echo e($distribuidor->name); ?>">
-                                <?php foreach($subdistribuidores[$distribuidor->name] as $subdistribuidor): ?>
-                                <option><?php echo e($subdistribuidor->nombre); ?></option>
-                                <?php endforeach; ?>
-                            </optgroup>
-                            <?php endforeach; ?>
-                        </select>
-                        <?php else: ?>
-                        <select class="selectpicker" data-width="100%" data-style="data" id ="subPicker_subdistri">
-                            <?php foreach($subdistribuidores as $subdistribuidor): ?>
-                            <option><?php echo e($subdistribuidor->nombre); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <?php endif; ?>
-                        <select class="selectpicker" data-width="100%" data-style="data" id ="subPicker_periodo">
-                            <?php foreach($periodos as $periodo): ?>
-                            <option><?php echo e($periodo->periodo); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <button class="button button_assign" onClick="consultar_subdistribuidor()" style="height:42px;width:100px;margin:0 auto">Consultar</button>
-                    </div>
-                </div>
-                <div class="col-md-4" style="display: inline-block;vertical-align: middle;float: none;">
-                    <div id="search_container" class = "search_container" style="padding: 5px 0">
-                        <label style="color:white;width:45%;margin-top:5px">Prepago</label>
-                        <label style="color:white;width:45%;margin-top:5px">Libre</label>
-                        <input class = "data_estado" id = "total_dis_prepago" disabled=true placeholder ="Distribuidor" >
-                        <input class = "data_estado" id = "total_dis_libre" disabled=true placeholder ="Distribuidor" >
-                        <input class = "data_estado" id = "total_sub_prepago" disabled=true placeholder="Subdisitribuidor" style="color:white">
-                        <input class = "data_estado" id = "total_sub_libre" disabled=true placeholder ="Subdistribuidor" style="margin-top:10px">
-                        <hr>
-                        <input class = "data_estado" id = "total_dis_prepago_at" disabled=true placeholder ="Distribuidor" >
-                        <input class = "data_estado" id = "total_dis_libre_at" disabled=true placeholder ="Distribuidor" >
-                        <input class = "data_estado" id = "total_sub_prepago_at" disabled=true placeholder="Subdisitribuidor" style="color:white">
-                        <input class = "data_estado" id = "total_sub_libre_at" disabled=true placeholder ="Subdistribuidor" style="margin-top:10px">
-                    </div>
-                </div>
-            </div>
-            <div class="row text-center" style="margin-top:20px">
-                <div class="col-md-4" style="display: inline-block;vertical-align: middle;float: none;">
-                    <div style="display: inline-block;vertical-align: middle;float:none;margin: 0 20px">
-                        <div style="width:250px;height:250px">
-                            <canvas id="canvasPrepago"></canvas>
-                        </div>
-                        <div class="portfolio-caption">
-                            <h4 style ="text-align:center;">Prepago Pack</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4" style="display: inline-block;vertical-align: middle;float: none;">
-                    <div style="display: inline-block;vertical-align: middle;float:none;margin: 0 20px">
-                        <div style="width:250px;height:250px">
-                            <canvas id="canvasLibre"></canvas>
-                        </div>
-                        <div class="portfolio-caption">
-                            <h4 style ="text-align:center;">Libre</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <!--------------------------------------MODALS------------------------------------------------->
     <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
@@ -301,7 +213,6 @@
     
     <!-- Charts Script -->
     <script src="js/Chart.js"></script>
-    <script src="js/finanzas/finanzas.charts.js"></script>
     
     <!-- Page Script  -->
     <script src="js/finanzas/finanzas.js"></script>

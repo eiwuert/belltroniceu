@@ -98,7 +98,7 @@ header{
 }
 hr {
   	border: 0;
-  	border-top: 1px solid #FFF;
+  	border-top: 1px solid #000;
   	border-top-style: dashed;
 	margin:8px 0;
 }
@@ -130,6 +130,21 @@ hr {
     font-family: regular;
     outline: none;
     background:#FFF;
+}
+.historial_label{
+    background:#FFF;
+    min-width:150px;
+    border-radius:5px;
+    padding-top:4px;
+    padding-bottom:4px;
+}
+
+.historial_label_total{
+    margin:0 10px;
+    min-width:150px;
+    margin-bottom:10px;
+    font-size:18px;
+    color:#3f654f;
 }
 .button {
     height: 40px;
@@ -193,7 +208,7 @@ hr {
 .valores_sub_container{
     padding: 10px;
     border-radius: 5px;
-    background:rgba(20,20,20,.4);
+    background:none;
 }
 
 .search_results_container{
