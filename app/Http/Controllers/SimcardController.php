@@ -36,8 +36,26 @@ class SimcardController extends Controller
             }else if($opcion[0] == 'ACTIVAR'){
                 while (($vars = fgetcsv($gestor, 1000, ",")) !== FALSE) {
                    $fecha_activacion = date_create_from_format("d/m/y",$vars[1]);
-                   $simc = \DB::table('simcards')->where('numero', '=',$vars[0])->orwhere('ICC', '=',$vars[0])->first();
-                   $sim = \App\Simcard::find($simc->ICC);
+                   $simc = \DB::table('simcards')->where('numero', '=',$vars[0])->first();
+                   if($simc == null){
+                       $ICC = \DB::table('simcards')->select('ICC')->orderBy(\DB::raw('ICC*1'))->first();
+                       $ICC = $ICC->ICC - 1;
+                       $fecha_vencimiento = date_add($fecha_activacion,date_interval_create_from_date_string("9 months"));
+                       $fecha_activacion = date_create_from_format("d/m/y",$vars[1]);
+                       \App\Simcard::create([
+                         'numero' => $vars[0],
+                         'ICC' => $ICC,
+                         'fecha_vencimiento' => $fecha_vencimiento,
+                         'fecha_activacion' =>  null,
+                         'nombreSubdistribuidor' => 'SIN ASIGNAR',
+                         'tipo' => 1,
+                         'paquete' => 0,
+                         'fecha_entrega' => null
+                         ]);
+                   }else{
+                       $ICC = $simc->ICC;
+                   }
+                   $sim = \App\Simcard::find($ICC);
                    if($sim->tipo == 1){
                         $fecha_vencimiento = date_add($fecha_activacion,date_interval_create_from_date_string("9 months"));
                    }else{

@@ -33,6 +33,7 @@
                     "command": "",
                     "debug": true,
                     "default": true,
+                    "env": {},
                     "name": "Apache & PHP",
                     "runner": "Apache httpd (PHP, HTML)"
                 },

@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'CrearTablaComisiones' => $baseDir . '/database/migrations/2015_12_14_182240_crear_tabla_comisiones.php',
+    'CreateJobsTable' => $baseDir . '/database/migrations/2015_12_14_233401_create_jobs_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
