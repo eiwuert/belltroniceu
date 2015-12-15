@@ -32,6 +32,19 @@ function consultar_distribuidor_admin(){
         backdrop: 'static',
         keyboard: false
         })
+    datos_distribuidor(distribuidor, periodo);
+}
+
+function consultar_distribuidor(){
+    var periodo = $('[data-id="subPicker_periodo"]').text();
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    datos_distribuidor(null, periodo);
+}
+
+function datos_distribuidor(distribuidor, periodo){
     $.ajax({
         url:'diagrama/comisiones',
         data:{distribuidor:distribuidor, periodo:periodo},
@@ -105,87 +118,7 @@ function consultar_distribuidor_admin(){
         }
     });  
 }
-function consultar_distribuidor(){
-    var periodo = $('[data-id="subPicker_periodo"]').text();
-    $('#modal-loading').modal({
-        backdrop: 'static',
-        keyboard: false
-        })
-    $.ajax({
-        url:'diagrama/comisiones',
-        data:{distribuidor: null, periodo:periodo},
-        type:'GET',
-        success: function(data){
-            var datos = new Map();
-            var datosDiagrama = [];
-            var totalPrepago = 0;
-            var totalLibre = 0;
-            var html = "";
-            var aux;
-            if(data == [] ){
-                $('#valores_subs').html("<label>No tienes ganancias registradas</label>");
-                return;
-            }
-            for (var i = 0; i < data.length; i++){
-                if(!datos.has(data[i].nombre)){
-                    aux = [0,0];
-                }else{
-                    aux = data.get(data[i].nombre);
-                }
-                if(data[i].tipo == 1){
-                    aux[0] = Math.floor(data[i].valor);
-                }else{
-                    aux[1] = Math.floor(data[i].valor);
-                }
-                datos.set(data[i].nombre,aux);
-            }
-            var i = 0;
-            datos.forEach(function(values, key) {
-                html += '<div class="historial_container" style="background: ' + colors[i] + '">' + '<label style="min-width:200px">'  + key + '</label><label style="background:rgba(20,20,20,.4);margin:0 10px;min-width:150px">$' + addCommas(values[0]) + '</label><label style="background:rgba(20,20,20,.4);min-width:150px"> $' + addCommas(values[1]) + '</label></div><hr>';
-                totalPrepago += values[0];
-                totalLibre += values[1];
-                i++;
-            }, datos)
-            
-            var retencionPrepago = Math.floor(totalPrepago * 0.01);
-            var retencionLibre = Math.floor(totalLibre * 0.01);
-            var reteIcaPrepago = Math.floor(totalPrepago * 0.0413);
-            var reteIcaLibre = Math.floor(totalLibre * 0.0413);
-            
-            html += '<h3 class="section-heading text-muted" style="color:black;margin-bottom:20px">SUBTOTAL</h3><hr><label class="historial_label_total">$' + addCommas(totalPrepago) + '</label><label class="historial_label_total">$' + addCommas(totalLibre) + '</label>';
-            html += '<h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">RETENCION</h3><hr><label class="historial_label_total">$' + addCommas(retencionPrepago) + '</label><label class="historial_label_total">$' + addCommas(retencionLibre) + '</label>';
-            html += '<h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">RETEICA</h3><hr><label class="historial_label_total">$' + addCommas(reteIcaPrepago) + '</label><label class="historial_label_total">$' + addCommas(reteIcaLibre) + '</label>';
-            
-            totalPrepago -= (retencionPrepago + reteIcaPrepago);
-            totalLibre -= (retencionLibre + reteIcaLibre);
-            
-            html += '<h3 class="section-heading text-muted" style="color:black;margin-bottom:20px">TOTAL A PAGAR</h3><hr><label class="historial_label_total">$' + addCommas(totalPrepago) + '</label><label class="historial_label_total">$' + addCommas(totalLibre) + '</label>';
-            var total=totalPrepago+totalLibre;
-            datosDiagrama.push(
-                        {
-                            value: totalLibre,
-                            color:"#7FCA9F",
-                            highlight: "#3f654f",
-                            label: "Libre",
-                        }
-                    );
-            datosDiagrama.push(
-                        {
-                            value: totalPrepago,
-                            color:"#85C1F5",
-                            highlight: "#4A789C",
-                            label: "Prepago",
-                        }
-                    );
-                    
-            $('#valores_subs').html(html);
-            diagramaPrepVsLibre.destroy();
-            var ctx = document.getElementById("canvasHistorial").getContext("2d");
-            diagramaPrepVsLibre = new Chart(ctx).Doughnut(datosDiagrama, options);  
-            $('#modal-loading').modal('hide');
-        }
-    });
-}
+
 
 function addCommas(nStr)
 {
