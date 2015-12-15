@@ -39,11 +39,18 @@ function consultar_subdistribuidor(){
         type:'GET',
         dataType: 'json',
         success: function(data){
+            
             var total_dis_prepago = data[0];
             var total_sub_prepago = data[2];
             var total_dis_libre = data[1];
             var total_sub_libre = data[3];
             
+            if($('[data-id="subPicker_subdistri"]').text() != 'OFICINA'){
+                total_dis_prepago *= 0.63;
+                total_sub_prepago *= 0.63;
+                total_dis_libre *= 0.63;
+                total_sub_libre *= 0.63;
+            }
             $('#total_dis_prepago').val("$" + addCommas(total_dis_prepago));
             $('#total_sub_prepago').val("$" + addCommas(total_sub_prepago));
             $('#total_dis_libre').val("$" + addCommas(total_dis_libre));
@@ -63,13 +70,13 @@ function consultar_subdistribuidor(){
             
             var dataPrepago = [
                 {
-                    value: total_dis_prepago-total_sub_prepago,
+                    value: Math.floor(total_dis_prepago-total_sub_prepago),
                     color:"#d3d3d3",
                     highlight: "#c3c3c3",
                     label: "Resto"
                 },
                 {
-                    value: total_sub_prepago,
+                    value: Math.floor(total_sub_prepago),
                     color: "#7FCA9F",
                     highlight: "#3f654f",
                     label:  $('[data-id="subPicker_subdistri"]').text(),
