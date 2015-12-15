@@ -23,19 +23,41 @@ class FinanzasController extends Controller
         if($request->ajax()){
             $user =  \Auth::User();   
             $distri = \DB::select("SELECT users.email from subdistribuidores inner join users on subdistribuidores.emailDistribuidor = users.email where subdistribuidores.nombre = ?", [$request['nombre']]);
-            $total = \DB::select("SELECT sum(valor) as valor from comisiones inner join simcards on comisiones.ICC = simcards.ICC inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where users.email = ? and comisiones.periodo = ?", [$distri[0]->email, $request['periodo']]);
-            $comision = \DB::select("SELECT sum(valor) as valor from comisiones inner join simcards on comisiones.ICC = simcards.ICC where simcards.nombreSubdistribuidor = ? and comisiones.periodo = ?", [$request['nombre'], $request['periodo']]);
-            if($total == null){
-                $total = 0;
+            
+            $total = \DB::select("SELECT 
+                sum(case when simcards.tipo = 1 then comisiones.valor end) totalPrepago, 
+                sum(case when simcards.tipo = 2 then comisiones.valor end) totalLibre
+                FROM comisiones inner join simcards on comisiones.ICC = simcards.ICC inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email 
+                WHERE users.email = ? and comisiones.periodo = ?", [$distri[0]->email, $request['periodo']]);
+            $comision = \DB::select("SELECT 
+                sum(case when simcards.tipo = 1 then comisiones.valor end) comisionPrepago, 
+                sum( case when simcards.tipo = 2 then comisiones.valor end) comisionLibre
+                FROM comisiones inner join simcards on comisiones.ICC = simcards.ICC 
+                WHERE simcards.nombreSubdistribuidor = ? and comisiones.periodo = ?", [$request['nombre'], $request['periodo']]);
+             
+            if($total[0]->totalPrepago == null){
+                $totalPrepago = 0;
             }else{
-                $total = $total[0]->valor;
+                $totalPrepago = $total[0]->totalPrepago;
             }
-            if($comision == null){
-                $comision = 0;
+            if($total[0]->totalLibre == null){
+                $totalLibre = 0;
             }else{
-                $comision = $comision[0]->valor;
+                $totalLibre = $total[0]->totalLibre;
             }
-            return [$total-$comision,$comision-0];
+            if($comision[0]->comisionPrepago == null){
+                $comisionPrepago = 0;
+            }else{
+                $comisionPrepago = $comision[0]->comisionPrepago;
+            }
+            if($comision[0]->comisionLibre == null){
+                $comisionLibre = 0;
+            }else{
+                $comisionLibre = $comision[0]->comisionLibre;
+            }
+            
+            // RETENCIONES
+            return [$totalPrepago-0, $totalLibre-0, $comisionPrepago-0, $comisionLibre-0];
         }
      }
 }

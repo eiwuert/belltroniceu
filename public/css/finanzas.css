@@ -92,20 +92,25 @@ header{
 }
 
 .data_estado{
-    width: 100%;
+    width: 45%;
     height: 32px;
     box-sizing: border-box;
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 14px;
     font-family: regular;
-    margin-bottom: 5px;
+    margin:5px;
     outline: none;
     color:white;
     text-align:center;
     background:rgba(20,20,20,0.6);;
 }
-
+hr {
+  	border: 0;
+  	border-top: 1px solid #FFF;
+  	border-top-style: dashed;
+	margin:8px 0;
+}
 .data {
     width: 100%;
     height: 42px;

@@ -1,28 +1,29 @@
-var chart;
+var chart_Prepago,chart_Libre;
 $(document).ready(function () {
     var data = [
-                {
-                    value: 1,
-                    color:"#d3d3d3",
-                    highlight: "#c3c3c3",
-                    label: "Total"
-                }
-            ]
-            var options = {
-                segmentShowStroke : true,
-                segmentStrokeColor : "#fff",
-                segmentStrokeWidth : 2,
-                percentageInnerCutout : 50,
-                animationSteps : 100,
-                animationEasing : "easeOutBounce",
-                animateRotate : true,
-                animateScale : false,
-                responsive:true,
-            }
-            var ctx = document.getElementById("canvasPrepago").getContext("2d");
-            chart = new Chart(ctx).Doughnut(data, {
-                animateScale: true
-            });
+        {
+            value: 1,
+            color:"#d3d3d3",
+            highlight: "#c3c3c3",
+            label: "Total"
+        }
+    ]
+    var options = {
+        segmentShowStroke : true,
+        segmentStrokeColor : "#fff",
+        segmentStrokeWidth : 2,
+        percentageInnerCutout : 50,
+        animationSteps : 100,
+        animationEasing : "easeOutBounce",
+        animateRotate : true,
+        animateScale : false,
+        responsive:true,
+        maintainAspectRatio:false,
+    }
+    var ctx = document.getElementById("canvasPrepago").getContext("2d");
+    chart_Prepago = new Chart(ctx).Doughnut(data, options);
+    var ctx = document.getElementById("canvasLibre").getContext("2d");
+    chart_Libre = new Chart(ctx).Doughnut(data, options);
 });
 
 function consultar_subdistribuidor(){
@@ -38,17 +39,51 @@ function consultar_subdistribuidor(){
         type:'GET',
         dataType: 'json',
         success: function(data){
-            $('#total_dis').val("Distribuidor:  $" + addCommas(data[0]+data[1]));
-            $('#total_sub').val("Subdistribuidor:  $" + addCommas(data[1]));
-            var data = [
+            var total_dis_prepago = data[0];
+            var total_sub_prepago = data[2];
+            var total_dis_libre = data[1];
+            var total_sub_libre = data[3];
+            
+            $('#total_dis_prepago').val("$" + addCommas(total_dis_prepago));
+            $('#total_sub_prepago').val("$" + addCommas(total_sub_prepago));
+            $('#total_dis_libre').val("$" + addCommas(total_dis_libre));
+            $('#total_sub_libre').val("$" + addCommas(total_sub_libre));
+            
+            // IMPUESTOS
+            
+            var total_dis_prepago_at = Math.floor(total_dis_prepago * 0.9486);
+            var total_sub_prepago_at = Math.floor(total_sub_prepago * 0.9486);
+            var total_dis_libre_at = Math.floor(total_dis_libre * 0.9486);
+            var total_sub_libre_at = Math.floor(total_sub_libre * 0.9486);
+            
+            $('#total_dis_prepago_at').val("$" + addCommas(total_dis_prepago_at));
+            $('#total_sub_prepago_at').val("$" + addCommas(total_sub_prepago_at));
+            $('#total_dis_libre_at').val("$" + addCommas(total_dis_libre_at));
+            $('#total_sub_libre_at').val("$" + addCommas(total_sub_libre_at));
+            
+            var dataPrepago = [
                 {
-                    value: data[0],
+                    value: total_dis_prepago-total_sub_prepago,
                     color:"#d3d3d3",
                     highlight: "#c3c3c3",
-                    label: "Total"
+                    label: "Resto"
                 },
                 {
-                    value: data[1],
+                    value: total_sub_prepago,
+                    color: "#7FCA9F",
+                    highlight: "#3f654f",
+                    label:  $('[data-id="subPicker_subdistri"]').text(),
+                }
+            ]
+            var dataLibre = [
+                {
+                    value: total_dis_libre-total_sub_libre,
+                    color:"#d3d3d3",
+                    highlight: "#c3c3c3",
+                    label: "Resto"
+                },
+                {
+                    value: data[3],
                     color: "#7FCA9F",
                     highlight: "#3f654f",
                     label:  $('[data-id="subPicker_subdistri"]').text(),
@@ -67,9 +102,13 @@ function consultar_subdistribuidor(){
                 maintainAspectRatio:false,
                 tooltipTemplate: "<%if (label){%><%=label%>: <%}%>$<%=addCommas(value) %>",
             }
+            chart_Prepago.destroy();
+            chart_Libre.destroy();
+            
             var ctx = document.getElementById("canvasPrepago").getContext("2d");
-            chart.destroy();
-            chart = new Chart(ctx).Doughnut(data, options);
+            chart_Prepago = new Chart(ctx).Doughnut(dataPrepago, options);
+            var ctx = document.getElementById("canvasLibre").getContext("2d");
+            chart_Libre = new Chart(ctx).Doughnut(dataLibre, options);
             $('#modal-loading').modal("hide");
         }
     });
