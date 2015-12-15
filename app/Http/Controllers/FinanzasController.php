@@ -60,4 +60,15 @@ class FinanzasController extends Controller
             return [$totalPrepago-0, $totalLibre-0, $comisionPrepago-0, $comisionLibre-0];
         }
      }
+     
+     public function datosComisiones(Request $request){
+        if($request->ajax()){
+            $user =  \Auth::User();
+            $periodo = \DB::table('comisiones')->select('periodo')->orderBy(\DB::raw('periodo*1'),'desc')->first();
+            $datos = \DB::select("SELECT subdistribuidores.nombre nombre,sum(valor) valor from comisiones inner join simcards on comisiones.ICC = simcards.ICC INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and comisiones.periodo = ? group by subdistribuidores.nombre",
+                 [$user->name, $periodo->periodo]);
+            
+            return $datos;;
+        }
+    }
 }

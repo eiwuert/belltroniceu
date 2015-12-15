@@ -73,15 +73,6 @@ header{
     color:#fff
 }
 
-.search_container{
-    max-width:500px;
-    min-width:200px;
-    padding: 20px 7%;
-    margin:5px;
-    border-radius:10px;
-    background:rgba(20,20,20,0.4);
-}
-
 .search_container h3{
     margin-bottom:20px;
 }
@@ -164,8 +155,8 @@ hr {
 .button_assign{
     background:none;
     min-width:100px;
-    border: 1px solid #FFF;
-    color:#FFF;
+    border: 1px solid #003366;
+    color:#003366;
 }
 .button_assign:hover{
     border: 2px solid #003366;
@@ -185,6 +176,25 @@ hr {
     color: white; 
 }
 
+.flex_container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items:center;
+    align-content:center;
+    
+}
+
+.historial_container{
+    padding:5px;
+    border-radius:5px;
+}
+.valores_sub_container{
+    padding: 10px;
+    border-radius: 5px;
+    background:rgba(20,20,20,.4);
+}
 
 .search_results_container{
     height:auto;

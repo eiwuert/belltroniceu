@@ -43,8 +43,10 @@ Route::get('user/eliminar', array('middleware' => 'auth','uses'=> 'UserControlle
 Route::get('subdistribuidor/buscarTodos', array('middleware' => 'auth', 'uses'=> 'SubdistribuidorController@buscarSubdistribuidores'));
 Route::get('subdistribuidor/eliminar', array('middleware' => 'auth','uses'=> 'SubdistribuidorController@eliminar'));
 
-// DATOS DIAGRAMAS SIMCARDS
+// DATOS DIAGRAMAS
 Route::get('diagrama/simcards', array('middleware' => 'auth', 'uses'=> 'SimcardController@datosSimcard'));
+Route::get('diagrama/comisiones', array('middleware' => 'auth', 'uses'=> 'FinanzasController@datosComisiones'));
+
 
 // Login routes
 Route::get('auth/login', 'Auth\AuthController@getLogin');
