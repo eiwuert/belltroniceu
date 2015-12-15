@@ -3,8 +3,8 @@
 @media screen and (max-width:400px){
     
     .chart_container{
-        width:250px;
-        height:150px;
+        width:200px;
+        height:200px;
         margin:auto;
     }
     
@@ -23,7 +23,7 @@
 @media screen and (min-width:400px) and (max-width:1000px){
     .chart_container{
         width:400px;
-        height:300px;
+        height:400px;
         margin:auto;
     }    
     .package_buttons_container{
@@ -37,7 +37,7 @@
 @media screen and (min-width:1000px){
     .chart_container{
         width:400px;
-        height:300px;
+        height:400px;
         margin-left:50px;
     }
     .package_buttons_container{
@@ -89,6 +89,21 @@ header{
 .section_body_content{
     font-weight:normal;
     font-size:20px;
+}
+
+.data_estado{
+    width: 100%;
+    height: 32px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    font-family: regular;
+    margin-bottom: 5px;
+    outline: none;
+    color:white;
+    text-align:center;
+    background:rgba(20,20,20,0.6);;
 }
 
 .data {

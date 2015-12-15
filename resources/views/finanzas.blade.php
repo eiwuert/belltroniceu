@@ -112,7 +112,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Ganancias subdistribuidores</h2>
-                    <h3 class="section-subheading text-muted" style="color:black">Selecciona un subdistribuidor y veras las ganancias en el gráfico</h3>
+                    <h3 class="section-subheading text-muted" style="color:black">Selecciona un subdistribuidor y un periodo para ver las ganancias en el gráfico.</h3>
                 </div>
             </div>
             <div class="row text-center ">
@@ -136,14 +136,20 @@
                             @endforeach
                         </select>
                         @endif
+                        <select class="selectpicker" data-width="100%" data-style="data" id ="subPicker_periodo">
+                            @foreach ($periodos as $periodo)
+                            <option>{{$periodo->periodo}}</option>
+                            @endforeach
+                        </select>
                         <button class="button button_assign" onClick="consultar_subdistribuidor()" style="height:42px;width:100px;margin:0 auto">Consultar</button>
+                        <div style="width:100%;text-align:center">
+                            <input class = "data_estado" id = "total_dis" disabled=true placeholder ="Distribuidor" style="margin-top:5px">
+                            <input class = "data_estado" id = "total_sub" disabled=true placeholder="Subdisitribuidor":>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6" style="display: inline-block;vertical-align: middle;float:none;">
-                    <div style="weight:100%;height:100%">
-                        <div class="preloader" id ="loader_prepago"> <i class="fa fa-cog fa-spin  blue_strong_text"></i></div>
-                        <canvas id="canvasPrepago"></canvas>
-                    </div>
+                    <canvas style="width:300px;height:300px" id="canvasPrepago"></canvas>
                     <div class="portfolio-caption">
                         <h4 style ="text-align:center;">Prepago Pack</h4>
                     </div>
@@ -190,7 +196,6 @@
                         'files' => true)) !!}
                     <input name="_token" hidden value="{!! csrf_token() !!}" />
                     <div class="form-group">
-                        {!! Form::label('Product Image') !!}
                         {!! Form::file('image', null) !!}
                     </div>
                     

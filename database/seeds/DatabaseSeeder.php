@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call(agregarSimcardsSeeder::class);
+        $this->call(agregarComisionesSeeder::class);
 
         Model::reguard();
     }

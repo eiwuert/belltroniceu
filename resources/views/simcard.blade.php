@@ -501,7 +501,6 @@
                         'files' => true)) !!}
                     <input name="_token" hidden value="{!! csrf_token() !!}" />
                     <div class="form-group">
-                        {!! Form::label('Product Image') !!}
                         {!! Form::file('image', null) !!}
                     </div>
                     
