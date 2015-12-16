@@ -93,7 +93,7 @@
     </header>
 
     <!-- SECCION MI HISTORIAL -->
-    <section id="historial" class="parallex">
+    <section id="estado_recargas" class="parallex">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -144,7 +144,7 @@
     </section>
     
     <!-- SECCION SIMS 3000 -->
-    <section id="historial" class="parallex">
+    <section id="informe_recargas" class="parallex">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -155,12 +155,35 @@
             <div class="row text-center ">
                 <div style="display: inline-block;vertical-align: middle;float: none;width:100%">
                     <div class="flex_container" style="width:100%">
-                        <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_mes_simcards">
+                        <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_mes">
                             @foreach ($meses as $mes)
                             <option>{{$mes->mes}}</option>
                             @endforeach
                         </select>
-                        <button class="button button_assign" onClick="consultar_simcards()" style=";width:100px;padding:0;">Generar</button>
+                        <button class="button button_assign" onClick="consultar_simcards()" style=";width:200px;padding:0;">BAJAR INFORME</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las simcards con 3000 o menos recargadas que han sido activadas en un mes filtradas por distribuidor.</h3>
+                </div>
+            </div>
+            <div class="row text-center ">
+                <div style="display: inline-block;vertical-align: middle;float: none;width:100%">
+                    <div class="flex_container" style="width:100%">
+                        <select class="selectpicker" data-width="100%" data-style="data" id ="subPicker_estado_distri" style="min-width:220px">
+                            @foreach ($distribuidores as $distribuidor)
+                                <option value ="{{$distribuidor->name}}">{{$distribuidor->name}}</option>
+                            @endforeach
+                        </select>
+                        <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_mes_distri">
+                            @foreach ($meses as $mes)
+                            <option>{{$mes->mes}}</option>
+                            @endforeach
+                        </select>
+                        <button class="button button_assign" onClick="consultar_simcards_distribuidor()" style=";width:200px;padding:0;">BAJAR INFORME</button>
                     </div>
                 </div>
             </div>

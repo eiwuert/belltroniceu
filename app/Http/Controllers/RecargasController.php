@@ -22,17 +22,26 @@ class RecargasController extends Controller
     
     public function simcards(Request $request){
         $mes = $request['mes'];
-        
         try{
-            $simcards = \DB::select("select a.name, a.nombreSubdistribuidor,a.numero, sum(a.valor) valor from (select users.name,simcards.nombreSubdistribuidor,simcards.numero, simcards.fecha_activacion, IFNULL(recargas.valor_recarga,0) valor, recargas.fecha_recarga from simcards left join recargas on simcards.ICC = recargas.ICC inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where ISNULL(simcards.fecha_activacion) = false and MONTH(simcards.fecha_activacion) = ? and YEAR(simcards.fecha_activacion) = ? and (MONTH(fecha_recarga) = ? or ISNULL(fecha_recarga) = true)) a group by a.numero HAVING sum(a.valor) <= 3000 order by a.name, a.nombreSubdistribuidor, sum(a.valor) asc",
-                         [$mes,'2015',$mes]);
+            $distribuidor = $request['distribuidor'];
+            if($distribuidor == null){
+                $simcards = \DB::select("select a.name, a.nombreSubdistribuidor,a.numero, sum(a.valor) valor from (select users.name,simcards.nombreSubdistribuidor,simcards.numero, simcards.fecha_activacion, IFNULL(recargas.valor_recarga,0) valor, recargas.fecha_recarga from simcards left join recargas on simcards.ICC = recargas.ICC inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where ISNULL(simcards.fecha_activacion) = false and MONTH(simcards.fecha_activacion) = ? and YEAR(simcards.fecha_activacion) = ? and (MONTH(fecha_recarga) = ? and simcards.tipo = 1 or ISNULL(fecha_recarga) = true)) a group by a.numero HAVING sum(a.valor) <= 3000 order by a.name, a.nombreSubdistribuidor, sum(a.valor) asc",
+                             [$mes,'2015',$mes]);
+                $total = \DB::select("select count(numero) total from simcards where MONTH(simcards.fecha_activacion) = ? and YEAR(simcards.fecha_activacion) = ?", [$mes,'2015']);
+            }else{
+                $simcards = \DB::select("select a.name, a.nombreSubdistribuidor,a.numero, sum(a.valor) valor from (select users.name,simcards.nombreSubdistribuidor,simcards.numero, simcards.fecha_activacion, IFNULL(recargas.valor_recarga,0) valor, recargas.fecha_recarga from simcards left join recargas on simcards.ICC = recargas.ICC inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where ISNULL(simcards.fecha_activacion) = false and MONTH(simcards.fecha_activacion) = ? and YEAR(simcards.fecha_activacion) = ? and users.name = ? and (MONTH(fecha_recarga) = ? and simcards.tipo = 1 or ISNULL(fecha_recarga) = true)) a group by a.numero HAVING sum(a.valor) <= 3000 order by a.name, a.nombreSubdistribuidor, sum(a.valor) asc",
+                             [$mes,'2015', $distribuidor, $mes]);
+                $total = \DB::select("select count(numero) total from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where MONTH(simcards.fecha_activacion) = ? and YEAR(simcards.fecha_activacion) = ? and users.name = ?", [$mes,'2015', $distribuidor]);
+            }
             if($simcards != null){
                 $myfile = fopen("temp/estadoSimcards.csv", "w");
                 $distri = $simcards[0]->name;
                 $subdistri = $simcards[0]->nombreSubdistribuidor;
-                fwrite($myfile, "DISTRIBUIDOR,," . $distri . "\n");
-                fwrite($myfile, ",SUBDISTRIBUIDOR:," . $subdistri . "\n");
+                fwrite($myfile, $distri . ",,\n");
+                fwrite($myfile, "," . $subdistri . ",\n");
+                $cantidad = 0;
                 foreach($simcards as $simcard){
+                    $cantidad++;
                     if($simcard->name != $distri){
                         $distri = $simcard->name;
                         fwrite($myfile, $distri . ",,\n");
@@ -43,6 +52,11 @@ class RecargasController extends Controller
                     }
                     fwrite($myfile, "," . $simcard->numero . "," . $simcard->valor . "\n");
                 }
+                $menos = $total[0]->total - $cantidad;
+                fwrite($myfile, ", TOTAL AGENCIA,\n");
+                fwrite($myfile, "TOTAL LINEAS:," . $total[0]->total . ",\n");
+                fwrite($myfile, "LINEAS CON MAS DE 3000:," . $menos . ",\n");
+                fwrite($myfile, "LINEAS CON MENOS DE 3000:," . $cantidad . ",\n");
                 fclose($myfile);
                 return 1;
             }else{

@@ -128,15 +128,34 @@ function consultar_simcards(){
         })
     $.ajax({
         url:'recargas/simcards',
-        data:{mes:mes},
+        data:{distribuidor:null,mes:mes},
         type:'GET',
         success: function(data){
             if(data == 1){
                 document.getElementById('my_iframe').src = "temp/estadoSimcards.csv";    
-            }else{
-                $('#simcards_container').html("<label>No se encuentran simcards con menos de 3000 de recarga</label>");      
+            }else{     
             }
             $('#modal-loading').modal('hide');
+        }
+    });
+}
+
+function consultar_simcards_distribuidor(){
+    var mes = $('[data-id="subPicker_mes_distri"]').text();
+    var distribuidor = $('[data-id="subPicker_estado_distri"]').text();
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    $.ajax({
+        url:'recargas/simcards',
+        data:{distribuidor:distribuidor, mes:mes},
+        type:'GET',
+        success: function(data){
+            if(data == 1){
+                document.getElementById('my_iframe').src = "temp/estadoSimcards.csv";    
+            }else{    
+            }
             $('#modal-loading').modal('hide');
         }
     });
