@@ -131,7 +131,7 @@
                     <div class = "valores_sub_container">
                         <h3 class="section-heading text-muted" style="color:black;margin-bottom:20px">GANANCIAS</h3>
                         <hr>
-                        <label style="margin:0 10px;min-width:150px;margin-bottom:10px;color:black">PREPAGO</label><label style="margin:0 10px;min-width:150px;margin-bottom:10px;color:black">LIBRE</label>
+                        <label class="heading_label">PREPAGO</label><label class="heading_label">LIBRE</label>
                         <div id = "valores_subs">
                             
                         </div>

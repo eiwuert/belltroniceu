@@ -56,8 +56,9 @@ function datos_distribuidor(distribuidor, periodo){
             var totalLibre = 0;
             var html = "";
             var aux;
-            if(data == [] ){
-                $('#valores_subs').html("<label>No tienes ganancias registradas</label>");
+            if(data.length == 0){
+                $('#valores_subs').html('<label style="color:red;font-size:18px">No tienes ganancias registradas</label>');
+                $('#modal-loading').modal('hide');
                 return;
             }
             for (var i = 0; i < data.length; i++){
