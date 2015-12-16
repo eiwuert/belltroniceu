@@ -149,7 +149,6 @@ h5 {
 .dash-unit h3 {
 	font-weight:300;
 	font-size: 15px;
-	line-height: 2px;
 	letter-spacing: 0px;
 	color: #fed136;
 	padding-top:10px;
@@ -923,4 +922,35 @@ a:hover {
 	flex-direction: row;
 	align-items:center;
 	justify-content:center;
+}
+
+@media screen and (min-width: 400px){
+	.selectpicker{
+		margin-right:20px;
+	}
+	#new_subdistribuidor_name{
+		margin-right:20px;
+	}
+}
+@media screen and (max-width: 400px){
+	.selectpicker{
+		margin-right:0px;
+	}
+	#new_subdistribuidor_name{
+		margin-right:0px;
+	}
+}
+.selectpicker{
+	background:none;
+	border-radius:5px;
+	border: 1px solid #FFF;
+	min-width:200px;
+	height:35px;
+	text-align:center;
+	margin-top:20px;
+	text-align:center;
+}
+
+.selectpicker option{
+	background: #3d3d3d;
 }

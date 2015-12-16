@@ -13,6 +13,43 @@ $(document).ready(function () {
         }
     });
 });
+
+function crear_subdistribuidor(){
+    var distribuidor =  $('#subPicker_distri option:selected').val();
+    var nombre = $('#new_subdistribuidor_name').val();
+    if(nombre == ''){
+        $('.modal-header #modal-tittle').html('Error');
+        $('.modal-body #modal-body').html('Existen campos sin datos');
+        $('#modal-content').modal('show');  
+    }else{
+        $('#modal-loading').modal({
+            backdrop: 'static',
+            keyboard: false
+        })
+        $.ajax({
+            url:'subdistribuidor/crear',
+            data:{distribuidor:distribuidor, nombre:nombre},
+            type:'GET',
+            dataType: 'json',
+            success: function(data){
+                if(data == 1){
+                    $('.modal-header #modal-tittle').html('Exito');
+                    $('.modal-body #modal-body').html('Subdistribuidor creado');
+                    $('#modal-content').modal('show');
+                }else if(data == -1){
+                    $('.modal-header #modal-tittle').html('Error');
+                    $('.modal-body #modal-body').html('Ya existe un usuario con ese email');
+                    $('#modal-content').modal('show');       
+                }else{
+                    $('.modal-header #modal-tittle').html('Error');
+                    $('.modal-body #modal-body').html('Error al ingresar: ' + data);
+                    $('#modal-content').modal('show');       
+                }
+                $('#modal-loading').modal('hide');
+            }
+        });
+    }
+}
 function crear_usuario(){
     var name = $('#new_user_name').val();
     var email = $('#new_user_email').val();

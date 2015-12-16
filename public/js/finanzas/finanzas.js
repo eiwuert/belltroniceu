@@ -83,8 +83,8 @@ function datos_distribuidor(distribuidor, periodo){
             
             var retencionPrepago = Math.floor(totalPrepago * 0.01);
             var retencionLibre = Math.floor(totalLibre * 0.01);
-            var reteIcaPrepago = Math.floor(totalPrepago * 0.0413);
-            var reteIcaLibre = Math.floor(totalLibre * 0.0413);
+            var reteIcaPrepago = Math.floor(totalPrepago * 0.00413);
+            var reteIcaLibre = Math.floor(totalLibre * 0.00413);
             html += '<h3 class="section-heading text-muted" style="color:black;margin-bottom:20px">SUBTOTAL</h3><hr><label class="historial_label_total">$' + addCommas(totalPrepago) + '</label><label class="historial_label_total">$' + addCommas(totalLibre) + '</label>';
             html += '<h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">RETENCION</h3><hr><label class="historial_label_total">$' + addCommas(retencionPrepago) + '</label><label class="historial_label_total">$' + addCommas(retencionLibre) + '</label>';
             html += '<h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">RETEICA</h3><hr><label class="historial_label_total">$' + addCommas(reteIcaPrepago) + '</label><label class="historial_label_total">$' + addCommas(reteIcaLibre) + '</label>';
@@ -92,7 +92,7 @@ function datos_distribuidor(distribuidor, periodo){
             totalPrepago -= (retencionPrepago + reteIcaPrepago);
             totalLibre -= (retencionLibre + reteIcaLibre);
             
-            html += '<h3 class="section-heading text-muted" style="color:black;margin-bottom:20px">TOTAL A PAGAR</h3><hr><label class="historial_label_total">$' + addCommas(totalPrepago) + '</label><label class="historial_label_total">$' + addCommas(totalLibre) + '</label>';
+            html += '<h3 class="section-heading text-muted" style="color:black;margin-bottom:20px">TOTAL A PAGAR</h3><hr><label class="historial_label_total">$' + addCommas(totalPrepago+totalLibre) + '</label>';
             var total=totalPrepago+totalLibre;
             datosDiagrama.push(
                         {

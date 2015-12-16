@@ -141,9 +141,29 @@
             </div>
         </div>
         @if($user->isAdmin)
-        <div class="row">
+            <div class="col-sm-13">
+                <div class="dash-unit" >
+        	        <dtitle align="left">Crear Subdistribuidor</dtitle>
+        	        <div style="text-align:center">
+            	      	<hr>
+            			<h3>Selecciona el distribuidor e ingresa el nombre del subdistribuidor.</h3>
+            			<select class="selectpicker" data-width="100%" id ="subPicker_distri">
+                            @foreach ($distribuidores as $distribuidor)
+                                <option>{{$distribuidor->name}}</option>
+                            @endforeach
+                        </select>
+            			
+        			    <input type="text" style="min-width:200px;width:250px" id="new_subdistribuidor_name" style="margin-top:5px" placeholder="Nombre">
+            			
+            			<button style="margin-bottom:10px;margin-top:10px;width:200px" onClick="crear_subdistribuidor()">Crear</button>
+        			</div>
+    			</div>
+            </div>
+        @endif
+        
+        @if($user->isAdmin)
         <!-- USER PROFILE BLOCK -->
-            <div class="col-lg-12">
+            <div class="col-sm-13">
           	    <div class="dash-unit">
     	      	    <dtitle>Distribuidores</dtitle>
     	      		<hr>
@@ -172,7 +192,6 @@
 	      		    </div>
                 </div>
             </div>
-        </div>
         @endif
 	</div> <!-- /container -->
 	<div id="footerwrap">

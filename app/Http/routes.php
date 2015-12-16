@@ -41,6 +41,7 @@ Route::get('user/eliminar', array('middleware' => 'auth','uses'=> 'UserControlle
 
 // ACCIONES SUBDISTRIBUIDORES
 Route::get('subdistribuidor/buscarTodos', array('middleware' => 'auth', 'uses'=> 'SubdistribuidorController@buscarSubdistribuidores'));
+Route::get('subdistribuidor/crear', array('middleware' => 'auth','uses'=> 'SubdistribuidorController@crear'));
 Route::get('subdistribuidor/eliminar', array('middleware' => 'auth','uses'=> 'SubdistribuidorController@eliminar'));
 
 // DATOS DIAGRAMAS
