@@ -84,16 +84,16 @@ function consultar_recargas(distribuidor, periodo){
             datosDiagrama.push(
                         {
                             value: totalLibre,
-                            color:"#7FCA9F",
-                            highlight: "#3f654f",
+                            color:"#85C1F5",
+                            highlight: "#4A789C",
                             label: "Libre",
                         }
                     );
             datosDiagrama.push(
                         {
                             value: totalPrepago,
-                            color:"#85C1F5",
-                            highlight: "#4A789C",
+                            color:"#7FCA9F",
+                            highlight: "#3f654f",
                             label: "Prepago",
                         }
                     );
@@ -118,4 +118,26 @@ function addCommas(nStr)
         x1 = x1.replace(rgx, '$1' + ',' + '$2');
     }
     return x1 + x2;
+}
+
+function consultar_simcards(){
+    var mes = $('[data-id="subPicker_mes"]').text();
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    $.ajax({
+        url:'recargas/simcards',
+        data:{mes:mes},
+        type:'GET',
+        success: function(data){
+            if(data == 1){
+                document.getElementById('my_iframe').src = "temp/estadoSimcards.csv";    
+            }else{
+                $('#simcards_container').html("<label>No se encuentran simcards con menos de 3000 de recarga</label>");      
+            }
+            $('#modal-loading').modal('hide');
+            $('#modal-loading').modal('hide');
+        }
+    });
 }

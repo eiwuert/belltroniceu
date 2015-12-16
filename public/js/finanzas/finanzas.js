@@ -98,16 +98,16 @@ function datos_distribuidor(distribuidor, periodo){
             datosDiagrama.push(
                         {
                             value: totalLibre,
-                            color:"#7FCA9F",
-                            highlight: "#3f654f",
+                            color:"#85C1F5",
+                            highlight: "#4A789C",
                             label: "Libre",
                         }
                     );
             datosDiagrama.push(
                         {
                             value: totalPrepago,
-                            color:"#85C1F5",
-                            highlight: "#4A789C",
+                            color:"#7FCA9F",
+                            highlight: "#3f654f",
                             label: "Prepago",
                         }
                     );
