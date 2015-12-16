@@ -68,7 +68,7 @@ function datos_distribuidor(distribuidor, periodo){
                     aux = datos.get(data[i].nombre);
                 }
                 if(data[i].tipo == 1){
-                    aux[0] = Math.floor(data[i].valor*0.63);
+                    aux[0] = Math.floor(data[i].valor*0.62);
                 }else{
                     aux[1] = Math.ceil(data[i].valor*0.49);
                 }
