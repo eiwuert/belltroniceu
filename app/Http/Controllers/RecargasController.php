@@ -35,11 +35,11 @@ class RecargasController extends Controller
                 foreach($simcards as $simcard){
                     if($simcard->name != $distri){
                         $distri = $simcard->name;
-                        fwrite($myfile, "DISTRIBUIDOR,," . $distri . "\n");
+                        fwrite($myfile, $distri . ",,\n");
                     }
                     if($simcard->nombreSubdistribuidor != $subdistri){
                         $subdistri = $simcard->nombreSubdistribuidor;
-                        fwrite($myfile, ",SUBDISTRIBUIDOR:," . $subdistri . "\n");
+                        fwrite($myfile, "," . $subdistri . ",\n");
                     }
                     fwrite($myfile, "," . $simcard->numero . "," . $simcard->valor . "\n");
                 }
