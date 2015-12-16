@@ -15,6 +15,14 @@
     header{
        background-image:url(/img/finanzas_background_phone.jpg); 
     }
+    
+    .bootstrap-select{
+        max-width:220px;
+    }
+    
+    .historial_label,.historial_label_total{
+        min-width:100px;
+    }
 }
 
 
@@ -32,6 +40,12 @@
     header{
        background-image:url(/img/finanzas_background_phone.jpg); 
     }
+    .bootstrap-select{
+        max-width:400px;
+    }
+    .historial_label,.historial_label_total{
+        min-width:150px;
+    }
 }
 
 @media screen and (min-width:1000px){
@@ -45,6 +59,12 @@
     }
     header{
        background-image:url(/img/finanzas_background_phone.jpg); 
+    }
+    .bootstrap-select{
+        max-width:400px;
+    }
+    .historial_label,.historial_label_total{
+        min-width:150px;
     }
 }
 
@@ -132,7 +152,6 @@ hr {
 }
 .historial_label{
     background:#FFF;
-    min-width:150px;
     border-radius:5px;
     padding-top:4px;
     padding-bottom:4px;
@@ -140,7 +159,6 @@ hr {
 
 .historial_label_total{
     margin:0 10px;
-    min-width:150px;
     margin-bottom:10px;
     font-size:18px;
     color:#3f654f;
@@ -193,7 +211,7 @@ hr {
 .flex_container{
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: center;
     align-items:center;
     align-content:center;

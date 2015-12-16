@@ -105,7 +105,7 @@
                 <div style="display: inline-block;vertical-align: middle;float: none;width:100%">
                     <div class="flex_container" style="width:100%">
                         <?php if($user->isAdmin): ?>
-                        <select class="selectpicker" data-width="40%" data-style="data" id ="subPicker_distri">
+                        <select class="selectpicker" data-width="100%" data-style="data" id ="subPicker_distri" style="min-width:220px">
                             <?php foreach($distribuidores as $distribuidor): ?>
                                 <option><?php echo e($distribuidor->name); ?></option>
                             <?php endforeach; ?>
