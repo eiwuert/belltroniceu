@@ -460,6 +460,42 @@ function asignar_paquete(){
     }else{
         $('.modal-header #modal-tittle').html('Error');
         $('.modal-body #modal-body').html('Debe ingresar un dato.');
+        $('#modal-loading').modal('hide');
+        $('#modal-content').modal('show');
+    }
+}
+
+function asignar_sim_unidad(){
+    $('#modal_seleccionar_subdistri_unidad').modal('hide');
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+    var ICC = $('#ICC-resultado').val();
+    var sub = $('[data-id="subPicker_unidad"]').text();
+    if(ICC != ''){
+        $.ajax({
+            url:'simcard/asignarUnidad',
+            data:{ICC:ICC, sub:sub},
+            type:'GET',
+            dataType: 'json',
+            success: function(data){
+                if(data == 1){
+                   $('.modal-header #modal-tittle').html('Exito');
+                    $('.modal-body #modal-body').html('Simcard asignada satisfactoriamente.');
+                    $('#modal-content').modal('show');
+                }else{
+                    $('.modal-header #modal-tittle').html('Error');
+                    $('.modal-body #modal-body').html('error: ' + data);
+                    $('#modal-content').modal('show');
+                }
+                $('#modal-loading').modal('hide');
+            }
+        });
+    }else{
+        $('.modal-header #modal-tittle').html('Error');
+        $('.modal-body #modal-body').html('Debe ingresar un dato.');
+        $('#modal-loading').modal('hide');
         $('#modal-content').modal('show');
     }
 }

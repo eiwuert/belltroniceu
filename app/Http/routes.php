@@ -27,6 +27,7 @@ Route::post('finanzas/agregar', array('middleware' => 'auth','as' => 'agregarCom
 
 // ACCIONES SIMCARD
 Route::post('simcard/subirArchivo', array('middleware' => 'auth','as' => 'subirArchivoSimcards','uses'=> 'SimcardController@subirArchivo'));
+Route::get('simcard/asignarUnidad', array('middleware' => 'auth','uses'=> 'SimcardController@asignarUnidad'));
 Route::get('simcard/asignarPaquete', array('middleware' => 'auth','uses'=> 'SimcardController@asignarPaquete'));
 Route::get('simcard/empaquetar', array('middleware' => 'auth','uses'=> 'SimcardController@empaquetar'));
 Route::get('simcard/buscar', array('middleware' => 'auth','uses'=> 'SimcardController@buscarSimcard'));

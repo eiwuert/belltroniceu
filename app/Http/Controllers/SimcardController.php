@@ -52,6 +52,25 @@ class SimcardController extends Controller
            }
         }
     }
+    
+    public function asignarUnidad(Request $request)
+    {
+        if($request->ajax()){
+           try{
+                $sim = \App\Simcard::find($request['ICC']);
+                if($sim != null){
+                    $sim->nombreSubdistribuidor = $request['sub'];
+                    $sim->save();
+                    return 1;
+                }else{
+                    return "Sim no encontrada.";
+                }
+           }catch(Exception $e){
+               return $e;
+           }
+        }
+    }
+    
     public function buscarSimcardLibre(Request $request)
     {
         if($request->ajax()){

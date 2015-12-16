@@ -119,8 +119,13 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Encuentra tus Simcards</h2>
-                    <h3 class="section-subheading text-muted" style="color:black">Ingresa la ICC o el numero de telefono. 
+                    <?php if($user->isAdmin): ?>
+                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:10px">Ingresa la ICC o el numero de telefono. 
                     Recuerda que <span class ="red_text"> Rojo </span> es Vencida, <span class ="blue_text">Azul</span> es Disponible y <span class ="green_text">Verde</span> es Activada.</h3>
+                    <h3 class="section-subheading text-muted blue_strong_text">Para asignar primero busca la simcard y luego presiona el boton ASIGNAR</h3>
+                    <?php else: ?>
+                    <h3 class="section-subheading text-muted" style="color:black">Ingresa la ICC o el numero de telefono. 
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="row text-center ">
@@ -133,6 +138,9 @@
                         <div style="margin:auto">
                             <button class="button gray" style="margin-right:4%;width:45%" onClick="limpiar_campos()">Limpiar</button>
                             <button class = "button" style="width:45%" onClick = "buscarSim()">Buscar</button>
+                            <?php if($user->isAdmin): ?>
+                            <button class = "button button_assign" style="width:45%;margin-top:10px" onClick = "$('#modal_seleccionar_subdistri_unidad').modal('show')">Asignar</button>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -405,6 +413,31 @@
             </div>
         </div>
     </div>  
+    
+    <!-- MODAL SELECCIONAR SUBDISTRIBUIDOR PARA ASIGNAR UNIDAD-->
+    <div id="modal_seleccionar_subdistri_unidad" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3 class = "section-body section-body-title"> Seleccionar subdistribuidor </h3>
+                </div>
+                <div class="modal-body" style="text-align:center;">
+                    <select class="selectpicker" data-width="100%" data-style="data" id ="subPicker_unidad">
+                        <?php foreach($distribuidores as $distribuidor): ?>
+                        <optgroup label="<?php echo e($distribuidor->name); ?>">
+                            <?php foreach($subdistribuidores[$distribuidor->name] as $subdistribuidor): ?>
+                            <option><?php echo e($subdistribuidor->nombre); ?></option>
+                            <?php endforeach; ?>
+                        </optgroup>
+                        <?php endforeach; ?>
+                    </select>
+                    <button class="button" onClick="asignar_sim_unidad()" style="height:42px;width:100px;margin:0 auto">Asignar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- MODAL SELECCIONAR SUBDISTRIBUIDOR PARA ASIGNAR-->
     <div id="modal_seleccionar_subdistri" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
