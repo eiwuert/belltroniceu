@@ -20,6 +20,7 @@ Route::get('/home', array('middleware' => 'auth', 'uses'=> 'FrontController@home
 Route::get('/simcard', array('middleware' => 'auth','as' => 'simcard', 'uses'=> 'FrontController@simcard'));
 Route::get('/settings', array('middleware' => 'auth','uses'=> 'FrontController@settings'));
 Route::get('/finanzas', array('middleware' => 'auth','as' => 'finanzas','uses'=> 'FrontController@finanzas'));
+Route::get('/recargas', array('middleware' => 'auth','as' => 'recargas','uses'=> 'FrontController@recargas'));
 
 // FINANZAS
 Route::get('finanzas/datos_subdistribuidor', array('middleware' => 'auth','uses'=> 'FinanzasController@datos_subdistribuidor'));
@@ -47,6 +48,7 @@ Route::get('subdistribuidor/eliminar', array('middleware' => 'auth','uses'=> 'Su
 
 // DATOS DIAGRAMAS
 Route::get('diagrama/simcards', array('middleware' => 'auth', 'uses'=> 'SimcardController@datosSimcard'));
+Route::get('diagrama/recargas', array('middleware' => 'auth', 'uses'=> 'RecargasController@datosRecargas'));
 Route::get('diagrama/comisiones', array('middleware' => 'auth', 'uses'=> 'FinanzasController@datosComisiones'));
 
 

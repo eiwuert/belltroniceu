@@ -67,6 +67,9 @@
                         <a class="page-scroll" href="/simcard">Simcards</a>
                     </li>
                     <li>
+                        <a class="page-scroll" href="/recargas">Recargas</a>
+                    </li>
+                    <li>
                         <a class="page-scroll" href="/finanzas">Finanzas</a>
                     </li>
                     <li>

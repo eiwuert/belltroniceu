@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'CrearTablaComisiones' => $baseDir . '/database/migrations/2015_12_14_182240_crear_tabla_comisiones.php',
+    'CrearTablaRecargas' => $baseDir . '/database/migrations/2015_12_16_195841_crear_tabla_recargas.php',
     'CreateJobsTable' => $baseDir . '/database/migrations/2015_12_14_233401_create_jobs_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
@@ -517,4 +518,5 @@ return array(
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
     'agregarArchivoSimcards' => $baseDir . '/database/seeds/agregarArchivoSimcards.php',
     'agregarComisionesSeeder' => $baseDir . '/database/seeds/agregarComisionesSeeder.php',
+    'agregarRecargasSeeder' => $baseDir . '/database/seeds/agregarRecargasSeeder.php',
 );
