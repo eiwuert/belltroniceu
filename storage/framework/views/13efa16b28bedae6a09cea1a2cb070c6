@@ -140,6 +140,8 @@
                 </div>
             </div>
         </div>
+        
+        <!-- CREAR SUBDISTRIBUIDOR -->
         <?php if($user->isAdmin): ?>
             <div class="col-sm-13">
                 <div class="dash-unit" >
@@ -153,7 +155,7 @@
                             <?php endforeach; ?>
                         </select>
             			
-        			    <input type="text" style="min-width:200px;width:250px" id="new_subdistribuidor_name" style="margin-top:5px" placeholder="Nombre">
+        			    <input type="text" style="min-width:200px;width:200px" id="new_subdistribuidor_name" style="margin-top:5px" placeholder="Nombre">
             			
             			<button style="margin-bottom:10px;margin-top:10px;width:200px" onClick="crear_subdistribuidor()">Crear</button>
         			</div>
@@ -173,14 +175,18 @@
 	      		    <?php foreach($distribuidores as $distribuidor): ?>
 	      		    <row>
     	      		    <div>
-    	      		        <input class="orange_text" type="text" value="<?php echo e($distribuidor->name); ?>" style="width:200px;border:none;margin-top:0px"></input>
-    	      		        <a style="float:right;margin-right:50px" id ="distri_<?php echo e($distribuidor->name); ?>" href="javascript:void(0);" onclick="borrar_distribuidor(this.id)" ><i class="fa fa-times fa-2x"></i></a>
+    	      		        <input class="orange_text" type="text" disabled="true" value="<?php echo e($distribuidor->name); ?>" style="width:200px;border:none;margin-top:0px"></input>
+    	      		        <a style="float:right;margin-right:5%" id ="distri_<?php echo e($distribuidor->name); ?>" href="javascript:void(0);" onclick="borrar_distribuidor(this.id)" ><i class="fa fa-times fa-2x"></i></a>
 	      		        </div>
 	      		        <hr style="margin-top:20px">
 	      		        <?php foreach($subdistribuidores[$distribuidor->name] as $subdistribuidor): ?>
 	      		            <div class="flex_container">
+	      		                <?php if($subdistribuidor->nombre == $distribuidor->name): ?>
+    	      		            <input type="text" disabled = "true" style="margin-top:0px;width:200px;border:none;margin-right:32px" value="<?php echo e($subdistribuidor->nombre); ?>"></input>
+    	      		            <?php else: ?>
     	      		            <input type="text" style="margin-top:0px;width:200px;border:none" value="<?php echo e($subdistribuidor->nombre); ?>"></input>
-    	      		            <a style="margin-left:10px" id ="<?php echo e($subdistribuidor->nombre); ?>" href="javascript:void(0);" onclick="borrar_subdistribuidor(this.id)"><i class="fa fa-times fa-2x"></i></a>
+    	      		            <a style="margin-left:10px;margin-right:5%" id ="<?php echo e($subdistribuidor->nombre); ?>" href="javascript:void(0);" onclick="borrar_subdistribuidor(this.id)"><i class="fa fa-times fa-2x"></i></a>
+    	      		            <?php endif; ?>
 	      		            </div>
 	      		            <br>
 	      		        <?php endforeach; ?>
