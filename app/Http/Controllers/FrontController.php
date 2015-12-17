@@ -72,4 +72,37 @@ class FrontController extends Controller
         $meses = \DB::select("select distinct MONTH(fecha_recarga) mes from recargas");
         return view('/recargas', array('user' => $user, 'subdistribuidores'=>$subdistribuidores, 'distribuidores' => $distribuidores, 'meses' => $meses));
    }
+   
+   public function cartera(){
+        $user =  \Auth::User();
+        $distribuidores = [];
+        $subdistribuidores = [];
+        if($user->isAdmin){
+            $distribuidores = \DB::table('users')->get();
+            foreach($distribuidores as $distribuidor){
+                $subdistribuidores[$distribuidor->name] = \DB::table('subdistribuidores')->where('emailDistribuidor', $distribuidor->email)->get();
+            }
+            $registros = \DB::select("select * from carteras where email = ? order by fecha asc", [$user->email]);
+        }else{
+            $subdistribuidores = \DB::table('subdistribuidores')->where('emailDistribuidor', $user->email)->get();
+            $registros = \DB::select("select * from carteras where email = ? order by fecha asc", [$user->email]);
+        }
+        
+        $retorno = [];
+        $total = 0;
+        foreach($registros as $registro){
+            $registro = (array)$registro;
+            $registro['total' ] = $registro['cantidad']*$registro['valor_unitario'];
+            if($registro['deuda'] == true){
+                $total -= $registro['total'];
+            }else{
+                $total += $registro['total'];
+            }
+            $total = number_format($total, 0, ',', ',');
+            $registro['total'] = number_format($registro['total'], 0, ',', ',');
+            $registro['valor_unitario'] = number_format($registro['valor_unitario'], 0, ',', ',');
+            array_push($retorno, $registro);
+        }
+        return view('/cartera', array('user' => $user, 'subdistribuidores'=>$subdistribuidores, 'distribuidores' => $distribuidores, 'retorno' => $retorno, 'total' => $total));
+   }
 }

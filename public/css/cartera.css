@@ -1,0 +1,140 @@
+
+body{
+    padding:0;
+}
+
+header{
+
+    background-repeat:none;
+
+    background-attachment:scroll;
+
+    background-position:center center;
+
+    -webkit-background-size:cover;
+
+    -moz-background-size:cover;
+
+    background-size:cover;
+
+    -o-background-size:cover;
+
+    text-align:center;
+    
+    color:#fff;
+    
+    background-image:url(/img/finanzas_background_pc.png); 
+}
+
+.registro{
+    display:flex;
+    flex-wrap:nowrap;
+    flex-direction:row;
+    justify-content: center;
+    align-items:center;
+    align-content:center;
+}
+
+.container_fecha{
+    height:40px;
+    width:100px;
+    color:black;
+    font-size:15px;
+    text-align:center;
+    border-radius:5px;
+    line-height: 40px;
+    margin-right:20px;
+}
+.container_descripcion{
+    height:40px;
+    width:400px;
+    color:black;
+    font-size:15px;
+    text-align:center;
+    border-radius:5px;
+    line-height: 40px;
+    margin-right:20px;
+}
+
+.container_cantidad{
+    height:40px;
+    width:50px;
+    color:black;
+    font-size:15px;
+    text-align:center;
+    border-radius:5px;
+    line-height: 40px;
+    margin-right:20px;
+}
+
+.container_valor{
+    height:40px;
+    width:100px;
+    color:black;
+    font-size:15px;
+    text-align:center;
+    border-radius:5px;
+    line-height: 40px;
+    margin-right:20px;
+}
+
+.container_total{
+    height:40px;
+    width:100px;
+    color:black;
+    font-size:15px;
+    text-align:center;
+    border-radius:5px;
+    line-height: 40px;
+}
+
+.dark_cover{
+    background:rgba(20,20,20,0.4);
+    width:100%;
+    padding:100px 0;
+}
+
+hr {
+  	border: 0;
+  	border-top: 1px solid #000;
+  	border-top-style: dashed;
+	margin:20px 10%;
+}
+
+/**********FooterWrap Section**********/   
+#footerwrap {
+    width: 100%;
+    background:#262626;
+	background-image:url('/img/sep-half.png');
+    padding-top:20px;
+    padding-bottom: 20px;
+	border-top-style: solid;
+    border-top-width:8px;
+    border-top-color:#1d1d1d;
+    text-align:center
+
+}
+
+#footerwrap p {
+	color:white;
+	font-size:12px;
+} 
+
+.mySpan{
+	font-size:15px;
+	font-weight:bold;
+	font-family:Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.logo{
+	color:#fed136;
+	font-family:"Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive
+}
+
+.heading_label{
+    margin:0 10px;
+    margin-bottom:10px;
+    color:black
+}
+
+/*****************

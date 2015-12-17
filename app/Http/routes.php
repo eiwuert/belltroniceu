@@ -21,6 +21,7 @@ Route::get('/simcard', array('middleware' => 'auth','as' => 'simcard', 'uses'=> 
 Route::get('/settings', array('middleware' => 'auth','uses'=> 'FrontController@settings'));
 Route::get('/finanzas', array('middleware' => 'auth','as' => 'finanzas','uses'=> 'FrontController@finanzas'));
 Route::get('/recargas', array('middleware' => 'auth','as' => 'recargas','uses'=> 'FrontController@recargas'));
+Route::get('/cartera', array('middleware' => 'auth','as' => 'cartera','uses'=> 'FrontController@cartera'));
 
 // FINANZAS
 Route::get('finanzas/datos_subdistribuidor', array('middleware' => 'auth','uses'=> 'FinanzasController@datos_subdistribuidor'));
