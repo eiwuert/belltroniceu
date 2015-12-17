@@ -6,12 +6,20 @@
     background-color: #4A789C;
 }
 
+.red_soft{
+    background-color:rgba(219, 84, 102,.6);
+}
+
 .red{
     background-color:#DB5466;
 }
 
 .red:hover{
     background-color:#7f3236;
+}
+
+.green_soft{
+    background-color:rgba(127, 202, 159,.6);
 }
 
 .green{

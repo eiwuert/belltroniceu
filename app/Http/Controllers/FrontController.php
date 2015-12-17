@@ -93,7 +93,7 @@ class FrontController extends Controller
         foreach($registros as $registro){
             $registro = (array)$registro;
             $registro['total'] = $registro['cantidad']*$registro['valor_unitario'];
-            $total -= $registro['total'];
+            $total += $registro['total'];
             array_push($retorno, $registro);
         }
         return view('/cartera', array('user' => $user, 'subdistribuidores'=>$subdistribuidores, 'distribuidores' => $distribuidores, 'retorno' => $retorno, 'total' => $total));

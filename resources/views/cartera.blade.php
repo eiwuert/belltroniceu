@@ -101,37 +101,37 @@
                 </div>
             </div>
             <div class="registro">
-                <label class="container_fecha">FECHA</label>
-                <label class="container_descripcion">DESCRIPCIÓN</label>
-                <label class="container_cantidad">CANT.</label>
-                <label class="container_valor">V. UNITARIO</label>
-                <label class="container_total">TOTAL</label>
+                <div class="container_fecha" stlye="margin-bottom:0"><label class="center_vert">FECHA</label></div>
+                <div class="container_descripcion" stlye="margin-bottom:0"><label class="center_vert">DESCRIPCIÓN</label></div>
+                <div class="container_cantidad" stlye="margin-bottom:0"><label class="center_vert">CANT.</label></div>
+                <div class="container_valor" stlye="margin-bottom:0"><label class="center_vert">V. UNITARIO</label></div>
+                <div class="container_total" stlye="margin-bottom:0"><label class="center_vert">TOTAL</label></div>
             </div>
             @foreach($retorno as $registro)
             <div class="registro">
                 @if($registro['total'] < 0)
-                <label class="container_fecha red">{{$registro['fecha']}}</label>
-                <label class="container_descripcion red">{{$registro['descripcion']}}</label>
-                <label class="container_cantidad red">{{$registro['cantidad']}}</label>
-                <label class="container_valor red">${{number_format($registro['valor_unitario']*-1,2,".",",")}}</label>
-                <label class="container_total red">${{number_format($registro['total']*-1,2,".",",")}}</label>
+                <div class="container_fecha red_soft"><label class="center_vert">{{$registro['fecha']}}</label></div>
+                <div class="container_descripcion red_soft"><label class="center_vert">{{$registro['descripcion']}}</label></div>
+                <div class="container_cantidad red_soft"><label class="center_vert">{{$registro['cantidad']}}</label></div>
+                <div class="container_valor red_soft"><label class="center_vert">${{number_format($registro['valor_unitario']*-1,2,".",",")}}</label></div>
+                <div class="container_total red_soft"><label class="center_vert">${{number_format($registro['total']*-1,2,".",",")}}</label></div>
                 @else
-                <label class="container_fecha green">{{$registro['fecha']}}</label>
-                <label class="container_descripcion green">{{$registro['descripcion']}}</label>
-                <label class="container_cantidad green">{{$registro['cantidad']}}</label>
-                <label class="container_valor green">${{number_format($registro['valor_unitario'],2,".",",")}}</label>
-                <label class="container_total green">${{number_format($registro['total'],2,".",",")}}</label>
+                <div class="container_fecha green_soft"><label class="center_vert">{{$registro['fecha']}}</label></div>
+                <div class="container_descripcion green_soft"><label class="center_vert">{{$registro['descripcion']}}</label></div>
+                <div class="container_cantidad green_soft"><label class="center_vert">{{$registro['cantidad']}}</label></div>
+                <div class="container_valor green_soft"><label class="center_vert">${{number_format($registro['valor_unitario'],2,".",",")}}</label></div>
+                <div class="container_total green_soft"><label class="center_vert">${{number_format($registro['total'],2,".",",")}}</label></div>
                 @endif
             </div>
             @endforeach
             <hr>
             <div class="registro" id ="total">
                 @if($total < 0)
-                <label class="container_descripcion red">TOTAL</label>
-                <label class="container_total red">${{number_format($total*-1,2,".",",")}}</label>
+                <div class="container_descripcion red_soft"><label class="center_vert">TOTAL</label></div>
+                <div class="container_total red_soft"><label class="center_vert">${{number_format($total*-1,2,".",",")}}</label></div>
                 @else
-                <label class="container_descripcion green">TOTAL</label>
-                <label class="container_total green">${{number_format($total,2,".",",")}}</label>
+                <div class="container_descripcion green_soft"><label class="center_vert">TOTAL</label></div>
+                <div class="container_total green_soft"><label class ="center_vert">${{number_format($total,2,".",",")}}</label></div>
                 @endif
             </div>
         </div>
