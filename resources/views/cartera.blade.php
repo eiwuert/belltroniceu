@@ -85,7 +85,7 @@
             </div>
         </div>
     </header>
-    @if(!$user->isAdmin)
+    @if($user->isAdmin)
     
     @else
     <section id="empaquetar">
@@ -93,7 +93,11 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Estado de cuenta</h2>
+                    @if($user->isAdmin)
+                    <h3 class="section-subheading text-muted" style="margin-bottom:40px">Revisa cada uno de los movimientos financieros del distribuidor escogido.</h3>
+                    @else
                     <h3 class="section-subheading text-muted" style="margin-bottom:40px">Revisa cada uno de tus movimientos financieros.</h3>
+                    @endif
                 </div>
             </div>
             <div class="registro">
@@ -105,29 +109,29 @@
             </div>
             @foreach($retorno as $registro)
             <div class="registro">
-                @if($registro['deuda'] == true)
+                @if($registro['total'] < 0)
                 <label class="container_fecha red">{{$registro['fecha']}}</label>
                 <label class="container_descripcion red">{{$registro['descripcion']}}</label>
                 <label class="container_cantidad red">{{$registro['cantidad']}}</label>
-                <label class="container_valor red">${{$registro['valor_unitario']}}</label>
-                <label class="container_total red">${{$registro['total']}}</label>
+                <label class="container_valor red">${{number_format($registro['valor_unitario']*-1,2,".",",")}}</label>
+                <label class="container_total red">${{number_format($registro['total']*-1,2,".",",")}}</label>
                 @else
                 <label class="container_fecha green">{{$registro['fecha']}}</label>
                 <label class="container_descripcion green">{{$registro['descripcion']}}</label>
                 <label class="container_cantidad green">{{$registro['cantidad']}}</label>
-                <label class="container_valor green">${{$registro['valor_unitario']}}</label>
-                <label class="container_total green">${{$registro['total']}}</label>
+                <label class="container_valor green">${{number_format($registro['valor_unitario'],2,".",",")}}</label>
+                <label class="container_total green">${{number_format($registro['total'],2,".",",")}}</label>
                 @endif
             </div>
             @endforeach
             <hr>
-            <div class="registro">
+            <div class="registro" id ="total">
                 @if($total < 0)
                 <label class="container_descripcion red">TOTAL</label>
-                <label class="container_total red">${{$total}}</label>
+                <label class="container_total red">${{number_format($total*-1,2,".",",")}}</label>
                 @else
                 <label class="container_descripcion green">TOTAL</label>
-                <label class="container_total green">${{$total}}</label>
+                <label class="container_total green">${{number_format($total,2,".",",")}}</label>
                 @endif
             </div>
         </div>
@@ -194,7 +198,7 @@
     <script src="js/Chart.js"></script>
     
     <!-- Page Script  -->
-    <script src="js/finanzas/finanzas.js"></script>
+    <script src="js/cartera/cartera.js"></script>
     
     <!-- Plugin JavaScript -->
     <script src="/js/jquery.easing.js"></script>

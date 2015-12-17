@@ -517,6 +517,7 @@ return array(
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Resources/stubs/SessionHandlerInterface.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
+    'agregarArchivoCartera' => $baseDir . '/database/seeds/agregarArchivoCartera.php',
     'agregarArchivoSimcards' => $baseDir . '/database/seeds/agregarArchivoSimcards.php',
     'agregarComisionesSeeder' => $baseDir . '/database/seeds/agregarComisionesSeeder.php',
     'agregarRecargasSeeder' => $baseDir . '/database/seeds/agregarRecargasSeeder.php',
