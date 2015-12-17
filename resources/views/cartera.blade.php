@@ -86,18 +86,47 @@
         </div>
     </header>
     @if($user->isAdmin)
-    
+    <section id="empaquetar">
+        <div class="container ">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Estado de cuenta</h2>
+                    <h3 class="section-subheading text-muted" style="margin-bottom:40px">Revisa cada uno de los movimientos financieros del distribuidor escogido.</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class ="flex_container">
+                        <div style="min-width:220px;width:300;max-width:300px;margin-right:20px">
+                            <select class="selectpicker" data-width="100%" data-style="data" id ="subPicker_distri" >
+                                @foreach ($distribuidores as $distribuidor)
+                                    <option>{{$distribuidor->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <button class="button" onClick="ver_cartera()" style="height:42px;width:10%;margin-right:20px">Ver</button>
+                    </div>
+                </div>
+            </div>
+            <div class="registro">
+                <div class="container_fecha" stlye="margin-bottom:0"><label class="center_vert">FECHA</label></div>
+                <div class="container_descripcion" stlye="margin-bottom:0"><label class="center_vert">DESCRIPCIÓN</label></div>
+                <div class="container_cantidad" stlye="margin-bottom:0"><label class="center_vert">CANT.</label></div>
+                <div class="container_valor" stlye="margin-bottom:0"><label class="center_vert">V. UNITARIO</label></div>
+                <div class="container_total" stlye="margin-bottom:0"><label class="center_vert">TOTAL</label></div>
+            </div>
+            <div id ="registros_container">
+                
+            </div>
+        </div>
+    </section>
     @else
     <section id="empaquetar">
         <div class="container ">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Estado de cuenta</h2>
-                    @if($user->isAdmin)
-                    <h3 class="section-subheading text-muted" style="margin-bottom:40px">Revisa cada uno de los movimientos financieros del distribuidor escogido.</h3>
-                    @else
                     <h3 class="section-subheading text-muted" style="margin-bottom:40px">Revisa cada uno de tus movimientos financieros.</h3>
-                    @endif
                 </div>
             </div>
             <div class="registro">
@@ -113,14 +142,14 @@
                 <div class="container_fecha red_soft"><label class="center_vert">{{$registro['fecha']}}</label></div>
                 <div class="container_descripcion red_soft"><label class="center_vert">{{$registro['descripcion']}}</label></div>
                 <div class="container_cantidad red_soft"><label class="center_vert">{{$registro['cantidad']}}</label></div>
-                <div class="container_valor red_soft"><label class="center_vert">${{number_format($registro['valor_unitario']*-1,2,".",",")}}</label></div>
-                <div class="container_total red_soft"><label class="center_vert">${{number_format($registro['total']*-1,2,".",",")}}</label></div>
+                <div class="container_valor red_soft"><label class="center_vert">${{number_format($registro['valor_unitario']*-1,0,".",",")}}</label></div>
+                <div class="container_total red_soft"><label class="center_vert">${{number_format($registro['total']*-1,0,".",",")}}</label></div>
                 @else
                 <div class="container_fecha green_soft"><label class="center_vert">{{$registro['fecha']}}</label></div>
                 <div class="container_descripcion green_soft"><label class="center_vert">{{$registro['descripcion']}}</label></div>
                 <div class="container_cantidad green_soft"><label class="center_vert">{{$registro['cantidad']}}</label></div>
-                <div class="container_valor green_soft"><label class="center_vert">${{number_format($registro['valor_unitario'],2,".",",")}}</label></div>
-                <div class="container_total green_soft"><label class="center_vert">${{number_format($registro['total'],2,".",",")}}</label></div>
+                <div class="container_valor green_soft"><label class="center_vert">${{number_format($registro['valor_unitario'],0,".",",")}}</label></div>
+                <div class="container_total green_soft"><label class="center_vert">${{number_format($registro['total'],0,".",",")}}</label></div>
                 @endif
             </div>
             @endforeach
@@ -128,10 +157,10 @@
             <div class="registro" id ="total">
                 @if($total < 0)
                 <div class="container_descripcion red_soft"><label class="center_vert">TOTAL</label></div>
-                <div class="container_total red_soft"><label class="center_vert">${{number_format($total*-1,2,".",",")}}</label></div>
+                <div class="container_total red_soft"><label class="center_vert">${{number_format($total*-1,0,".",",")}}</label></div>
                 @else
                 <div class="container_descripcion green_soft"><label class="center_vert">TOTAL</label></div>
-                <div class="container_total green_soft"><label class ="center_vert">${{number_format($total,2,".",",")}}</label></div>
+                <div class="container_total green_soft"><label class ="center_vert">${{number_format($total,0,".",",")}}</label></div>
                 @endif
             </div>
         </div>

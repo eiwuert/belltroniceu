@@ -56,6 +56,8 @@ Route::get('diagrama/simcards', array('middleware' => 'auth', 'uses'=> 'SimcardC
 Route::get('diagrama/recargas', array('middleware' => 'auth', 'uses'=> 'RecargasController@datosRecargas'));
 Route::get('diagrama/comisiones', array('middleware' => 'auth', 'uses'=> 'FinanzasController@datosComisiones'));
 
+// ACCIONS CARTERA
+Route::get('cartera/datos', array('middleware' => 'auth', 'uses'=> 'CarteraController@datos'));
 
 // Login routes
 Route::get('auth/login', 'Auth\AuthController@getLogin');
