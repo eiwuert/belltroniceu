@@ -1,3 +1,5 @@
 $( document ).ready(function() {
-   $('#total').focus();    
+   $('html, body').animate({
+                    scrollTop: $("#total").offset().top
+                    }, 500);
 });
