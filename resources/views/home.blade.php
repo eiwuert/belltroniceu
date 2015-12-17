@@ -99,6 +99,13 @@
         </div>
         <div class="item" style="">
           <div class="caption">
+            <h1 class="animated fadeInLeftBig">Supervisa las <span>recargas</span></h1>
+            <p class="animated fadeInRightBig">Revisa la cantidad de recargas de tus simcards.</p>
+            <a data-scroll class="btn btn-start animated fadeInUpBig" href="/finanzas">Ingresar</a>
+          </div>
+        </div> 
+        <div class="item" style="">
+          <div class="caption">
             <h1 class="animated fadeInLeftBig">Controla tus <span>Finanzas</span></h1>
             <p class="animated fadeInRightBig">Analiza, consulta y verifica tus ganancias</p>
             <a data-scroll class="btn btn-start animated fadeInUpBig" href="/finanzas">Ingresar</a>
@@ -107,7 +114,7 @@
         <div class="item" style="">
           <div class="caption">
             <h1 class="animated fadeInLeftBig">Revisa tu <span>Cartera</span></h1>
-            <p class="animated fadeInRightBig">Controla y superviza tus deudas.</p>
+            <p class="animated fadeInRightBig">Controla y supervisa tus deudas.</p>
             <a data-scroll class="btn btn-start animated fadeInUpBig" href="/cartera">Ingresar</a>
           </div>
         </div>
