@@ -18,6 +18,9 @@ function ver_cartera(){
         success: function(data){
             $('#modal-loading').modal("hide");
             $('#registros_container').html(data);
+            $('html, body').animate({
+                    scrollTop: $("#total").offset().top
+                    }, 500);
         }
     });
 }

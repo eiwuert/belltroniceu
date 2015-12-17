@@ -19,7 +19,7 @@ class agregarArchivoCartera extends Seeder
                    $descripcion = $vars[1];
                    $cantidad = $vars[2];
                    $valor_unitario = $vars[3];
-                   $email = 'chaparrocesar@hotmail.com';
+                   $email = 'LAURA@hotmail.com';
                    try{
                         \App\Cartera::create([
                                  'email' => $email,

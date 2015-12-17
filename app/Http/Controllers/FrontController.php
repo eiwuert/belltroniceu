@@ -77,6 +77,7 @@ class FrontController extends Controller
         $user =  \Auth::User();
         $distribuidores = [];
         $subdistribuidores = [];
+        $comisiones = 0;
         if($user->isAdmin){
             $distribuidores = \DB::table('users')->get();
             foreach($distribuidores as $distribuidor){
@@ -86,6 +87,8 @@ class FrontController extends Controller
         }else{
             $subdistribuidores = \DB::table('subdistribuidores')->where('emailDistribuidor', $user->email)->get();
             $registros = \DB::select("select * from carteras where email = ? order by fecha asc", [$user->email]);
+            $comisiones = \DB::select("select sum(valor_unitario*cantidad) comisiones from carteras where email = ? and valor_unitario > 0 order by fecha asc", [$user->email]);
+            $comisiones = $comisiones[0]->comisiones;
         }
         
         $retorno = [];
@@ -96,6 +99,7 @@ class FrontController extends Controller
             $total += $registro['total'];
             array_push($retorno, $registro);
         }
-        return view('/cartera', array('user' => $user, 'subdistribuidores'=>$subdistribuidores, 'distribuidores' => $distribuidores, 'retorno' => $retorno, 'total' => $total));
+        
+        return view('/cartera', array('user' => $user, 'subdistribuidores'=>$subdistribuidores, 'distribuidores' => $distribuidores, 'retorno' => $retorno, 'total' => $total, 'comisiones' => $comisiones));
    }
 }

@@ -163,6 +163,15 @@
                 <div class="container_total green_soft"><label class ="center_vert">$<?php echo e(number_format($total,0,".",",")); ?></label></div>
                 <?php endif; ?>
             </div>
+            <div class="registro" id ="total_comisiones">
+                <div class="container_descripcion blue"><label class="center_vert">TOTAL COMISIONES</label></div>
+                <div class="container_total blue"><label class="center_vert">$<?php echo e(number_format($comisiones,0,".",",")); ?></label></div>
+            </div>
+            <?php if($total < 0): ?>
+            <label>A trabajar fuertemente para pagar esa deuda.</label>
+            <?php else: ?>
+            <label>Vas muy bien... Sigue asi.</label>
+            <?php endif; ?>
         </div>
     </section>
     <?php endif; ?>
