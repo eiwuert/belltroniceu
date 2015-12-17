@@ -131,9 +131,19 @@ function consultar_simcards(){
         data:{distribuidor:null,mes:mes},
         type:'GET',
         success: function(data){
-            if(data == 1){
-                document.getElementById('my_iframe').src = "temp/estadoSimcards.csv";    
-            }else{     
+            if(data == -1){
+                var html = '<label style="color:red"> NO SE ENCONTRARON RECARGAS </label>';
+                    $('#msg_recargas_sim').html(html);
+            }else{
+                try{
+                    var html = '<label style="min-width:200px">TOTAL LINEAS : </label><label style="min-width:100px">' + data[0] + '</label><hr>';
+                    html += '<label style="min-width:200px"> Lineas con menos de 3000:  </label><label style="min-width:100px">' + data[1] + '</label></br>';
+                    html += '<label style="min-width:200px"> Lineas con 3000 o más: </label><label style="min-width:100px">' + data[2] + '</label>';
+                    $('#msg_recargas_sim').html(html);
+                    document.getElementById('my_iframe').src = "temp/estadoSimcards.csv";    
+                }catch(e){
+                    alert(e);
+                }
             }
             $('#modal-loading').modal('hide');
         }
@@ -152,9 +162,19 @@ function consultar_simcards_distribuidor(){
         data:{distribuidor:distribuidor, mes:mes},
         type:'GET',
         success: function(data){
-            if(data == 1){
-                document.getElementById('my_iframe').src = "temp/estadoSimcards.csv";    
-            }else{    
+           if(data == -1){
+                var html = '<label style="color:red"> NO SE ENCONTRARON RECARGAS </label>';
+                    $('#msg_recargas_sim').html(html);
+            }else{
+                try{
+                    var html = '<label style="min-width:200px">TOTAL LINEAS : </label><label style="min-width:100px">' + data[0] + '</label><hr>';
+                    html += '<label style="min-width:200px"> Lineas con menos de 3000:  </label><label style="min-width:100px">' + data[1] + '</label></br>';
+                    html += '<label style="min-width:200px"> Lineas con 3000 o más: </label><label style="min-width:100px">' + data[2] + '</label>';
+                    $('#msg_recargas_sim').html(html);
+                    document.getElementById('my_iframe').src = "temp/estadoSimcards.csv";    
+                }catch(e){
+                    alert(e);
+                }
             }
             $('#modal-loading').modal('hide');
         }

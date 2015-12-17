@@ -187,6 +187,11 @@
                     </div>
                 </div>
             </div>
+            <div class="row text-center ">
+                <div style ="width:50%;margin: 30px auto" id ="msg_recargas_sim">
+                    
+                </div>
+            </div>
         </div>
     </section>
     

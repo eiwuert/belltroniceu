@@ -52,15 +52,15 @@ class RecargasController extends Controller
                     }
                     fwrite($myfile, "," . $simcard->numero . "," . $simcard->valor . "\n");
                 }
-                $menos = $total[0]->total - $cantidad;
+                $mas = $total[0]->total - $cantidad;
                 fwrite($myfile, ", TOTAL AGENCIA,\n");
                 fwrite($myfile, "TOTAL LINEAS:," . $total[0]->total . ",\n");
-                fwrite($myfile, "LINEAS CON 3000 O MAS DE 3000:," . $menos . ",\n");
+                fwrite($myfile, "LINEAS CON 3000 O MAS DE 3000:," . $mas . ",\n");
                 fwrite($myfile, "LINEAS CON MENOS DE 3000:," . $cantidad . ",\n");
                 fclose($myfile);
-                return 1;
+                return [$total[0]->total, $cantidad, $mas];
             }else{
-                return "no hay simcards activadas para el mes escogido";
+                return -1;
             }
         }catch(Exception $e){
             return $e;
