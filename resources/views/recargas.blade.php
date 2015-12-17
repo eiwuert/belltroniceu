@@ -20,7 +20,7 @@
     <link href="css/agency.css" rel="stylesheet">
 
     <!-- Page CSS  -->
-    <link href="css/finanzas.css" rel="stylesheet">
+    <link href="css/recargas/recargas.css" rel="stylesheet">
     
     <!-- Colors CSS -->
     <link href="css/colors.css" rel="stylesheet">
@@ -86,14 +86,14 @@
         <div class="container dark_cover">
             <div class="intro-text">
                 <div class="intro-lead-in">Bienvenido a tu portal</div>
-                <div class="intro-heading">Revisa tus ganancias</div>
+                <div class="intro-heading">Revisa tus recargas</div>
                 <a href="/" class="page-scroll btn btn-xl">Volver</a>
             </div>
         </div>
     </header>
 
     <!-- SECCION MI HISTORIAL -->
-    <section id="estado_recargas" class="parallex">
+    <section id="estado_recargas">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -149,7 +149,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Estado Simcards</h2>
-                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las simcards con 3000 o menos recargadas que han sido activadas en un mes.</h3>
+                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las simcards con menos de 3000 en recargas que han sido activadas en el mes escogido.</h3>
                 </div>
             </div>
             <div class="row text-center ">
@@ -167,7 +167,7 @@
             
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las simcards con 3000 o menos recargadas que han sido activadas en un mes filtradas por distribuidor.</h3>
+                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las simcards con sus respectivas recargas que han sido activadas en el mes escogido filtradas por distribuidor.</h3>
                 </div>
             </div>
             <div class="row text-center ">
