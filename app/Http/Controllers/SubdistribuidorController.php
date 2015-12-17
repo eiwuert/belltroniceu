@@ -24,6 +24,25 @@ class SubdistribuidorController extends Controller
         }
     }
     
+    public function actualizar(Request $request)
+    {
+        if($request->ajax()){
+            try{
+                $subdistribuidor = \App\Subdistribuidor::find($request['nuevo_nombre']);
+                if($subdistribuidor == null){
+                    $subdistribuidor = \App\Subdistribuidor::find($request['nombre']);
+                    $subdistribuidor->nombre = $request['nuevo_nombre'];
+                    $subdistribuidor->save();
+                    return 1;
+                }else{
+                    return -1;
+                }
+            }catch( Exception $e){
+                return $e->getMessage();
+            }
+        }
+    }
+    
     public function crear(Request $request)
     {
         if($request->ajax()){
@@ -47,6 +66,7 @@ class SubdistribuidorController extends Controller
             }
         }
     }
+    
     
     public function buscarSubdistribuidores(Request $request){
         if($request->ajax()){

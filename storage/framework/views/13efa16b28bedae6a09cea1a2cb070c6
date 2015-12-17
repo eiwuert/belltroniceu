@@ -187,8 +187,9 @@
 	      		                <?php if($subdistribuidor->nombre == $distribuidor->name): ?>
     	      		            <input type="text" disabled = "true" style="margin-top:0px;width:200px;border:none;margin-right:32px" value="<?php echo e($subdistribuidor->nombre); ?>"></input>
     	      		            <?php else: ?>
-    	      		            <input type="text" style="margin-top:0px;width:200px;border:none" value="<?php echo e($subdistribuidor->nombre); ?>"></input>
-    	      		            <a style="margin-left:10px;margin-right:5%" id ="<?php echo e($subdistribuidor->nombre); ?>" href="javascript:void(0);" onclick="borrar_subdistribuidor(this.id)"><i class="fa fa-times fa-2x"></i></a>
+    	      		            <input type="text" style="margin-top:0px;width:200px;border:none" id="<?php echo e($subdistribuidor->nombre); ?>" value="<?php echo e($subdistribuidor->nombre); ?>"></input>
+    	      		            <a style="margin-left:10px;margin-right:5%" id ="<?php echo e($subdistribuidor->nombre); ?>_actualizar" href="javascript:void(0);" onclick="actualizar_subdistribuidor(this.id)"><i class="fa fa-check fa-2x"></i></a>
+    	      		            <a style="margin-left:10px;margin-right:5%" id ="<?php echo e($subdistribuidor->nombre); ?>_borrar" href="javascript:void(0);" onclick="borrar_subdistribuidor(this.id)"><i class="fa fa-times fa-2x"></i></a>
     	      		            <?php endif; ?>
 	      		            </div>
 	      		            <br>
@@ -196,9 +197,6 @@
 	      		        <hr style="margin-top:0px">
   		            </row>
 	      		    <?php endforeach; ?>
-	      		    <div style="text-align:center">
-    	      		    <button style="margin-bottom:20px;margin-top:10px" onClick="actualizar_subdistris()">Guardar</button>
-	      		    </div>
                 </div>
             </div>
         <?php endif; ?>

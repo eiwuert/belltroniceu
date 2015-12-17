@@ -136,7 +136,9 @@ function actualizar_usuario(){
     }
 }
 
-function borrar_subdistribuidor(nombre){
+function borrar_subdistribuidor(tag){
+    var aux = tag.split("_");
+    var nombre = aux[0];
     if(confirm('Esta seguro?')){
         $('#modal-loading').modal({
             backdrop: 'static',
@@ -189,6 +191,40 @@ function borrar_distribuidor(tag){
                     $('#modal-content').modal('show');       
                 }
                 $('#'+nombre).parent().parent().remove();
+                $('#modal-loading').modal('hide');
+            }
+        });
+    }
+}
+
+function actualizar_subdistribuidor(tag){
+    var aux = tag.split("_");
+    var nombre = aux[0];
+    var nuevo_nombre = document.getElementById(nombre).value;
+    if(confirm('Esta seguro?')){
+        $('#modal-loading').modal({
+            backdrop: 'static',
+            keyboard: false
+        })
+        $.ajax({
+            url:'subdistribuidor/actualizar',
+            data:{nombre:nombre, nuevo_nombre:nuevo_nombre},
+            type:'GET',
+            dataType: 'json',
+            success: function(data){
+                if(data == 1){
+                    $('.modal-header #modal-tittle').html('Exito');
+                    $('.modal-body #modal-body').html('Subdistribuidor actualizado');
+                    $('#modal-content').modal('show');
+                }else if(data == -1){
+                    $('.modal-header #modal-tittle').html('Error');
+                    $('.modal-body #modal-body').html("YA EXISTE ESE NOMBRE EN EL SISTEMA");
+                    $('#modal-content').modal('show');  
+                }else{
+                    $('.modal-header #modal-tittle').html('Error');
+                    $('.modal-body #modal-body').html(data);
+                    $('#modal-content').modal('show');       
+                }
                 $('#modal-loading').modal('hide');
             }
         });

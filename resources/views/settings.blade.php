@@ -187,8 +187,9 @@
 	      		                @if($subdistribuidor->nombre == $distribuidor->name)
     	      		            <input type="text" disabled = "true" style="margin-top:0px;width:200px;border:none;margin-right:32px" value="{{$subdistribuidor->nombre}}"></input>
     	      		            @else
-    	      		            <input type="text" style="margin-top:0px;width:200px;border:none" value="{{$subdistribuidor->nombre}}"></input>
-    	      		            <a style="margin-left:10px;margin-right:5%" id ="{{$subdistribuidor->nombre}}" href="javascript:void(0);" onclick="borrar_subdistribuidor(this.id)"><i class="fa fa-times fa-2x"></i></a>
+    	      		            <input type="text" style="margin-top:0px;width:200px;border:none" id="{{$subdistribuidor->nombre}}" value="{{$subdistribuidor->nombre}}"></input>
+    	      		            <a style="margin-left:10px;margin-right:5%" id ="{{$subdistribuidor->nombre}}_actualizar" href="javascript:void(0);" onclick="actualizar_subdistribuidor(this.id)"><i class="fa fa-check fa-2x"></i></a>
+    	      		            <a style="margin-left:10px;margin-right:5%" id ="{{$subdistribuidor->nombre}}_borrar" href="javascript:void(0);" onclick="borrar_subdistribuidor(this.id)"><i class="fa fa-times fa-2x"></i></a>
     	      		            @endif
 	      		            </div>
 	      		            <br>
@@ -196,9 +197,6 @@
 	      		        <hr style="margin-top:0px">
   		            </row>
 	      		    @endforeach
-	      		    <div style="text-align:center">
-    	      		    <button style="margin-bottom:20px;margin-top:10px" onClick="actualizar_subdistris()">Guardar</button>
-	      		    </div>
                 </div>
             </div>
         @endif
