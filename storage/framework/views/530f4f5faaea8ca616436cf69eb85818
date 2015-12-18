@@ -109,11 +109,11 @@
                 </div>
             </div>
             <div class="registro">
-                <div class="container_fecha" stlye="margin-bottom:0"><label class="center_vert">FECHA</label></div>
-                <div class="container_descripcion" stlye="margin-bottom:0"><label class="center_vert">DESCRIPCIÓN</label></div>
-                <div class="container_cantidad" stlye="margin-bottom:0"><label class="center_vert">CANT.</label></div>
-                <div class="container_valor" stlye="margin-bottom:0"><label class="center_vert">V. UNITARIO</label></div>
-                <div class="container_total" stlye="margin-bottom:0"><label class="center_vert">TOTAL</label></div>
+                <div class="container_fecha" stlye="margin-bottom:0"><label class="center_vert_no_admin">FECHA</label></div>
+                <div class="container_descripcion" stlye="margin-bottom:0"><label class="center_vert_no_admin">DESCRIPCIÓN</label></div>
+                <div class="container_cantidad" stlye="margin-bottom:0"><label class="center_vert_no_admin">CANT.</label></div>
+                <div class="container_valor" stlye="margin-bottom:0"><label class="center_vert_no_admin">V. UNITARIO</label></div>
+                <div class="container_total" stlye="margin-bottom:0"><label class="center_vert_no_admin">TOTAL</label></div>
                 <div class="container_total" style="max-width:500px;width:50px"></div>
                 <div class="container_total" style="max-width:500px;width:50px"></div>
             </div>
@@ -132,42 +132,42 @@
                 </div>
             </div>
             <div class="registro">
-                <div class="container_fecha" stlye="margin-bottom:0"><label class="center_vert">FECHA</label></div>
-                <div class="container_descripcion" stlye="margin-bottom:0"><label class="center_vert">DESCRIPCIÓN</label></div>
-                <div class="container_cantidad" stlye="margin-bottom:0"><label class="center_vert">CANT.</label></div>
-                <div class="container_valor" stlye="margin-bottom:0"><label class="center_vert">V. UNITARIO</label></div>
-                <div class="container_total" stlye="margin-bottom:0"><label class="center_vert">TOTAL</label></div>
+                <div class="container_fecha" stlye="margin-bottom:0"><label class="center_vert_no_admin">FECHA</label></div>
+                <div class="container_descripcion" stlye="margin-bottom:0"><label class="center_vert_no_admin">DESCRIPCIÓN</label></div>
+                <div class="container_cantidad" stlye="margin-bottom:0"><label class="center_vert_no_admin">CANT.</label></div>
+                <div class="container_valor" stlye="margin-bottom:0"><label class="center_vert_no_admin">V. UNITARIO</label></div>
+                <div class="container_total" stlye="margin-bottom:0"><label class="center_vert_no_admin">TOTAL</label></div>
             </div>
             <?php foreach($retorno as $registro): ?>
             <div class="registro">
                 <?php if($registro['total'] < 0): ?>
-                <div class="container_fecha red_soft"><label class="center_vert"><?php echo e($registro['fecha']); ?></label></div>
-                <div class="container_descripcion red_soft"><label class="center_vert"><?php echo e($registro['descripcion']); ?></label></div>
-                <div class="container_cantidad red_soft"><label class="center_vert"><?php echo e($registro['cantidad']); ?></label></div>
-                <div class="container_valor red_soft"><label class="center_vert">$<?php echo e(number_format($registro['valor_unitario']*-1,0,".",",")); ?></label></div>
-                <div class="container_total red_soft"><label class="center_vert">$<?php echo e(number_format($registro['total']*-1,0,".",",")); ?></label></div>
+                <div class="container_fecha red_soft"><label class="center_vert_no_admin"><?php echo e($registro['fecha']); ?></label></div>
+                <div class="container_descripcion red_soft"><label class="center_vert_no_admin"><?php echo e($registro['descripcion']); ?></label></div>
+                <div class="container_cantidad red_soft"><label class="center_vert_no_admin"><?php echo e($registro['cantidad']); ?></label></div>
+                <div class="container_valor red_soft"><label class="center_vert_no_admin">$<?php echo e(number_format($registro['valor_unitario']*-1,0,".",",")); ?></label></div>
+                <div class="container_total red_soft"><label class="center_vert_no_admin">$<?php echo e(number_format($registro['total']*-1,0,".",",")); ?></label></div>
                 <?php else: ?>
-                <div class="container_fecha green_soft"><label class="center_vert"><?php echo e($registro['fecha']); ?></label></div>
-                <div class="container_descripcion green_soft"><label class="center_vert"><?php echo e($registro['descripcion']); ?></label></div>
-                <div class="container_cantidad green_soft"><label class="center_vert"><?php echo e($registro['cantidad']); ?></label></div>
-                <div class="container_valor green_soft"><label class="center_vert">$<?php echo e(number_format($registro['valor_unitario'],0,".",",")); ?></label></div>
-                <div class="container_total green_soft"><label class="center_vert">$<?php echo e(number_format($registro['total'],0,".",",")); ?></label></div>
+                <div class="container_fecha green_soft"><label class="center_vert_no_admin"><?php echo e($registro['fecha']); ?></label></div>
+                <div class="container_descripcion green_soft"><label class="center_vert_no_admin"><?php echo e($registro['descripcion']); ?></label></div>
+                <div class="container_cantidad green_soft"><label class="center_vert_no_admin"><?php echo e($registro['cantidad']); ?></label></div>
+                <div class="container_valor green_soft"><label class="center_vert_no_admin">$<?php echo e(number_format($registro['valor_unitario'],0,".",",")); ?></label></div>
+                <div class="container_total green_soft"><label class="center_vert_no_admin">$<?php echo e(number_format($registro['total'],0,".",",")); ?></label></div>
                 <?php endif; ?>
             </div>
             <?php endforeach; ?>
             <hr>
+            <div class="registro" style="justify-content:flex-start" id ="total_comisiones">
+                <div class="container_descripcion blue"><label class="center_vert_no_admin">TOTAL COMISIONES</label></div>
+                <div class="container_total blue"><label class="center_vert_no_admin">$<?php echo e(number_format($comisiones,0,".",",")); ?></label></div>
+            </div>
             <div class="registro" id ="total">
                 <?php if($total < 0): ?>
-                <div class="container_descripcion red_soft"><label class="center_vert">TOTAL</label></div>
-                <div class="container_total red_soft"><label class="center_vert">$<?php echo e(number_format($total*-1,0,".",",")); ?></label></div>
+                <div class="container_descripcion red_soft"><label class="center_vert_no_admin">TOTAL</label></div>
+                <div class="container_total red_soft"><label class="center_vert_no_admin">$<?php echo e(number_format($total*-1,0,".",",")); ?></label></div>
                 <?php else: ?>
-                <div class="container_descripcion green_soft"><label class="center_vert">TOTAL</label></div>
-                <div class="container_total green_soft"><label class ="center_vert">$<?php echo e(number_format($total,0,".",",")); ?></label></div>
+                <div class="container_descripcion green_soft"><label class="center_vert_no_admin">TOTAL</label></div>
+                <div class="container_total green_soft"><label class ="center_vert_no_admin">$<?php echo e(number_format($total,0,".",",")); ?></label></div>
                 <?php endif; ?>
-            </div>
-            <div class="registro" id ="total_comisiones">
-                <div class="container_descripcion blue"><label class="center_vert">TOTAL COMISIONES</label></div>
-                <div class="container_total blue"><label class="center_vert">$<?php echo e(number_format($comisiones,0,".",",")); ?></label></div>
             </div>
             <?php if($total < 0): ?>
             <label>A trabajar fuertemente para pagar esa deuda.</label>

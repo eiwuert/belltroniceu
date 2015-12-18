@@ -36,12 +36,24 @@ header{
     margin-top:20px;
 }
 
+
 .center_vert_icons{
     display: table-cell;
     vertical-align: middle;
     color:white;
     font-size:15px;
     text-align:center;
+    background:none;
+    border:none;
+}
+
+.center_vert_no_admin{
+    display: table-cell;
+    vertical-align: middle;
+    color:black;
+    font-size:15px;
+    text-align:center;
+    padding: 0 5px;
     background:none;
     border:none;
 }
