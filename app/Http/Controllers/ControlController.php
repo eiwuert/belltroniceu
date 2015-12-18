@@ -18,4 +18,11 @@ class ControlController extends Controller
             ]);
         }
    }
+   
+   public function buscar(Request $request){
+        if($request->ajax()){
+             $resultado = \DB::select("SELECT created_at, latitud, longitud from control_vendedores where cedula = ?", [$request['cedula']]);
+             return $resultado;
+        }
+   }
 }

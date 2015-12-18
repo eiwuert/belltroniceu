@@ -51,6 +51,7 @@
             <input id ="cedula" class ="data" type="number" style="background:none; border: 1px solid #FFF; color:white;font-size:20px;text-align:center"></input>
             <button class ="button" style="margin-top:10px" onClick ="mandar_ubicacion()">Enviar</button>
         </div>
+        <div id ="demo"></div>
     </section>
 
     <!-- jQuery -->

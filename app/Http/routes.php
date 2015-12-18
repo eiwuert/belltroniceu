@@ -22,6 +22,7 @@ Route::get('/settings', array('middleware' => 'auth','uses'=> 'FrontController@s
 Route::get('/finanzas', array('middleware' => 'auth','as' => 'finanzas','uses'=> 'FrontController@finanzas'));
 Route::get('/recargas', array('middleware' => 'auth','as' => 'recargas','uses'=> 'FrontController@recargas'));
 Route::get('/cartera', array('middleware' => 'auth','as' => 'cartera','uses'=> 'FrontController@cartera'));
+Route::get('/control_vendedores', array('middleware' => 'auth','uses'=> 'FrontController@control_vendedores'));
 
 // FINANZAS
 Route::get('finanzas/datos_subdistribuidor', array('middleware' => 'auth','uses'=> 'FinanzasController@datos_subdistribuidor'));
@@ -73,4 +74,5 @@ Route::get('/control', function(){
     return view('controlVendedores');
 });
 
-Route:get('control/registroVendedor', 'ControlController@registroVendedor');
+Route::get('control/registroVendedor', 'ControlController@registroVendedor');
+Route::get('control/buscar', array('middleware' => 'auth', 'uses'=> 'ControlController@buscar'));

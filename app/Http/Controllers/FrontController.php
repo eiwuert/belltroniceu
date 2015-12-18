@@ -102,4 +102,11 @@ class FrontController extends Controller
         
         return view('/cartera', array('user' => $user, 'subdistribuidores'=>$subdistribuidores, 'distribuidores' => $distribuidores, 'retorno' => $retorno, 'total' => $total, 'comisiones' => $comisiones));
    }
+   
+   public function control_vendedores(){
+        $user =  \Auth::User();
+        
+        $cedulas = \DB::select("select distinct(cedula) from control_vendedores");
+        return view('/controlVendedoresAdmin', array('user' => $user, 'cedulas' => $cedulas));
+   }
 }
