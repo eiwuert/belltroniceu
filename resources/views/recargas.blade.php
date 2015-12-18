@@ -146,6 +146,7 @@
     <!-- SECCION SIMS 3000 -->
     <section id="informe_recargas" class="parallex">
         <div class="container">
+            @if($user->isAdmin)
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Estado Simcards</h2>
@@ -164,7 +165,9 @@
                     </div>
                 </div>
             </div>
+            @endif
             
+            @if($user->isAdmin)
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las simcards con sus respectivas recargas que han sido activadas en el mes escogido filtradas por distribuidor.</h3>
@@ -187,6 +190,25 @@
                     </div>
                 </div>
             </div>
+            @else
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las simcards con sus respectivas recargas que han sido activadas en el mes escogido.</h3>
+                </div>
+            </div>
+            <div class="row text-center ">
+                <div style="display: inline-block;vertical-align: middle;float: none;width:100%">
+                    <div class="flex_container" style="width:100%">
+                        <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_mes_distri_noadmin">
+                            @foreach ($meses as $mes)
+                            <option>{{$mes->mes}}</option>
+                            @endforeach
+                        </select>
+                        <button class="button button_assign" onClick="consultar_simcards_distribuidor_no_admin()" style=";width:200px;padding:0;">BAJAR INFORME</button>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="row text-center ">
                 <div style ="width:50%;margin: 30px auto" id ="msg_recargas_sim">
                     

@@ -91,7 +91,8 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Estado de cuenta</h2>
-                    <h3 class="section-subheading text-muted" style="margin-bottom:40px">Revisa cada uno de los movimientos financieros del distribuidor escogido.</h3>
+                    <h3 class="section-subheading text-muted" style="margin-bottom:10px">Revisa cada uno de los movimientos financieros del distribuidor escogido.</h3>
+                    <h3 class="section-subheading text-muted" style="margin-bottom:40px">Si quieres agregar un registro: Escoge el distribuidor que desees, presiona el boton AGREGAR y llena el formulario.</h3>
                 </div>
             </div>
             <div class="row">
@@ -104,7 +105,8 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <button class="button" onClick="ver_cartera()" style="height:42px;width:10%;margin-right:20px">Ver</button>
+                        <button class="button button_view" onClick="ver_cartera()" style="height:42px;width:10%;margin-right:20px">Ver</button>
+                        <button class="button" onClick="$('#agregar_registro').modal('show')" style="height:42px;width:10%;margin-right:20px">Agregar</button>
                     </div>
                 </div>
             </div>
@@ -178,6 +180,35 @@
     </section>
     <?php endif; ?>
     <!--------------------------------------MODALS------------------------------------------------->
+    
+    <div id="agregar_registro" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3>Agregar Registro</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="flex_container" style="flex-direction:column">
+                        <div class="flex_container" style="flex-wrap: wrap">
+                            <label style="margin-right:20px;width:200px;max-width:200px;min-width:200px;">Fecha registro: </label><input type="date" class="data" id="new_fecha" style="width:200px;"></input>
+                        </div>
+                        <div class="flex_container" style="flex-wrap: wrap;margin-top:20px">
+                            <label style="margin-right:20px;width:200px;max-width:200px;min-width:200px">Descripción: </label><input type="text" class="data" id="new_descripcion" style="width:200px;"></input>
+                        </div>
+                        <div class="flex_container" style="flex-wrap: wrap;margin-top:20px">
+                            <label style="margin-right:20px;width:200px;max-width:200px;min-width:200px">Cantidad: </label><input type="number" class="data" id="new_cantidad" style="width:200px;"></input>
+                        </div>
+                        <div class="flex_container" style="flex-wrap: wrap;margin-top:20px">
+                            <label style="margin-right:20px;width:200px;max-width:200px;min-width:200px">Valor Unitario: </label><input type="number" class="data" id="new_valor" style="width:200px;"></input>
+                        </div>
+                        <button class="button" style="margin-top:20px" onClick="agregar_registro()">Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">

@@ -83,3 +83,39 @@ function actualizar_registro(elem){
         }
     });
 }
+
+function agregar_registro(){
+    var fecha = $('#new_fecha').val();
+    var descripcion = $('#new_descripcion').val();
+    var cantidad = $('#new_cantidad').val();
+    var valor = $('#new_valor').val();
+    var distribuidor = $('[data-id="subPicker_distri"]').text();
+    if(fecha == '' || descripcion == '' || cantidad == '' || valor == ''){
+        $('.modal-header #modal-tittle').html('Error');
+        $('.modal-body #modal-body').html("Todos los campos deben estar llenos");
+        $('#modal-content').modal('show'); 
+    }else{
+        $('#modal-loading').modal({
+            backdrop: 'static',
+            keyboard: false
+            })
+        $.ajax({
+            url:'cartera/agregar',
+            data:{distribuidor:distribuidor,fecha:fecha, descripcion:descripcion, cantidad:cantidad, valor:valor},
+            type:'GET',
+            success: function(data){
+                if(data == 1){
+                    $('.modal-header #modal-tittle').html('Exito');
+                    $('.modal-body #modal-body').html("Registro agregado. debe actualizar la página para ver el total actualizado");
+                    $('#modal-content').modal('show'); 
+                    $('#agregar_registro').modal('hide');
+                }else{
+                    $('.modal-header #modal-tittle').html('Error');
+                    $('.modal-body #modal-body').html(data);
+                    $('#modal-content').modal('show'); 
+                }
+                $('#modal-loading').modal("hide");
+            }
+        });
+    }
+}

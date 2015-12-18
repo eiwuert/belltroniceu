@@ -23,7 +23,11 @@ class RecargasController extends Controller
     public function simcards(Request $request){
         $mes = $request['mes'];
         try{
+            $user =  \Auth::User();
             $distribuidor = $request['distribuidor'];
+            if($distribuidor == 'user'){
+                $distribuidor = $user->name;
+            }
             if($distribuidor == null){
                 $simcards = \DB::select("select a.name, a.nombreSubdistribuidor,a.numero, sum(a.valor) valor from (select users.name,simcards.nombreSubdistribuidor,simcards.numero, simcards.fecha_activacion, IFNULL(recargas.valor_recarga,0) valor, recargas.fecha_recarga from simcards left join recargas on simcards.ICC = recargas.ICC inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where ISNULL(simcards.fecha_activacion) = false and MONTH(simcards.fecha_activacion) = ? and YEAR(simcards.fecha_activacion) = ? and simcards.tipo = 1 and (MONTH(fecha_recarga) = ? or ISNULL(fecha_recarga) = true)) a group by a.numero HAVING sum(a.valor) < 3000 order by a.name, a.nombreSubdistribuidor, sum(a.valor) asc",
                              [$mes,'2015',$mes]);

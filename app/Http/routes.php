@@ -60,8 +60,17 @@ Route::get('diagrama/comisiones', array('middleware' => 'auth', 'uses'=> 'Finanz
 Route::get('cartera/datos', array('middleware' => 'auth', 'uses'=> 'CarteraController@datos'));
 Route::get('cartera/eliminar', array('middleware' => 'auth', 'uses'=> 'CarteraController@eliminar'));
 Route::get('cartera/actualizar', array('middleware' => 'auth', 'uses'=> 'CarteraController@actualizar'));
+Route::get('cartera/agregar', array('middleware' => 'auth', 'uses'=> 'CarteraController@agregar'));
 
 // Login routes
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+
+// CONTROL VENDEDORAS
+Route::get('/control', function(){
+    return view('controlVendedores');
+});
+
+Route:get('control/registroVendedor', 'ControlController@registroVendedor');
