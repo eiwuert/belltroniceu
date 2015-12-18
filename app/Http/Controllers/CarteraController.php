@@ -27,4 +27,45 @@ class CarteraController extends Controller
             }
         }
     }
+    
+    public function eliminar(Request $request){
+        if($request->ajax()){
+            $user =  \Auth::User();
+            if($user->isAdmin){
+                try{
+                    $id = $request['id'];
+                    $cartera = \App\Cartera::find($id);
+                    $cartera->delete();
+                    return 1;
+                }catch(Exception $e){
+                    return $e;
+                }
+            }
+        }
+    }
+    
+    public function actualizar(Request $request){
+        if($request->ajax()){
+            $user =  \Auth::User();
+            if($user->isAdmin){
+                try{
+                    $fecha =  date_create_from_format("Y-m-d",$request['fecha']);
+                    if($fecha != false){
+                        $id = $request['id'];
+                        $cartera = \App\Cartera::find($id);
+                        $cartera->fecha = $fecha;
+                        $cartera->descripcion = $request['descripcion'];
+                        $cartera->cantidad = $request['cantidad'];
+                        $cartera->valor_unitario = $request['valor'];
+                        $cartera->save();
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+                }catch(Exception $e){
+                    return $e;
+                }
+            }
+        }
+    }
 }

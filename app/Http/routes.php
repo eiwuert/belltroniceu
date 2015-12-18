@@ -58,6 +58,8 @@ Route::get('diagrama/comisiones', array('middleware' => 'auth', 'uses'=> 'Finanz
 
 // ACCIONS CARTERA
 Route::get('cartera/datos', array('middleware' => 'auth', 'uses'=> 'CarteraController@datos'));
+Route::get('cartera/eliminar', array('middleware' => 'auth', 'uses'=> 'CarteraController@eliminar'));
+Route::get('cartera/actualizar', array('middleware' => 'auth', 'uses'=> 'CarteraController@actualizar'));
 
 // Login routes
 Route::get('auth/login', 'Auth\AuthController@getLogin');

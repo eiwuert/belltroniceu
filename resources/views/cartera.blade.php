@@ -114,6 +114,8 @@
                 <div class="container_cantidad" stlye="margin-bottom:0"><label class="center_vert">CANT.</label></div>
                 <div class="container_valor" stlye="margin-bottom:0"><label class="center_vert">V. UNITARIO</label></div>
                 <div class="container_total" stlye="margin-bottom:0"><label class="center_vert">TOTAL</label></div>
+                <div class="container_total" style="max-width:500px;width:50px"></div>
+                <div class="container_total" style="max-width:500px;width:50px"></div>
             </div>
             <div id ="registros_container">
                 
@@ -196,31 +198,15 @@
         </div>
     </div>
     
-    <!-- CARGAR ARCHIVO -->
-    <div id="modal_upload" class="modal fade" tabindex="-1" role="dialog">
+    <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h3 id ="modal-tittle">Subir Comisiones</h3>
+                    <h3 id ="modal-tittle"></h3>
                 </div>
                 <div class="modal-body">
-                    <p>Al presionar SUBIR se debe esperar que se recarge la página.</p>
-                    {!! Form::open(
-                    array(
-                        'route' => 'agregarComisiones', 
-                        'class' => 'form', 
-                        'novalidate' => 'novalidate', 
-                        'files' => true)) !!}
-                    <input name="_token" hidden value="{!! csrf_token() !!}" />
-                    <div class="form-group">
-                        {!! Form::file('image', null) !!}
-                    </div>
-                    
-                    <div class="form-group">
-                        {!! Form::submit('Subir') !!}
-                    </div>
-                    {!! Form::close() !!}        
+                    <p id ="modal-body"></p>
                 </div>
             </div>
         </div>
