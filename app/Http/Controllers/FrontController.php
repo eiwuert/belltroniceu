@@ -69,8 +69,8 @@ class FrontController extends Controller
         foreach($distribuidores as $distribuidor){
             $subdistribuidores[$distribuidor->name] = \DB::table('subdistribuidores')->where('emailDistribuidor', $distribuidor->email)->get();
         }
-        $meses = \DB::select("select distinct MONTH(fecha_recarga) mes from recargas");
-        return view('/recargas', array('user' => $user, 'subdistribuidores'=>$subdistribuidores, 'distribuidores' => $distribuidores, 'meses' => $meses));
+        $fechas = \DB::select("select DISTINCT(EXTRACT( YEAR_MONTH FROM fecha_recarga)) fecha  from recargas");
+        return view('/recargas', array('user' => $user, 'subdistribuidores'=>$subdistribuidores, 'distribuidores' => $distribuidores, 'fechas' => $fechas));
    }
    
    public function cartera(){

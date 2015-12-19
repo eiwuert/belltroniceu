@@ -17,10 +17,10 @@
         <link rel="stylesheet" href="/css/auth/login.css">
         
         <!-- Colors CSS -->
-        <link href="css/colors.css" rel="stylesheet">
+        <link href="/css/colors.css" rel="stylesheet">
         
         <!-- Custom Fonts -->
-        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
         <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -62,6 +62,7 @@
 			                        </div>
 			                        <button type="submit" class="btn">Ingresar!</button>
 			                    </form>
+			                     <a class="page-scroll" data-target="#recordar_contraseña" data-toggle="modal" href="#recordar_contraseña">Recordar Contraseña</a>
 		                    </div>
                         </div>
                     </div>
@@ -73,5 +74,40 @@
         
         <!-- Javascript -->
         <script src="/js/auth/login.js"></script>
+        
+        <div id="recordar_contraseña" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3 id ="modal-tittle"></h3>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="/password/email">
+                        {!! csrf_field() !!}
+                    
+                        @if (count($errors) > 0)
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    
+                        <div>
+                            Email
+                            <input class="data" type="email" name="email" value="{{ old('email') }}">
+                        </div>
+                    
+                        <div>
+                            <button class ="button" type="submit">
+                                Send Password Reset Link
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     </body>
 </html>

@@ -159,15 +159,15 @@
             @endforeach
             <hr>
             <div class="registro" style="justify-content:flex-start" id ="total_comisiones">
-                <div class="container_descripcion blue"><label class="center_vert_no_admin">TOTAL COMISIONES</label></div>
+                <div class="container_descripcion blue"><label class="center_vert_no_admin">TOTAL COMISIONES ACUMULADO</label></div>
                 <div class="container_total blue"><label class="center_vert_no_admin">${{number_format($comisiones,0,".",",")}}</label></div>
             </div>
             <div class="registro" id ="total">
                 @if($total < 0)
-                <div class="container_descripcion red_soft"><label class="center_vert_no_admin">TOTAL</label></div>
+                <div class="container_descripcion red_soft"><label class="center_vert_no_admin">TOTAL GENERAL</label></div>
                 <div class="container_total red_soft"><label class="center_vert_no_admin">${{number_format($total*-1,0,".",",")}}</label></div>
                 @else
-                <div class="container_descripcion green_soft"><label class="center_vert_no_admin">TOTAL</label></div>
+                <div class="container_descripcion green_soft"><label class="center_vert_no_admin">TOTAL GENERAL</label></div>
                 <div class="container_total green_soft"><label class ="center_vert_no_admin">${{number_format($total,0,".",",")}}</label></div>
                 @endif
             </div>

@@ -30,6 +30,7 @@ Route::post('finanzas/agregar', array('middleware' => 'auth','as' => 'agregarCom
 
 // RECARGAS
 Route::get('recargas/simcards', array('middleware' => 'auth','uses'=> 'RecargasController@simcards'));
+Route::get('recargas/proyecciones', array('middleware' => 'auth','uses'=> 'RecargasController@proyecciones'));
 
 // ACCIONES SIMCARD
 Route::post('simcard/subirArchivo', array('middleware' => 'auth','as' => 'subirArchivoSimcards','uses'=> 'SimcardController@subirArchivo'));
@@ -67,6 +68,11 @@ Route::get('cartera/agregar', array('middleware' => 'auth', 'uses'=> 'CarteraCon
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
+// Password reset link request routes...
+Route::get('password/email', 'Auth\PasswordController@getEmail');
+Route::post('password/email', 'Auth\PasswordController@postEmail');
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 
 // CONTROL VENDEDORAS

@@ -104,17 +104,23 @@
             <div class="row text-center ">
                 <div style="display: inline-block;vertical-align: middle;float: none;width:100%">
                     <div class="flex_container" style="width:100%">
+                        @if($user->isAdmin)
                         <select class="selectpicker" data-width="100%" data-style="data" id ="subPicker_distri" style="min-width:220px">
                             @foreach ($distribuidores as $distribuidor)
                                 <option>{{$distribuidor->name}}</option>
                             @endforeach
                         </select>
-                        <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_mes">
-                            @foreach ($meses as $mes)
-                            <option>{{$mes->mes}}</option>
+                        @endif
+                        <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_fecha">
+                            @foreach ($fechas as $fecha)
+                            <option>{{$fecha->fecha}}</option>
                             @endforeach
                         </select>
+                        @if($user->isAdmin)
                         <button class="button button_assign" onClick="consultar_recargas()" style=";width:100px;padding:0;">Consultar</button>
+                        @else
+                        <button class="button button_assign" onClick="consultar_recargas_no_admin()" style=";width:100px;padding:0;">Consultar</button>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -150,15 +156,15 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Estado Simcards</h2>
-                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las simcards con menos de 3000 en recargas que han sido activadas en el mes escogido.</h3>
+                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las simcards con menos de 3000 en recargas que han sido activadas en el fecha escogido.</h3>
                 </div>
             </div>
             <div class="row text-center ">
                 <div style="display: inline-block;vertical-align: middle;float: none;width:100%">
                     <div class="flex_container" style="width:100%">
-                        <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_mes">
-                            @foreach ($meses as $mes)
-                            <option>{{$mes->mes}}</option>
+                        <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_fecha">
+                            @foreach ($fechas as $fecha)
+                            <option>{{$fecha->fecha}}</option>
                             @endforeach
                         </select>
                         <button class="button button_assign" onClick="consultar_simcards()" style=";width:200px;padding:0;">BAJAR INFORME</button>
@@ -170,7 +176,7 @@
             @if($user->isAdmin)
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las simcards con sus respectivas recargas que han sido activadas en el mes escogido filtradas por distribuidor.</h3>
+                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las simcards con sus respectivas recargas que han sido activadas en el periodo escogido filtradas por distribuidor.</h3>
                 </div>
             </div>
             <div class="row text-center ">
@@ -181,9 +187,9 @@
                                 <option value ="{{$distribuidor->name}}">{{$distribuidor->name}}</option>
                             @endforeach
                         </select>
-                        <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_mes_distri">
-                            @foreach ($meses as $mes)
-                            <option>{{$mes->mes}}</option>
+                        <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_fecha_distri">
+                            @foreach ($fechas as $fecha)
+                            <option>{{$fecha->fecha}}</option>
                             @endforeach
                         </select>
                         <button class="button button_assign" onClick="consultar_simcards_distribuidor()" style=";width:200px;padding:0;">BAJAR INFORME</button>
@@ -193,15 +199,15 @@
             @else
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las simcards con sus respectivas recargas que han sido activadas en el mes escogido.</h3>
+                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las simcards con sus respectivas recargas que han sido activadas en el periodo escogido.</h3>
                 </div>
             </div>
             <div class="row text-center ">
                 <div style="display: inline-block;vertical-align: middle;float: none;width:100%">
                     <div class="flex_container" style="width:100%">
                         <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_mes_distri_noadmin">
-                            @foreach ($meses as $mes)
-                            <option>{{$mes->mes}}</option>
+                            @foreach ($fechas as $fecha)
+                            <option>{{$fecha->fecha}}</option>
                             @endforeach
                         </select>
                         <button class="button button_assign" onClick="consultar_simcards_distribuidor_no_admin()" style=";width:200px;padding:0;">BAJAR INFORME</button>
@@ -216,6 +222,35 @@
             </div>
         </div>
     </section>
+    
+    @if($user->isAdmin)
+     <section id="informe_recargas" class="parallex">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Proyecciones</h2>
+                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las proyecciones de recargas y ganancias, al igual que otras cifras importantes calculadas con los datos actuales del fecha escodigo.</h3>
+                </div>
+            </div>
+            <div class="row text-center ">
+                <div style="display: inline-block;vertical-align: middle;float: none;width:100%">
+                    <div class="flex_container" style="width:100%">
+                        <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_fecha_proyeccion">
+                            @foreach ($fechas as $fecha)
+                            <option>{{$fecha->fecha}}</option>
+                            @endforeach
+                        </select>
+                        <button class="button button_assign" onClick="calcular_proyecciones()" style=";width:200px;padding:0;">Calcular</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center ">
+                <div class="col-lg-12 text-center" id ="proyecciones">
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
     
     <iframe id="my_iframe" style="display:none;"></iframe>
     <!--------------------------------------MODALS------------------------------------------------->

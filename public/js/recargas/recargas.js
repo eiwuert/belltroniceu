@@ -34,14 +34,14 @@ var colors = ['#BDAEC6', '#C1DAD6', '#89E894', '#FFFF66', '#E86850', '#ffb366', 
 
 function consultar_recargas(distribuidor, periodo){
     var distribuidor = $('[data-id="subPicker_distri"]').text();
-    var mes = $('[data-id="subPicker_mes"]').text();
+    var fecha = $('[data-id="subPicker_fecha"]').text();
     $('#modal-loading').modal({
         backdrop: 'static',
         keyboard: false
         })
     $.ajax({
         url:'diagrama/recargas',
-        data:{distribuidor:distribuidor, mes:mes},
+        data:{distribuidor:distribuidor, fecha:fecha},
         type:'GET',
         success: function(data){
             var datos = new Map();
@@ -106,6 +106,78 @@ function consultar_recargas(distribuidor, periodo){
     });  
 }
 
+function consultar_recargas_no_admin(distribuidor, periodo){
+    var fecha = $('[data-id="subPicker_fecha"]').text();
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    $.ajax({
+        url:'diagrama/recargas',
+        data:{distribuidor:null, fecha:fecha},
+        type:'GET',
+        success: function(data){
+            var datos = new Map();
+            var datosDiagrama = [];
+            var totalPrepago = 0;
+            var totalLibre = 0;
+            var html = "";
+            var aux;
+            if(data.length == 0){
+                $('#valores_subs').html('<label style="color:red;font-size:18px">No tienes recargas registradas</label>');
+                $('#modal-loading').modal('hide');
+                diagramaPrepVsLibre.destroy();
+                ctx = document.getElementById("canvasHistorial").getContext("2d");
+                diagramaPrepVsLibre = new Chart(ctx).Doughnut(datosDiagramaGris, options);  
+                return;
+            }
+            for (var i = 0; i < data.length; i++){
+                if(!datos.has(data[i].nombre)){
+                    aux = [0,0];
+                }else{
+                    aux = datos.get(data[i].nombre);
+                }
+                if(data[i].tipo == 1){
+                    aux[0] = Math.floor(data[i].valor*0.62);
+                }else{
+                    aux[1] = Math.ceil(data[i].valor*0.49);
+                }
+                datos.set(data[i].nombre,aux);
+            }
+            var i = 0;
+            datos.forEach(function(values, key) {
+                html += '<div class="historial_container" style="background: ' + colors[i] + '">' + '<label style="min-width:200px">'  + key + '</label><label class="historial_label" style="margin-right:10px;">$' + addCommas(values[0]) + '</label><label class="historial_label"> $' + addCommas(values[1]) + '</label></div><br>';
+                totalPrepago += values[0];
+                totalLibre += values[1];
+                i++;
+            }, datos)
+            
+            html += '<h3 class="section-heading text-muted" style="color:black;margin-bottom:20px">TOTAL RECARGADO</h3><hr><label class="historial_label_total">$' + addCommas(totalPrepago+totalLibre) + '</label>';
+            var total=totalPrepago+totalLibre;
+            datosDiagrama.push(
+                        {
+                            value: totalLibre,
+                            color:"#85C1F5",
+                            highlight: "#4A789C",
+                            label: "Libre",
+                        }
+                    );
+            datosDiagrama.push(
+                        {
+                            value: totalPrepago,
+                            color:"#7FCA9F",
+                            highlight: "#3f654f",
+                            label: "Prepago",
+                        }
+                    );
+            $('#valores_subs').html(html);
+            diagramaPrepVsLibre.destroy();
+            ctx = document.getElementById("canvasHistorial").getContext("2d");
+            diagramaPrepVsLibre = new Chart(ctx).Doughnut(datosDiagrama, options);
+            $('#modal-loading').modal('hide');
+        }
+    });  
+}
 
 function addCommas(nStr)
 {
@@ -121,14 +193,14 @@ function addCommas(nStr)
 }
 
 function consultar_simcards(){
-    var mes = $('[data-id="subPicker_mes"]').text();
+    var fecha = $('[data-id="subPicker_fecha"]').text();
     $('#modal-loading').modal({
         backdrop: 'static',
         keyboard: false
         })
     $.ajax({
         url:'recargas/simcards',
-        data:{distribuidor:null,mes:mes},
+        data:{distribuidor:null,fecha:fecha},
         type:'GET',
         success: function(data){
             if(data == -1){
@@ -151,7 +223,7 @@ function consultar_simcards(){
 }
 
 function consultar_simcards_distribuidor(){
-    var mes = $('[data-id="subPicker_mes_distri"]').text();
+    var fecha = $('[data-id="subPicker_fecha"]').text();
     var distribuidor = $('[data-id="subPicker_estado_distri"]').text();
     $('#modal-loading').modal({
         backdrop: 'static',
@@ -159,7 +231,7 @@ function consultar_simcards_distribuidor(){
         })
     $.ajax({
         url:'recargas/simcards',
-        data:{distribuidor:distribuidor, mes:mes},
+        data:{distribuidor:distribuidor, fecha:fecha},
         type:'GET',
         success: function(data){
            if(data == -1){
@@ -182,14 +254,14 @@ function consultar_simcards_distribuidor(){
 }
 
 function consultar_simcards_distribuidor_no_admin(){
-    var mes = $('[data-id="subPicker_mes_distri_no_admin"]').text();
+    var fecha = $('[data-id="subPicker_fecha_distri_noadmin"]').text();
     $('#modal-loading').modal({
         backdrop: 'static',
         keyboard: false
         })
     $.ajax({
         url:'recargas/simcards',
-        data:{distribuidor:'user', mes:mes},
+        data:{distribuidor:'user', fecha:fecha},
         type:'GET',
         success: function(data){
            if(data == -1){
@@ -209,4 +281,58 @@ function consultar_simcards_distribuidor_no_admin(){
             $('#modal-loading').modal('hide');
         }
     });
+}
+
+function calcular_proyecciones(){
+    var fecha = $('[data-id="subPicker_fecha_proyeccion"]').text();
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    $.ajax({
+        url:'recargas/proyecciones',
+        data:{fecha:fecha},
+        type:'GET',
+        success: function(data){
+           if(data == -1){
+                var html = '<hr><label style="color:red"> NO SE ENCONTRARON RECARGAS </label>';
+                    $('#proyecciones').html(html);
+            }else{
+                try{
+                    var html = '<hr style="margin: 20px 10%"><label style="min-width:100px;width:100px;font-size:20px;font-weight: 700;margin-right:40px">PREPAGO</label><label style="min-width:100px;width:100px;font-size:20px;font-weight: 700">LIBRE</label>';
+                    html += '</br><label style="min-width:200px" class="green_text">TOTAL RECARGAS:</label>';
+                    html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$' +addCommas(Math.floor(data[0])) +'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[1])) + '</label>';
+                    
+                    html += '</br><label style="min-width:200px"  class="green_text">RECARGA DIARIA</label>';
+                    html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[2]))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[3])) + '</label>';
+                    
+                    html += '</br><label style="min-width:200px"  class="green_text">PROYECCION DE RECARGAS</label>';
+                    html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[4]))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[5])) + '</label>';
+                    
+                    html += '</br><label style="min-width:200px"  class="green_text">PROYECCION DE GANANCIAS</label>';
+                    html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[4]*0.25))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[5]*0.19)) + '</label>';
+                    
+                    
+                    $('#proyecciones').html(html);
+                }catch(e){
+                    alert(e);
+                }
+            }
+            $('#modal-loading').modal('hide');
+        }
+    });
+}
+
+
+function addCommas(nStr)
+{
+    nStr += '';
+    var x = nStr.split('.');
+    var x1 = x[0];
+    var x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
 }
