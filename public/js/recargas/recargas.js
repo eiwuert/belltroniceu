@@ -283,7 +283,7 @@ function consultar_simcards_distribuidor_no_admin(){
     });
 }
 
-function calcular_proyecciones(){
+function calcular_proyecciones_no_admin(){
     var fecha = $('[data-id="subPicker_fecha_proyeccion"]').text();
     $('#modal-loading').modal({
         backdrop: 'static',
@@ -291,7 +291,47 @@ function calcular_proyecciones(){
         })
     $.ajax({
         url:'recargas/proyecciones',
-        data:{fecha:fecha},
+        data:{fecha:fecha,distribuidor:'USUARIONOADMINISTRADOR'},
+        type:'GET',
+        success: function(data){
+           if(data == -1){
+                var html = '<hr><label style="color:red"> NO SE ENCONTRARON RECARGAS </label>';
+                    $('#proyecciones').html(html);
+            }else{
+                try{
+                    var html = '<hr style="margin: 20px 10%"><label style="min-width:100px;width:100px;font-size:20px;font-weight: 700;margin-right:40px">PREPAGO</label><label style="min-width:100px;width:100px;font-size:20px;font-weight: 700">LIBRE</label>';
+                    html += '</br><label style="min-width:200px" class="green_text">TOTAL RECARGAS:</label>';
+                    html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$' +addCommas(Math.floor(data[0])) +'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[1])) + '</label>';
+                    
+                    html += '</br><label style="min-width:200px"  class="green_text">RECARGA DIARIA</label>';
+                    html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[2]))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[3])) + '</label>';
+                    
+                    html += '</br><label style="min-width:200px"  class="green_text">PROYECCION DE RECARGAS</label>';
+                    html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[4]))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[5])) + '</label>';
+                    
+                    html += '</br><label style="min-width:200px"  class="green_text">PROYECCION DE GANANCIAS</label>';
+                    html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[4]*0.25))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[5]*0.19)) + '</label>';
+                    
+                    
+                    $('#proyecciones').html(html);
+                }catch(e){
+                    alert(e);
+                }
+            }
+            $('#modal-loading').modal('hide');
+        }
+    });
+}
+function calcular_proyecciones(){
+    var distribuidor = $('[data-id="subPicker_distri_proyeccion"]').text();
+    var fecha = $('[data-id="subPicker_fecha_proyeccion"]').text();
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    $.ajax({
+        url:'recargas/proyecciones',
+        data:{fecha:fecha,distribuidor:distribuidor},
         type:'GET',
         success: function(data){
            if(data == -1){

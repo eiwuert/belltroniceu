@@ -28,14 +28,25 @@ class RecargasController extends Controller
         if($request->ajax()){
             $user =  \Auth::User();
             $fecha = $request['fecha'];
+            $distribuidor = $request['distribuidor'];
             $anho = substr($fecha,0,4)+0;
             $mes = substr($fecha,4,2)+0;
             $totalDias = cal_days_in_month(CAL_GREGORIAN,$mes,$anho);
-            $datos_prepago = \DB::select("SELECT sum(valor_recarga)/count(DISTINCT(DAY(fecha_recarga))) diario, max(DISTINCT(DAY(fecha_recarga))) dias FROM `recargas` inner join simcards on recargas.ICC = simcards.icc WHERE MONTH(fecha_recarga) = ? and YEAR(fecha_recarga) = ? and simcards.tipo = 1", [$mes, $anho]);
-            $proyeccion_recargas_prepago = $datos_prepago[0]->diario*($totalDias-$datos_prepago[0]->dias);
+            if(strrpos($distribuidor,"NOADMINISTRADOR") != false)
+                $distribuidor = $user->name;
+                
+            if(strrpos($distribuidor,"ODOS") != false){
+                $datos_prepago = \DB::select("SELECT sum(valor_recarga)/count(DISTINCT(DAY(fecha_recarga))) diario, max(DISTINCT(DAY(fecha_recarga))) dias FROM `recargas` inner join simcards on recargas.ICC = simcards.icc WHERE MONTH(fecha_recarga) = ? and YEAR(fecha_recarga) = ? and simcards.tipo = 1", [$mes, $anho]);
+                
+                $datos_libre = \DB::select("SELECT sum(valor_recarga)/count(DISTINCT(DAY(fecha_recarga))) diario, max(DISTINCT(DAY(fecha_recarga))) dias FROM `recargas` inner join simcards on recargas.ICC = simcards.icc WHERE MONTH(fecha_recarga) = ? and YEAR(fecha_recarga) = ? and simcards.tipo = 2", [$mes, $anho]);
+            }else{
+                $datos_prepago = \DB::select("SELECT sum(valor_recarga)/count(DISTINCT(DAY(fecha_recarga))) diario, max(DISTINCT(DAY(fecha_recarga))) dias FROM `recargas` inner join simcards on recargas.ICC = simcards.icc inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on users.email = subdistribuidores.emailDistribuidor WHERE MONTH(fecha_recarga) = ? and YEAR(fecha_recarga) = ? and simcards.tipo = 1 and users.name = ?", [$mes, $anho,$distribuidor]);
+                
+                $datos_libre = \DB::select("SELECT sum(valor_recarga)/count(DISTINCT(DAY(fecha_recarga))) diario, max(DISTINCT(DAY(fecha_recarga))) dias FROM `recargas` inner join simcards on recargas.ICC = simcards.icc inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on users.email = subdistribuidores.emailDistribuidor WHERE MONTH(fecha_recarga) = ? and YEAR(fecha_recarga) = ? and simcards.tipo = 2 and users.name = ?", [$mes, $anho,$distribuidor]);
+            }
             
-            $datos_libre = \DB::select("SELECT sum(valor_recarga)/count(DISTINCT(DAY(fecha_recarga))) diario, max(DISTINCT(DAY(fecha_recarga))) dias FROM `recargas` inner join simcards on recargas.ICC = simcards.icc WHERE MONTH(fecha_recarga) = ? and YEAR(fecha_recarga) = ? and simcards.tipo = 2", [$mes, $anho]);
             $proyeccion_recargas_libre = $datos_libre[0]->diario*($totalDias-$datos_libre[0]->dias);
+            $proyeccion_recargas_prepago = $datos_prepago[0]->diario*($totalDias-$datos_prepago[0]->dias);
             
             return [$datos_prepago[0]->diario*$datos_prepago[0]->dias, $datos_libre[0]->diario*$datos_libre[0]->dias, $datos_prepago[0]->diario, $datos_libre[0]->diario, $proyeccion_recargas_prepago, $proyeccion_recargas_libre];
         }

@@ -205,7 +205,7 @@
             <div class="row text-center ">
                 <div style="display: inline-block;vertical-align: middle;float: none;width:100%">
                     <div class="flex_container" style="width:100%">
-                        <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_mes_distri_noadmin">
+                        <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_fecha_distri_noadmin">
                             @foreach ($fechas as $fecha)
                             <option>{{$fecha->fecha}}</option>
                             @endforeach
@@ -223,7 +223,6 @@
         </div>
     </section>
     
-    @if($user->isAdmin)
      <section id="informe_recargas" class="parallex">
         <div class="container">
             <div class="row">
@@ -235,12 +234,24 @@
             <div class="row text-center ">
                 <div style="display: inline-block;vertical-align: middle;float: none;width:100%">
                     <div class="flex_container" style="width:100%">
+                        @if($user->isAdmin)
+                        <select class="selectpicker" data-width="100%" data-style="data" id ="subPicker_distri_proyeccion" style="min-width:220px">
+                            <option>TODOS</option>
+                            @foreach ($distribuidores as $distribuidor)
+                                <option>{{$distribuidor->name}}</option>
+                            @endforeach
+                        </select>
+                        @endif
                         <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_fecha_proyeccion">
                             @foreach ($fechas as $fecha)
                             <option>{{$fecha->fecha}}</option>
                             @endforeach
                         </select>
-                        <button class="button button_assign" onClick="calcular_proyecciones()" style=";width:200px;padding:0;">Calcular</button>
+                        @if($user->isAdmin)
+                        <button class="button button_assign" onClick="calcular_proyecciones()" style=";width:150px;padding:0;">Calcular</button>
+                        @else
+                        <button class="button button_assign" onClick="calcular_proyecciones_no_admin()" style=";width:150px;padding:0;">Calcular</button>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -250,7 +261,6 @@
             </div>
         </div>
     </section>
-    @endif
     
     <iframe id="my_iframe" style="display:none;"></iframe>
     <!--------------------------------------MODALS------------------------------------------------->
