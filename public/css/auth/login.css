@@ -143,7 +143,7 @@ img { max-width: 100%; }
 	background: #444;
 	background: rgba(0, 0, 0, 0.3);
 	-moz-border-radius: 0 0 4px 4px; -webkit-border-radius: 0 0 4px 4px; border-radius: 0 0 4px 4px;
-	text-align: left;
+	text-align: center;
 }
 
 .form-bottom form textarea {
@@ -169,7 +169,12 @@ img { max-width: 100%; }
 .social-login-buttons {
 	margin-top: 25px;
 }
-
+#remember{
+	color:#85C1F5;
+}
+#remember:hover{
+	color:#4A789C;
+}
 
 /***** Media queries *****/
 

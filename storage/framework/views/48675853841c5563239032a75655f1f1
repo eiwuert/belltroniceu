@@ -52,7 +52,7 @@
                         		</div>
                             </div>
                             <div class="form-bottom">
-			                     <form method="POST" action="/auth/login" class="login-form">
+			                     <form method="POST" style="margin-bottom:20px" action="/auth/login" class="login-form">
 			                        <?php echo csrf_field(); ?>
 
 			                    	<div class="form-group">
@@ -63,7 +63,7 @@
 			                        </div>
 			                        <button type="submit" class="btn">Ingresar!</button>
 			                    </form>
-			                     <a class="page-scroll" data-target="#recordar_contraseña" data-toggle="modal" href="#recordar_contraseña">Recordar Contraseña</a>
+			                     <a class="page-scroll" id ="remember" data-target="#recordar_contraseña" data-toggle="modal" href="#recordar_contraseña">Recordar Contraseña</a>
 		                    </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                     <h3 id ="modal-tittle"></h3>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="/password/email">
+                    <form method="POST" action="/password/reset">
                         <?php echo csrf_field(); ?>
 
                     

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Hash;
+use Illuminate\Mail\Mailer;
+use Mail;
 
 class UserController extends Controller
 {
@@ -21,7 +23,7 @@ class UserController extends Controller
             $updated = false;
             if (Hash::check($password, $user->password)){
                 $aux = \App\User::find($email);
-                if($aux == null){
+                if($aux == null || $aux->email == $user->email){
                     $user->email = $email;
                     $updated = true;
                 }else{
@@ -92,6 +94,33 @@ class UserController extends Controller
             }catch( Exception $e){
                 return $e->getMessage();
             }
+        }
+    }
+    
+     public function postReset(Request $request)
+    {
+        try{
+            $email = $request['email'];
+            $user = \App\User::find($email);
+            if($user != null){
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                $charactersLength = strlen($characters);
+                $randomString = '';
+                for ($i = 0; $i < 10; $i++) {
+                    $randomString .= $characters[rand(0, $charactersLength - 1)];
+                }
+                $user->password = bcrypt($randomString);
+                $user->save();
+                Mail::send('emails.passwordReminder', ['password' => $randomString], function ($m) use ($user) {
+                    $m->from('belltronic1@gmail.com', 'TU PORTAL');
+                    $m->to($user->email, $user->name)->subject('RESET DE CONTRASEÑA');
+                });
+                return view('auth/login');
+            }else{
+                return view('auth/login');
+            }
+        }catch( Exception $e){
+            return $e->getMessage();
         }
     }
 }

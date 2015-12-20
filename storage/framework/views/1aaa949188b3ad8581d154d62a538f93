@@ -1,0 +1,4 @@
+Utiliza la siguiente contraseña para ingresar:
+<?php echo e($password); ?>
+
+Al ingresar se recomienda cambiar la contraseña.
