@@ -11,11 +11,17 @@ class ControlController extends Controller
 {
    public function registroVendedor(Request $request){
         if($request->ajax()){
-            \App\ControlVendedor::create([
-                'cedula' => $request['cedula'],
-                'latitud' => $request['latitud'],
-                'longitud' => $request['longitud']
-            ]);
+            $asesor = \App\Asesor::find($request['cedula']);
+            if($asesor != null){
+                \App\ControlVendedor::create([
+                    'cedula' => $request['cedula'],
+                    'latitud' => $request['latitud'],
+                    'longitud' => $request['longitud']
+                ]);
+                return 1;
+            }else{
+                return -1;
+            }
         }
    }
    

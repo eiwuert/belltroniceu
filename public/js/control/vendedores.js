@@ -5,8 +5,12 @@ function showPosition(position) {
         data:{latitud:position.coords.latitude,longitud:position.coords.longitude,cedula:cedula},
         type:'get',
         success: function(data){
-            alert('satisfactorio');
-            $('#cedula').val("");
+            if(data == 1){
+                alert('satisfactorio');
+                $('#cedula').val("");
+            }else{
+                alert('Error: cedula no registrada en el sistema');
+            }
         }
      }); 
 }
