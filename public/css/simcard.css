@@ -297,7 +297,7 @@ header{
 }
 
 /** IMAGES **/
-#miestado,#buscar,#empaquetar{
+#miestado,#buscar,#empaquetar,#asignaciones{
     background-image:url('/img/texture/simcard.png');
 }
 #paquetes{

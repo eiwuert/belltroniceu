@@ -40,6 +40,7 @@ Route::get('simcard/empaquetar', array('middleware' => 'auth','uses'=> 'SimcardC
 Route::get('simcard/buscar', array('middleware' => 'auth','uses'=> 'SimcardController@buscarSimcard'));
 Route::get('simcard/buscarLibre', array('middleware' => 'auth','uses'=> 'SimcardController@buscarSimcardLibre'));
 Route::get('simcard/actualizarLibre', array('middleware' => 'auth','uses'=> 'SimcardController@actualizarLibre'));
+Route::get('simcard/asignaciones', array('middleware' => 'auth','uses'=> 'SimcardController@asignaciones'));
 Route::get('simcard/buscarPaquete', array('middleware' => 'auth','as' => 'buscarPaquete', 'uses'=> 'SimcardController@buscarPaquete'));
 
 // ACCIONES USUARIOS

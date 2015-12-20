@@ -542,6 +542,25 @@ function consultar_asignaciones(){
     datos_asignaciones(null,fecha_inicial, fecha_final);
 }
 
+function descargar_asignaciones_admin(){
+    var distribuidor = $('[data-id="subPicker_distri"]').text();
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+         $.ajax({
+            url:'simcard/asignaciones',
+            data:{distribuidor:distribuidor},
+            type:'GET',
+            success: function(data){
+                if(data == 1){
+                    document.getElementById('my_iframe').src = "temp/asignacionesSimcards.csv"; 
+                }
+                $('#modal-loading').modal('hide');
+            }
+         });
+}
+
 function consultar_asignaciones_admin(){
     var distribuidor = $('[data-id="subPicker_distri"]').text();
     var fecha_inicial = $('#fecha_inicial').val();

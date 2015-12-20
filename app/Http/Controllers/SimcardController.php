@@ -200,4 +200,31 @@ class SimcardController extends Controller
             return $datos;
         }
     }
+    
+    public function asignaciones(Request $request){
+        if($request->ajax()){
+            $user =  \Auth::User();
+            if($user->isAdmin){
+                $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo, count(simcards.numero) cantidad from simcards INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? group by simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo",
+                     [$request['distribuidor']]);
+                     
+                $myfile = fopen("temp/asignacionesSimcards.csv", "w");
+                $totalPrepago = 0;
+                $totalLibre = 0;
+                foreach($datos as $dato){
+                    fwrite($myfile, $dato->fecha_entrega . "," . $dato->nombre . "," . $dato->tipo . "," . $dato->cantidad . "\n");
+                    if($dato->tipo == 1){
+                        $totalPrepago+= $dato->cantidad;
+                    }else{
+                        $totalLibre+= $dato->cantidad;
+                    }
+                }
+                fwrite($myfile, "TOTAL LINEAS:," . ($totalPrepago+$totalLibre) . ",\n");
+                fwrite($myfile, "TOTAL PREPAGO:," . $totalPrepago . ",\n");
+                fwrite($myfile, "TOTAL LIBRE:," . $totalLibre . ",\n");
+                fclose($myfile);
+                return 1;
+            }
+        }
+    }
 }

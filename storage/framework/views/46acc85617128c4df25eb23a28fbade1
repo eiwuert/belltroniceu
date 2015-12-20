@@ -386,7 +386,8 @@
                                         <option><?php echo e($distribuidor->name); ?></option>
                                     <?php endforeach; ?>
                                 </select>
-                                <button class="button" onClick="consultar_asignaciones_admin()" style=";width:100px;padding:0;">Consultar</button>
+                                <button class="button" onClick="consultar_asignaciones_admin()" style=";width:100px;padding:0;margin-right:10px">Consultar</button>
+                                <button class="button button_assign" onClick="descargar_asignaciones_admin()" style=";width:100px;padding:0;">Descargar</button>
                             <?php endif; ?>
                             <div class="flex_container" style="width:100%;flex-wrap:nowrap;margin-top:20px">
                                 <div class="flex_container" style="flex-wrap: wrap">
@@ -427,6 +428,7 @@
             </div>
         </div>
     </section>
+    <iframe id="my_iframe" style="display:none;"></iframe>
     <!--------------------------------------MODALS------------------------------------------------->
     <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
