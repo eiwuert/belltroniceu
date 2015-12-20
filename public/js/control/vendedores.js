@@ -6,6 +6,7 @@ function showPosition(position) {
         type:'get',
         success: function(data){
             alert('satisfactorio');
+            $('#cedula').val("");
         }
      }); 
 }
