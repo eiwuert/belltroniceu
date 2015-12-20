@@ -45,7 +45,6 @@
 
 <body id="page-top" class="index" style="background-image:url('/img/texture/simcard.png');">
     
-    @if($user->isAdmin)
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -125,7 +124,6 @@
             </div>
         </div>
     </div>
-    @endif
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
     
