@@ -351,11 +351,7 @@ function calcular_proyecciones(){
                     
                     html += '</br><label style="min-width:200px"  class="red_text">PROYECCION DE GANANCIAS</label>';
                     
-                    if($('[data-id="subPicker_distri_proyeccion"]').text().indexOf('OFICINA') != -1){
-                        html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[4]*0.25))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[5]*0.19)) + '</label>';
-                    }else{
-                        html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[4]*0.17))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[5]*0.09)) + '</label>';
-                    }
+                    html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[4]*0.25))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[5]*0.19)) + '</label>';
                     
                     
                     $('#proyecciones').html(html);
