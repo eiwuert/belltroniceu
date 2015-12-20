@@ -31,7 +31,11 @@ class RecargasController extends Controller
             $distribuidor = $request['distribuidor'];
             $anho = substr($fecha,0,4)+0;
             $mes = substr($fecha,4,2)+0;
-            $totalDias = cal_days_in_month(CAL_GREGORIAN,$mes,$anho);
+            if(checkdate($mes, 31, $anho)){ $totalDias = 31; 
+            }else if(checkdate($mes, 30, $anho)){ $totalDias = 30; 
+            }else if(checkdate($mes, 29, $anho)){$totalDias = 29; 
+            }else if (checkdate($mes, 28, $anho)){$totalDias = 28; 
+            }else{$totalDias = 0;}
             if(strrpos($distribuidor,"NOADMINISTRADOR") != false)
                 $distribuidor = $user->name;
                 
