@@ -28,7 +28,7 @@ function buscar(){
         success: function(data){
             var html = "";
             for(var i = 0; i < data.length; i++){
-                html += '<button class ="button_simcards green" onClick="ver_mapa(this.value)" style="width:200px;margin-right:20px;color:black" value="'+data[i].latitud+","+data[i].longitud+'">' + data[i].fecha + "</button>";
+                html += '<button class ="button_simcards green" onClick="ver_mapa(this.value)" style="width:200px;margin-right:20px;color:black;font-size:15px" value="'+data[i].latitud+","+data[i].longitud+'">' + data[i].fecha + "</button>";
             }
             $('#resultado_coordenadas').html(html);
         }
