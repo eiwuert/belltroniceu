@@ -310,7 +310,7 @@ function calcular_proyecciones_no_admin(){
                     html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[4]))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[5])) + '</label>';
                     
                     html += '</br><label style="min-width:200px"  class="red_text">PROYECCION DE GANANCIAS</label>';
-                    html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[4]*0.25))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[5]*0.19)) + '</label>';
+                    html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[4]*0.17))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[5]*0.09)) + '</label>';
                     
                     
                     $('#proyecciones').html(html);
@@ -350,7 +350,7 @@ function calcular_proyecciones(){
                     html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[4]))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[5])) + '</label>';
                     
                     html += '</br><label style="min-width:200px"  class="red_text">PROYECCION DE GANANCIAS</label>';
-                    html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[4]*0.25))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[5]*0.19)) + '</label>';
+                    html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[4]*0.17))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[5]*0.09)) + '</label>';
                     
                     
                     $('#proyecciones').html(html);
