@@ -49,10 +49,12 @@ class RecargasController extends Controller
                 $datos_libre = \DB::select("SELECT sum(valor_recarga)/count(DISTINCT(DAY(fecha_recarga))) diario, max(DISTINCT(DAY(fecha_recarga))) dias FROM `recargas` inner join simcards on recargas.ICC = simcards.icc inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on users.email = subdistribuidores.emailDistribuidor WHERE MONTH(fecha_recarga) = ? and YEAR(fecha_recarga) = ? and simcards.tipo = 2 and users.name = ?", [$mes, $anho,$distribuidor]);
             }
             
+            $ultima_fecha = max([$datos_prepago[0]->dias,$datos_libre[0]->dias]);
+            $ultima_fecha =  date_create_from_format("d/m/Y",$ultima_fecha."/".$mes."/".$anho);
             $proyeccion_recargas_libre = $datos_libre[0]->diario*($totalDias);
             $proyeccion_recargas_prepago = $datos_prepago[0]->diario*($totalDias);
             
-            return [$datos_prepago[0]->diario*$datos_prepago[0]->dias, $datos_libre[0]->diario*$datos_libre[0]->dias, $datos_prepago[0]->diario, $datos_libre[0]->diario, $proyeccion_recargas_prepago, $proyeccion_recargas_libre];
+            return [$datos_prepago[0]->diario*$datos_prepago[0]->dias, $datos_libre[0]->diario*$datos_libre[0]->dias, $datos_prepago[0]->diario, $datos_libre[0]->diario, $proyeccion_recargas_prepago, $proyeccion_recargas_libre,$ultima_fecha];
         }
     }
     

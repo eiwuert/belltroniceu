@@ -300,6 +300,10 @@ function calcular_proyecciones_no_admin(){
             }else{
                 try{
                     var html = '<hr style="margin: 20px 10%"><label class="red_text" style="min-width:100px;width:100px;font-size:20px;font-weight: 700;margin-right:40px">PREPAGO</label><label class="red_text" style="min-width:100px;width:100px;font-size:20px;font-weight: 700">LIBRE</label>';
+                    
+                    html += '</br><label style="min-width:200px" class="red_text">ULTIMA RECARGA</label>';
+                    html += '</br><label style="min-width:200px;color:black">'+data[6].date+'</label>';
+                    
                     html += '</br><label style="min-width:200px" class="red_text">TOTAL RECARGAS:</label>';
                     html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$' +addCommas(Math.floor(data[0])) +'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[1])) + '</label>';
                     
@@ -340,6 +344,10 @@ function calcular_proyecciones(){
             }else{
                 try{
                     var html = '<hr style="margin: 20px 10%"><label class="red_text" style="min-width:100px;width:100px;font-size:20px;font-weight: 700;margin-right:40px">PREPAGO</label><label class="red_text" style="min-width:100px;width:100px;font-size:20px;font-weight: 700">LIBRE</label>';
+                    
+                    html += '</br><label style="min-width:200px" class="red_text">ULTIMA RECARGA:</label>';
+                    html += '</br><label style="min-width:200px;color:black">'+data[6].date+'</label>';
+                    
                     html += '</br><label style="min-width:200px" class="red_text">TOTAL RECARGAS:</label>';
                     html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$' +addCommas(Math.floor(data[0])) +'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[1])) + '</label>';
                     
