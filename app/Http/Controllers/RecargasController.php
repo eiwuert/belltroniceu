@@ -85,7 +85,9 @@ class RecargasController extends Controller
                 fwrite($myfile, "," . $subdistri . ",\n");
                 $cantidad = 0;
                 foreach($simcards as $simcard){
-                    $cantidad++;
+                    if($simcard->valor < 3000){
+                        $cantidad++;
+                    }
                     if($simcard->name != $distri){
                         $distri = $simcard->name;
                         fwrite($myfile, $distri . ",,\n");

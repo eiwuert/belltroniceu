@@ -184,5 +184,20 @@ class SimcardController extends Controller
         }
     }
     
-    
+    public function datosAsignaciones(Request $request){
+        if($request->ajax()){
+            $user =  \Auth::User();
+            $fecha_inicial = date_create_from_format("Y-m-d",$request['fecha_inicial']);
+            $fecha_final = date_create_from_format("Y-m-d", $request['fecha_final']);
+            
+            if($request['distribuidor'] == null){
+                $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo, count(simcards.numero) cantidad from simcards INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and simcards.fecha_entrega > ? and simcards.fecha_entrega < ? group by simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo",
+                     [$user->name, $fecha_inicial, $fecha_final]);
+            }else{
+                $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo, count(simcards.numero) cantidad from simcards INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and simcards.fecha_entrega > ? and simcards.fecha_entrega < ? group by simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo",
+                     [$request['distribuidor'], $fecha_inicial, $fecha_final]);
+            }
+            return $datos;
+        }
+    }
 }

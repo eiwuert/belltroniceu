@@ -21,7 +21,6 @@ class FrontController extends Controller
         }else{
             $subdistribuidores = \DB::table('subdistribuidores')->where('emailDistribuidor', $user->email)->get();
         }
-        
         return view('/simcard', array('user' => $user, 'subdistribuidores'=>$subdistribuidores, 'distribuidores' => $distribuidores));
    }
    

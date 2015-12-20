@@ -57,6 +57,7 @@ Route::get('subdistribuidor/actualizar', array('middleware' => 'auth','uses'=> '
 Route::get('diagrama/simcards', array('middleware' => 'auth', 'uses'=> 'SimcardController@datosSimcard'));
 Route::get('diagrama/recargas', array('middleware' => 'auth', 'uses'=> 'RecargasController@datosRecargas'));
 Route::get('diagrama/comisiones', array('middleware' => 'auth', 'uses'=> 'FinanzasController@datosComisiones'));
+Route::get('diagrama/asignaciones', array('middleware' => 'auth', 'uses'=> 'SimcardController@datosAsignaciones'));
 
 // ACCIONS CARTERA
 Route::get('cartera/datos', array('middleware' => 'auth', 'uses'=> 'CarteraController@datos'));

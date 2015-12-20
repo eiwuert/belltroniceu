@@ -499,3 +499,133 @@ function asignar_sim_unidad(){
         $('#modal-content').modal('show');
     }
 }
+
+
+
+/**REVISAR ASIGNACIONES **/
+
+var datosDiagrama=[
+            {
+                value: 1,
+                color:"gray",
+                highlight: "gray",
+            }
+        ];
+        
+var options = {
+    segmentShowStroke : true,
+    segmentStrokeColor : "#fff",
+    segmentStrokeWidth : 2,
+    percentageInnerCutout : 50,
+    animationSteps : 100,
+    animationEasing : "easeOutBounce",
+    animateRotate : true,
+    animateScale : false,
+    responsive:true,
+    maintainAspectRatio:false,
+    tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+    multiTooltipTemplate: "<%=value%>",
+}
+var ctx = document.getElementById("canvasAsignaciones").getContext("2d");
+var diagramaPrepVsLibre = new Chart(ctx).Doughnut(datosDiagrama, options);  
+// MORADO - AZUL - VERDE - AMARILLO - ROJO - NARANJA - ROSADO - AGUAMARINA - VERDE SUAVE - MAGENTA - CAFE - AMARRILLO - MORADO -AZUL - VERDE - ROJO
+var colors = ['#BDAEC6', '#C1DAD6', '#89E894', '#FFFF66', '#E86850', '#ffb366', '#ff9999', '#66d9ff', '#99ff66', '#F49AC2', '#836953', '#FDFD96', '#B19CD9', '#C1DAD6', '#89E894', '#E86850'];
+
+
+function consultar_asignaciones(){
+    var fecha_inicial = $('#fecha_inicial').val();
+    var fecha_final = $('#fecha_final').val();
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    datos_asignaciones(null,fecha_inicial, fecha_final);
+}
+
+function consultar_asignaciones_admin(){
+    var distribuidor = $('[data-id="subPicker_distri"]').text();
+    var fecha_inicial = $('#fecha_inicial').val();
+    var fecha_final = $('#fecha_final').val();
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    datos_asignaciones(distribuidor,fecha_inicial, fecha_final);
+}
+
+function datos_asignaciones(distribuidor,fecha_inicial,fecha_final){
+    $.ajax({
+        url:'diagrama/asignaciones',
+        data:{distribuidor:distribuidor, fecha_inicial:fecha_inicial, fecha_final:fecha_final},
+        type:'GET',
+        success: function(data){
+            var datos = new Map();
+            var datosDiagrama = [];
+            var totalPrepago = 0;
+            var totalLibre = 0;
+            var html = "";
+            var aux;
+            var aux2;
+            if(data.length == 0){
+                $('#asignaciones_container').html('<label style="color:red;font-size:18px">No tienes simcards asignadas</label>');
+                $('#modal-loading').modal('hide');
+                return;
+            }
+            for (var i = 0; i < data.length; i++){
+                if(!datos.has(data[i].nombre)){
+                    aux = new Map();
+                    aux.set(data[i].fecha_entrega, [0,0]);
+                }else{
+                    aux = datos.get(data[i].nombre);
+                    if(!aux.has(data[i].fecha_entrega)){
+                        aux.set(data[i].fecha_entrega, [0,0]);
+                    }
+                }
+                aux2 = aux.get(data[i].fecha_entrega);
+                if(data[i].tipo == 1){
+                    aux2[0] = data[i].cantidad;
+                }else{
+                    aux2[1] = data[i].cantidad;
+                    
+                }
+                aux.set(data[i].fecha_entrega, aux2);
+                datos.set(data[i].nombre,aux);
+            }
+            var i = 0;
+            datos.forEach(function(values, key) {
+                html +=  '<div class="historial_container" style="background: ' + colors[i] + '">' + '<label style="min-width:200px">'  + key + '</label><hr>';
+                values.forEach(function(values, key) {
+                    html += '<label style="min-width:200px">' + key + '</label><hr><label class="historial_label" style="margin-right:10px;">' + values[0] + '</label><label class="historial_label">' + values[1] + '</label><br>';
+                    totalPrepago += values[0];
+                    totalLibre += values[1];
+                }, values)
+                html += '</div><br>';
+                i++;
+            }, datos)
+            
+            html += '<h3 class="section-heading text-muted" style="color:black;margin-bottom:20px">TOTAL ASIGNACIONES</h3><hr><label class="historial_label_total">' + (totalPrepago+totalLibre) + '</label>';
+            var total=totalPrepago+totalLibre;
+            datosDiagrama.push(
+                        {
+                            value: totalLibre,
+                            color:"#85C1F5",
+                            highlight: "#4A789C",
+                            label: "Libre",
+                        }
+                    );
+            datosDiagrama.push(
+                        {
+                            value: totalPrepago,
+                            color:"#7FCA9F",
+                            highlight: "#3f654f",
+                            label: "Prepago",
+                        }
+                    );
+            $('#asignaciones_container').html(html);
+            diagramaPrepVsLibre.destroy();
+            var ctx = document.getElementById("canvasAsignaciones").getContext("2d");
+            diagramaPrepVsLibre = new Chart(ctx).Doughnut(datosDiagrama, options);
+            $('#modal-loading').modal('hide');
+        }
+    });  
+}

@@ -75,11 +75,9 @@
                     <li>
                         <a class="page-scroll" href="/cartera">Cartera</a>
                     </li>
-                    @if($user->isAdmin)
                     <li>
                         <a class="page-scroll" href="/control_vendedores">Control</a>
                     </li>
-                    @endif
                     <li>
                         <a class="page-scroll" href="/settings"><span class="glyphicon glyphicon-cog"></span></a>
                     </li>

@@ -22,6 +22,8 @@
     <!-- Page CSS  -->
     <link href="css/simcard.css" rel="stylesheet">
     
+    <link href="css/finanzas.css" rel="stylesheet">
+    
     <!-- Colors CSS -->
     <link href="css/colors.css" rel="stylesheet">
     
@@ -83,6 +85,9 @@
                     </li>
                     <li>
                         <a class="page-scroll" href="#empaquetar">Empaquetar</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#asignaciones">Asignaciones</a>
                     </li>
                     @if($user->isAdmin)
                     <li>
@@ -354,6 +359,70 @@
                 </div>
                 <div class = "search_results_container" id ="container_simcards_empaquetado">
                       
+                </div>
+            </div>
+        </div>
+    </section>
+     <!-- SECCION VER ASIGNACIONES  -->
+    <section id="asignaciones">
+        <div class="container ">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Revisa las asignaciones</h2>
+                    @if($user->isAdmin)
+                    <h3 class="section-subheading text-muted" style="margin-bottom:20px">Escoge el distribuidor deseado y observa el reporte de asignaciones para el periodo escogido.</h3>
+                    @else
+                    <h3 class="section-subheading text-muted" style="margin-bottom:20px">Escoge un rango de fechas y observa tu reporte de asignaciones.</h3>
+                    @endif
+                </div>
+            </div>
+            <div class="principal-view-body-container">
+                 <div class="row text-center ">
+                    <div style="display: inline-block;vertical-align: middle;float: none;width:100%">
+                        <div class="flex_container" style="width:100%">
+                            @if($user->isAdmin)
+                                <select class="selectpicker" data-width="80%" data-style="data_package" id ="subPicker_distri" style="min-width:220px">
+                                    @foreach ($distribuidores as $distribuidor)
+                                        <option>{{$distribuidor->name}}</option>
+                                    @endforeach
+                                </select>
+                                <button class="button" onClick="consultar_asignaciones_admin()" style=";width:100px;padding:0;">Consultar</button>
+                            @endif
+                            <div class="flex_container" style="width:100%;flex-wrap:nowrap;margin-top:20px">
+                                <div class="flex_container" style="flex-wrap: wrap">
+                                    <label style="margin-right:20px">Fecha Inicial: </label><input type="date" class="data" id="fecha_inicial" style="width:200px;margin-right:20px"></input>
+                                </div>
+                                <div  style="margin-right:20px"class="flex_container" style="flex-wrap: wrap">
+                                    <label style="margin-right:20px" >Fecha Final: </label><input type="date" class="data" id="fecha_final" style="width:200px;"></input>
+                                </div>
+                            </div>
+                            @if(!$user->isAdmin)
+                                <button class="button" onClick="consultar_asignaciones()" style=";width:100px;padding:0;">Consultar</button>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center" style="margin-top:20px">
+                    <div class="col-md-4" style="display: inline-block;vertical-align: middle;float: none;">
+                        <div class = "valores_sub_container">
+                            <h3 class="section-heading text-muted" style="color:black;margin-bottom:20px">ASIGNACIONES</h3>
+                            <hr>
+                            <label class="heading_label">PREPAGO</label><label class="heading_label">LIBRE</label>
+                            <div id = "asignaciones_container">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="display: inline-block;vertical-align: middle;float: none;">
+                        <div style="display: inline-block;vertical-align: middle;float:none;margin: 0 20px">
+                            <div style="width:250px;height:250px">
+                                <canvas id="canvasAsignaciones"></canvas>
+                            </div>
+                            <div class="portfolio-caption">
+                                <h4 style ="text-align:center;">Distribución ganancias</h4>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
