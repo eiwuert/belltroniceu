@@ -22,7 +22,7 @@ class ControlController extends Controller
    public function buscar(Request $request){
         if($request->ajax()){
              $asesor = \DB::select("select cedula from asesores where nombre = ?", [$request['nombre']]);
-             $resultado = \DB::select("SELECT DATE_SUB(created_at, INTERVAL 5 HOUR) fecha, latitud, longitud from control_vendedores where cedula = ? order by created_at asc", [$asesor[0]->cedula]);
+             $resultado = \DB::select("SELECT DATE_SUB(created_at, INTERVAL 5 HOUR) fecha, latitud, longitud from control_vendedores where cedula = ? order by created_at desc", [$asesor[0]->cedula]);
              return $resultado;
         }
    }
