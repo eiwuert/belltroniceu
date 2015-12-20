@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(agregarArchivoSimcards::class);
         $this->call(agregarRecargasSeeder::class);
         $this->call(agregarArchivoCartera::class);
+        $this->call(AsesoresSeeder::class);
         Model::reguard();
     }
 }

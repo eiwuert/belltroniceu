@@ -106,7 +106,9 @@ class FrontController extends Controller
    public function control_vendedores(){
         $user =  \Auth::User();
         
-        $cedulas = \DB::select("select distinct(cedula) from control_vendedores");
-        return view('/controlVendedoresAdmin', array('user' => $user, 'cedulas' => $cedulas));
+        $nombres = \DB::select("select distinct(nombre) from asesores inner join control_vendedores on asesores.cedula = control_vendedores.cedula");
+        
+        
+        return view('/controlVendedoresAdmin', array('user' => $user, 'nombres' => $nombres));
    }
 }

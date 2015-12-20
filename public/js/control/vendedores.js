@@ -19,15 +19,15 @@ function mandar_ubicacion(){
 }
 
 function buscar(){
-    var cedula = $('[data-id="subPicker_cedula"]').text();
+    var nombre = $('[data-id="subPicker_cedula"]').text();
     $.ajax({
         url:'control/buscar',
-        data:{cedula:cedula},
+        data:{nombre:nombre},
         type:'get',
         success: function(data){
             var html = "";
             for(var i = 0; i < data.length; i++){
-                html += '<button class ="button_simcards green" onClick="ver_mapa(this.value)" style="width:200px;margin-right:20px;" value="'+data[i].latitud+","+data[i].longitud+'">' + data[i].created_at + "</button>";
+                html += '<button class ="button_simcards green" onClick="ver_mapa(this.value)" style="width:200px;margin-right:20px;color:black" value="'+data[i].latitud+","+data[i].longitud+'">' + data[i].fecha + "</button>";
             }
             $('#resultado_coordenadas').html(html);
         }
@@ -36,7 +36,7 @@ function buscar(){
 
 function ver_mapa(value){
     
-    var html = '<iframe width="100%" height="300" frameborder="0" style="border:0;margin:0 auto;" src="https://www.google.com/maps/embed/v1/place?q='+value+'&key=AIzaSyDaFmSLTqXnu89e_vBGK9gYF70YW-I1KAM" allowfullscreen></iframe>';
+    var html = '<iframe frameborder="0" class ="mapa" style="border:0;margin:0 auto;" src="https://www.google.com/maps/embed/v1/place?q='+value+'&key=AIzaSyDaFmSLTqXnu89e_vBGK9gYF70YW-I1KAM" allowfullscreen></iframe>';
     $('.modal-header #modal-tittle').html('UBICACIÓN');
     $('.modal-body #modal-body').html(html);
     $('#modal-content').modal('show');

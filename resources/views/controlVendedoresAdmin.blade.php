@@ -100,8 +100,8 @@
             </div>
             <div class="row text-center">
                 <select class="selectpicker" data-width="50%" data-style="data" id ="subPicker_cedula">
-                    @foreach ($cedulas as $cedula)
-                        <option>{{$cedula->cedula}}</option>
+                    @foreach ($nombres as $nombre)
+                        <option>{{$nombre->nombre}}</option>
                     @endforeach
                 </select>
                 <button class ="button" style="margin-left:20px" onClick = "buscar()">Buscar</button>
