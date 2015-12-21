@@ -420,7 +420,7 @@
                                 <canvas id="canvasAsignaciones"></canvas>
                             </div>
                             <div class="portfolio-caption">
-                                <h4 style ="text-align:center;">Distribución ganancias</h4>
+                                <h4 style ="text-align:center;">Distribución Asignaciones</h4>
                             </div>
                         </div>
                     </div>
