@@ -372,7 +372,24 @@ function calcular_proyecciones(){
     });
 }
 
-
+function borrar_recargas(){
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    $.ajax({
+        url:'recargas/borrar',
+        type:'GET',
+        success: function(data){
+            if(data == 1){
+                $('.modal-header #modal-tittle').html('Exito');
+                $('.modal-body #modal-body').html('Recargas borradas.');
+                $('#modal-content').modal('show');
+            }
+        }
+    });
+    $('#modal-loading').modal('hide');
+}
 function addCommas(nStr)
 {
     nStr += '';

@@ -113,5 +113,14 @@ class RecargasController extends Controller
         }
     }
     
+    public function borrar(Request $request){
+        if($request->ajax()){
+            $user =  \Auth::User();
+            if($user->isAdmin){
+                 $simcards = \DB::select("delete from recargas");
+                 return 1;
+            }   
+        }
+    }
     
 }
