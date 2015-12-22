@@ -230,3 +230,48 @@ function actualizar_subdistribuidor(tag){
         });
     }
 }
+
+function crear_asesor(){
+    var nombre = $('#nuevo_asesor_nombre').val();
+    var cedula = $('#nuevo_asesor_cedula').val();
+    var admin = 1;
+    if($('#off').is(':checked')) {
+       admin = 0
+    }
+    if(cedula == '' || nombre == ''){
+        $('.modal-header #modal-tittle').html('Error');
+        $('.modal-body #modal-body').html('Existen campos sin datos');
+        $('#modal-content').modal('show');  
+    }else{
+        $('#modal-loading').modal({
+            backdrop: 'static',
+            keyboard: false
+        })
+        $.ajax({
+            url:'control/crearAsesor',
+            data:{nombre:nombre, cedula:cedula},
+            type:'POST',
+            dataType: 'json',
+            success: function(data){
+                if(data == 1){
+                    $('.modal-header #modal-tittle').html('Exito');
+                    $('.modal-body #modal-body').html('Asesor creado');
+                    $('#modal-content').modal('show');
+                }else if(data == -1){
+                    $('.modal-header #modal-tittle').html('Error');
+                    $('.modal-body #modal-body').html('Ya existe un usuario con esa cedula');
+                    $('#modal-content').modal('show');       
+                }else if(data == -2){
+                    $('.modal-header #modal-tittle').html('Error');
+                    $('.modal-body #modal-body').html('Ya existe un usuario con ese nombre');
+                    $('#modal-content').modal('show');       
+                }else{
+                    $('.modal-header #modal-tittle').html('Error');
+                    $('.modal-body #modal-body').html('Error al ingresar: ' + data);
+                    $('#modal-content').modal('show');       
+                }
+                $('#modal-loading').modal('hide');
+            }
+        });
+    }
+}

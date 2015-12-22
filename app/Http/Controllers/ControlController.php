@@ -32,4 +32,29 @@ class ControlController extends Controller
              return $resultado;
         }
    }
+   
+    public function crearAsesor(Request $request)
+    {
+        if($request->ajax()){
+            try{
+                $asesor = \App\Asesor::find($request['cedula']);
+                if($asesor == null){
+                    $asesor = \DB::select("select * from asesores where nombre = ?", [$request['nombre']]);
+                    if(sizeof($asesor) == 0){
+                        \App\Asesor::create([
+                            'nombre' => $request['nombre'],
+                            'cedula' => $request['cedula'],
+                        ]);
+                        return 1;    
+                    }else{
+                        return -2;
+                    }
+                }else{
+                    return -1;
+                }
+            }catch( Exception $e){
+                return $e->getMessage();
+            }
+        }
+    }
 }

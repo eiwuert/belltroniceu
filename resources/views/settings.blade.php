@@ -169,6 +169,22 @@
             </div>
         @endif
         
+        <!-- Crear Asesores -->
+        @if($user->isAdmin)
+            <div class="col-sm-13">
+                <div class="dash-unit" >
+        	        <dtitle align="left">Crear Asesor</dtitle>
+        	        <div style="text-align:center">
+            	      	<hr>
+            			<h3>Ingresa el nombre y la cedula del asesor.</h3>
+            			<input type="text" style="min-width:200px;width:200px;margin-top:5px;margin-right:20px" id="nuevo_asesor_cedula" placeholder="Cedula">
+        			    <input type="text" style="min-width:200px;width:200px;margin-top:5px;margin-right:20px" id="nuevo_asesor_nombre" placeholder="Nombre">
+            			<button style="margin-bottom:10px;margin-top:10px;width:200px" onClick="crear_asesor()">Crear</button>
+        			</div>
+    			</div>
+            </div>
+        @endif
+        
         @if($user->isAdmin)
         <!-- USER PROFILE BLOCK -->
             <div class="col-sm-13">

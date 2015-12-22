@@ -80,6 +80,9 @@
                         <a class="page-scroll" href="/cartera">Cartera</a>
                     </li>
                     <li>
+                        <a class="page-scroll" href="/control_vendedores">Control</a>
+                    </li>
+                    <li>
                         <a class="page-scroll" href="/settings"><span class="glyphicon glyphicon-cog"></span></a>
                     </li>
                     <li>
@@ -161,6 +164,22 @@
         			    <input type="text" style="min-width:200px;width:200px" id="new_subdistribuidor_name" style="margin-top:5px" placeholder="Nombre">
             			
             			<button style="margin-bottom:10px;margin-top:10px;width:200px" onClick="crear_subdistribuidor()">Crear</button>
+        			</div>
+    			</div>
+            </div>
+        <?php endif; ?>
+        
+        <!-- Crear Asesores -->
+        <?php if($user->isAdmin): ?>
+            <div class="col-sm-13">
+                <div class="dash-unit" >
+        	        <dtitle align="left">Crear Asesor</dtitle>
+        	        <div style="text-align:center">
+            	      	<hr>
+            			<h3>Ingresa el nombre y la cedula del asesor.</h3>
+            			<input type="text" style="min-width:200px;width:200px;margin-top:5px;margin-right:20px" id="nuevo_asesor_cedula" placeholder="Cedula">
+        			    <input type="text" style="min-width:200px;width:200px;margin-top:5px;margin-right:20px" id="nuevo_asesor_nombre" placeholder="Nombre">
+            			<button style="margin-bottom:10px;margin-top:10px;width:200px" onClick="crear_asesor()">Crear</button>
         			</div>
     			</div>
             </div>

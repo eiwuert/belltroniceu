@@ -85,3 +85,4 @@ Route::get('/control', function(){
 
 Route::get('control/registroVendedor', 'ControlController@registroVendedor');
 Route::get('control/buscar', array('middleware' => 'auth', 'uses'=> 'ControlController@buscar'));
+Route::post('control/crearAsesor', array('middleware' => 'auth', 'uses'=> 'ControlController@crearAsesor'));
