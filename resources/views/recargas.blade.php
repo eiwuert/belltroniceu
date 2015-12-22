@@ -230,7 +230,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Proyecciones</h2>
-                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las proyecciones de recargas y ganancias, al igual que otras cifras importantes calculadas con los datos actuales del fecha escodigo.</h3>
+                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las proyecciones de recargas y ganancias, al igual que otras cifras importantes calculadas con los datos actuales de la fecha escogida.</h3>
                 </div>
             </div>
             <div class="row text-center ">
