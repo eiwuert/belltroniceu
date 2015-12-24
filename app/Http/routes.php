@@ -66,6 +66,7 @@ Route::get('cartera/datos', array('middleware' => 'auth', 'uses'=> 'CarteraContr
 Route::get('cartera/eliminar', array('middleware' => 'auth', 'uses'=> 'CarteraController@eliminar'));
 Route::get('cartera/actualizar', array('middleware' => 'auth', 'uses'=> 'CarteraController@actualizar'));
 Route::get('cartera/agregar', array('middleware' => 'auth', 'uses'=> 'CarteraController@agregar'));
+Route::get('cartera/descargar', array('middleware' => 'auth', 'uses'=> 'CarteraController@descargar'));
 
 // Login routes
 Route::get('auth/login', 'Auth\AuthController@getLogin');

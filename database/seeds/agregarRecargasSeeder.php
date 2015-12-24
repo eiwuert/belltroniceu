@@ -22,7 +22,7 @@ class agregarRecargasSeeder extends Seeder
                         if($simc == null){
                             
                         }else{
-                        \App\Recarga::create([
+                            \App\Recarga::create([
                                  'ICC' => $simc->ICC,
                                  'valor_recarga' => $vars[2],
                                  'fecha_recarga' => $fecha_recarga,

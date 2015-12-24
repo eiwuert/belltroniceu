@@ -1,7 +1,7 @@
 $( document ).ready(function() {
    $('html, body').animate({
-                    scrollTop: $("#total").offset().top
-                    }, 500);
+    scrollTop: $("#total").offset().top
+    }, 500);
 });
 
 
@@ -118,4 +118,49 @@ function agregar_registro(){
             }
         });
     }
+}
+
+function descargar_cartera_admin(){
+    var distribuidor = $('[data-id="subPicker_distri"]').text();
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    $.ajax({
+        url:'cartera/descargar',
+        data:{distribuidor:distribuidor},
+        type:'GET',
+        success: function(data){
+            if(data != 1){
+                $('.modal-header #modal-tittle').html('Error');
+                $('.modal-body #modal-body').html(data);
+                $('#modal-content').modal('show'); 
+            }else{
+                document.getElementById('my_iframe').src = "temp/cartera.csv";  
+            }
+            $('#modal-loading').modal("hide");
+        }
+    });
+}
+
+function descargar_cartera(){
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    $.ajax({
+        url:'cartera/descargar',
+        data:{distribuidor:null},
+        type:'GET',
+        success: function(data){
+            if(data != 1){
+                $('.modal-header #modal-tittle').html('Error');
+                $('.modal-body #modal-body').html(data);
+                $('#modal-content').modal('show'); 
+            }else{
+                document.getElementById('my_iframe').src = "temp/cartera.csv";  
+            }
+            $('#modal-loading').modal("hide");
+        }
+    });
 }

@@ -91,4 +91,26 @@ class CarteraController extends Controller
             }
         }
     }
+    
+     public function descargar(Request $request){
+        if($request->ajax()){
+            $user =  \Auth::User();
+            $distribuidor = $request['distribuidor'];
+            if($distribuidor == null){
+                $distribuidor = $user->name;   
+            }
+            $registros = \DB::select("select * from carteras inner join users on carteras.email = users.email where users.name = ? order by fecha asc", [$distribuidor]);
+            $total = 0;
+            $myfile = fopen("temp/cartera.csv", "w");
+            fwrite($myfile, $distribuidor . "\n");
+            fwrite($myfile,"FECHA,DESCRIPCION,CANTIDAD,V. UNITARIO,TOTAL\n");
+            foreach($registros as $registro){
+                $total += $registro->valor_unitario*$registro->cantidad;
+                fwrite($myfile, $registro->fecha . "," . $registro->descripcion . "," . $registro->cantidad . "," . $registro->valor_unitario . "." . $registro->valor_unitario*$registro->cantidad . "\n");
+            }
+            fwrite($myfile, ", TOTAL GENERAL," + $total + " \n");
+            fclose($myfile);
+            return 1;
+        }
+    }
 }

@@ -66,11 +66,11 @@ class FinanzasController extends Controller
             $user =  \Auth::User();
             $periodo = $request['periodo'];
             if($request['distribuidor'] == null){
-                $datos = \DB::select("select subdistribuidores.nombre, simcards.tipo, sum(comisiones.valor) valor from comisiones inner join simcards on comisiones.ICC = simcards.ICC INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and comisiones.periodo = ? and fecha_vencimiento > curdate() group by subdistribuidores.nombre, simcards.tipo",
-                     [$user->name, $periodo]);
+                $datos = \DB::select("select subdistribuidores.nombre, simcards.tipo, sum(comisiones.valor) valor from comisiones inner join simcards on comisiones.ICC = simcards.ICC INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and comisiones.periodo = ? and EXTRACT(YEAR_MONTH FROM fecha_vencimiento) >= ? group by subdistribuidores.nombre, simcards.tipo",
+                     [$user->name, $periodo,$periodo]);
             }else{
-                $datos = \DB::select("select subdistribuidores.nombre, simcards.tipo, sum(comisiones.valor) valor from comisiones inner join simcards on comisiones.ICC = simcards.ICC INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and comisiones.periodo = ? and fecha_vencimiento > curdate() group by subdistribuidores.nombre, simcards.tipo",
-                     [$request['distribuidor'], $periodo]);
+                $datos = \DB::select("select subdistribuidores.nombre, simcards.tipo, sum(comisiones.valor) valor from comisiones inner join simcards on comisiones.ICC = simcards.ICC INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and comisiones.periodo = ? and EXTRACT(YEAR_MONTH FROM fecha_vencimiento) >= ? group by subdistribuidores.nombre, simcards.tipo",
+                     [$request['distribuidor'], $periodo,$periodo]);
             }
             return $datos;
         }

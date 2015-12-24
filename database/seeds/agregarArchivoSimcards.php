@@ -22,28 +22,37 @@ class agregarArchivoSimcards extends Seeder
                         $simc = \DB::table('simcards')->where('numero', '=',$vars[0])->orwhere('ICC', '=',$vars[1])->first();
                         if($simc != null){
                             $sim = \App\Simcard::find($simc->ICC);
-                            $sim->delete();
+                            $sim->nombreSubdistribuidor = $vars[2];
+                            $sim->fecha_vencimiento = $fecha_vencimiento;
+                            $sim->tipo = $vars[4];
+                            $sim->save();
+                        }else{
+                            $ICC = $vars[1];
+                            if($ICC == '0'){
+                                $ICC = \DB::table('simcards')->select('ICC')->orderBy(\DB::raw('ICC*1'))->first();
+                                $ICC = $ICC->ICC - 1;
+                            }
+                            \App\Simcard::create([
+                             'numero' => $vars[0],
+                             'ICC' => $ICC,
+                             'fecha_vencimiento' => $fecha_vencimiento,
+                             'fecha_activacion' =>  null,
+                             'nombreSubdistribuidor' => $vars[2],
+                             'tipo' => $vars[4],
+                             'paquete' => 0,
+                             'fecha_entrega' => null
+                             ]);
                         }
-                        \App\Simcard::create([
-                         'numero' => $vars[0],
-                         'ICC' => $vars[1],
-                         'fecha_vencimiento' => $fecha_vencimiento,
-                         'fecha_activacion' =>  null,
-                         'nombreSubdistribuidor' => $vars[2],
-                         'tipo' => $vars[4],
-                         'paquete' => 0,
-                         'fecha_entrega' => null
-                         ]);
                     }
                 }else if($opcion[0] == 'ACTIVAR'){
                     $this->command->info('ACTIVANDO...');
                     while (($vars = fgetcsv($gestor, 1000, ",")) !== FALSE) {
-                       $fecha_activacion = date_create_from_format("d/m/Y",$vars[1]);
+                       $fecha_activacion = date_create_from_format("d/m/y",$vars[1]);
                        $simc = \DB::table('simcards')->where('numero', '=',$vars[0])->first();
                        if($simc == null){
                            $ICC = \DB::table('simcards')->select('ICC')->orderBy(\DB::raw('ICC*1'))->first();
-                           $ICC = $ICC->ICC - 1;
-                           $fecha_vencimiento = date_add($fecha_activacion,date_interval_create_from_date_string("9 months"));
+                           $ICC = $ICC->ICC - 1;    
+                           $fecha_vencimiento = date_add($fecha_activacion,date_interval_create_from_date_string("7 months"));
                            $fecha_activacion = date_create_from_format("d/m/y",$vars[1]);
                            \App\Simcard::create([
                              'numero' => $vars[0],
@@ -60,7 +69,7 @@ class agregarArchivoSimcards extends Seeder
                        }
                        $sim = \App\Simcard::find($ICC);
                        if($sim->tipo == 1){
-                            $fecha_vencimiento = date_add($fecha_activacion,date_interval_create_from_date_string("9 months"));
+                            $fecha_vencimiento = date_add($fecha_activacion,date_interval_create_from_date_string("7 months"));
                        }else{
                            $fecha_vencimiento = date_add($fecha_activacion,date_interval_create_from_date_string("12 months"));
                        }

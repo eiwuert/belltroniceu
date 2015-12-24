@@ -122,6 +122,7 @@
             <div id ="registros_container">
                 
             </div>
+            <button class="button button_download" onclick="descargar_cartera_admin()">Descargar</button>
         </div>
     </section>
     @else
@@ -176,9 +177,13 @@
             @else
             <label>Vas muy bien... Sigue asi.</label>
             @endif
+        <br>
+        <button class="button button_download" onClick="descargar_cartera()">Descargar</button>
         </div>
     </section>
     @endif
+    
+    <iframe id="my_iframe" style="display:none;"></iframe>
     <!--------------------------------------MODALS------------------------------------------------->
     
     <div id="agregar_registro" class="modal fade" tabindex="-1" role="dialog">
