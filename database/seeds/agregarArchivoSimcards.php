@@ -18,8 +18,13 @@ class agregarArchivoSimcards extends Seeder
                 if($opcion[0] == 'AGREGAR'){
                     $this->command->info('AGREGANDO...');
                     while (($vars = fgetcsv($gestor, 1000, ",")) !== FALSE) {
-                        $fecha_vencimiento = date_create_from_format("d/m/y",$vars[3]);
-                        $simc = \DB::table('simcards')->where('numero', '=',$vars[0])->orwhere('ICC', '=',$vars[1])->first();
+                        $fecha_vencimiento = date_create_from_format("d/m/Y",$vars[3]);
+                        $ICC = $vars[1];
+                        if($ICC == '0'){
+                            $simc = \DB::table('simcards')->where('numero', '=',$vars[0])->first();    
+                        }else{
+                            $simc = \DB::table('simcards')->where('numero', '=',$vars[0])->orwhere('ICC', '=',$vars[1])->first();    
+                        }
                         if($simc != null){
                             $sim = \App\Simcard::find($simc->ICC);
                             $sim->nombreSubdistribuidor = $vars[2];
@@ -27,7 +32,7 @@ class agregarArchivoSimcards extends Seeder
                             $sim->tipo = $vars[4];
                             $sim->save();
                         }else{
-                            $ICC = $vars[1];
+                            
                             if($ICC == '0'){
                                 $ICC = \DB::table('simcards')->select('ICC')->orderBy(\DB::raw('ICC*1'))->first();
                                 $ICC = $ICC->ICC - 1;
