@@ -205,7 +205,7 @@
                             <label style="margin-right:20px;width:200px;max-width:200px;min-width:200px">Cantidad: </label><input type="number" class="data" id="new_cantidad" style="width:200px;"></input>
                         </div>
                         <div class="flex_container" style="flex-wrap: wrap;margin-top:20px">
-                            <label style="margin-right:20px;width:200px;max-width:200px;min-width:200px">Valor Unitario: </label><input type="number" class="data" id="new_valor" style="width:200px;"></input>
+                            <label style="margin-right:20px;width:200px;max-width:200px;min-width:200px">Valor Unitario: </label><input type="text" class="data" id="new_valor" style="width:200px;"></input>
                         </div>
                         <button class="button" style="margin-top:20px" onClick="agregar_registro()">Agregar</button>
                     </div>

@@ -163,7 +163,17 @@ header{
     border-radius:5px;
 }
 
+.container_cantidad_admin{
+    height:60px;
+    margin-right:20px;
+    border-radius:5px;
+}
 
+.container_valor_admin{
+    height:60px;
+    margin-right:20px;
+    border-radius:5px;
+}
 
 .dark_cover{
     background:rgba(20,20,20,0.4);

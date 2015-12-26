@@ -23,7 +23,7 @@ class CarteraController extends Controller
                     $total += $registro['total'];
                     array_push($retorno, $registro);
                 }
-                return view('carteraRegistros', ['registros' => $retorno, 'total' => $total]);
+                return view('carteraRegistros', ['registros' => $retorno, 'total' => $total, 'user' => $user]);
             }
         }
     }
