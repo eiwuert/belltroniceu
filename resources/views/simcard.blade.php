@@ -600,16 +600,17 @@
                         'route' => 'subirArchivoSimcards', 
                         'class' => 'form', 
                         'novalidate' => 'novalidate', 
-                        'files' => true)) !!}
+                        'files' => true,
+                        'style' => 'text-align:center')) !!}
                     <input name="_token" hidden value="{!! csrf_token() !!}" />
                     <div class="form-group">
                         {!! Form::file('image', null) !!}
                     </div>
                     <div class="form-group">
-                        {!!Form::select('accion', array('Add' => 'Agregar', 'upl' => 'Activar'))!!}
+                        {!!Form::select('accion', array('Add' => 'Agregar', 'upl' => 'Activar'),null, array('class' => 'data_package'))!!}
                     </div>
                     <div class="form-group">
-                        {!! Form::submit('Subir') !!}
+                        {!! Form::submit('Subir', array('class' => 'button')) !!}
                     </div>
                     {!! Form::close() !!}        
                 </div>

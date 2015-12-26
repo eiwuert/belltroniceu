@@ -1,33 +1,23 @@
 <?php foreach($registros as $registro): ?>
 <div class="registro" id ="<?php echo e($registro['id']); ?>">
     <?php if($registro['total'] < 0): ?>
-    <div class="container_fecha red_soft"><input type="text" id="<?php echo e($registro['id']); ?>_fecha" class="center_vert" value="<?php echo e($registro['fecha']); ?>" style="max-width:100px"></input></div>
-    <div class="container_descripcion red_soft"><input type="text" id="<?php echo e($registro['id']); ?>_descripcion" class="center_vert" value="<?php echo e($registro['descripcion']); ?>" style="max-width:500px;width:500px"></input></div>
-    <?php if($user->isAdmin): ?>
-    <div class="container_cantidad_admin red_soft"><input type="text" id="<?php echo e($registro['id']); ?>_cantidad" class="center_vert" value="<?php echo e($registro['cantidad']); ?>" style="max-width:500px;width:50px"></input></div>
-    <div class="container_valor_admin red_soft"><input type="text" id="<?php echo e($registro['id']); ?>_valor" class="center_vert" value="$<?php echo e(number_format($registro['valor_unitario']*-1,0,".",",")); ?>" style="max-width:500px;width:150px"></input></div>
+    <div class="container_fecha_admin red_soft"><input type="text" id="<?php echo e($registro['id']); ?>_fecha" class="center_vert" value="<?php echo e($registro['fecha']); ?>"></input></div>
+    <div class="container_descripcion_admin red_soft"><input type="text" id="<?php echo e($registro['id']); ?>_descripcion" class="center_vert" value="<?php echo e($registro['descripcion']); ?>"></input></div>
+    <div class="container_cantidad_admin red_soft"><input type="text" id="<?php echo e($registro['id']); ?>_cantidad" class="center_vert" value="<?php echo e($registro['cantidad']); ?>"></input></div>
+    <div class="container_valor_admin red_soft"><input type="text" id="<?php echo e($registro['id']); ?>_valor" class="center_vert" value="$<?php echo e(number_format($registro['valor_unitario']*-1,0,".",",")); ?>" ></input></div>
+    <div class="container_total_admin red_soft"><input type="text" disabled="true" id="<?php echo e($registro['id']); ?>_total" class="center_vert" value="$<?php echo e(number_format($registro['total']*-1,0,".",",")); ?>"></input></div>
     <?php else: ?>
-    <div class="container_cantidad red_soft"><input type="text" id="<?php echo e($registro['id']); ?>_cantidad" class="center_vert" value="<?php echo e($registro['cantidad']); ?>" style="max-width:500px;width:50px"></input></div>
-    <div class="container_valor red_soft"><input type="text" id="<?php echo e($registro['id']); ?>_valor" class="center_vert" value="$<?php echo e(number_format($registro['valor_unitario']*-1,0,".",",")); ?>" style="max-width:500px;width:150px"></input></div>
+    <div class="container_fecha_admin green_soft"><input type="text" id="<?php echo e($registro['id']); ?>_fecha" class="center_vert" value="<?php echo e($registro['fecha']); ?>"></input></div>
+    <div class="container_descripcion_admin green_soft"><input type="text" id="<?php echo e($registro['id']); ?>_descripcion" class="center_vert" value="<?php echo e($registro['descripcion']); ?>"></input></div>
+    <div class="container_cantidad_admin green_soft"><input type="text" id="<?php echo e($registro['id']); ?>_cantidad" class="center_vert" value="<?php echo e($registro['cantidad']); ?>" ></input></div>
+    <div class="container_valor_admin green_soft"><input type="text" id="<?php echo e($registro['id']); ?>_valor" class="center_vert" value="$<?php echo e(number_format($registro['valor_unitario'],0,".",",")); ?>"></input></div>
+    <div class="container_total_admin green_soft"><input type="text" disabled ="true" id="<?php echo e($registro['id']); ?>_total" class="center_vert" value="$<?php echo e(number_format($registro['total'],0,".",",")); ?>"></input></div>
     <?php endif; ?>
-    <div class="container_total red_soft"><input type="text" disabled="true" id="<?php echo e($registro['id']); ?>_total" class="center_vert" value="$<?php echo e(number_format($registro['total']*-1,0,".",",")); ?>" style="max-width:500px;width:150px"></input></div>
-    <?php else: ?>
-    <div class="container_fecha green_soft"><input type="text" id="<?php echo e($registro['id']); ?>_fecha" class="center_vert" value="<?php echo e($registro['fecha']); ?>" style="max-width:100px"></input></div>
-    <div class="container_descripcion green_soft"><input type="text" id="<?php echo e($registro['id']); ?>_descripcion" class="center_vert" value="<?php echo e($registro['descripcion']); ?>" style="max-width:500px;width:500px"></input></div>
-    <?php if($user->isAdmin): ?>
-    <div class="container_cantidad_admin green_soft"><input type="text" id="<?php echo e($registro['id']); ?>_cantidad" class="center_vert" value="<?php echo e($registro['cantidad']); ?>" style="max-width:500px;width:50px"></input></div>
-    <div class="container_valor_admin green_soft"><input type="text" id="<?php echo e($registro['id']); ?>_valor" class="center_vert" value="$<?php echo e(number_format($registro['valor_unitario'],0,".",",")); ?>" style="max-width:500px;width:150px"></input></div>
-    <?php else: ?>
-    <div class="container_cantidad green_soft"><input type="text" id="<?php echo e($registro['id']); ?>_cantidad" class="center_vert" value="<?php echo e($registro['cantidad']); ?>" style="max-width:500px;width:50px"></input></div>
-    <div class="container_valor green_soft"><input type="text" id="<?php echo e($registro['id']); ?>_valor" class="center_vert" value="$<?php echo e(number_format($registro['valor_unitario'],0,".",",")); ?>" style="max-width:500px;width:150px"></input></div>
-    <?php endif; ?>
-    <div class="container_total green_soft"><input type="text" disabled ="true" id="<?php echo e($registro['id']); ?>_total" class="center_vert" value="$<?php echo e(number_format($registro['total'],0,".",",")); ?>" style="max-width:500px;width:150px"></input></div>
-    <?php endif; ?>
-    <div class="container_total green_soft" style="max-width:500px;width:50px;"><a class="center_vert_icons" href="javascript:void(0);" onclick="actualizar_registro(this)"><i class="fa fa-check fa-2x"></i></a></div>
-    <div class="container_total red_soft" style="max-width:500px;width:50px;"><a class="center_vert_icons" href="javascript:void(0);" onclick="borrar_registro(this)"><i class="fa fa-times fa-2x"></i></a></div>
+    <div class="container_modify_admin green_soft" ><a class="center_vert_icons" href="javascript:void(0);" onclick="actualizar_registro(this)"><i class="fa fa-check fa-2x"></i></a></div>
+    <div class="container_delete_admin red_soft"><a class="center_vert_icons" href="javascript:void(0);" onclick="borrar_registro(this)"><i class="fa fa-times fa-2x"></i></a></div>
 </div>
-<?php endforeach; ?>
 <hr>
+<?php endforeach; ?>
 <div class="registro" id ="total">
     <?php if($total < 0): ?>
     <div class="container_descripcion red_soft"><label class="center_vert">TOTAL</label></div>

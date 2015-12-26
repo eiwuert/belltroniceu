@@ -111,13 +111,13 @@
                 </div>
             </div>
             <div class="registro">
-                <div class="container_fecha" stlye="margin-bottom:0"><label class="center_vert_no_admin">FECHA</label></div>
-                <div class="container_descripcion" stlye="margin-bottom:0"><label class="center_vert_no_admin">DESCRIPCIÓN</label></div>
-                <div class="container_cantidad" stlye="margin-bottom:0"><label class="center_vert_no_admin">CANT.</label></div>
-                <div class="container_valor" stlye="margin-bottom:0"><label class="center_vert_no_admin">V. UNITARIO</label></div>
-                <div class="container_total" stlye="margin-bottom:0"><label class="center_vert_no_admin">TOTAL</label></div>
-                <div class="container_total" style="max-width:500px;width:50px"></div>
-                <div class="container_total" style="max-width:500px;width:50px"></div>
+                <div class="container_fecha title_admin" stlye="margin-bottom:0"><label class="center_vert_no_admin">FECHA</label></div>
+                <div class="container_descripcion title_admin" stlye="margin-bottom:0"><label class="center_vert_no_admin">DESCRIPCIÓN</label></div>
+                <div class="container_cantidad title_admin" stlye="margin-bottom:0"><label class="center_vert_no_admin">CANT.</label></div>
+                <div class="container_valor title_admin" stlye="margin-bottom:0"><label class="center_vert_no_admin">V. UNITARIO</label></div>
+                <div class="container_total title_admin" stlye="margin-bottom:0"><label class="center_vert_no_admin">TOTAL</label></div>
+                <div class="container_total title_admin" style="max-width:500px;width:50px"></div>
+                <div class="container_total title_admin" style="max-width:500px;width:50px"></div>
             </div>
             <div id ="registros_container">
                 

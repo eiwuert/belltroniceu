@@ -600,7 +600,8 @@
                         'route' => 'subirArchivoSimcards', 
                         'class' => 'form', 
                         'novalidate' => 'novalidate', 
-                        'files' => true)); ?>
+                        'files' => true,
+                        'style' => 'text-align:center')); ?>
 
                     <input name="_token" hidden value="<?php echo csrf_token(); ?>" />
                     <div class="form-group">
@@ -608,11 +609,11 @@
 
                     </div>
                     <div class="form-group">
-                        <?php echo Form::select('accion', array('Add' => 'Agregar', 'upl' => 'Activar')); ?>
+                        <?php echo Form::select('accion', array('Add' => 'Agregar', 'upl' => 'Activar'),null, array('class' => 'data_package')); ?>
 
                     </div>
                     <div class="form-group">
-                        <?php echo Form::submit('Subir'); ?>
+                        <?php echo Form::submit('Subir', array('class' => 'button')); ?>
 
                     </div>
                     <?php echo Form::close(); ?>        
