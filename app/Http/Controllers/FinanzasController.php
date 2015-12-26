@@ -69,6 +69,7 @@ class FinanzasController extends Controller
             if($request['distribuidor'] == null){
                 $datos = \DB::select("select subdistribuidores.nombre, simcards.tipo, sum(comisiones.valor) valor from comisiones inner join simcards on comisiones.ICC = simcards.ICC INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and comisiones.periodo = ? and EXTRACT(YEAR_MONTH FROM fecha_vencimiento) >= ? group by subdistribuidores.nombre, simcards.tipo",
                      [$user->name, $periodo,$periodo]);
+                 $admin = false;
             }else{
                 $datos = \DB::select("select subdistribuidores.nombre, simcards.tipo, sum(comisiones.valor) valor from comisiones inner join simcards on comisiones.ICC = simcards.ICC INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and comisiones.periodo = ? and EXTRACT(YEAR_MONTH FROM fecha_vencimiento) >= ? group by subdistribuidores.nombre, simcards.tipo",
                      [$request['distribuidor'], $periodo,$periodo]);
