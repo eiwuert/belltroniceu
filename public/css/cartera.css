@@ -47,7 +47,7 @@ header{
     border:none;
 }
 
-@media screen and (min-width:400px){
+@media screen and (min-width:600px){
     .container_total_admin, .container_fecha_admin, .container_descripcion_admin, .container_cantidad_admin,.container_valor_admin,.container_fecha_admin{
         text-align:center;
     }
@@ -117,7 +117,7 @@ header{
     }
 }
 
-@media screen and (max-width:400px){
+@media screen and (max-width:600px){
     .container_fecha_admin, .container_descripcion_admin, .container_cantidad_admin,.container_valor_admin,.container_fecha_admin{
         margin-bottom:10px;
         text-align:center;

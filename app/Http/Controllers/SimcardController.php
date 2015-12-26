@@ -28,7 +28,8 @@ class SimcardController extends Controller
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES ". $columns."
-                  SET ID = NULL");
+                  SET ID = NULL"."
+                  ON DUPLICATE KEY UPDATE");
             return \Redirect::route('simcards'); 
         }
     }
