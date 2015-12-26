@@ -9,6 +9,9 @@ $mysql_array = array(
     'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix'    => '',
+    'options' => [
+        PDO::MYSQL_ATTR_LOCAL_INFILE => true
+    ],
 );
 return [
 

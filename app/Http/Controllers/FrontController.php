@@ -56,7 +56,7 @@ class FrontController extends Controller
         }else{
             $subdistribuidores = \DB::table('subdistribuidores')->where('emailDistribuidor', $user->email)->get();
         }
-        $periodos = \DB::select("select distinct periodo from comisiones");
+        $periodos = \DB::select("select distinct periodo from comisiones order by periodo desc");
        return view('/finanzas', array('user' => $user, 'subdistribuidores'=>$subdistribuidores, 'distribuidores' => $distribuidores, 'periodos' => $periodos));
    }
    

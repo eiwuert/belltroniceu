@@ -607,7 +607,10 @@
                         <?php echo Form::file('image', null); ?>
 
                     </div>
-                    
+                    <div class="form-group">
+                        <?php echo Form::select('accion', array('Add' => 'Agregar', 'upl' => 'Activar')); ?>
+
+                    </div>
                     <div class="form-group">
                         <?php echo Form::submit('Subir'); ?>
 

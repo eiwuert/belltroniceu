@@ -11,12 +11,26 @@ class SimcardController extends Controller
 {
     
     public function subirArchivo(Request $request){
-        $file = $request->file('image');
-        $destinationPath = 'temp';
-        $fileName = 'simcards.csv';
-        $url = $destinationPath . '/' . $fileName;
-        $file->move($destinationPath, $fileName);
-        return \Redirect::route('simcard'); 
+        $action = $request['accion'];
+            if($action == "ADD"){
+            $file = $request->file('image');
+            if(!file_exists($file)) {
+                die("File not found. Make sure you specified the correct path.");
+            }
+            try {
+                $pdo = \DB::connection()->getPdo();
+            } catch (PDOException $e) {
+                die("database connection failed: ".$e->getMessage());
+            }
+            $columns = '(telefono, fecha_recarga, valor_recarga)';
+            $affectedRows = $pdo->exec("
+                LOAD DATA LOCAL INFILE ".$pdo->quote($file)." INTO TABLE `simcards`
+                  FIELDS TERMINATED BY ".$pdo->quote(";")."
+                  LINES TERMINATED BY ".$pdo->quote("\n")."
+                  IGNORE 0 LINES ". $columns."
+                  SET ID = NULL");
+            return \Redirect::route('simcards'); 
+        }
     }
        
    public function buscarSimcard(Request $request)

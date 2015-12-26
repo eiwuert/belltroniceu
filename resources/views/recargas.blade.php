@@ -292,13 +292,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h3 id ="modal-tittle">Subir Comisiones</h3>
+                    <h3 id ="modal-tittle">Subir Recargas</h3>
                 </div>
                 <div class="modal-body">
                     <p>Al presionar SUBIR se debe esperar que se recarge la página.</p>
                     {!! Form::open(
                     array(
-                        'route' => 'agregarComisiones', 
+                        'route' => 'agregarRecargas', 
                         'class' => 'form', 
                         'novalidate' => 'novalidate', 
                         'files' => true)) !!}

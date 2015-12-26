@@ -18,7 +18,7 @@ class RecargasController extends Controller
             $distribuidor = $request['distribuidor'];
             if($distribuidor == null)
                 $distribuidor = $user->name;
-            $datos = \DB::select("select subdistribuidores.nombre, simcards.tipo, sum(recargas.valor_recarga) valor from recargas inner join simcards on recargas.ICC = simcards.ICC INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and MONTH(recargas.fecha_recarga) = ? and YEAR(recargas.fecha_recarga) = ? group by subdistribuidores.nombre, simcards.tipo",
+            $datos = \DB::select("select subdistribuidores.nombre, simcards.tipo, sum(recargas.valor_recarga) valor from recargas inner join simcards on recargas.telefono = simcards.numero INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and MONTH(recargas.fecha_recarga) = ? and YEAR(recargas.fecha_recarga) = ? group by subdistribuidores.nombre, simcards.tipo",
                      [$distribuidor, $mes, $anho]);
             return $datos;
         }
@@ -40,13 +40,13 @@ class RecargasController extends Controller
                 $distribuidor = $user->name;
                 
             if(strrpos($distribuidor,"ODOS") != false){
-                $datos_prepago = \DB::select("SELECT sum(valor_recarga)/count(DISTINCT(DAY(fecha_recarga))) diario, max(DISTINCT(DAY(fecha_recarga))) dias FROM `recargas` inner join simcards on recargas.ICC = simcards.icc WHERE MONTH(fecha_recarga) = ? and YEAR(fecha_recarga) = ? and simcards.tipo = 1", [$mes, $anho]);
+                $datos_prepago = \DB::select("SELECT sum(valor_recarga)/count(DISTINCT(DAY(fecha_recarga))) diario, max(DISTINCT(DAY(fecha_recarga))) dias FROM `recargas` inner join simcards on recargas.telefono = simcards.numero WHERE MONTH(fecha_recarga) = ? and YEAR(fecha_recarga) = ? and simcards.tipo = 1", [$mes, $anho]);
                 
-                $datos_libre = \DB::select("SELECT sum(valor_recarga)/count(DISTINCT(DAY(fecha_recarga))) diario, max(DISTINCT(DAY(fecha_recarga))) dias FROM `recargas` inner join simcards on recargas.ICC = simcards.icc WHERE MONTH(fecha_recarga) = ? and YEAR(fecha_recarga) = ? and simcards.tipo = 2", [$mes, $anho]);
+                $datos_libre = \DB::select("SELECT sum(valor_recarga)/count(DISTINCT(DAY(fecha_recarga))) diario, max(DISTINCT(DAY(fecha_recarga))) dias FROM `recargas` inner join simcards on recargas.telefono = simcards.numero WHERE MONTH(fecha_recarga) = ? and YEAR(fecha_recarga) = ? and simcards.tipo = 2", [$mes, $anho]);
             }else{
-                $datos_prepago = \DB::select("SELECT sum(valor_recarga)/count(DISTINCT(DAY(fecha_recarga))) diario, max(DISTINCT(DAY(fecha_recarga))) dias FROM `recargas` inner join simcards on recargas.ICC = simcards.icc inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on users.email = subdistribuidores.emailDistribuidor WHERE MONTH(fecha_recarga) = ? and YEAR(fecha_recarga) = ? and simcards.tipo = 1 and users.name = ?", [$mes, $anho,$distribuidor]);
+                $datos_prepago = \DB::select("SELECT sum(valor_recarga)/count(DISTINCT(DAY(fecha_recarga))) diario, max(DISTINCT(DAY(fecha_recarga))) dias FROM `recargas` inner join simcards on recargas.telefono = simcards.numero inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on users.email = subdistribuidores.emailDistribuidor WHERE MONTH(fecha_recarga) = ? and YEAR(fecha_recarga) = ? and simcards.tipo = 1 and users.name = ?", [$mes, $anho,$distribuidor]);
                 
-                $datos_libre = \DB::select("SELECT sum(valor_recarga)/count(DISTINCT(DAY(fecha_recarga))) diario, max(DISTINCT(DAY(fecha_recarga))) dias FROM `recargas` inner join simcards on recargas.ICC = simcards.icc inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on users.email = subdistribuidores.emailDistribuidor WHERE MONTH(fecha_recarga) = ? and YEAR(fecha_recarga) = ? and simcards.tipo = 2 and users.name = ?", [$mes, $anho,$distribuidor]);
+                $datos_libre = \DB::select("SELECT sum(valor_recarga)/count(DISTINCT(DAY(fecha_recarga))) diario, max(DISTINCT(DAY(fecha_recarga))) dias FROM `recargas` inner join simcards on recargas.telefono = simcards.numero inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on users.email = subdistribuidores.emailDistribuidor WHERE MONTH(fecha_recarga) = ? and YEAR(fecha_recarga) = ? and simcards.tipo = 2 and users.name = ?", [$mes, $anho,$distribuidor]);
             }
             
             $ultima_fecha = max([$datos_prepago[0]->dias,$datos_libre[0]->dias]);
@@ -69,11 +69,11 @@ class RecargasController extends Controller
                 $distribuidor = $user->name;
             }
             if($distribuidor == null){
-                $simcards = \DB::select("select a.name, a.nombreSubdistribuidor,a.numero, sum(a.valor) valor from (select users.name,simcards.nombreSubdistribuidor,simcards.numero, simcards.fecha_activacion, IFNULL(recargas.valor_recarga,0) valor, recargas.fecha_recarga from simcards left join recargas on simcards.ICC = recargas.ICC inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where ISNULL(simcards.fecha_activacion) = false and MONTH(simcards.fecha_activacion) = ? and YEAR(simcards.fecha_activacion) = ? and simcards.tipo = 1 and (MONTH(fecha_recarga) = ? or ISNULL(fecha_recarga) = true)) a group by a.numero HAVING sum(a.valor) < 3000 order by a.name, a.nombreSubdistribuidor, sum(a.valor) asc",
+                $simcards = \DB::select("select a.name, a.nombreSubdistribuidor,a.numero, sum(a.valor) valor from (select users.name,simcards.nombreSubdistribuidor,simcards.numero, simcards.fecha_activacion, IFNULL(recargas.valor_recarga,0) valor, recargas.fecha_recarga from simcards left join recargas on simcards.numero = recargas.telefono inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where ISNULL(simcards.fecha_activacion) = false and MONTH(simcards.fecha_activacion) = ? and YEAR(simcards.fecha_activacion) = ? and simcards.tipo = 1 and (MONTH(fecha_recarga) = ? or ISNULL(fecha_recarga) = true)) a group by a.numero HAVING sum(a.valor) < 3000 order by a.name, a.nombreSubdistribuidor, sum(a.valor) asc",
                              [$mes,$anho,$mes]);
                 $total = \DB::select("select count(numero) total from simcards where MONTH(simcards.fecha_activacion) = ? and YEAR(simcards.fecha_activacion) = ? and simcards.tipo = 1", [$mes,'2015']);
             }else{
-                $simcards = \DB::select("select a.name, a.nombreSubdistribuidor,a.numero, sum(a.valor) valor from (select users.name,simcards.nombreSubdistribuidor,simcards.numero, simcards.fecha_activacion, IFNULL(recargas.valor_recarga,0) valor, recargas.fecha_recarga from simcards left join recargas on simcards.ICC = recargas.ICC inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where ISNULL(simcards.fecha_activacion) = false and MONTH(simcards.fecha_activacion) = ? and YEAR(simcards.fecha_activacion) = ? and users.name = ? and simcards.tipo = 1 and (MONTH(fecha_recarga) = ? or ISNULL(fecha_recarga) = true)) a group by a.numero order by a.name, a.nombreSubdistribuidor, sum(a.valor) asc",
+                $simcards = \DB::select("select a.name, a.nombreSubdistribuidor,a.numero, sum(a.valor) valor from (select users.name,simcards.nombreSubdistribuidor,simcards.numero, simcards.fecha_activacion, IFNULL(recargas.valor_recarga,0) valor, recargas.fecha_recarga from simcards left join recargas on simcards.numero = recargas.telefono inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where ISNULL(simcards.fecha_activacion) = false and MONTH(simcards.fecha_activacion) = ? and YEAR(simcards.fecha_activacion) = ? and users.name = ? and simcards.tipo = 1 and (MONTH(fecha_recarga) = ? or ISNULL(fecha_recarga) = true)) a group by a.numero order by a.name, a.nombreSubdistribuidor, sum(a.valor) asc",
                              [$mes,$anho, $distribuidor, $mes]);
                 $total = \DB::select("select count(numero) total from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where MONTH(simcards.fecha_activacion) = ? and YEAR(simcards.fecha_activacion) = ? and users.name = ? and simcards.tipo = 1", [$mes,$anho, $distribuidor]);
             }
@@ -123,4 +123,23 @@ class RecargasController extends Controller
         }
     }
     
+    public function subirArchivo(Request $request){
+        $file = $request->file('image');
+        if(!file_exists($file)) {
+            die("File not found. Make sure you specified the correct path.");
+        }
+        try {
+            $pdo = \DB::connection()->getPdo();
+        } catch (PDOException $e) {
+            die("database connection failed: ".$e->getMessage());
+        }
+        $columns = '(telefono, fecha_recarga, valor_recarga)';
+        $affectedRows = $pdo->exec("
+            LOAD DATA LOCAL INFILE ".$pdo->quote($file)." INTO TABLE `recargas`
+              FIELDS TERMINATED BY ".$pdo->quote(";")."
+              LINES TERMINATED BY ".$pdo->quote("\n")."
+              IGNORE 0 LINES ". $columns."
+              SET ID = NULL");
+        return \Redirect::route('recargas'); 
+    }
 }

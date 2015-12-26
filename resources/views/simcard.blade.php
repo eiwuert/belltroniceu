@@ -605,7 +605,9 @@
                     <div class="form-group">
                         {!! Form::file('image', null) !!}
                     </div>
-                    
+                    <div class="form-group">
+                        {!!Form::select('accion', array('Add' => 'Agregar', 'upl' => 'Activar'))!!}
+                    </div>
                     <div class="form-group">
                         {!! Form::submit('Subir') !!}
                     </div>

@@ -61,18 +61,26 @@ function datos_distribuidor(distribuidor, periodo){
                 $('#modal-loading').modal('hide');
                 return;
             }
-            for (var i = 0; i < data.length; i++){
-                if(!datos.has(data[i].nombre)){
+            for (var i = 0; i < data[0].length; i++){
+                if(!datos.has(data[0][i].nombre)){
                     aux = [0,0];
                 }else{
-                    aux = datos.get(data[i].nombre);
+                    aux = datos.get(data[0][i].nombre);
                 }
-                if(data[i].tipo == 1){
-                    aux[0] = Math.floor(data[i].valor*0.63);
+                if(data[1] == false){
+                    if(data[0][i].tipo == 1){
+                        aux[0] = Math.floor(data[0][i].valor*0.63);
+                    }else{
+                        aux[1] = Math.ceil(data[0][i].valor*0.49);
+                    }
                 }else{
-                    aux[1] = Math.ceil(data[i].valor*0.49);
+                    if(data[0][i].tipo == 1){
+                        aux[0] = Math.floor(data[0][i].valor);
+                    }else{
+                        aux[1] = Math.ceil(data[0][i].valor);
+                    }
                 }
-                datos.set(data[i].nombre,aux);
+                datos.set(data[0][i].nombre,aux);
             }
             var i = 0;
             datos.forEach(function(values, key) {
@@ -80,10 +88,31 @@ function datos_distribuidor(distribuidor, periodo){
                 totalPrepago += values[0];
                 totalLibre += values[1];
                 i++;
+                if(i ==14){
+                    i = 0;
+                }
             }, datos)
-            
-            var retencionPrepago = Math.floor(totalPrepago * 0.01);
-            var retencionLibre = Math.floor(totalLibre * 0.01);
+            if(data[1] == true){
+                var totalLibreSubs = 0;
+                var totalPrepagoSubs = 0;
+                for (var i = 0; i < data[2].length; i++){
+                    if(data[2][i].tipo == 1){
+                        totalPrepagoSubs = Math.floor(data[2][i].valor*0.37);
+                    }else{
+                        totalLibreSubs = Math.ceil(data[2][i].valor*0.51);
+                    }
+                }
+                html += '<div class="historial_container" style="background: ' + colors[0] + '">' + '<label style="min-width:200px">DISTRIBUIDORES</label><label class="historial_label" style="margin-right:10px;">$' + addCommas(totalPrepagoSubs) + '</label><label class="historial_label"> $' + addCommas(totalLibreSubs) + '</label></div><br>';
+                totalPrepago += totalPrepagoSubs;
+                totalLibre += totalLibreSubs;
+            }
+            if(data[1] == true){
+                var retencionPrepago = Math.floor(totalPrepago * 0.11);
+                var retencionLibre = Math.floor(totalLibre * 0.11);
+            }else{
+                var retencionPrepago = Math.floor(totalPrepago * 0.01);
+                var retencionLibre = Math.floor(totalLibre * 0.01);
+            }
             var reteIcaPrepago = Math.floor(totalPrepago * 0.00413);
             var reteIcaLibre = Math.floor(totalLibre * 0.00413);
             html += '<h3 class="section-heading text-muted" style="color:black;margin-bottom:20px">SUBTOTAL</h3><hr><label class="historial_label_total">$' + addCommas(totalPrepago) + '</label><label class="historial_label_total">$' + addCommas(totalLibre) + '</label>';
