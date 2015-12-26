@@ -106,7 +106,7 @@ class CarteraController extends Controller
             fwrite($myfile,"FECHA,DESCRIPCION,CANTIDAD,V. UNITARIO,TOTAL\n");
             foreach($registros as $registro){
                 $total += $registro->valor_unitario*$registro->cantidad;
-                fwrite($myfile, $registro->fecha . "," . $registro->descripcion . "," . $registro->cantidad . "," . $registro->valor_unitario . "." . $registro->valor_unitario*$registro->cantidad . "\n");
+                fwrite($myfile, $registro->fecha . ";" . $registro->descripcion . ";" . $registro->cantidad . ";" . $registro->valor_unitario . ";" . $registro->valor_unitario*$registro->cantidad . "\n");
             }
             fwrite($myfile, ", TOTAL GENERAL," + $total + " \n");
             fclose($myfile);

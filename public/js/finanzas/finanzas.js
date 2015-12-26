@@ -95,6 +95,7 @@ function datos_distribuidor(distribuidor, periodo){
             if(data[1] == true){
                 var totalLibreSubs = 0;
                 var totalPrepagoSubs = 0;
+                html += '<h3 class="section-heading text-muted" style="color:black;margin-bottom:20px">SUBTOTAL INTERNO</h3><hr><label class="historial_label_total">$' + addCommas(totalPrepago) + '</label><label class="historial_label_total" style="margin-bottom:20px">$' + addCommas(totalLibre) + '</label>';
                 for (var i = 0; i < data[2].length; i++){
                     if(data[2][i].tipo == 1){
                         totalPrepagoSubs = Math.floor(data[2][i].valor*0.37);
