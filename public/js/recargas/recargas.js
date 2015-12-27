@@ -69,9 +69,9 @@ function consultar_recargas(distribuidor, periodo){
                     aux = datos.get(data[i].nombre);
                 }
                 if(data[i].tipo == 1){
-                    aux[0] = Math.floor(data[i].valor*0.62);
+                    aux[0] = Math.floor(data[i].valor);
                 }else{
-                    aux[1] = Math.ceil(data[i].valor*0.49);
+                    aux[1] = Math.ceil(data[i].valor);
                 }
                 datos.set(data[i].nombre,aux);
             }
@@ -142,9 +142,9 @@ function consultar_recargas_no_admin(distribuidor, periodo){
                     aux = datos.get(data[i].nombre);
                 }
                 if(data[i].tipo == 1){
-                    aux[0] = Math.floor(data[i].valor*0.62);
+                    aux[0] = Math.floor(data[i].valor);
                 }else{
-                    aux[1] = Math.ceil(data[i].valor*0.49);
+                    aux[1] = Math.ceil(data[i].valor);
                 }
                 datos.set(data[i].nombre,aux);
             }
