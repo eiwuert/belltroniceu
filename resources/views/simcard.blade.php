@@ -473,7 +473,7 @@
                             <button class="button-simcards button-default" style="flex-grow:2; margin-top:10px" onClick="seleccionar_sub(this)" value ="{{$subdistribuidor->nombre}}">{{$subdistribuidor->nombre}}</button>
                         @endforeach
                     @else
-                        @foreach($subdistribuidores as $subdistribuidor)
+                        @foreach($subdistribuidores[$user->name] as $subdistribuidor)
                             <button class="button-simcards button-default" style="flex-grow:2; margin-top:10px" onClick="seleccionar_sub(this)" value ="{{$subdistribuidor->nombre}}">{{$subdistribuidor->nombre}}</button>
                         @endforeach
                     @endif
