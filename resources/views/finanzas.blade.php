@@ -68,9 +68,11 @@
                         <a class="page-scroll" data-target="#modal_upload" data-toggle="modal" href="#modal_upload"><span class="glyphicon glyphicon-cloud-upload"></span></a>
                     </li>
                     @endif
+                    @if(!$user->isContabilidad)
                     <li>
                         <a class="page-scroll" href="/settings"><span class="glyphicon glyphicon-cog"></span></a>
                     </li>
+                    @endif
                     <li>
                         <a class="page-scroll" href="/auth/logout"><span class="glyphicon glyphicon-off"></span></a>
                     </li>
@@ -104,7 +106,7 @@
             <div class="row text-center ">
                 <div style="display: inline-block;vertical-align: middle;float: none;width:100%">
                     <div class="flex_container" style="width:100%">
-                        @if($user->isAdmin)
+                        @if($user->isAdmin || $user->isContabilidad)
                         <select class="selectpicker" data-width="100%" data-style="data" id ="subPicker_distri" style="min-width:220px">
                             @foreach ($distribuidores as $distribuidor)
                                 <option>{{$distribuidor->name}}</option>
@@ -118,7 +120,7 @@
                             <option>{{$periodo->periodo}}</option>
                             @endforeach
                         </select>
-                        @if($user->isAdmin)
+                        @if($user->isAdmin || $user->isContabilidad)
                         <button class="button button_assign" onClick="consultar_distribuidor_admin()" style=";width:100px;padding:0;">Consultar</button>
                         @else
                         <button class="button button_assign" onClick="consultar_distribuidor()" style=";width:100px;padding:0;">Consultar</button>
