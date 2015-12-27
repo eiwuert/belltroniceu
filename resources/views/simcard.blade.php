@@ -578,6 +578,21 @@
         </div>
     </div>
     
+    <!-- MODAL UPLOAD RESULT -->
+    @if(null !== Session::get('result'))
+    <div id="modal_upload_result" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id ="modal-tittle">Resultado Operacion</h3>
+                </div>
+                <div class="modal-body">
+                    <label id = "modal_upload_result_label">{{Session::get('result')}} filas añadidas </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
     <!-- MODAL LOADING -->
     <div id="modal-loading" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-body">
@@ -607,7 +622,7 @@
                         {!! Form::file('image', null) !!}
                     </div>
                     <div class="form-group">
-                        {!!Form::select('accion', array('Add' => 'Agregar', 'upl' => 'Activar'),null, array('class' => 'data_package'))!!}
+                        {!!Form::select('accion', array('ADD' => 'Agregar', 'UPLOAD' => 'Activar'),null, array('class' => 'data_package'))!!}
                     </div>
                     <div class="form-group">
                         {!! Form::submit('Subir', array('class' => 'button')) !!}

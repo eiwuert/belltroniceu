@@ -12,7 +12,7 @@ class SimcardController extends Controller
     
     public function subirArchivo(Request $request){
         $action = $request['accion'];
-            if($action == "ADD"){
+        if($action == "ADD"){
             $file = $request->file('image');
             if(!file_exists($file)) {
                 die("File not found. Make sure you specified the correct path.");
@@ -22,16 +22,33 @@ class SimcardController extends Controller
             } catch (PDOException $e) {
                 die("database connection failed: ".$e->getMessage());
             }
-            $columns = '(telefono, fecha_recarga, valor_recarga)';
+            $columns = '(numero,ICC,fecha_vencimiento,tipo,nombreSubdistribuidor)';
+            $affectedRows = $pdo->exec("
+                LOAD DATA LOCAL INFILE ".$pdo->quote($file)." INTO TABLE `simcards`
+                  FIELDS TERMINATED BY ".$pdo->quote(";")."
+                  LINES TERMINATED BY ".$pdo->quote("\n")."
+                  IGNORE 0 LINES ". $columns);
+            return \Redirect::route('simcard')->with('result' ,$affectedRows); 
+        }else if($action == "UPLOA"){
+            $file = $request->file('image');
+            if(!file_exists($file)) {
+                die("File not found. Make sure you specified the correct path.");
+            }
+            try {
+                $pdo = \DB::connection()->getPdo();
+            } catch (PDOException $e) {
+                die("database connection failed: ".$e->getMessage());
+            }
+            $columns = '(numero, fecha_activacion)';
             $affectedRows = $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." INTO TABLE `simcards`
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES ". $columns."
-                  SET ID = NULL"."
                   ON DUPLICATE KEY UPDATE");
-            return \Redirect::route('simcards'); 
+            return $affectedRows; //\Redirect::route('simcards'); 
         }
+        return \Redirect::route('simcard', ['result' => []]);
     }
        
    public function buscarSimcard(Request $request)

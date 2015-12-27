@@ -140,6 +140,6 @@ class RecargasController extends Controller
               LINES TERMINATED BY ".$pdo->quote("\n")."
               IGNORE 0 LINES ". $columns."
               SET ID = NULL");
-        return \Redirect::route('recargas'); 
+        return \Redirect::route('recargas')->with('result' ,$affectedRows); 
     }
 }

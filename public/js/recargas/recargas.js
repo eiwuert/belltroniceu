@@ -31,7 +31,11 @@ var diagramaPrepVsLibre = new Chart(ctx).Doughnut(datosDiagrama, options);
 // MORADO - AZUL - VERDE - AMARILLO - ROJO - NARANJA - ROSADO - AGUAMARINA - VERDE SUAVE - MAGENTA - CAFE - AMARRILLO - MORADO -AZUL - VERDE - ROJO
 var colors = ['#BDAEC6', '#C1DAD6', '#89E894', '#FFFF66', '#E86850', '#ffb366', '#ff9999', '#66d9ff', '#99ff66', '#F49AC2', '#836953', '#FDFD96', '#B19CD9', '#C1DAD6', '#89E894', '#E86850'];
 
-
+$(window).load(function(){
+        if($('#modal_upload_result') != null){
+            $('#modal_upload_result').modal('show');
+        }
+    });
 function consultar_recargas(distribuidor, periodo){
     var distribuidor = $('[data-id="subPicker_distri"]').text();
     var fecha = $('[data-id="subPicker_fecha"]').text();
@@ -386,9 +390,10 @@ function borrar_recargas(){
                 $('.modal-body #modal-body').html('Recargas borradas.');
                 $('#modal-content').modal('show');
             }
+            $('#modal-loading').modal('hide');
         }
     });
-    $('#modal-loading').modal('hide');
+    
 }
 function addCommas(nStr)
 {

@@ -1,5 +1,11 @@
 var paquete = [];
 
+$(window).load(function(){
+        if($('#modal_upload_result') != null){
+            $('#modal_upload_result').modal('show');
+        }
+    });
+    
 function seleccionar_distribuidor(objButton){
     $('#distribuidor-resultado').html(objButton.value);
     $('#modal-distribuidor').modal('hide');
