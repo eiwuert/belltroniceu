@@ -30,6 +30,11 @@ class RecargasController extends Controller
             $user =  \Auth::User();
             $fecha = $request['fecha'];
             $distribuidor = $request['distribuidor'];
+            if(strpos($distribuidor, 'OFICINA') === false){
+                $admin = false;
+            }else{
+                $admin = true;
+            }
             $anho = substr($fecha,0,4)+0;
             $mes = substr($fecha,4,2)+0;
             if(checkdate($mes, 31, $anho)){ $totalDias = 31; 
@@ -66,7 +71,7 @@ class RecargasController extends Controller
             $proyeccion_recargas_libre = ($datos_libre[0]->valor/$dia_actual)*($totalDias);
             $proyeccion_recargas_prepago = ($datos_prepago[0]->valor/$dia_actual)*($totalDias);
             
-            return [$actual_prepago, $actual_libre, $datos_prepago[0]->valor/$dia_actual, $datos_libre[0]->valor/$dia_actual, $proyeccion_recargas_prepago, $proyeccion_recargas_libre,$ultima_fecha];
+            return [$actual_prepago, $actual_libre, $datos_prepago[0]->valor/$dia_actual, $datos_libre[0]->valor/$dia_actual, $proyeccion_recargas_prepago, $proyeccion_recargas_libre,$ultima_fecha,$admin];
         }
     }
     
