@@ -9,7 +9,18 @@ use App\Http\Controllers\Controller;
 
 class SimcardController extends Controller
 {
-    
+     public function descargarProximasVencer(Request $request)
+    {
+        if($request->ajax()){
+            $datos = \DB::select("select users.name, simcards.numero, simcards.fecha_vencimiento, datediff(simcards.fecha_vencimiento,curdate()) diferencia from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where datediff(simcards.fecha_vencimiento,curdate()) < 90 and datediff(simcards.fecha_vencimiento,curdate()) > 0 and simcards.fecha_activacion is not null order by datediff(simcards.fecha_vencimiento,curdate())");
+            $myfile = fopen("temp/simcardsVencer.csv", "w");
+            foreach($datos as $registro){
+                fwrite($myfile, $registro->name . ";" . $registro->numero . ";" . $registro->fecha_vencimiento . ";" . $registro->diferencia . "\n");
+            }
+            fclose($myfile);
+            return 1;
+        }
+    }
     public function subirArchivo(Request $request){
         $action = $request['accion'];
         if($action == "ADD"){

@@ -252,8 +252,10 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Estado Simcards</h2>
-                    <h3 class="section-subheading text-muted" style="color:black">Revisa el estado de tus simcards separadas por tipo y mes.
+                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:10px">Revisa el estado de tus simcards separadas por tipo y mes.
                     Recuerda que <span class ="red_text"> Rojo </span> son las Vencidas en el mes y <span class ="green_text">Verde</span> son las Activadas en el mes.</h3>
+                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:10px">Si deseas descargar las simcards proximas a vencerse presiona el boton</h3>
+                    <button class ="button" onClick="descargar_proximas_vencer()">Descargar</button>
                 </div>
             </div>
             <div class="row">

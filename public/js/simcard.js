@@ -654,3 +654,24 @@ function datos_asignaciones(distribuidor,fecha_inicial,fecha_final){
         }
     });  
 }
+
+function descargar_proximas_vencer(){
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    $.ajax({
+        url:'simcard/descargarVencimiento',
+        type:'GET',
+        success: function(data){
+            if(data != 1){
+                $('.modal-header #modal-tittle').html('Error');
+                $('.modal-body #modal-body').html(data);
+                $('#modal-content').modal('show'); 
+            }else{
+                document.getElementById('my_iframe').src = "temp/simcardsVencer.csv";  
+            }
+            $('#modal-loading').modal("hide");
+        }
+    });
+}

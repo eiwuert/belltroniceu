@@ -227,6 +227,7 @@
             </div>
         </div>
     </div>
+    <iframe id="my_iframe" style="display:none;"></iframe>
     <!-- MODAL LOADING -->
     <div id="modal-loading" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-body">
