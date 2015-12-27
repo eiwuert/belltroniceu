@@ -656,12 +656,40 @@ function datos_asignaciones(distribuidor,fecha_inicial,fecha_final){
 }
 
 function descargar_proximas_vencer(){
+    var fecha_inicial = $('#fecha_inicial_vencimiento').val();
+    var fecha_final = $('#fecha_final_vencimiento').val();
     $('#modal-loading').modal({
         backdrop: 'static',
         keyboard: false
         })
     $.ajax({
         url:'simcard/descargarVencimiento',
+        data:{distribuidor:null,fecha_inicial:fecha_inicial, fecha_final:fecha_final},
+        type:'GET',
+        success: function(data){
+            if(data != 1){
+                $('.modal-header #modal-tittle').html('Error');
+                $('.modal-body #modal-body').html(data);
+                $('#modal-content').modal('show'); 
+            }else{
+                document.getElementById('my_iframe').src = "temp/simcardsVencer.csv";  
+            }
+            $('#modal-loading').modal("hide");
+        }
+    });
+}
+
+function descargar_proximas_vencer_admin(){
+    var fecha_inicial = $('#fecha_inicial_vencimiento').val();
+    var fecha_final = $('#fecha_final_vencimiento').val();
+    var distribuidor = $('[data-id="subPicker_distri_vencimiento"]').text();
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    $.ajax({
+        url:'simcard/descargarVencimiento',
+        data:{distribuidor:distribuidor,fecha_inicial:fecha_inicial, fecha_final:fecha_final},
         type:'GET',
         success: function(data){
             if(data != 1){

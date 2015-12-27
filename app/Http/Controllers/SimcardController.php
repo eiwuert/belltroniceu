@@ -12,7 +12,15 @@ class SimcardController extends Controller
      public function descargarProximasVencer(Request $request)
     {
         if($request->ajax()){
-            $datos = \DB::select("select users.name, simcards.numero, simcards.fecha_vencimiento, datediff(simcards.fecha_vencimiento,curdate()) diferencia from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where datediff(simcards.fecha_vencimiento,curdate()) < 90 and datediff(simcards.fecha_vencimiento,curdate()) > 0 and simcards.fecha_activacion is not null order by datediff(simcards.fecha_vencimiento,curdate())");
+            $user =  \Auth::User();
+            $distribuidor = $request['distribuidor'];
+            if($distribuidor == null)
+                $distribuidor = $user->name;
+            if(strpos($distribuidor, 'TODOS') === false){
+                 $datos = \DB::select("select users.name, simcards.numero, simcards.fecha_vencimiento, datediff(simcards.fecha_vencimiento,curdate()) diferencia from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where simcards.fecha_vencimiento >= ? and simcards.fecha_vencimiento < ? and simcards.fecha_activacion is not null and users.name = ? order by datediff(simcards.fecha_vencimiento,curdate())",[$request['fecha_inicial'], $request['fecha_final'],$distribuidor]);
+            }else{
+                $datos = \DB::select("select users.name, simcards.numero, simcards.fecha_vencimiento, datediff(simcards.fecha_vencimiento,curdate()) diferencia from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where simcards.fecha_vencimiento >= ? and simcards.fecha_vencimiento < ? and simcards.fecha_activacion is not null order by datediff(simcards.fecha_vencimiento,curdate())",[$request['fecha_inicial'], $request['fecha_final']]);
+            }
             $myfile = fopen("temp/simcardsVencer.csv", "w");
             foreach($datos as $registro){
                 fwrite($myfile, $registro->name . ";" . $registro->numero . ";" . $registro->fecha_vencimiento . ";" . $registro->diferencia . "\n");

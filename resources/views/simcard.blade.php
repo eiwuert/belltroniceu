@@ -255,7 +255,28 @@
                     <h3 class="section-subheading text-muted" style="color:black;margin-bottom:10px">Revisa el estado de tus simcards separadas por tipo y mes.
                     Recuerda que <span class ="red_text"> Rojo </span> son las Vencidas en el mes y <span class ="green_text">Verde</span> son las Activadas en el mes.</h3>
                     <h3 class="section-subheading text-muted" style="color:black;margin-bottom:10px">Si deseas descargar las simcards proximas a vencerse presiona el boton</h3>
-                    <button class ="button" onClick="descargar_proximas_vencer()">Descargar</button>
+                    <div class="flex_container" style="width:100%;flex-wrap:wrap;margin-top:20px">
+                        
+                        @if($user->isAdmin)
+                        <select class="selectpicker" data-width="40%" data-style="data" id ="subPicker_distri_vencimiento" style="min-width:220px;">
+                            <option>TODOS</option>
+                            @foreach ($distribuidores as $distribuidor)
+                                <option>{{$distribuidor->name}}</option>
+                            @endforeach
+                        </select>
+                        @endif
+                        <div class="flex_container" style="flex-wrap: wrap;">
+                            <label style="margin-right:20px">Fecha Inicial: </label><input type="date" class="data" id="fecha_inicial_vencimiento" style="width:200px;margin-right:20px"></input>
+                        </div>
+                        <div  style="margin-right:20px"class="flex_container" style="flex-wrap: wrap">
+                            <label style="margin-right:20px" >Fecha Final: </label><input type="date" class="data" id="fecha_final_vencimiento" style="width:200px;"></input>
+                        </div>
+                    </div>
+                    @if($user->isAdmin)
+                        <button class ="button" onClick="descargar_proximas_vencer_admin()">Descargar</button>
+                    @else
+                        <button class ="button" onClick="descargar_proximas_vencer()">Descargar</button>
+                    @endif
                 </div>
             </div>
             <div class="row">
