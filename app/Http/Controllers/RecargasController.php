@@ -157,12 +157,34 @@ class RecargasController extends Controller
             die("database connection failed: ".$e->getMessage());
         }
         $columns = '(telefono, fecha_recarga, valor_recarga)';
+        $pdo->exec('SET foreign_key_checks = 0');
         $affectedRows = $pdo->exec("
             LOAD DATA LOCAL INFILE ".$pdo->quote($file)." INTO TABLE `recargas`
               FIELDS TERMINATED BY ".$pdo->quote(";")."
               LINES TERMINATED BY ".$pdo->quote("\n")."
               IGNORE 0 LINES ". $columns."
               SET ID = NULL");
+              
+        $huerfanas = \DB::select("select recargas.telefono from simcards RIGHT join recargas on simcards.numero = recargas.telefono where simcards.numero is null");
+        $ICC = \DB::table('simcards')->select('ICC')->orderBy(\DB::raw('ICC*1'))->first();
+        $ICC = $ICC->ICC;
+        $fecha_vencimiento = date_add(new \DateTime(),date_interval_create_from_date_string("6 months"));
+        foreach($huerfanas as $huerfana){
+            $ICC = $ICC - 1;
+            try{
+                \App\Simcard::create([
+                     'numero' => $huerfana->telefono,
+                     'ICC' => $ICC,
+                     'fecha_vencimiento' => $fecha_vencimiento,
+                     'fecha_activacion' =>  null,
+                     'nombreSubdistribuidor' => 'SIN ASIGNAR',
+                     'tipo' => 1,
+                     'paquete' => 0,
+                     'fecha_entrega' => null
+                     ]);
+            }catch(Exception $e){}
+        }
+        $pdo->exec('SET foreign_key_checks = 1');
         return \Redirect::route('recargas')->with('result' ,$affectedRows); 
     }
 }
