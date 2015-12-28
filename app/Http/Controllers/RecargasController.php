@@ -100,30 +100,34 @@ class RecargasController extends Controller
                 $myfile = fopen("temp/estadoSimcards.csv", "w");
                 $distri = $simcards[0]->name;
                 $subdistri = $simcards[0]->nombreSubdistribuidor;
-                fwrite($myfile, $distri . ",,\n");
-                fwrite($myfile, "," . $subdistri . ",\n");
+                fwrite($myfile, $distri . ";;\n");
+                fwrite($myfile, ";" . $subdistri . ";\n");
                 $cantidad = 0;
+                $sinrecarga = 0;
                 foreach($simcards as $simcard){
-                    if($simcard->valor < 3000){
+                    if($simcard->valor < 3000 && $simcard->valor > 0){
                         $cantidad++;
+                    }else if($simcard->valor == 0){
+                        $sinrecarga++;
                     }
                     if($simcard->name != $distri){
                         $distri = $simcard->name;
-                        fwrite($myfile, $distri . ",,\n");
+                        fwrite($myfile, $distri . ";;\n");
                     }
                     if($simcard->nombreSubdistribuidor != $subdistri){
                         $subdistri = $simcard->nombreSubdistribuidor;
-                        fwrite($myfile, "," . $subdistri . ",\n");
+                        fwrite($myfile, ";" . $subdistri . ";\n");
                     }
-                    fwrite($myfile, "," . $simcard->numero . "," . $simcard->valor . "\n");
+                    fwrite($myfile, ";" . $simcard->numero . ";" . $simcard->valor . "\n");
                 }
-                $mas = $total[0]->total - $cantidad;
-                fwrite($myfile, ", TOTAL AGENCIA,\n");
-                fwrite($myfile, "TOTAL LINEAS:," . $total[0]->total . ",\n");
-                fwrite($myfile, "LINEAS CON 3000 O MAS DE 3000:," . $mas . ",\n");
-                fwrite($myfile, "LINEAS CON MENOS DE 3000:," . $cantidad . ",\n");
+                $mas = $total[0]->total - $cantidad-$sinrecarga;
+                fwrite($myfile, "; TOTAL AGENCIA;\n");
+                fwrite($myfile, "TOTAL LINEAS:;" . $total[0]->total . ";\n");
+                fwrite($myfile, "LINEAS CON 3000 O MAS DE 3000:;" . $mas . ";\n");
+                fwrite($myfile, "LINEAS SIN RECARGA:;" . $sinrecarga . ";\n");
+                fwrite($myfile, "LINEAS CON MENOS DE 3000:;" . $cantidad . ";\n");
                 fclose($myfile);
-                return [$total[0]->total, $cantidad, $mas];
+                return [$total[0]->total, $sinrecarga, $cantidad, $mas];
             }else{
                 return -1;
             }
