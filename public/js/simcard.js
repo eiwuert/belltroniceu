@@ -550,13 +550,15 @@ function consultar_asignaciones(){
 
 function descargar_asignaciones_admin(){
     var distribuidor = $('[data-id="subPicker_distri"]').text();
+    var fecha_inicial = $('#fecha_inicial').val();
+    var fecha_final = $('#fecha_final').val();
     $('#modal-loading').modal({
         backdrop: 'static',
         keyboard: false
         })
          $.ajax({
             url:'simcard/asignaciones',
-            data:{distribuidor:distribuidor},
+            data:{distribuidor:distribuidor,fecha_inicial:fecha_inicial,fecha_final:fecha_final},
             type:'GET',
             success: function(data){
                 if(data == 1){

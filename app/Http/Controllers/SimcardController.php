@@ -17,9 +17,9 @@ class SimcardController extends Controller
             if($distribuidor == null)
                 $distribuidor = $user->name;
             if(strpos($distribuidor, 'TODOS') === false){
-                 $datos = \DB::select("select users.name, simcards.numero, simcards.fecha_vencimiento, datediff(simcards.fecha_vencimiento,curdate()) diferencia from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where simcards.fecha_vencimiento >= ? and simcards.fecha_vencimiento < ? and simcards.fecha_activacion is not null and users.name = ? order by datediff(simcards.fecha_vencimiento,curdate())",[$request['fecha_inicial'], $request['fecha_final'],$distribuidor]);
+                 $datos = \DB::select("select users.name, simcards.numero, simcards.fecha_vencimiento, datediff(simcards.fecha_vencimiento,curdate()) diferencia from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where simcards.fecha_vencimiento >= ? and simcards.fecha_vencimiento < ? and simcards.fecha_activacion is null and users.name = ? order by datediff(simcards.fecha_vencimiento,curdate())",[$request['fecha_inicial'], $request['fecha_final'],$distribuidor]);
             }else{
-                $datos = \DB::select("select users.name, simcards.numero, simcards.fecha_vencimiento, datediff(simcards.fecha_vencimiento,curdate()) diferencia from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where simcards.fecha_vencimiento >= ? and simcards.fecha_vencimiento < ? and simcards.fecha_activacion is not null order by datediff(simcards.fecha_vencimiento,curdate())",[$request['fecha_inicial'], $request['fecha_final']]);
+                $datos = \DB::select("select users.name, simcards.numero, simcards.fecha_vencimiento, datediff(simcards.fecha_vencimiento,curdate()) diferencia from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where simcards.fecha_vencimiento >= ? and simcards.fecha_vencimiento < ? and simcards.fecha_activacion is null order by datediff(simcards.fecha_vencimiento,curdate())",[$request['fecha_inicial'], $request['fecha_final']]);
             }
             $myfile = fopen("temp/simcardsVencer.csv", "w");
             foreach($datos as $registro){
@@ -255,19 +255,20 @@ class SimcardController extends Controller
     public function asignaciones(Request $request){
         if($request->ajax()){
             $user =  \Auth::User();
+            $fecha_inicial = date_create_from_format("Y-m-d",$request['fecha_inicial']);
+            $fecha_final = date_create_from_format("Y-m-d", $request['fecha_final']);
             if($user->isAdmin){
-                $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo, count(simcards.numero) cantidad from simcards INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? group by simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo",
-                     [$request['distribuidor']]);
-                     
+                $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo, simcards.numero,users.name from simcards INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and simcards.fecha_entrega >= ? and simcards.fecha_entrega <= ?",
+                     [$request['distribuidor'],$fecha_inicial,$fecha_final]);
                 $myfile = fopen("temp/asignacionesSimcards.csv", "w");
                 $totalPrepago = 0;
                 $totalLibre = 0;
                 foreach($datos as $dato){
-                    fwrite($myfile, $dato->fecha_entrega . "," . $dato->nombre . "," . $dato->tipo . "," . $dato->cantidad . "\n");
+                    fwrite($myfile, $dato->fecha_entrega . "," . $dato->name . "," . $dato->nombre . "," . $dato->numero . "," . $dato->tipo . "\n");
                     if($dato->tipo == 1){
-                        $totalPrepago+= $dato->cantidad;
+                        $totalPrepago++;
                     }else{
-                        $totalLibre+= $dato->cantidad;
+                        $totalLibre++;
                     }
                 }
                 fwrite($myfile, "TOTAL LINEAS:," . ($totalPrepago+$totalLibre) . ",\n");
