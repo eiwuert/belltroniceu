@@ -36,6 +36,13 @@ $(window).load(function(){
             $('#modal_upload_result').modal('show');
         }
     });
+function load(){
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    $('#modal_upload').modal('hide');
+}
 function consultar_recargas(distribuidor, periodo){
     var distribuidor = $('[data-id="subPicker_distri"]').text();
     var fecha = $('[data-id="subPicker_fecha"]').text();

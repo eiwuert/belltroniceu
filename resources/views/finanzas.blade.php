@@ -38,6 +38,9 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
 </head>
 
 <body id="page-top" class="index">
@@ -173,7 +176,21 @@
             <a class="btn btn-danger loading" style = "width:100%;">Cargando información</a>
         </div>
     </div>
-    
+    <!-- MODAL UPLOAD RESULT -->
+    @if(null !== Session::get('result'))
+    <div id="modal_upload_result" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id ="modal-tittle">Resultado Operacion</h3>
+                </div>
+                <div class="modal-body">
+                    <label id = "modal_upload_result_label">{{Session::get('result')}} filas añadidas </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
     <!-- CARGAR ARCHIVO -->
     <div id="modal_upload" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
@@ -196,7 +213,7 @@
                     </div>
                     
                     <div class="form-group">
-                        {!! Form::submit('Subir') !!}
+                        {!! Form::submit('Subir',['class' => 'button', 'onClick' => 'load()']) !!}
                     </div>
                     {!! Form::close() !!}        
                 </div>
@@ -204,8 +221,6 @@
         </div>
     </div>
     
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
     
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>

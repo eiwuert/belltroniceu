@@ -165,7 +165,7 @@ class RecargasController extends Controller
               IGNORE 0 LINES ". $columns."
               SET ID = NULL");
               
-        $huerfanas = \DB::select("select recargas.telefono from simcards RIGHT join recargas on simcards.numero = recargas.telefono where simcards.numero is null");
+        $huerfanas = \DB::select("select distinct(recargas.telefono) from simcards RIGHT join recargas on simcards.numero = recargas.telefono where simcards.numero is null");
         $ICC = \DB::table('simcards')->select('ICC')->orderBy(\DB::raw('ICC*1'))->first();
         $ICC = $ICC->ICC;
         $fecha_vencimiento = date_add(new \DateTime(),date_interval_create_from_date_string("6 months"));

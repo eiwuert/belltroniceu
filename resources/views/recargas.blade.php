@@ -323,7 +323,7 @@
                     </div>
                     
                     <div class="form-group">
-                        {!! Form::submit('Subir') !!}
+                        {!! Form::submit('Subir',['class' => 'button', 'onClick' => 'load()']) !!}
                     </div>
                     {!! Form::close() !!}        
                 </div>

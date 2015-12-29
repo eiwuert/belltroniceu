@@ -27,6 +27,7 @@ Route::get('/control_vendedores', array('middleware' => 'auth','uses'=> 'FrontCo
 // FINANZAS
 Route::get('finanzas/datos_subdistribuidor', array('middleware' => 'auth','uses'=> 'FinanzasController@datos_subdistribuidor'));
 Route::post('finanzas/agregar', array('middleware' => 'auth','as' => 'agregarComisiones','uses'=> 'FinanzasController@agregar'));
+Route::post('finanzas/subirArchivo', array('middleware' => 'auth', 'as' => 'agregarComisiones', 'uses'=> 'FinanzasController@subirArchivo'));
 
 // RECARGAS
 Route::get('recargas/simcards', array('middleware' => 'auth','uses'=> 'RecargasController@simcards'));
