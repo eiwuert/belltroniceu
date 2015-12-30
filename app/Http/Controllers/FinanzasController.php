@@ -127,4 +127,14 @@ class FinanzasController extends Controller
         $pdo->exec('SET foreign_key_checks = 1');
         return \Redirect::route('finanzas')->with('result' ,$affectedRows); 
     }
+    
+    public function borrar(Request $request){
+        if($request->ajax()){
+            $user =  \Auth::User();
+            if($user->isAdmin){
+                 \DB::select("delete from comisiones");
+                 return 1;
+            }   
+        }
+    }
 }

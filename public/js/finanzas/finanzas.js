@@ -162,6 +162,25 @@ function datos_distribuidor(distribuidor, periodo){
     });  
 }
 
+function borrar_comisiones(){
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    $.ajax({
+        url:'finanzas/borrar',
+        type:'GET',
+        success: function(data){
+            if(data == 1){
+                $('.modal-header #modal-tittle').html('Exito');
+                $('.modal-body #modal-body').html('Comisiones borradas.');
+                $('#modal-content').modal('show');
+            }
+            $('#modal-loading').modal('hide');
+        }
+    });
+    
+}
 
 function addCommas(nStr)
 {

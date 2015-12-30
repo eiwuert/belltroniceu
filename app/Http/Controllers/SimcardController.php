@@ -59,14 +59,16 @@ class SimcardController extends Controller
             } catch (PDOException $e) {
                 die("database connection failed: ".$e->getMessage());
             }
+            $pdo->exec("delete from simcards_temp");
             $columns = '(numero, fecha_activacion)';
             $affectedRows = $pdo->exec("
-                LOAD DATA LOCAL INFILE ".$pdo->quote($file)." INTO TABLE `simcards`
+                LOAD DATA LOCAL INFILE ".$pdo->quote($file)." INTO TABLE `simcards_temp`
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES ". $columns."
                   ON DUPLICATE KEY UPDATE");
-            return $affectedRows; //\Redirect::route('simcards'); 
+            $pdo->exec("update simcards set simcards.fecha_activacion=simcards_temp.fecha_activacion from simcards inner join simcards_temp on simcards.numero = simcards_temp.numero");
+            return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }
         return \Redirect::route('simcard', ['result' => []]);
     }

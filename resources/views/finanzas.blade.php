@@ -68,6 +68,9 @@
                     
                     @if($user->isAdmin)
                     <li>
+                        <a class="page-scroll" href="#" onClick="borrar_comisiones()">Borrar</a>
+                    </li>
+                    <li>
                         <a class="page-scroll" data-target="#modal_upload" data-toggle="modal" href="#modal_upload"><span class="glyphicon glyphicon-cloud-upload"></span></a>
                     </li>
                     @endif
@@ -171,7 +174,7 @@
         </div>
     </div>
     <!-- MODAL LOADING -->
-    <div id="modal-loading" class="modal fade" tabindex="-1" role="dialog">
+    <div id="modal-loading" class="modal fade"tabindex="-1" role="dialog">
         <div class="modal-body">
             <a class="btn btn-danger loading" style = "width:100%;">Cargando información</a>
         </div>

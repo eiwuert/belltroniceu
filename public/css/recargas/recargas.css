@@ -69,7 +69,7 @@
 }
 
 body{
-    padding:0;
+    padding:0 !important;
 }
 
 header{
@@ -200,6 +200,18 @@ hr {
     color:#003366;
 }
 .button_assign:hover{
+    border: 2px solid #003366;
+    background:#003366;
+    color:#FFF;
+}
+
+.button_assign_inverse:hover{
+    background:none;
+    min-width:150px;
+    border: 1px solid #003366;
+    color:#003366;
+}
+.button_assign_inverse{
     border: 2px solid #003366;
     background:#003366;
     color:#FFF;
@@ -373,17 +385,13 @@ hr {
 }
 
 /** IMAGES **/
-#miestado,#buscar,#empaquetar{
+#estado_recargas,#proyecciones{
     background-image:url('/img/texture/simcard.png');
 }
-#paquetes{
-    background-image:url('/img/simcard/1.jpg');
+#estado_simcards{
+    background-image:url('/img/recargas/1.jpg');
+    height:500px;
 }
-
-#libres{
-    background-image:url('/img/simcard/2.jpg');
-}
-
 .parallax{
     background-size:cover;
     background-repeat:no-repeat;

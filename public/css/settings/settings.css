@@ -27,6 +27,7 @@ background-color:#fec503}
 body {
 	background:#1f1f1f;
     font-family: 'Open Sans', sans-serif;
+    padding:0 !important;
 }
 
 h1 {

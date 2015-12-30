@@ -63,6 +63,15 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
+                        <a class="page-scroll" href="#estado_recargas">Recargas</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#estado_simcards">Simcards</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#proyecciones">Proyecciones</a>
+                    </li>
+                    <li>
                         <a class="page-scroll" href="#" onClick="borrar_recargas()">Borrar</a>
                     </li>
                     @if($user->isAdmin)
@@ -152,13 +161,13 @@
     </section>
     
     <!-- SECCION SIMS 3000 -->
-    <section id="informe_recargas" class="parallex">
-        <div class="container">
+    <section id="estado_simcards" class="parallax" style="padding:0">
+        <div class="container dark_cover" style="padding:100px;height:500px">
             @if($user->isAdmin)
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Estado Simcards</h2>
-                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las simcards con menos de 3000 en recargas que han sido activadas en el fecha escogido.</h3>
+                    <h2 class="section-heading" style="color:white;margin-bottom:50px">Estado Simcards</h2>
+                    <h3 class="section-subheading text-muted" style="color:white;margin-bottom:20px">Observa las simcards con menos de 3000 en recargas que han sido activadas en el fecha escogido.</h3>
                 </div>
             </div>
             <div class="row text-center ">
@@ -169,7 +178,7 @@
                             <option>{{$fecha->fecha}}</option>
                             @endforeach
                         </select>
-                        <button class="button button_assign" onClick="consultar_simcards()" style=";width:200px;padding:0;">BAJAR INFORME</button>
+                        <button class="button button_assign_inverse" onClick="consultar_simcards()" style=";width:200px;padding:0;">BAJAR INFORME</button>
                     </div>
                 </div>
             </div>
@@ -178,7 +187,7 @@
             @if($user->isAdmin)
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las simcards con sus respectivas recargas que han sido activadas en el periodo escogido filtradas por distribuidor.</h3>
+                    <h3 class="section-subheading text-muted" style="color:white;margin-bottom:20px">Observa las simcards con sus respectivas recargas que han sido activadas en el periodo escogido filtradas por distribuidor.</h3>
                 </div>
             </div>
             <div class="row text-center ">
@@ -194,14 +203,14 @@
                             <option>{{$fecha->fecha}}</option>
                             @endforeach
                         </select>
-                        <button class="button button_assign" onClick="consultar_simcards_distribuidor()" style=";width:200px;padding:0;">BAJAR INFORME</button>
+                        <button class="button button_assign_inverse" onClick="consultar_simcards_distribuidor()" style=";width:200px;padding:0;">BAJAR INFORME</button>
                     </div>
                 </div>
             </div>
             @else
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h3 class="section-subheading text-muted" style="color:black;margin-bottom:20px">Observa las simcards con sus respectivas recargas que han sido activadas en el periodo escogido.</h3>
+                    <h3 class="section-subheading text-muted" style="color:white;margin-bottom:20px">Observa las simcards con sus respectivas recargas que han sido activadas en el periodo escogido.</h3>
                 </div>
             </div>
             <div class="row text-center ">
@@ -212,7 +221,7 @@
                             <option>{{$fecha->fecha}}</option>
                             @endforeach
                         </select>
-                        <button class="button button_assign" onClick="consultar_simcards_distribuidor_no_admin()" style=";width:200px;padding:0;">BAJAR INFORME</button>
+                        <button class="button button_assign_inverse" onClick="consultar_simcards_distribuidor_no_admin()" style=";width:200px;padding:0;">BAJAR INFORME</button>
                     </div>
                 </div>
             </div>
@@ -225,7 +234,7 @@
         </div>
     </section>
     
-     <section id="informe_recargas" class="parallex">
+     <section id="proyecciones" class="parallex">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
