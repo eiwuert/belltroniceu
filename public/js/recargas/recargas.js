@@ -310,7 +310,7 @@ function calcular_proyecciones_no_admin(){
         success: function(data){
            if(data == -1){
                 var html = '<hr><label style="color:red"> NO SE ENCONTRARON RECARGAS </label>';
-                    $('#proyecciones').html(html);
+                    $('#proyecciones_container').html(html);
             }else{
                 try{
                     var html = '<hr style="margin: 20px 10%"><label class="red_text" style="min-width:100px;width:100px;font-size:20px;font-weight: 700;margin-right:40px">PREPAGO</label><label class="red_text" style="min-width:100px;width:100px;font-size:20px;font-weight: 700">LIBRE</label>';
@@ -331,7 +331,7 @@ function calcular_proyecciones_no_admin(){
                     html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[4]*0.17))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[5]*0.09)) + '</label>';
                     
                     
-                    $('#proyecciones').html(html);
+                    $('#proyecciones_container').html(html);
                 }catch(e){
                     alert(e);
                 }
@@ -354,7 +354,7 @@ function calcular_proyecciones(){
         success: function(data){
            if(data == -1){
                 var html = '<hr><label style="color:red"> NO SE ENCONTRARON RECARGAS </label>';
-                    $('#proyecciones').html(html);
+                    $('#proyecciones_container').html(html);
             }else{
                 try{
                     var html = '<hr style="margin: 20px 10%"><label class="red_text" style="min-width:100px;width:100px;font-size:20px;font-weight: 700;margin-right:40px">PREPAGO</label><label class="red_text" style="min-width:100px;width:100px;font-size:20px;font-weight: 700">LIBRE</label>';
@@ -378,7 +378,7 @@ function calcular_proyecciones(){
                         html += '</br><label style="min-width:200px"  class="red_text">PROYECCION DE GANANCIAS DISTRIBUIDOR</label>';
                         html += '</br><label style="min-width:100px;width:100px;margin-right:40px">$'+addCommas(Math.floor(data[4]*0.17))+'</label><label style="min-width:100px;width:100px">$' + addCommas(Math.floor(data[5]*0.09)) + '</label>';
                     }
-                    $('#proyecciones').html(html);
+                    $('#proyecciones_container').html(html);
                 }catch(e){
                     alert(e);
                 }

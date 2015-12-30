@@ -229,7 +229,7 @@
                  <div class="row">
                     <div class="col-lg-12 text-center">
                         <h2 class="section-heading orange_text">Encuentra tus paquetes</h2>
-                        <h3 class="section-subheading text-muted white" style="font-size:18px">Ingresa el numero de telefono o de ICC y encontrarás todas las simcards del paquete a la que pertenezca. Puedes darle click a una simcard para obtener más información de ella.</h3>
+                        <h3 class="section-subheading text-muted white">Ingresa el numero de telefono o de ICC y encontrarás todas las simcards del paquete a la que pertenezca. Puedes darle click a una simcard para obtener más información de ella.</h3>
                     </div>
                 </div>
                 <div class="principal-view-body-container">
@@ -258,7 +258,7 @@
                     <div class="flex_container" style="width:100%;flex-wrap:wrap;margin-top:20px">
                         
                         @if($user->isAdmin)
-                        <select class="selectpicker" data-width="40%" data-style="data" id ="subPicker_distri_vencimiento" style="min-width:220px;">
+                        <select class="selectpicker" data-width="80%" data-style="data" id ="subPicker_distri_vencimiento" style="min-width:220px;">
                             <option>TODOS</option>
                             @foreach ($distribuidores as $distribuidor)
                                 <option>{{$distribuidor->name}}</option>
@@ -410,8 +410,8 @@
                                 <button class="button" onClick="consultar_asignaciones_admin()" style=";width:100px;padding:0;margin-right:10px">Consultar</button>
                                 <button class="button button_assign" onClick="descargar_asignaciones_admin()" style=";width:100px;padding:0;">Descargar</button>
                             @endif
-                            <div class="flex_container" style="width:100%;flex-wrap:nowrap;margin-top:20px">
-                                <div class="flex_container" style="flex-wrap: wrap">
+                            <div class="flex_container" style="width:100%;flex-wrap:wrap;margin-top:20px">
+                                <div class="flex_container" style="flex-wrap:wrap">
                                     <label style="margin-right:20px">Fecha Inicial: </label><input type="date" class="data" id="fecha_inicial" style="width:200px;margin-right:20px"></input>
                                 </div>
                                 <div  style="margin-right:20px"class="flex_container" style="flex-wrap: wrap">
