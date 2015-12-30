@@ -162,7 +162,7 @@
     
     <!-- SECCION SIMS 3000 -->
     <section id="estado_simcards" class="parallax" style="padding:0">
-        <div class="container dark_cover" style="padding:100px;height:500px">
+        <div id="estado_simcards_container" class="container dark_cover" style="padding:100px 20px;">
             <?php if($user->isAdmin): ?>
             <div class="row">
                 <div class="col-lg-12 text-center">
