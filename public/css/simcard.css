@@ -38,6 +38,9 @@
     .package_buttons_container{
         margin:0;
     }
+    header{
+        height:800px;
+    }
 }
 
 body{

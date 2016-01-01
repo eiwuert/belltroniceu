@@ -48,6 +48,10 @@ header{
 }
 
 @media screen and (min-width:600px){
+    header{
+        height:800px;
+    }
+    
     .container_total_admin, .container_fecha_admin, .container_descripcion_admin, .container_cantidad_admin,.container_valor_admin,.container_fecha_admin{
         text-align:center;
     }
