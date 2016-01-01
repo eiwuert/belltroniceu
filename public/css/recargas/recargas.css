@@ -39,6 +39,7 @@
     }
     header{
        background-image:url(/img/recargas_background.jpg); 
+       height:800px;
     }
     .bootstrap-select{
         max-width:400px;
@@ -62,6 +63,7 @@
     }
     header{
        background-image:url(/img/recargas_background.jpg); 
+       height:800px;
     }
     .bootstrap-select{
         max-width:400px;
@@ -96,7 +98,7 @@ header{
 
     text-align:center;
     
-    color:#fff
+    color:#fff;
 }
 
 #estado_recargas{

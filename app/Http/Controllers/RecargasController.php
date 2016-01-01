@@ -67,13 +67,36 @@ class RecargasController extends Controller
                     $actual_libre = $dato->valor;
                 }
             }
-            $dia_actual = date('j');
+            if($datos_libre[0]->dias == null){
+                if($datos_prepago[0]->dias == null){
+                    $dia = 1000000000000000;
+                }else{
+                    $dia = $datos_prepago[0]->dias;
+                }
+            }else if($datos_prepago[0]->dias == null){
+                    if($datos_libre[0]->dias == null){
+                        $dia = 1000000000000000;
+                    }else{
+                        $dia = $datos_libre[0]->dias;
+                    }
+            }else{
+                if($datos_libre[0]->dias > $datos_prepago[0]->dias){
+                    $dia = $datos_libre[0]->dias;
+                }else{
+                    $dia = $datos_prepago[0]->dias;
+                }
+            }
+            if(date('m') == $mes){
+                $dia_actual = date('j');
+            }else{
+                $dia_actual = $totalDias;
+            }
             $ultima_fecha = max([$datos_prepago[0]->dias,$datos_libre[0]->dias]);
             $ultima_fecha =  date_create_from_format("d/m/Y",$ultima_fecha."/".$mes."/".$anho);
             $proyeccion_recargas_libre = ($datos_libre[0]->valor/$dia_actual)*($totalDias);
             $proyeccion_recargas_prepago = ($datos_prepago[0]->valor/$dia_actual)*($totalDias);
             
-            return [$actual_prepago, $actual_libre, $datos_prepago[0]->valor/$dia_actual, $datos_libre[0]->valor/$dia_actual, $proyeccion_recargas_prepago, $proyeccion_recargas_libre,$ultima_fecha,$admin];
+            return [$actual_prepago, $actual_libre, $datos_prepago[0]->valor/$dia, $datos_libre[0]->valor/$dia, $proyeccion_recargas_prepago, $proyeccion_recargas_libre,$ultima_fecha,$admin];
         }
     }
     
