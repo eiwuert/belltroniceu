@@ -91,10 +91,12 @@ class SimcardController extends Controller
            $sim = \DB::table('simcards')->where('numero', '=', $request['dato'])->orWhere('ICC', '=', $request['dato'])->get();
            if($sim != null){
                if($sim[0]->paquete != 0){
+                   $fecha_entrega = date('Y-m-d H:i:s');
                    $sims = \DB::table('simcards')->where('paquete', '=', $sim[0]->paquete)->get();
                    foreach($sims as $simcard){
                        $toModify = $simcard = \App\Simcard::find($simcard->ICC);
                        $toModify->nombreSubdistribuidor = $request['sub'];
+                       $toModify->fecha_entrega = $fecha_entrega;
                        $toModify->save();
                    }
                    return 1;
@@ -113,7 +115,9 @@ class SimcardController extends Controller
            try{
                 $sim = \App\Simcard::find($request['ICC']);
                 if($sim != null){
+                    $fecha_entrega = date('Y-m-d H:i:s');
                     $sim->nombreSubdistribuidor = $request['sub'];
+                    $sim->fecha_entrega = $fecha_entrega;
                     $sim->save();
                     return 1;
                 }else{
