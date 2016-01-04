@@ -48,8 +48,9 @@ class FrontController extends Controller
         $user =  \Auth::User();
         $now = new \DateTime();
         $lasth_month = date_add($now,date_interval_create_from_date_string("-1 months"));
+        $last_last_month = date_add($now,date_interval_create_from_date_string("-1 months"));
         $now = new \DateTime();
-        \DB::select("delete from comisiones where periodo = extract(year_month from ?) or periodo = extract(year_month from ?)", [$now, $lasth_month]);
+        \DB::select("delete from comisiones where periodo = extract(year_month from ?) or periodo = extract(year_month from ?) or periodo = extract(year_month from ?)", [$now, $lasth_month, $last_last_month]);
         if(!$user->isContabilidad){
             $distribuidores = [];
             $subdistribuidores = [];
