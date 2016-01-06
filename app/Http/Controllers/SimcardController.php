@@ -44,10 +44,16 @@ class SimcardController extends Controller
             }
             $columns = '(numero,ICC,fecha_vencimiento,tipo,nombreSubdistribuidor)';
             $affectedRows = $pdo->exec("
-                LOAD DATA LOCAL INFILE ".$pdo->quote($file)." INTO TABLE `simcards`
+                LOAD DATA LOCAL INFILE ".$pdo->quote($file)." IGNORE INTO TABLE `simcards`
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES ". $columns);
+            $affectedRows = $pdo->exec("
+                LOAD DATA LOCAL INFILE ".$pdo->quote($file)." REPLACE INTO TABLE `simcards_temp`
+                  FIELDS TERMINATED BY ".$pdo->quote(";")."
+                  LINES TERMINATED BY ".$pdo->quote("\n")."
+                  IGNORE 0 LINES ". $columns);
+            $pdo->exec("update simcards set simcards.fecha_vencimiento=simcards_temp.fecha_vencimiento,simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor, simcards.tipo = simcards_temp.tipo, from simcards inner join simcards_temp on simcards.numero = simcards_temp.numero");                  
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }else if($action == "UPLOA"){
             $file = $request->file('image');
@@ -62,11 +68,10 @@ class SimcardController extends Controller
             $pdo->exec("delete from simcards_temp");
             $columns = '(numero, fecha_activacion)';
             $affectedRows = $pdo->exec("
-                LOAD DATA LOCAL INFILE ".$pdo->quote($file)." INTO TABLE `simcards_temp`
+                LOAD DATA LOCAL INFILE ".$pdo->quote($file)." REPLACE INTO TABLE `simcards_temp`
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
                   LINES TERMINATED BY ".$pdo->quote("\n")."
-                  IGNORE 0 LINES ". $columns."
-                  ON DUPLICATE KEY UPDATE");
+                  IGNORE 0 LINES ". $columns);
             $pdo->exec("update simcards set simcards.fecha_activacion=simcards_temp.fecha_activacion from simcards inner join simcards_temp on simcards.numero = simcards_temp.numero");
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }
@@ -265,14 +270,14 @@ class SimcardController extends Controller
             $fecha_inicial = date_create_from_format("Y-m-d",$request['fecha_inicial']);
             $fecha_final = date_create_from_format("Y-m-d", $request['fecha_final']);
             if($user->isAdmin){
-                $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo, simcards.numero,users.name from simcards INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and simcards.fecha_entrega >= ? and simcards.fecha_entrega <= ?",
+                $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo, simcards.numero,simcard.ICC, users.name from simcards INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and simcards.fecha_entrega >= ? and simcards.fecha_entrega <= ?",
                      [$request['distribuidor'],$fecha_inicial,$fecha_final]);
                 $myfile = fopen("temp/asignacionesSimcards.csv", "w");
                 $totalPrepago = 0;
                 $totalLibre = 0;
                 fwrite($myfile, "FECHA ENTREGA;DISTRIBUIDOR;SUBDISTRIBUIDOR;NUMERO;TIPO\n");
                 foreach($datos as $dato){
-                    fwrite($myfile, $dato->fecha_entrega . ";" . $dato->name . ";" . $dato->nombre . ";" . $dato->numero . ";" . $dato->tipo . "\n");
+                    fwrite($myfile, $dato->fecha_entrega . ";" . $dato->name . ";" . $dato->nombre . ";" . $dato->numero . ";" . $dato->ICC . ";" . $dato->tipo . "\n");
                     if($dato->tipo == 1){
                         $totalPrepago++;
                     }else{
