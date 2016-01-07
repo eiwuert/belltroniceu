@@ -538,6 +538,8 @@ var diagramaPrepVsLibre = new Chart(ctx).Doughnut(datosDiagrama, options);
 var colors = ['#BDAEC6', '#C1DAD6', '#89E894', '#FFFF66', '#E86850', '#ffb366', '#ff9999', '#66d9ff', '#99ff66', '#F49AC2', '#836953', '#FDFD96', '#B19CD9', '#C1DAD6', '#89E894', '#E86850'];
 
 
+
+
 function consultar_asignaciones(){
     var fecha_inicial = $('#fecha_inicial').val();
     var fecha_final = $('#fecha_final').val();
@@ -546,6 +548,23 @@ function consultar_asignaciones(){
         keyboard: false
         })
     datos_asignaciones(null,fecha_inicial, fecha_final);
+}
+
+function getId(){
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    $.ajax({
+        url:'simcard/id',
+        type:'GET',
+        success: function(data){
+            if(data < 0){
+                $('.modal-body #modal-id-body').html(data);
+            }
+            $('#modal-loading').modal('hide');
+        }
+     });
 }
 
 function descargar_asignaciones_admin(){

@@ -48,12 +48,14 @@ class SimcardController extends Controller
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES ". $columns);
+            $pdo->exec("delete from simcards_temp");      
             $affectedRows = $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." REPLACE INTO TABLE `simcards_temp`
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES ". $columns);
-            $pdo->exec("update simcards set simcards.fecha_vencimiento=simcards_temp.fecha_vencimiento,simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor, simcards.tipo = simcards_temp.tipo, from simcards inner join simcards_temp on simcards.numero = simcards_temp.numero");                  
+            $pdo->exec("UPDATE simcards_temp SET nombreSubdistribuidor = REPLACE(REPLACE(nombreSubdistribuidor, '\r', ''), '\n', '');");
+            $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.fecha_vencimiento=simcards_temp.fecha_vencimiento,simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor, simcards.tipo = simcards_temp.tipo");                  
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }else if($action == "UPLOA"){
             $file = $request->file('image');
@@ -72,12 +74,20 @@ class SimcardController extends Controller
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES ". $columns);
-            $pdo->exec("update simcards set simcards.fecha_activacion=simcards_temp.fecha_activacion from simcards inner join simcards_temp on simcards.numero = simcards_temp.numero");
+            $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.fecha_activacion=simcards_temp.fecha_activacion ");
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }
         return \Redirect::route('simcard', ['result' => []]);
     }
        
+    public function getId(Request $request)
+    {
+        if($request->ajax()){
+            $ICC = \DB::table('simcards')->select('ICC')->orderBy(\DB::raw('ICC*1'))->first();
+            $ICC = $ICC->ICC - 1;
+            return $ICC;
+        }
+    }
    public function buscarSimcard(Request $request)
     {
         if($request->ajax()){
@@ -270,12 +280,12 @@ class SimcardController extends Controller
             $fecha_inicial = date_create_from_format("Y-m-d",$request['fecha_inicial']);
             $fecha_final = date_create_from_format("Y-m-d", $request['fecha_final']);
             if($user->isAdmin){
-                $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo, simcards.numero,simcard.ICC, users.name from simcards INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and simcards.fecha_entrega >= ? and simcards.fecha_entrega <= ?",
+                $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo, simcards.numero,simcards.ICC, users.name from simcards INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and simcards.fecha_entrega >= ? and simcards.fecha_entrega <= ?",
                      [$request['distribuidor'],$fecha_inicial,$fecha_final]);
                 $myfile = fopen("temp/asignacionesSimcards.csv", "w");
                 $totalPrepago = 0;
                 $totalLibre = 0;
-                fwrite($myfile, "FECHA ENTREGA;DISTRIBUIDOR;SUBDISTRIBUIDOR;NUMERO;TIPO\n");
+                fwrite($myfile, "FECHA ENTREGA;DISTRIBUIDOR;SUBDISTRIBUIDOR;NUMERO;ICC;TIPO\n");
                 foreach($datos as $dato){
                     fwrite($myfile, $dato->fecha_entrega . ";" . $dato->name . ";" . $dato->nombre . ";" . $dato->numero . ";" . $dato->ICC . ";" . $dato->tipo . "\n");
                     if($dato->tipo == 1){

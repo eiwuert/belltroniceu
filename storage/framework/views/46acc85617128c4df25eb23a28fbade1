@@ -72,6 +72,9 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
+                        <a class="page-scroll" data-target="#modal-id" data-toggle="modal" href="#modal-id" onClick="getId()">id</a>
+                    </li>
+                    <li>
                         <a class="page-scroll" href="#buscar">Buscar</a>
                     </li>
                     <li>
@@ -451,6 +454,20 @@
     </section>
     <iframe id="my_iframe" style="display:none;"></iframe>
     <!--------------------------------------MODALS------------------------------------------------->
+    <div id="modal-id" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3>Creación libres</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Asignar desde esta ICC hacia atras</p>
+                    <p id ="modal-id-body"></p>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
