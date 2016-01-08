@@ -57,7 +57,7 @@ class SimcardController extends Controller
             $pdo->exec("UPDATE simcards_temp SET nombreSubdistribuidor = REPLACE(REPLACE(nombreSubdistribuidor, '\r', ''), '\n', '');");
             $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.fecha_vencimiento=simcards_temp.fecha_vencimiento,simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor, simcards.tipo = simcards_temp.tipo");                  
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
-        }else if($action == "UPLOA"){
+        }else if($action == "UPLOAD"){
             $file = $request->file('image');
             if(!file_exists($file)) {
                 die("File not found. Make sure you specified the correct path.");
