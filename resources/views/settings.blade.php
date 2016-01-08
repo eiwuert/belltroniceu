@@ -197,7 +197,7 @@
 	      		    @foreach($distribuidores as $distribuidor)
 	      		    <row>
     	      		    <div>
-    	      		        if($user->isAdmin)
+    	      		        @if($user->isAdmin)
     	      		            <i class="fa fa-lock fa-2x"></i>
     	      		        @endif
     	      		        <input class="orange_text" type="text" disabled="true" value="{{$distribuidor->name}}" style="width:200px;border:none;margin-top:0px"></input>
