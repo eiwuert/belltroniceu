@@ -662,7 +662,7 @@
                         {!! Form::file('image', null) !!}
                     </div>
                     <div class="form-group">
-                        {!!Form::select('accion', array('ADD' => 'Agregar', 'UPLOAD' => 'Activar'),null, array('class' => 'data_package'))!!}
+                        {!!Form::select('accion', array('ADD' => 'Agregar', 'UPLOAD' => 'Activar', 'ADDL'=>'Agregar Libres'),null, array('class' => 'data_package'))!!}
                     </div>
                     <div class="form-group">
                         {!! Form::submit('Subir', array('class' => 'button')) !!}

@@ -76,6 +76,31 @@ class SimcardController extends Controller
                   IGNORE 0 LINES ". $columns);
             $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.fecha_activacion=simcards_temp.fecha_activacion ");
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
+        }else if($action == "ADDL"){
+            $file = $request->file('image');
+            if(!file_exists($file)) {
+                die("File not found. Make sure you specified the correct path.");
+            }
+            try {
+                $pdo = \DB::connection()->getPdo();
+            } catch (PDOException $e) {
+                die("database connection failed: ".$e->getMessage());
+            }
+            $columns = '(numero, fecha_activacion,valor)';
+            $affectedRows = $pdo->exec("
+                LOAD DATA LOCAL INFILE ".$pdo->quote($file)." REPLACE INTO TABLE `libres`
+                  FIELDS TERMINATED BY ".$pdo->quote(";")."
+                  LINES TERMINATED BY ".$pdo->quote("\n")."
+                  IGNORE 0 LINES". $columns . "
+                  SET tipo = 2, nombreSubdistribuidor = SINASIGNAR");
+            $columns = '(numero, NIT, nombre_empresa, direccion_empresa,cod_scl,cod_punto,fecha_activacion,valor,plan)';
+            $affectedRows = $pdo->exec("
+                LOAD DATA LOCAL INFILE ".$pdo->quote($file)." REPLACE INTO TABLE `libres`
+                  FIELDS TERMINATED BY ".$pdo->quote(";")."
+                  LINES TERMINATED BY ".$pdo->quote("\n")."
+                  IGNORE 0 LINES ". $columns);
+            $pdo->exec("UPDATE simcards SET fecha_vencimiento = DATE_ADD(fecha_activacion, INTERVAL 12 MONTHS where fecha_activacion is not null and tipo = 2)");
+            return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }
         return \Redirect::route('simcard', ['result' => []]);
     }

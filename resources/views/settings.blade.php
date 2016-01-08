@@ -197,8 +197,8 @@
 	      		    @foreach($distribuidores as $distribuidor)
 	      		    <row>
     	      		    <div>
-    	      		        @if($user->isAdmin)
-    	      		            <i class="fa fa-lock fa-2x"></i>
+    	      		        @if($distribuidor->isAdmin)
+    	      		            <i style="margin-left:20px; color:gray;" class="fa fa-lock fa-2x"></i>
     	      		        @endif
     	      		        <input class="orange_text" type="text" disabled="true" value="{{$distribuidor->name}}" style="width:200px;border:none;margin-top:0px"></input>
     	      		        <a style="float:right;margin-right:5%" id ="distri_{{$distribuidor->name}}" href="javascript:void(0);" onclick="borrar_distribuidor(this.id)" ><i class="fa fa-times fa-2x"></i></a>
