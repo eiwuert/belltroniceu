@@ -322,6 +322,17 @@
                                 <button class="button button_delete" style="margin-right:4%;width:45%" onClick="limpiar_campos_libre()">Limpiar</button>
                                 <button class = "button" style="width:45%" onClick = "buscarSim_libre()">Buscar</button>
                             </div>
+                            <div style="margin: 10px auto">
+                                @if($user->isAdmin)
+                                <select class="selectpicker" data-width="80%" data-style="data" id ="subPicker_distri_libres" style="min-width:220px;">
+                                    <option>TODOS</option>
+                                    @foreach ($distribuidores as $distribuidor)
+                                        <option>{{$distribuidor->name}}</option>
+                                    @endforeach
+                                </select>
+                                <button class = "button blue" style="width:45%" onClick = "descargar_libres_admin()">Descargar</button>
+                                @endif
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-7" style="display: inline-block;

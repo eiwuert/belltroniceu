@@ -567,6 +567,25 @@ function getId(){
      });
 }
 
+function descargar_libres_admin(){
+    var distribuidor = $('[data-id="subPicker_distri_libres"]').text();
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+         $.ajax({
+            url:'simcard/descargarLibres',
+            data:{distribuidor:distribuidor},
+            type:'GET',
+            success: function(data){
+                if(data == 1){
+                    document.getElementById('my_iframe').src = "temp/simcardsLibres.csv"; 
+                }
+                $('#modal-loading').modal('hide');
+            }
+         });
+}
+
 function descargar_asignaciones_admin(){
     var distribuidor = $('[data-id="subPicker_distri"]').text();
     var fecha_inicial = $('#fecha_inicial').val();
