@@ -24,7 +24,7 @@ class SimcardController extends Controller
             $myfile = fopen("temp/simcardsVencer.csv", "w");
             fwrite($myfile, "DISTRIBUIDOR;TIPO;NUMERO;FECHA VENCIMIENTO;DIAS PARA VENCER\n");
             foreach($datos as $registro){
-                fwrite($myfile, $registro->name . ";" . $registro->tipo . ";" . $registro->numero . ";" . $registro->fecha_vencimiento . ";" . $registro->diferencia . "\n");
+                fwrite($myfile, utf8_decode($registro->name) . ";" . $registro->tipo . ";" . $registro->numero . ";" . $registro->fecha_vencimiento . ";" . $registro->diferencia . "\n");
             }
             fclose($myfile);
             return 1;
@@ -33,6 +33,7 @@ class SimcardController extends Controller
     
     public function descargarLibres(Request $request)
     {
+        
         if($request->ajax()){
             $user =  \Auth::User();
             $distribuidor = $request['distribuidor'];
@@ -43,10 +44,11 @@ class SimcardController extends Controller
             }else{
                 $datos = \DB::select("select users.name, simcards.numero, simcards.fecha_vencimiento,nombre_empresa,NIT,direccion_empresa,cod_scl,cod_punto,valor,plan,responsable,libres.cedula,libres.fecha_entrega,direccion_responsable,ciudad_responsable,barrio_responsable,libres.telefono,detalle_llamada,fecha_llamada from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email inner join libres on simcards.numero = libres.numero order by users.name,simcards.fecha_vencimiento");
             }
+            
             $myfile = fopen("temp/simcardsLibres.csv", "w");
             fwrite($myfile, "DISTRIBUIDOR; NUMERO; FECHA VENCIMIENTO;EMPRESA;NIT;DIRECCION;COD_SCL;COD_PUNTO;VALOR;PLAN;RESPONSABLE;CEDULA;FECHA ENTREGA;DIRECCION RESPONSABLE;CIUDAD RESPONSABLE;BARRIO RESPONSABLE;TELEFONO;DETALLE LLAMADA;FECHA LLAMADA\n");
             foreach($datos as $registro){
-                fwrite($myfile, $registro->name . ";" . $registro->numero . ";" . $registro->fecha_vencimiento . ";" . $registro->nombre_empresa . ";" . $registro->NIT . ";" . $registro->direccion_empresa . ";" . $registro->cod_scl . ";" . $registro->cod_punto . ";" . $registro->valor . ";" . $registro->plan . ";" . $registro->responsable . ";" . $registro->cedula . ";" . $registro->fecha_entrega . ";" . $registro->direccion_responsable. ";" . $registro->ciudad_responsable . ";" . $registro->barrio_responsable . ";" . $registro->telefono . ";" . $registro->detalle_llamada . ";" . $registro->fecha_llamada  . "\n");
+                    fwrite($myfile, utf8_decode($registro->name) . ";" . $registro->numero . ";" . $registro->fecha_vencimiento . ";" . utf8_decode($registro->nombre_empresa) . ";" . $registro->NIT . ";" . $registro->direccion_empresa . ";" . $registro->cod_scl . ";" . $registro->cod_punto . ";" . $registro->valor . ";" . preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $registro->plan) . ";" . utf8_decode($registro->responsable) . ";" . $registro->cedula . ";" . $registro->fecha_entrega . ";" . $registro->direccion_responsable. ";" . $registro->ciudad_responsable . ";" . utf8_decode($registro->barrio_responsable) . ";" . $registro->telefono . ";" . $registro->detalle_llamada . ";" . $registro->fecha_llamada  . "\n");
             }
             fclose($myfile);
             return 1;
@@ -343,7 +345,7 @@ class SimcardController extends Controller
                 $totalLibre = 0;
                 fwrite($myfile, "FECHA ENTREGA;DISTRIBUIDOR;SUBDISTRIBUIDOR;NUMERO;ICC;TIPO\n");
                 foreach($datos as $dato){
-                    fwrite($myfile, $dato->fecha_entrega . ";" . $dato->name . ";" . $dato->nombre . ";" . $dato->numero . ";" . $dato->ICC . ";" . $dato->tipo . "\n");
+                    fwrite($myfile, $dato->fecha_entrega . ";" . utf8_decode($dato->name) . ";" . utf8_decode($dato->nombre) . ";" . $dato->numero . ";" . $dato->ICC . ";" . $dato->tipo . "\n");
                     if($dato->tipo == 1){
                         $totalPrepago++;
                     }else{
