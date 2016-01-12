@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call(agregarComisionesSeeder::class);
-        $this->call(agregarArchivoSimcards::class);
-        $this->call(agregarRecargasSeeder::class);
-        $this->call(agregarArchivoCartera::class);
-        $this->call(AsesoresSeeder::class);
+        //$this->call(agregarArchivoSimcards::class);
+        //$this->call(agregarRecargasSeeder::class);
+        //$this->call(agregarArchivoCartera::class);
+        //$this->call(AsesoresSeeder::class);
         Model::reguard();
     }
 }

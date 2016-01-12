@@ -11,6 +11,30 @@ class agregarComisionesSeeder extends Seeder
      */
     public function run()
     {
+        $this->command->info('Subir archivo libres...');
+        if (file_exists('public/temp/libres.csv')) {
+            if (($gestor = fopen('public/temp/libres.csv', "r")) !== FALSE) {
+                $i = 0;
+                while (($vars = fgetcsv($gestor, 1000, ";")) !== FALSE) {
+                   $numero = str_replace('"', '',$vars[0]);
+                   $ICC = str_replace('"', '',$vars[1]);
+                   try{
+                        $simc = \DB::table('simcards')->where('numero', '=',$numero)->first();
+                        if($simc != null){
+                            $sim = \App\Simcard::find($simc->ICC);
+                            $sim->ICC = $ICC;
+                            $sim->save();
+                            $i++;
+                        } 
+                   }catch(Exception $e){
+                   }
+                }
+                fclose($gestor);
+                unlink('public/temp/libres.csv');
+                $this->command->info('modificados: ' . $i);
+            }
+        }
+        /*
         $this->command->info('Subir archivo comisiones...');
         if (file_exists('public/temp/comisiones.csv')) {
             if (($gestor = fopen('public/temp/comisiones.csv', "r")) !== FALSE) {
@@ -45,6 +69,6 @@ class agregarComisionesSeeder extends Seeder
                 fclose($gestor);
                 unlink('public/temp/comisiones.csv');
             }
-        }
+        }*/
     }
 }

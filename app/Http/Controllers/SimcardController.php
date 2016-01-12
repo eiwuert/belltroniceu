@@ -99,6 +99,8 @@ class SimcardController extends Controller
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES ". $columns);
             $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.fecha_activacion=simcards_temp.fecha_activacion ");
+            $pdo->exec("UPDATE simcards SET fecha_vencimiento =  DATE_ADD(fecha_activacion, INTERVAL 6 MONTH) where fecha_activacion is not null and tipo = 1");
+            $pdo->exec("UPDATE simcards SET fecha_vencimiento =  DATE_ADD(fecha_activacion, INTERVAL 1 YEAR) where fecha_activacion is not null and tipo = 2");
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }else if($action == "ADDL"){
             $file = $request->file('image');
