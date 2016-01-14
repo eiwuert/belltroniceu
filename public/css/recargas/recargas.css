@@ -47,9 +47,6 @@
     .historial_label,.historial_label_total,.heading_label{
         min-width:150px;
     }
-    #estado_simcards_container,#estado_simcards{
-        height:500px;
-    }
 }
 
 @media screen and (min-width:1000px){
@@ -70,9 +67,6 @@
     }
     .historial_label,.historial_label_total,.heading_label{
         min-width:150px;
-    }
-    #estado_simcards_container,#estado_simcards{
-        height:500px;
     }
 }
 

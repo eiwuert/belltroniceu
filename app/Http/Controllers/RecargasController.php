@@ -117,9 +117,9 @@ class RecargasController extends Controller
             if($simcards != null){
                 $myfile = fopen("temp/estadoSimcards.csv", "w");
                 $distri = $simcards[0]->name;
-                $subdistri = $simcards[0]->nombreSubdistribuidor;
-                fwrite($myfile, $distri . ";;\n");
-                fwrite($myfile, ";" . $subdistri . ";\n");
+                $subdistri = utf8_decode($simcards[0]->nombreSubdistribuidor);
+                fwrite($myfile, utf8_decode($distri) . ";;\n");
+                fwrite($myfile, ";" . utf8_decode($subdistri) . ";\n");
                 $cantidad = 0;
                 $sinrecarga = 0;
                 foreach($simcards as $simcard){
@@ -128,12 +128,12 @@ class RecargasController extends Controller
                     }else if($simcard->valor == 0){
                         $sinrecarga++;
                     }
-                    if($simcard->name != $distri){
-                        $distri = $simcard->name;
+                    if(utf8_decode($simcard->name) != $distri){
+                        $distri = utf8_decode($simcard->name);
                         fwrite($myfile, $distri . ";;\n");
                     }
-                    if($simcard->nombreSubdistribuidor != $subdistri){
-                        $subdistri = $simcard->nombreSubdistribuidor;
+                    if(strpos(utf8_decode($simcard->nombreSubdistribuidor),$subdistri) === false && strpos($subdistri,utf8_decode($simcard->nombreSubdistribuidor)) === false){
+                        $subdistri = utf8_decode($simcard->nombreSubdistribuidor);
                         fwrite($myfile, ";" . $subdistri . ";\n");
                     }
                     fwrite($myfile, ";" . $simcard->numero . ";" . $simcard->valor . "\n");

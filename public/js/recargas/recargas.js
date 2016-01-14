@@ -219,10 +219,10 @@ function consultar_simcards(){
                     $('#msg_recargas_sim').html(html);
             }else{
                 try{
-                    var html = '<label style="min-width:200px">TOTAL LINEAS : </label><label style="min-width:100px">' + data[0] + '</label><hr>';
-                    html += '<label style="min-width:200px"> Lineas sin recarga:  </label><label style="min-width:100px">' + data[1] + '</label></br>';
-                    html += '<label style="min-width:200px"> Lineas con menos de 3000:  </label><label style="min-width:100px">' + data[2] + '</label></br>';
-                    html += '<label style="min-width:200px"> Lineas con 3000 o más: </label><label style="min-width:100px">' + data[3] + '</label>';
+                    var html = '<label style="min-width:200px;color:white">TOTAL LINEAS : </label><label style="min-width:100px;color:white">' + data[0] + '</label><hr style="border-top-color:white">';
+                    html += '<label style="min-width:200px;color:white"> Lineas sin recarga:  </label><label style="min-width:100px;color:white">' + data[1] + '</label></br>';
+                    html += '<label style="min-width:200px;color:white"> Lineas con menos de 3000:  </label><label style="min-width:100px;color:white">' + data[2] + '</label></br>';
+                    html += '<label style="min-width:200px;color:white"> Lineas con 3000 o más: </label><label style="min-width:100px;color:white">' + data[3] + '</label>';
                     $('#msg_recargas_sim').html(html);
                     document.getElementById('my_iframe').src = "temp/estadoSimcards.csv";    
                 }catch(e){
@@ -251,10 +251,10 @@ function consultar_simcards_distribuidor(){
                     $('#msg_recargas_sim').html(html);
             }else{
                 try{
-                    var html = '<label style="min-width:200px">TOTAL LINEAS : </label><label style="min-width:100px">' + data[0] + '</label><hr>';
-                    html += '<label style="min-width:200px"> Lineas sin recarga:  </label><label style="min-width:100px">' + data[1] + '</label></br>';
-                    html += '<label style="min-width:200px"> Lineas con menos de 3000:  </label><label style="min-width:100px">' + data[2] + '</label></br>';
-                    html += '<label style="min-width:200px"> Lineas con 3000 o más: </label><label style="min-width:100px">' + data[3] + '</label>';
+                    var html = '<label style="min-width:200px;color:white">TOTAL LINEAS : </label><label style="min-width:100px;color:white">' + data[0] + '</label><hr style="border-top-color:white">';
+                    html += '<label style="min-width:200px;color:white"> Lineas sin recarga:  </label><label style="min-width:100px;color:white">' + data[1] + '</label></br>';
+                    html += '<label style="min-width:200px;color:white"> Lineas con menos de 3000:  </label><label style="min-width:100px;color:white">' + data[2] + '</label></br>';
+                    html += '<label style="min-width:200px;color:white"> Lineas con 3000 o más: </label><label style="min-width:100px;color:white">' + data[3] + '</label>';
                     $('#msg_recargas_sim').html(html);
                     document.getElementById('my_iframe').src = "temp/estadoSimcards.csv";    
                 }catch(e){
