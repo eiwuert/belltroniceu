@@ -167,7 +167,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading" style="color:white;margin-bottom:50px">Estado Simcards</h2>
-                    <h3 class="section-subheading text-muted" style="color:white;margin-bottom:20px">Observa las simcards con menos de 3000 en recargas que han sido activadas en el fecha escogido.</h3>
+                    <h3 class="section-subheading text-muted" style="color:white;margin-bottom:20px">Observa las simcards con menos de 3000 en recargas que han sido activadas en la fecha escogida.</h3>
                 </div>
             </div>
             <div class="row text-center ">

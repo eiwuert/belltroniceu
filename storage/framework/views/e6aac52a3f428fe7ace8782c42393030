@@ -104,6 +104,7 @@
                     <?php endforeach; ?>
                 </select>
                 <button class ="button" style="margin-left:20px" onClick = "buscar()">Buscar</button>
+                <button class ="button red" style="margin-left:20px" onClick = "eliminar()">Eliminar</button>
             </div>
             <div id ="resultado_coordenadas" style="margin-top:50px">
                 

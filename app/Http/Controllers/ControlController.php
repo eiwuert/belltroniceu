@@ -33,6 +33,17 @@ class ControlController extends Controller
         }
    }
    
+   public function eliminar(Request $request){
+        if($request->ajax()){
+             try{
+                \DB::select("delete from asesores where nombre = ?", [$request['nombre']]);
+                return 1;
+             }catch(Exception $e){
+                 return $e;
+             }
+        }
+   }
+   
     public function crearAsesor(Request $request)
     {
         if($request->ajax()){

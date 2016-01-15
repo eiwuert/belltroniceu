@@ -39,6 +39,25 @@ function buscar(){
     });
 }
 
+function eliminar(){
+    var nombre = $('[data-id="subPicker_cedula"]').text();
+    $.ajax({
+        url:'control/eliminar',
+        data:{nombre:nombre},
+        type:'get',
+        success: function(data){
+            if(data == 1){
+                $('.modal-header #modal-tittle').html('EXITO');
+                $('.modal-body #modal-body').html("Empleado borrado satisfactoriamente.");
+            }else{
+                $('.modal-header #modal-tittle').html('ERROR');
+                $('.modal-body #modal-body').html(data);
+            }
+            $('#modal-content').modal('show');
+        }
+    });
+}
+
 function ver_mapa(value){
     
     var html = '<iframe frameborder="0" class ="mapa" style="border:0;margin:0 auto;" src="https://www.google.com/maps/embed/v1/place?q='+value+'&key=AIzaSyDaFmSLTqXnu89e_vBGK9gYF70YW-I1KAM" allowfullscreen></iframe>';
