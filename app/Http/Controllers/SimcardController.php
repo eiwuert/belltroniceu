@@ -67,7 +67,7 @@ class SimcardController extends Controller
                 die("database connection failed: ".$e->getMessage());
             }
             $columns = '(numero,ICC,fecha_vencimiento,tipo,nombreSubdistribuidor)';
-            $affectedRows = $pdo->exec("
+            $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." IGNORE INTO TABLE `simcards`
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
                   LINES TERMINATED BY ".$pdo->quote("\n")."
@@ -114,13 +114,13 @@ class SimcardController extends Controller
             }
             $columns = '(nombreSubdistribuidor,numero, ICC,fecha_activacion, @dummy, @dummy, @dummy,@dummy,@dummy,@dummy,@dummy)';
             $pdo->exec("delete from simcards_temp");
-            $affectedRows = $pdo->exec("
+            $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." IGNORE INTO TABLE `simcards`
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES". $columns . "
                   SET tipo = 2");
-            $affectedRows = $pdo->exec("
+            $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." REPLACE INTO TABLE `simcards_temp`
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
                   LINES TERMINATED BY ".$pdo->quote("\n")."
