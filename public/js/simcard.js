@@ -1,5 +1,4 @@
 var paquete = [];
-
 $(window).load(function(){
         if($('#modal_upload_result') != null){
             $('#modal_upload_result').modal('show');
@@ -342,30 +341,39 @@ $('#datos_busqueda_sim_empaquetar').bind("enterKey",function(e){
         type:'GET',
         dataType: 'json',
         success: function(data){
-            $('#datos_busqueda_sim_empaquetar').val('');
-            $('#datos_busqueda_sim_empaquetar').focus();
             if(data != ''){
-                var today = new Date();
-                var fecha_vencimiento_string = data[0].fecha_vencimiento.split("-");
-                var fecha_vencimiento = new Date(fecha_vencimiento_string[0], fecha_vencimiento_string[1]-1,fecha_vencimiento_string[2]);
-                var months = dayDiff(today, fecha_vencimiento);
-                var color;
-                if( data[0].fecha_activacion != null){
-                    if(months > 0){
-                        color = 'green';
-                    }else{
-                        color = 'red';
-                    }
+                if(paquete.indexOf(data[0].numero) != -1){
+                    $('.modal-header #modal-tittle').html('Error');
+                    $('.modal-body #modal-body').html('Ya está la simcard');
+                    $('#modal-content').modal('show');
+                    $('#datos_busqueda_sim_empaquetar').val('');
+                    $('#datos_busqueda_sim_empaquetar').focus();
                 }else{
-                    if(months > 0){
-                       color = 'blue'; 
+                    $('#datos_busqueda_sim_empaquetar').val('');
+                    $('#datos_busqueda_sim_empaquetar').focus();
+                    var today = new Date();
+                    var fecha_vencimiento_string = data[0].fecha_vencimiento.split("-");
+                    var fecha_vencimiento = new Date(fecha_vencimiento_string[0], fecha_vencimiento_string[1]-1,fecha_vencimiento_string[2]);
+                    var months = dayDiff(today, fecha_vencimiento);
+                    var color;
+                    if( data[0].fecha_activacion != null){
+                        if(months > 0){
+                            color = 'green';
+                        }else{
+                            color = 'red';
+                        }
                     }else{
-                       color = 'red';
+                        if(months > 0){
+                           color = 'blue'; 
+                        }else{
+                           color = 'red';
+                        }
                     }
+                    var element = '<button class="button_simcards ' + color +' " style="flex-grow:2;width:auto;color:#000;font-weight:normal;font-size:1em" onClick="seleccionarSim(this)" value = ' + data[0].numero + '> ' + data[0].numero  + '</button>';
+                    document.getElementById('container_simcards_empaquetado').innerHTML += element;
+                    paquete.push(data[0].numero);
+                    $('#package_item_counter').html(paquete.length);
                 }
-                var element = '<button class="button_simcards ' + color +' " style="flex-grow:2;width:auto;color:#000;font-weight:normal;font-size:1em" onClick="seleccionarSim(this)" value = ' + data[0].numero + '> ' + data[0].numero  + '</button>';
-                document.getElementById('container_simcards_empaquetado').innerHTML += element;
-                paquete.push(data[0].numero);
             }else{
                 $('.modal-header #modal-tittle').html('Error');
                 $('.modal-body #modal-body').html('Simcard no encontrada');
@@ -378,21 +386,13 @@ $('#datos_busqueda_sim_empaquetar').bind("enterKey",function(e){
 $('#datos_busqueda_sim_empaquetar').keyup(function(e){
     if(e.keyCode == 13)
     {
-        var telefono = $('#datos_busqueda_sim_empaquetar').val();
-        if(paquete.indexOf(telefono) != -1){
-            $('.modal-header #modal-tittle').html('Error');
-            $('.modal-body #modal-body').html('Ya está la simcard');
-            $('#modal-content').modal('show');
-            $('#datos_busqueda_sim_empaquetar').val('');
-            $('#datos_busqueda_sim_empaquetar').focus();
-        }else{
-            $(this).trigger("enterKey");
-        }
+        $(this).trigger("enterKey");
     }
 });
 
 function limpiar_paquete(){
     paquete = [];
+    $('#package_item_counter').html(paquete.length);
     document.getElementById('container_simcards_empaquetado').innerHTML = '';
 }
 
@@ -413,6 +413,7 @@ function empaquetar(){
                     $('.modal-body #modal-body').html('Simcards empaquetadas. Desde ahora puedes buscarlas en la sección de paquetes.');
                     $('#modal-content').modal('show');
                     paquete = [];
+                    $('#package_item_counter').html(paquete.length);
                     document.getElementById('container_simcards_empaquetado').innerHTML = '';
                 }else{
                     $('.modal-header #modal-tittle').html('Error');
@@ -424,7 +425,7 @@ function empaquetar(){
         });
     }else{
         $('.modal-header #modal-tittle').html('Error');
-        $('.modal-body #modal-body').html('Recuerda que solo pueden ser 50. Tienes: ' + paquete.length);
+        $('.modal-body #modal-body').html('Recuerda que deben ser 50. Tienes: ' + paquete.length);
         $('#modal-content').modal('show');
         $('#modal-loading').modal('hide');
     }
@@ -450,6 +451,7 @@ function asignar_paquete(){
                     $('.modal-body #modal-body').html('Paquete asignado satisfactoriamente.');
                     $('#modal-content').modal('show');
                     paquete = [];
+                    $('#package_item_counter').html(paquete.length);
                     document.getElementById('container_simcards_empaquetado').innerHTML = '';
                 }else if(data == -1){
                     $('.modal-header #modal-tittle').html('Error');

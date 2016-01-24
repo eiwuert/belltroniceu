@@ -389,7 +389,8 @@
                     <input class="data_package" type="number" id = "datos_busqueda_sim_empaquetar" placeholder="ICC / Tel" style="width:40%;min-width:300px"></input>
                     <div class ="package_buttons_container">
                         <button class="button button_delete" onClick="limpiar_paquete()" style="height:42px;margin-right:20px">Limpiar</button>
-                        <button class="button" onClick="empaquetar()" style="height:42px;">Empaquetar</button>
+                        <button class="button" onClick="empaquetar()" style="height:42px;margin-right:20px">Empaquetar</button>
+                        <h3 class="section-subheading text-muted" style="margin-bottom:20px" id ="package_item_counter">0</h3>
                     </div>
                 </div>
                 <div class = "search_results_container" id ="container_simcards_empaquetado">
