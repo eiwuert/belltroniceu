@@ -129,6 +129,7 @@
                         </select>
                         @if($user->isAdmin)
                         <button class="button button_assign" onClick="consultar_recargas()" style=";width:100px;padding:0;">Consultar</button>
+                        <button class="button button_assign_inverse" onClick="descargar_recargas_admin()" style=";width:200px;padding:0;">BAJAR INFORME</button>
                         @else
                         <button class="button button_assign" onClick="consultar_recargas_no_admin()" style=";width:100px;padding:0;">Consultar</button>
                         @endif
@@ -173,7 +174,7 @@
             <div class="row text-center ">
                 <div style="display: inline-block;vertical-align: middle;float: none;width:100%">
                     <div class="flex_container" style="width:100%">
-                        <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_fecha">
+                        <select class="selectpicker" style="padding:0;margin:0" data-width="20%%" data-style="data" id ="subPicker_fecha_estado">
                             @foreach ($fechas as $fecha)
                             <option>{{$fecha->fecha}}</option>
                             @endforeach

@@ -154,6 +154,44 @@ class RecargasController extends Controller
         }
     }
     
+    public function descargar_estado(Request $request){
+        
+        if($request->ajax()){
+            try{
+                $user =  \Auth::User();
+                $fecha = $request['fecha'];
+                $anho = substr($fecha,0,4)+0;
+                $mes = substr($fecha,4,2)+0;
+                $distribuidor = $request['distribuidor'];
+                if($distribuidor == null)
+                    $distribuidor = $user->name;
+                $datos = \DB::select("select subdistribuidores.nombre, simcards.tipo, sum(recargas.valor_recarga) valor from recargas inner join simcards on recargas.telefono = simcards.numero INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and MONTH(recargas.fecha_recarga) = ? and YEAR(recargas.fecha_recarga) = ? group by subdistribuidores.nombre, simcards.tipo",
+                         [$distribuidor, $mes, $anho]);
+                $var = [0,0];
+                if($datos != null){
+                    $myfile = fopen("temp/estadoRecargas.csv", "w");
+                    fwrite($myfile, utf8_decode($distribuidor) . ";SUBDISTRIBUIDOR;PREPAGO;LIBRE\n");
+                    foreach($datos as $dato){
+                        if($dato->tipo == 1){
+                            fwrite($myfile, ";" . $dato->nombre . ";" . $dato->valor . ";\n");
+                            $var[0] += $dato->valor;
+                        }else{
+                            fwrite($myfile, ";" . $dato->nombre . ";;" . $dato->valor . "\n");
+                            $var[1] += $dato->valor;
+                        }
+                    }
+                    fwrite($myfile, "TOTAL AGENCIA;;" . $var[0] . ";" . $var[1] ."\n");
+                    fclose($myfile);
+                    return 1;
+                }else{
+                    return -1;
+                }
+            }catch(Exception $e){
+                return $e;
+            }
+        }
+    }
+    
     public function borrar(Request $request){
         if($request->ajax()){
             $user =  \Auth::User();

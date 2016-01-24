@@ -35,6 +35,7 @@ Route::get('recargas/simcards', array('middleware' => 'auth','uses'=> 'RecargasC
 Route::get('recargas/proyecciones', array('middleware' => 'auth','uses'=> 'RecargasController@proyecciones'));
 Route::get('recargas/borrar', array('middleware' => 'auth','uses'=> 'RecargasController@borrar'));
 Route::post('recargas/subirArchivo', array('middleware' => 'auth', 'as' => 'agregarRecargas', 'uses'=> 'RecargasController@subirArchivo'));
+Route::get('recargas/descargar_estado', array('middleware' => 'auth','uses'=> 'RecargasController@descargar_estado'));
 
 // ACCIONES SIMCARD
 Route::post('simcard/subirArchivo', array('middleware' => 'auth','as' => 'subirArchivoSimcards','uses'=> 'SimcardController@subirArchivo'));

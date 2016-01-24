@@ -203,8 +203,9 @@ function addCommas(nStr)
     return x1 + x2;
 }
 
+
 function consultar_simcards(){
-    var fecha = $('[data-id="subPicker_fecha"]').text();
+    var fecha = $('[data-id="subPicker_fecha_estado"]').text();
     $('#modal-loading').modal({
         backdrop: 'static',
         keyboard: false
@@ -234,8 +235,35 @@ function consultar_simcards(){
     });
 }
 
-function consultar_simcards_distribuidor(){
+function descargar_recargas_admin(){
     var fecha = $('[data-id="subPicker_fecha"]').text();
+    var distribuidor = $('[data-id="subPicker_distri"]').text();
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    $.ajax({
+        url:'recargas/descargar_estado',
+        data:{distribuidor:distribuidor, fecha:fecha},
+        type:'GET',
+        success: function(data){
+           if(data == -1){
+                var html = '<label style="color:red"> NO SE ENCONTRARON RECARGAS </label>';
+                    $('#valores_subs').html(html);
+            }else{
+                try{
+                    document.getElementById('my_iframe').src = "temp/estadoRecargas.csv";    
+                }catch(e){
+                    alert(e);
+                }
+            }
+            $('#modal-loading').modal('hide');
+        }
+    });
+}
+
+function consultar_simcards_distribuidor(){
+    var fecha = $('[data-id="subPicker_fecha_distri"]').text();
     var distribuidor = $('[data-id="subPicker_estado_distri"]').text();
     $('#modal-loading').modal({
         backdrop: 'static',
