@@ -165,22 +165,19 @@ class RecargasController extends Controller
                 $distribuidor = $request['distribuidor'];
                 if($distribuidor == null)
                     $distribuidor = $user->name;
-                $datos = \DB::select("select subdistribuidores.nombre, simcards.tipo, sum(recargas.valor_recarga) valor from recargas inner join simcards on recargas.telefono = simcards.numero INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and MONTH(recargas.fecha_recarga) = ? and YEAR(recargas.fecha_recarga) = ? group by subdistribuidores.nombre, simcards.tipo",
+                $datos = \DB::select("select subdistribuidores.nombre, simcards.numero, simcards.icc, simcards.fecha_entrega, simcards.fecha_activacion, simcards.tipo, recargas.valor_recarga valor from recargas inner join simcards on recargas.telefono = simcards.numero INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and MONTH(recargas.fecha_recarga) = ? and YEAR(recargas.fecha_recarga) = ?",
                          [$distribuidor, $mes, $anho]);
-                $var = [0,0];
                 if($datos != null){
                     $myfile = fopen("temp/estadoRecargas.csv", "w");
-                    fwrite($myfile, utf8_decode($distribuidor) . ";SUBDISTRIBUIDOR;PREPAGO;LIBRE\n");
+                    fwrite($myfile, "Recargas de:  ;" . utf8_decode($distribuidor) . "\n");
+                    fwrite($myfile, "SUBDISTRIBUIDOR;NUMERO;ICC;FECHA ENTREGA;FECHA ACTIVACION; TIPO; VALOR\n");
                     foreach($datos as $dato){
                         if($dato->tipo == 1){
-                            fwrite($myfile, ";" . $dato->nombre . ";" . $dato->valor . ";\n");
-                            $var[0] += $dato->valor;
+                            fwrite($myfile, $dato->nombre . ";" . $dato->numero . ";" . $dato->icc . ";". $dato->fecha_entrega . ";" . $dato->fecha_activacion . ";" . "PREPAGO" . ";" . $dato->valor . ";\n");
                         }else{
-                            fwrite($myfile, ";" . $dato->nombre . ";;" . $dato->valor . "\n");
-                            $var[1] += $dato->valor;
+                            fwrite($myfile, $dato->nombre . ";" . $dato->numero . ";" . $dato->icc . ";". $dato->fecha_entrega . ";" . $dato->fecha_activacion . ";" . "LIBRE" . ";" . $dato->valor . ";\n");
                         }
                     }
-                    fwrite($myfile, "TOTAL AGENCIA;;" . $var[0] . ";" . $var[1] ."\n");
                     fclose($myfile);
                     return 1;
                 }else{
