@@ -66,6 +66,7 @@ class SimcardController extends Controller
             } catch (PDOException $e) {
                 die("database connection failed: ".$e->getMessage());
             }
+            $pdo->exec('SET foreign_key_checks = 0');
             $columns = '(numero,ICC,fecha_vencimiento,tipo,nombreSubdistribuidor)';
             $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." IGNORE INTO TABLE `simcards`
@@ -80,6 +81,7 @@ class SimcardController extends Controller
                   IGNORE 0 LINES ". $columns);
             $pdo->exec("UPDATE simcards_temp SET nombreSubdistribuidor = REPLACE(REPLACE(nombreSubdistribuidor, '\r', ''), '\n', '');");
             $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.fecha_vencimiento=simcards_temp.fecha_vencimiento,simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor, simcards.tipo = simcards_temp.tipo, simcards.fecha_activacion = null");                  
+            $pdo->exec('SET foreign_key_checks = 1');
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }else if($action == "UPLOAD"){
             $file = $request->file('image');
