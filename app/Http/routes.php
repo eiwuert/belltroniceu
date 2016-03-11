@@ -29,6 +29,7 @@ Route::get('finanzas/datos_subdistribuidor', array('middleware' => 'auth','uses'
 Route::post('finanzas/agregar', array('middleware' => 'auth','as' => 'agregarComisiones','uses'=> 'FinanzasController@agregar'));
 Route::post('finanzas/subirArchivo', array('middleware' => 'auth', 'as' => 'agregarComisiones', 'uses'=> 'FinanzasController@subirArchivo'));
 Route::get('finanzas/borrar', array('middleware' => 'auth','uses'=> 'FinanzasController@borrar'));
+Route::get('finanzas/descargar', array('middleware' => 'auth','uses'=> 'FinanzasController@descargar'));
 
 // RECARGAS
 Route::get('recargas/simcards', array('middleware' => 'auth','uses'=> 'RecargasController@simcards'));

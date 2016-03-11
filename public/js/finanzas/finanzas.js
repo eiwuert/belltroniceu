@@ -37,6 +37,26 @@ function load(){
         })
     $('#modal_upload').modal('hide');
 }
+function descargar_admin(){
+    var distribuidor = $('[data-id="subPicker_distri"]').text();
+    var periodo = $('[data-id="subPicker_periodo"]').text();
+    $('#modal-loading').modal({
+        backdrop: 'static',
+        keyboard: false
+        })
+    $.ajax({
+        url:'finanzas/descargar',
+        data:{distribuidor:distribuidor, periodo:periodo},
+        type:'GET',
+        success: function(data){
+            if(data == 1){
+                console.log(data);
+                document.getElementById('my_iframe').src = "temp/datosComisiones.csv"; 
+            }
+            $('#modal-loading').modal('hide');
+        }
+    });
+}
 function consultar_distribuidor_admin(){
     var distribuidor = $('[data-id="subPicker_distri"]').text();
     var periodo = $('[data-id="subPicker_periodo"]').text();

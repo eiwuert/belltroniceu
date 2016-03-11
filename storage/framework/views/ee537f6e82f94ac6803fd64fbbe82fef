@@ -128,6 +128,7 @@
                         </select>
                         <?php if($user->isAdmin || $user->isContabilidad): ?>
                         <button class="button button_assign" onClick="consultar_distribuidor_admin()" style=";width:100px;padding:0;">Consultar</button>
+                        <button class="button button_assign" onClick="descargar_admin()" style=";width:100px;padding:0;">Descargar</button>
                         <?php else: ?>
                         <button class="button button_assign" onClick="consultar_distribuidor()" style=";width:100px;padding:0;">Consultar</button>
                         <?php endif; ?>
@@ -158,7 +159,7 @@
             </div>
         </div>
     </section>
-    
+    <iframe id="my_iframe" style="display:none;"></iframe>
     <!--------------------------------------MODALS------------------------------------------------->
     <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
