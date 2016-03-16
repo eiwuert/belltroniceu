@@ -239,7 +239,9 @@
                     <div class ="package_form_container">
                         <input class="data_package white white_input" style="background:none;font-size:18px" type="number" id = "datos_busqueda_paquete" placeholder="ICC / Tel"></input>
                         <button class="button" onClick="buscarPaquete()" style="height:42px;width:10%;margin-right:20px">Buscar</button>
-                            <button class="button button_assign" onClick="$('#modal_seleccionar_subdistri').modal('show')" style="height:42px;width:10%">Asignar</button>
+                        @if ($user->isAdmin)
+                        <button class="button button_assign" onClick="$('#modal_seleccionar_subdistri').modal('show')" style="height:42px;width:10%">Asignar</button>
+                        @endif
                     </div>
                     <div class = "search_results_container" id ="container_simcards_paquete">
                           
