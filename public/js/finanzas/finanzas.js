@@ -103,7 +103,7 @@ function datos_distribuidor(distribuidor, periodo){
                     if(data[0][i].tipo == 1){
                         aux[0] = Math.floor(data[0][i].valor*0.63);
                     }else{
-                        aux[1] = Math.ceil(data[0][i].valor*0.49);
+                        aux[1] = Math.ceil(data[0][i].valor*0.63);
                     }
                 }else{
                     if(data[0][i].tipo == 1){
@@ -132,7 +132,7 @@ function datos_distribuidor(distribuidor, periodo){
                     if(data[2][i].tipo == 1){
                         totalPrepagoSubs = Math.floor(data[2][i].valor*0.37);
                     }else{
-                        totalLibreSubs = Math.ceil(data[2][i].valor*0.51);
+                        totalLibreSubs = Math.ceil(data[2][i].valor*0.37);
                     }
                 }
                 html += '<div class="historial_container" style="background: ' + colors[0] + '">' + '<label style="min-width:200px">DISTRIBUIDORES</label><label class="historial_label" style="margin-right:10px;">$' + addCommas(totalPrepagoSubs) + '</label><label class="historial_label"> $' + addCommas(totalLibreSubs) + '</label></div><br>';
