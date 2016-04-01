@@ -51,7 +51,7 @@ class FrontController extends Controller
         $now = new \DateTime();
         $last_last_month = date_add($now,date_interval_create_from_date_string("-2 months"));
         $now = new \DateTime();
-        \DB::select("delete from comisiones where periodo <> extract(year_month from ?) and periodo <> extract(year_month from ?) and periodo <> extract(year_month from ?)", [$now, $lasth_month, $last_last_month]);
+        //\DB::select("delete from comisiones where periodo <> extract(year_month from ?) and periodo <> extract(year_month from ?) and periodo <> extract(year_month from ?)", [$now, $lasth_month, $last_last_month]);
         if(!$user->isContabilidad){
             $distribuidores = [];
             $subdistribuidores = [];
