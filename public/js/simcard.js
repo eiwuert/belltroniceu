@@ -55,7 +55,7 @@ function buscarSim_libre(){
                         minutos = '1475 mins';
                 }else if(plan.indexOf("1I") != -1){
                         minutos = '2050 mins';
-                }else{
+                }else if(plan.index){
                         minutos = 'NA';
                 }
                 $('#minutos_resultado').val(minutos);

@@ -67,6 +67,21 @@ class SimcardController extends Controller
                 die("database connection failed: ".$e->getMessage());
             }
             $pdo->exec('SET foreign_key_checks = 0');
+            /*
+            if (($gestor = fopen($file,'r')) !== FALSE) {
+                while (($vars = fgetcsv($gestor, 1000, ";")) !== FALSE) {
+                   $numero = $vars[0];
+                   $precio = $vars[1];
+                   $codigo = $vars[2];
+                   $sim = \App\Libre::find($numero);
+                   if($sim != null){
+                    $sim->valor = $precio;
+                    $sim->plan = $codigo;
+                    $sim->save();
+                   }
+                }
+            }
+            */
             $columns = '(numero,ICC,fecha_vencimiento,tipo,nombreSubdistribuidor)';
             $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." IGNORE INTO TABLE `simcards`
@@ -82,6 +97,7 @@ class SimcardController extends Controller
             $pdo->exec("UPDATE simcards_temp SET nombreSubdistribuidor = REPLACE(REPLACE(nombreSubdistribuidor, '\r', ''), '\n', '');");
             $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.ICC = simcards_temp.ICC, simcards.fecha_vencimiento=simcards_temp.fecha_vencimiento,simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor, simcards.tipo = simcards_temp.tipo, simcards.fecha_activacion = null");                  
             $pdo->exec('SET foreign_key_checks = 1');
+            
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }else if($action == "UPLOAD"){
             $file = $request->file('image');
