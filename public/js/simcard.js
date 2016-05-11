@@ -50,11 +50,11 @@ function buscarSim_libre(){
                 if(plan.indexOf("PM") != -1){
                         minutos = '400 mins';
                 }else if(plan.indexOf("MM") != -1){
-                        minutos = '1015 mins';
+                        minutos = '1330 mins';
                 }else if(plan.indexOf("1E") != -1){
-                        minutos = '1475 mins';
+                        minutos = '1880 mins';
                 }else if(plan.indexOf("1I") != -1){
-                        minutos = '2050 mins';
+                        minutos = '2800 mins';
                 }else if(plan.index){
                         minutos = 'NA';
                 }
