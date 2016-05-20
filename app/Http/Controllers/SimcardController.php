@@ -144,8 +144,9 @@ class SimcardController extends Controller
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES". $columns . "
                   SET tipo = 2");
-            $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.fecha_activacion=simcards_temp.fecha_activacion, simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor");      
-            
+            $pdo->exec("delete recargas.* from recargas inner join simcards on simcards.numero = recargas.telefono inner join simcards_temp on simcards_temp.ICC = simcards.ICC");
+            $pdo->exec("update simcards inner join simcards_temp on simcards.ICC = simcards_temp.ICC set simcards.numero=simcards_temp.numero,simcards.fecha_activacion=simcards_temp.fecha_activacion, simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor");      
+
             $columns = '(@dummy,numero, @dummy,fecha_activacion,NIT, nombre_empresa, direccion_empresa,cod_scl,cod_punto,valor,plan)';
             $affectedRows = $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." REPLACE INTO TABLE `libres`
