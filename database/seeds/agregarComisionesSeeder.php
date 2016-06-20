@@ -16,17 +16,19 @@ class agregarComisionesSeeder extends Seeder
             if (($gestor = fopen('public/temp/libres.csv', "r")) !== FALSE) {
                 $i = 0;
                 while (($vars = fgetcsv($gestor, 1000, ";")) !== FALSE) {
-                   $numero = str_replace('"', '',$vars[0]);
-                   $ICC = str_replace('"', '',$vars[1]);
-                   try{
-                        $simc = \DB::table('simcards')->where('numero', '=',$numero)->first();
-                        if($simc != null){
-                            $sim = \App\Simcard::find($simc->ICC);
-                            $sim->ICC = $ICC;
-                            $sim->save();
-                            $i++;
-                        } 
-                   }catch(Exception $e){
+                   $numero = $vars[0];
+                   $codigo = $vars[1];
+                   $fecha = $vars[2];
+                   $sim = \App\Libre::find($numero);
+                   if($sim != null){
+                    $sim->fecha_activacion = $fecha;
+                    $sim->plan = $codigo;
+                    $sim->save();
+                   }
+                   $sim = \App\Simcard::find($numero);
+                   if($sim != null){
+                    $sim->fecha_activacion = $fecha;
+                    $sim->save();
                    }
                 }
                 fclose($gestor);

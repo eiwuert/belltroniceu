@@ -64,6 +64,7 @@ function buscarSim_libre(){
                 $('#cod_punto_resultado').val('Punto: ' + data[0].cod_punto);
                 $('#direccion_resultado').val(data[0].direccion_empresa);
                 $('#fecha_activacion_libre_resultado').val(data[0].fecha_activacion);
+                $("#subdistribuidor_libre_resultado").val(data[0].subdistribuidor);
                 // RESPONSABLE
                 $('#nombre_responsable_resultado').val(data[0].responsable);
                 $('#cedula_responsable_resultado').val(data[0].cedula);
