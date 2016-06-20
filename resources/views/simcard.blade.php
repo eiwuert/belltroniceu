@@ -345,7 +345,7 @@
                                 <button class="center white white_input" id ="nit_resultado" onClick="$('#modal-cliente_libre').modal('show')" style="background:none;border:none;">NIT</button>
                             </div>
                             <div class ="gray_dark" style="flex-grow:2" id="subdistribuidor_libre_container">
-                                <input class="center white white_input"  disabled=true type="text" id = "subdistribuidor_libre_resultado" placeholder="Subditribuidor"></input>
+                                <input class="center white white_input"  disabled=true type="text" id = "subdistribuidor_libre_resultado" placeholder="Subdistribuidor"></input>
                             </div>
                             <div class ="gray_dark" style="flex-grow:2" id="nombre_empresa_container">
                                 <input class="center white white_input"  disabled=true type="text" id = "nombre_empresa_resultado" placeholder="Empresa"></input>

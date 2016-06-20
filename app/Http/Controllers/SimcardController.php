@@ -239,7 +239,13 @@ class SimcardController extends Controller
     {
         if($request->ajax()){
             if($request['dato'] != null){
-                $simcard = \DB::table('libres')->where('numero', '=', $request['dato'])->orWhere("ICC","=",$request['dato'])->get();
+                $simcard = \DB::table('libres')->where('numero', '=', $request['dato'])->first();
+                if($simcard != ""){
+                    $aux = \DB::table('simcards')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->join('users','subdistribuidores.emailDistribuidor','=','users.email')->where('numero', '=', $request['dato'])->orWhere('ICC', '=', $request['dato'])->first();
+                    $simcard["ICC"] = $aux->ICC;
+                }else{
+                    $simcard = [];
+                }
             }else{
                 $simcard = [];
             }

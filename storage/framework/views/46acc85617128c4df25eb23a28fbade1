@@ -319,7 +319,7 @@
         float: none;">
                         <div id="search_container" class = "search_container gray_dark">
                             <h3 class = "section_body_content white" style="margin-top:0">Busca una simcard</h3>
-                                <input class = "data white white_input" type="number" placeholder = "Teléfono" id = "dato_buscar_sim_libre" style="background:none;font-size:18px;text-align:center;padding:0" />
+                                <input class = "data white white_input" type="number" placeholder = "ICC / Teléfono" id = "dato_buscar_sim_libre" style="background:none;font-size:18px;text-align:center;padding:0" />
                             <div style="margin:auto">
                                 <button class="button button_delete" style="margin-right:4%;width:45%" onClick="limpiar_campos_libre()">Limpiar</button>
                                 <button class = "button" style="width:45%" onClick = "buscarSim_libre()">Buscar</button>
@@ -343,6 +343,9 @@
                         <div class = "search_results_container" style="margin-top:0">
                             <div class ="gray_dark" style="flex-grow:2" id="nit_container">
                                 <button class="center white white_input" id ="nit_resultado" onClick="$('#modal-cliente_libre').modal('show')" style="background:none;border:none;">NIT</button>
+                            </div>
+                            <div class ="gray_dark" style="flex-grow:2" id="subdistribuidor_libre_container">
+                                <input class="center white white_input"  disabled=true type="text" id = "subdistribuidor_libre_resultado" placeholder="Subdistribuidor"></input>
                             </div>
                             <div class ="gray_dark" style="flex-grow:2" id="nombre_empresa_container">
                                 <input class="center white white_input"  disabled=true type="text" id = "nombre_empresa_resultado" placeholder="Empresa"></input>
