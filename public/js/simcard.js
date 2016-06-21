@@ -42,9 +42,9 @@ function buscarSim_libre(){
         dataType: 'json',
         success: function(data){
             if(data != ''){
-                $('#nit_resultado').html(data.NIT);
-                $('#nombre_empresa_resultado').val(data.nombre_empresa);
-                var plan = data.plan;
+                $('#nit_resultado').html(data["NIT"]);
+                $('#nombre_empresa_resultado').val(data["nombre_empresa"]);
+                var plan = data["plan"];
                 $('#plan_resultado').val('Plan: ' + plan);
                 var minutos = '';
                 if(plan.indexOf("PM") != -1){
@@ -59,22 +59,22 @@ function buscarSim_libre(){
                         minutos = 'NA';
                 }
                 $('#minutos_resultado').val(minutos);
-                $('#valor_resultado').val('Valor: $' + data.valor);
-                $('#cod_scl_resultado').val('Scl: ' + data.cod_scl);
-                $('#cod_punto_resultado').val('Punto: ' + data.cod_punto);
-                $('#direccion_resultado').val(data[0].direccion_empresa);
-                $('#fecha_activacion_libre_resultado').val(data.fecha_activacion);
-                $("#subdistribuidor_libre_resultado").val(data.subdistribuidor);
+                $('#valor_resultado').val('Valor: $' + data["valor"]);
+                $('#cod_scl_resultado').val('Scl: ' + data["cod_scl"]);
+                $('#cod_punto_resultado').val('Punto: ' + data["cod_punto"]);
+                $('#direccion_resultado').val(data["direccion_empresa"]);
+                $('#fecha_activacion_libre_resultado').val(data["fecha_activacion"]);
+                $("#subdistribuidor_libre_resultado").val(data["subdistribuidor"]);
                 // RESPONSABLE
-                $('#nombre_responsable_resultado').val(data.responsable);
-                $('#cedula_responsable_resultado').val(data.cedula);
-                $('#celular_responsable_resultado').val(data.telefono);
-                $('#ciudad_responsable_resultado').val(data.ciudad_responsable);
-                $('#barrio_responsable_resultado').val(data.barrio_responsable);
-                $('#fecha_entrega_libre_resultado').val(data.fecha_entrega);
-                $('#fecha_llamada_libre_resultado').val(data.fecha_llamada);
-                $('#detalle_llamada_resultado').val(data.detalle_llamada);
-                $('#direccion_responsable_resultado').val(data.direccion_responsable);
+                $('#nombre_responsable_resultado').val(data["responsable"]);
+                $('#cedula_responsable_resultado').val(data["cedula"]);
+                $('#celular_responsable_resultado').val(data["telefono"]);
+                $('#ciudad_responsable_resultado').val(data["ciudad_responsable"]);
+                $('#barrio_responsable_resultado').val(data["barrio_responsable"]);
+                $('#fecha_entrega_libre_resultado').val(data["fecha_entrega"]);
+                $('#fecha_llamada_libre_resultado').val(data["fecha_llamada"]);
+                $('#detalle_llamada_resultado').val(data["detalle_llamada"]);
+                $('#direccion_responsable_resultado').val(data["direccion_responsable"]);
             }else{
                 $('.modal-header #modal-tittle').html('Error');
                 $('.modal-body #modal-body').html('Simcard no encontrada');

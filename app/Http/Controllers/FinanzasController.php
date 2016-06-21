@@ -26,13 +26,13 @@ class FinanzasController extends Controller
             $distribuidor = $request['distribuidor'];
             $periodo = $request['periodo'];
             $datosSubs = [];
-            $datos = \DB::select("select subdistribuidores.nombre, simcards.tipo, comisiones.valor valor from comisiones inner join simcards on comisiones.telefono = simcards.numero INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and comisiones.periodo = ? and EXTRACT(YEAR_MONTH FROM fecha_vencimiento) >= ?",
+            $datos = \DB::select("select subdistribuidores.nombre, simcards.numero, simcards.ICC, simcards.tipo, comisiones.valor valor from comisiones inner join simcards on comisiones.telefono = simcards.numero INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and comisiones.periodo = ? and EXTRACT(YEAR_MONTH FROM fecha_vencimiento) >= ?",
                      [$request['distribuidor'], $periodo,$periodo]);
             $myfile = fopen("temp/datosComisiones.csv", "w");
             fwrite($myfile, "DATOS DE COMISIONES DE " . $distribuidor . "\n");
-            fwrite($myfile, "PERSONA;TIPO;VALOR\n");
+            fwrite($myfile, "PERSONA;NUMERO;ICC;TIPO;VALOR\n");
             foreach($datos as $registro){
-                fwrite($myfile, utf8_decode($registro->nombre) . ";" . $registro->tipo . ";" . $registro->valor . "\n");
+                fwrite($myfile, utf8_decode($registro->nombre) . ";" . $registro->numero . ";" . $registro->ICC . ";" . $registro->tipo . ";" . $registro->valor . "\n");
             }
             fclose($myfile);
             return 1;

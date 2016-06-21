@@ -188,6 +188,7 @@ class SimcardController extends Controller
             }else{
                 $simcard = [];
             }
+            return $simcard;
         }
     }
     
@@ -239,17 +240,22 @@ class SimcardController extends Controller
     {
         if($request->ajax()){
             if($request['dato'] != null){
-                $simcard = \DB::table('libres')->where('numero', '=', $request['dato'])->first();
-                if($simcard != ""){
-                    $aux = \DB::table('simcards')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->join('users','subdistribuidores.emailDistribuidor','=','users.email')->where('numero', '=', $request['dato'])->orWhere('ICC', '=', $request['dato'])->first();
-                    $simcard["ICC"] = $aux->ICC;
+                $aux = \DB::table('simcards')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->join('users','subdistribuidores.emailDistribuidor','=','users.email')->where('numero', '=', $request['dato'])->orWhere('ICC', '=', $request['dato'])->first();
+                if($aux != ""){
+                    $simcard = \DB::table('libres')->where('numero', '=', $aux->numero)->first();
+                    if($simcard != ""){
+                        
+                        $simcard->subdistribuidor = $aux->nombreSubdistribuidor;
+                    }else{
+                        $simcard = [];
+                    }
                 }else{
                     $simcard = [];
                 }
             }else{
                 $simcard = [];
             }
-            return $simcard;
+            return (array)$simcard;
         }
     }
     
