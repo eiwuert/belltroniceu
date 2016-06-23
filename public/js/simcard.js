@@ -384,6 +384,19 @@ $('#datos_busqueda_sim_empaquetar').bind("enterKey",function(e){
         }
     });
 });
+
+$('#dato_buscar_sim_libre').keyup(function(e){
+    if(e.keyCode == 13)
+    {
+        buscarSim_libre();
+    }
+});
+$('#dato_buscar_sim').keyup(function(e){
+    if(e.keyCode == 13)
+    {
+        buscarSim();
+    }
+});
 $('#datos_busqueda_sim_empaquetar').keyup(function(e){
     if(e.keyCode == 13)
     {
