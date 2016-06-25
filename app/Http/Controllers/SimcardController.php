@@ -86,8 +86,8 @@ class SimcardController extends Controller
                    }
                 }
             }
-            //*/
             return \Redirect::route('simcard')->with('result' , 15); 
+            //*/
             $columns = '(numero,ICC,fecha_vencimiento,tipo,nombreSubdistribuidor)';
             $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." IGNORE INTO TABLE `simcards`
