@@ -71,10 +71,10 @@
                     <li>
                         <a class="page-scroll" href="#proyecciones">Proyecciones</a>
                     </li>
+                    @if($user->isAdmin)
                     <li>
                         <a class="page-scroll" href="#" onClick="borrar_recargas()">Borrar</a>
                     </li>
-                    @if($user->isAdmin)
                     <li>
                         <a class="page-scroll" data-target="#modal_upload" data-toggle="modal" href="#modal_upload"><span class="glyphicon glyphicon-cloud-upload"></span></a>
                     </li>
