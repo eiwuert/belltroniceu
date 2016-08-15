@@ -423,6 +423,7 @@
                         <div class="flex_container" style="width:100%">
                             @if($user->isAdmin)
                                 <select class="selectpicker" data-width="80%" data-style="data_package" id ="subPicker_distri" style="min-width:220px">
+                                    <option>TODOS</option>
                                     @foreach ($distribuidores as $distribuidor)
                                         <option>{{$distribuidor->name}}</option>
                                     @endforeach

@@ -625,13 +625,17 @@ function descargar_asignaciones_admin(){
 
 function consultar_asignaciones_admin(){
     var distribuidor = $('[data-id="subPicker_distri"]').text();
-    var fecha_inicial = $('#fecha_inicial').val();
-    var fecha_final = $('#fecha_final').val();
-    $('#modal-loading').modal({
-        backdrop: 'static',
-        keyboard: false
-        })
-    datos_asignaciones(distribuidor,fecha_inicial, fecha_final);
+    if(distribuidor.indexOf("TODOS") != -1){
+        alert("No puede seleccionar todos en consultar, descarge el archivo")
+    }else{
+        var fecha_inicial = $('#fecha_inicial').val();
+        var fecha_final = $('#fecha_final').val();
+        $('#modal-loading').modal({
+            backdrop: 'static',
+            keyboard: false
+            })
+        datos_asignaciones(distribuidor,fecha_inicial, fecha_final);
+    }
 }
 
 function datos_asignaciones(distribuidor,fecha_inicial,fecha_final){
