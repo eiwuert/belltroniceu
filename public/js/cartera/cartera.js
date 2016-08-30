@@ -26,29 +26,34 @@ function ver_cartera(){
 }
 
 function borrar_registro(elem){
-    var id = elem.parentNode.parentNode.getAttribute('id');
-    $('#modal-loading').modal({
-        backdrop: 'static',
-        keyboard: false
-        })
-    $.ajax({
-        url:'cartera/eliminar',
-        data:{id:id},
-        type:'GET',
-         success: function(data){
-                if(data == 1){
-                    $('.modal-header #modal-tittle').html('Exito');
-                    $('.modal-body #modal-body').html("Registro eliminado. debe actualizar la página para ver el total actualizado");
-                    $('#modal-content').modal('show'); 
-                    $('#'+id).remove();
-                }else{
-                    $('.modal-header #modal-tittle').html('Error');
-                    $('.modal-body #modal-body').html(data);
-                    $('#modal-content').modal('show'); 
-                }
-                $('#modal-loading').modal("hide");
-        }
-    });
+    var pass = prompt("Codigo de verificación:");
+    if(pass == "160208"){
+        var id = elem.parentNode.parentNode.getAttribute('id');
+        $('#modal-loading').modal({
+            backdrop: 'static',
+            keyboard: false
+            })
+        $.ajax({
+            url:'cartera/eliminar',
+            data:{id:id},
+            type:'GET',
+             success: function(data){
+                    if(data == 1){
+                        $('.modal-header #modal-tittle').html('Exito');
+                        $('.modal-body #modal-body').html("Registro eliminado. debe actualizar la página para ver el total actualizado");
+                        $('#modal-content').modal('show'); 
+                        $('#'+id).remove();
+                    }else{
+                        $('.modal-header #modal-tittle').html('Error');
+                        $('.modal-body #modal-body').html(data);
+                        $('#modal-content').modal('show'); 
+                    }
+                    $('#modal-loading').modal("hide");
+            }
+        });
+    }else{
+        alert("Codigo invalido");
+    }
 }
 
 function actualizar_registro(elem){

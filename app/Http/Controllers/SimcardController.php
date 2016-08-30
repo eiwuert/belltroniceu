@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Simcard;
 
 class SimcardController extends Controller
 {
@@ -67,16 +68,16 @@ class SimcardController extends Controller
                 die("database connection failed: ".$e->getMessage());
             }
             $pdo->exec('SET foreign_key_checks = 0');
-            /*
+            //*
             if (($gestor = fopen($file,'r')) !== FALSE) {
                 while (($vars = fgetcsv($gestor, 1000, ";")) !== FALSE) {
                    $numero = $vars[0];
-                   $codigo = $vars[1];
-                   $fecha = $vars[2];
+                   $plan = $vars[4];
+                   $fecha = $vars[5];
                    $sim = \App\Libre::find($numero);
                    if($sim != null){
                     $sim->fecha_activacion = $fecha;
-                    $sim->plan = $codigo;
+                    $sim->plan = $plan;
                     $sim->save();
                    }
                    $sim = \App\Simcard::find($numero);
@@ -154,7 +155,7 @@ class SimcardController extends Controller
             
             $var = $pdo->exec("delete libres.* from libres inner join simcards_temp on simcards_temp.numero = libres.numero");
             $pdo->exec("delete recargas.* from recargas inner join simcards on simcards.numero = recargas.telefono inner join simcards_temp on simcards_temp.ICC = simcards.ICC");
-            $var = $pdo->exec("update simcards inner join simcards_temp on simcards.ICC = simcards_temp.ICC set simcards.numero=simcards_temp.numero,simcards.fecha_activacion=simcards_temp.fecha_activacion, simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor");    
+            $var = $pdo->exec("update simcards inner join simcards_temp on simcards.ICC = simcards_temp.ICC set simcards.numero=simcards_temp.numero,simcards.fecha_activacion=simcards_temp.fecha_activacion, simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor, simcards.tipo = 2");    
             
             $var = $pdo->exec("delete simcards_temp.* from simcards_temp left join simcards on simcards.ICC = simcards_temp.ICC where simcards.ICC is not null");
             
