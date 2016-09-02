@@ -11,7 +11,6 @@ use DB;
 class FrontController extends Controller
 {
    public function simcard(){
-       return \DB::select("select * from simcards where numero REGEXP '(^-?[0-9]+$)' limit 10");
         $user =  \Auth::User();
         if(!$user->isContabilidad){
             $distribuidores = [];
