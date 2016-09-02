@@ -68,7 +68,7 @@ class SimcardController extends Controller
                 die("database connection failed: ".$e->getMessage());
             }
             $pdo->exec('SET foreign_key_checks = 0');
-            //*
+            /*
             if (($gestor = fopen($file,'r')) !== FALSE) {
                 while (($vars = fgetcsv($gestor, 1000, ";")) !== FALSE) {
                    $numero = $vars[0];
