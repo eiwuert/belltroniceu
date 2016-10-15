@@ -385,6 +385,13 @@ $('#datos_busqueda_sim_empaquetar').bind("enterKey",function(e){
     });
 });
 
+$('#datos_busqueda_paquete').keyup(function(e){
+    if(e.keyCode == 13)
+    {
+        buscarPaquete();
+    }
+});
+
 $('#dato_buscar_sim_libre').keyup(function(e){
     if(e.keyCode == 13)
     {
