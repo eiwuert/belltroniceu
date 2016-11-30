@@ -5,12 +5,24 @@ use Illuminate\Database\Seeder;
 class agregarComisionesSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeds. 
      *
      * @return void
      */
     public function run()
     {
+        /* Actualizar valores de planes */
+        //*
+        $planMM = \DB::table('libres')->where("plan","MM")->update(["valor"=>"57100"]);
+        $this->command->info("Actualizadas MM: " . $planMM);
+        $plan1E = \DB::table('libres')->where("plan","1E")->update(["valor"=>"76900"]);
+        $this->command->info("Actualizadas 1E: " . $plan1E);
+        $plan1L = \DB::table('libres')->where("plan","1L")->update(["valor"=>"94500"]);
+        $this->command->info("Actualizadas 1L: " . $plan1L);
+        $planPM = \DB::table('libres')->where("plan","PM")->update(["valor"=>"32100"]);
+        $this->command->info("Actualizadas PM: " . $planPM);
+        //*/
+        /*
         $this->command->info('Subir archivo libres...');
         if (file_exists('public/temp/libres.csv')) {
             if (($gestor = fopen('public/temp/libres.csv', "r")) !== FALSE) {
@@ -36,6 +48,7 @@ class agregarComisionesSeeder extends Seeder
                 $this->command->info('modificados: ' . $i);
             }
         }
+        */
         /*
         $this->command->info('Subir archivo comisiones...');
         if (file_exists('public/temp/comisiones.csv')) {
