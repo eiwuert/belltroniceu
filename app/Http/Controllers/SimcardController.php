@@ -102,7 +102,8 @@ class SimcardController extends Controller
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES ". $columns);
             $pdo->exec("UPDATE simcards_temp SET nombreSubdistribuidor = REPLACE(REPLACE(nombreSubdistribuidor, '\r', ''), '\n', '');");
-            $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.ICC = simcards_temp.ICC, simcards.fecha_vencimiento=simcards_temp.fecha_vencimiento,simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor, simcards.tipo = simcards_temp.tipo, simcards.fecha_activacion = null");                  
+            $fecha_entrega = date('Y-m-d H:i:s');
+            $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.ICC = simcards_temp.ICC, simcards.fecha_vencimiento=simcards_temp.fecha_vencimiento,simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor, simcards.tipo = simcards_temp.tipo, simcards.fecha_activacion = NULL, simcards.fecha_entrega = " . $fecha_entrega);                  
             $pdo->exec('SET foreign_key_checks = 1');
             
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
@@ -158,8 +159,8 @@ class SimcardController extends Controller
             $var = $pdo->exec("update simcards inner join simcards_temp on simcards.ICC = simcards_temp.ICC set simcards.numero=simcards_temp.numero,simcards.fecha_activacion=simcards_temp.fecha_activacion, simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor, simcards.tipo = 2");    
             
             $var = $pdo->exec("delete simcards_temp.* from simcards_temp left join simcards on simcards.ICC = simcards_temp.ICC where simcards.ICC is not null");
-            
-            $var = $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.ICC=simcards_temp.ICC,simcards.fecha_activacion=simcards_temp.fecha_activacion, simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor");    
+            $fecha_entrega = date('Y-m-d H:i:s');
+            $var = $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.ICC=simcards_temp.ICC,simcards.fecha_activacion=simcards_temp.fecha_activacion, simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor, simcards.fecha_entrega = " . $fecha_entrega);    
             
             $columns = '(@dummy,numero, @dummy,fecha_activacion,NIT, nombre_empresa, direccion_empresa,cod_scl,cod_punto,valor,plan)';
             $affectedRows = $pdo->exec("
