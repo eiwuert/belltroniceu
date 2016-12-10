@@ -139,13 +139,7 @@ class SimcardController extends Controller
             }
             $columns = '(nombreSubdistribuidor,numero, ICC,fecha_activacion, @dummy, @dummy, @dummy,@dummy,@dummy,@dummy,@dummy, fecha_entrega)';
             $pdo->exec("delete from simcards_temp");
-            $var = $pdo->exec("
-                LOAD DATA LOCAL INFILE ".$pdo->quote($file)." IGNORE INTO TABLE `simcards`
-                  FIELDS TERMINATED BY ".$pdo->quote(";")."
-                  LINES TERMINATED BY ".$pdo->quote("\n")."
-                  IGNORE 0 LINES". $columns . "
-                  SET tipo = 2");
-          
+            
             $var = $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." REPLACE INTO TABLE `simcards_temp`
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
@@ -154,19 +148,27 @@ class SimcardController extends Controller
                   SET tipo = 2");
             
             $var = $pdo->exec("delete libres.* from libres inner join simcards_temp on simcards_temp.numero = libres.numero");
+            
+            $var = $pdo->exec("delete simcards.* from simcards inner join simcards_temp on simcards_temp.numero = simcards.numero");
+            
+            $var = $pdo->exec("delete simcards.* from simcards inner join simcards_temp on simcards_temp.ICC = simcards.ICC");
+            
+            $var = $pdo->exec("
+                LOAD DATA LOCAL INFILE ".$pdo->quote($file)." IGNORE INTO TABLE `simcards`
+                  FIELDS TERMINATED BY ".$pdo->quote(";")."
+                  LINES TERMINATED BY ".$pdo->quote("\n")."
+                  IGNORE 0 LINES". $columns . "
+                  SET tipo = 2");
+                  
             $pdo->exec("delete recargas.* from recargas inner join simcards on simcards.numero = recargas.telefono inner join simcards_temp on simcards_temp.ICC = simcards.ICC");
-            $var = $pdo->exec("update simcards inner join simcards_temp on simcards.ICC = simcards_temp.ICC set simcards.numero=simcards_temp.numero,simcards.fecha_activacion=simcards_temp.fecha_activacion, simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor, simcards.tipo = 2");    
             
-            $var = $pdo->exec("delete simcards_temp.* from simcards_temp left join simcards on simcards.ICC = simcards_temp.ICC where simcards.ICC is not null");
-            $var = $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.ICC=simcards_temp.ICC,simcards.fecha_activacion=simcards_temp.fecha_activacion, simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor, simcards.fecha_entrega = simcards_temp.fecha_entrega");    
-            
+            $pdo->exec("UPDATE simcards SET fecha_vencimiento =  DATE_ADD(fecha_activacion, INTERVAL 1 YEAR) where fecha_activacion is not null and tipo = 2");
             $columns = '(@dummy,numero, @dummy,fecha_activacion,NIT, nombre_empresa, direccion_empresa,cod_scl,cod_punto,valor,plan)';
             $affectedRows = $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." REPLACE INTO TABLE `libres`
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES ". $columns);
-            $pdo->exec("UPDATE simcards SET fecha_vencimiento =  DATE_ADD(fecha_activacion, INTERVAL 1 YEAR) where fecha_activacion is not null and tipo = 2");
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }
         return \Redirect::route('simcard', ['result' => []]);

@@ -11,6 +11,9 @@ use DB;
 class FrontController extends Controller
 {
    public function simcard(){
+       //$pdo = \DB::connection()->getPdo();
+       //return $pdo->exec('DELETE FROM simcards WHERE numero=3173226358;');
+       
         $user =  \Auth::User();
         if(!$user->isContabilidad){
             $distribuidores = [];
