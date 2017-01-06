@@ -48,7 +48,7 @@ function buscarSim_libre(){
                 $('#plan_resultado').val('Plan: ' + plan);
                 var minutos = '';
                 if(plan.indexOf("PM") != -1){
-                        minutos = '400 mins';
+                        minutos = '600 mins';
                 }else if(plan.indexOf("MM") != -1){
                         minutos = '1330 mins';
                 }else if(plan.indexOf("1E") != -1){
