@@ -47,9 +47,9 @@ function buscarSim_libre(){
                 var plan = data["plan"];
                 if(data["cod_scl"] == "1"){
                     $('#cod_scl_resultado').val('Estado: ' + "SUSPENDIDA");
-                }else if(data["estado"] == "2"){
+                }else if(data["cod_scl"] == "2"){
                     $('#cod_scl_resultado').val('Estado: ' + "VIGENTE");
-                }else if(data["estado"] == "3"){
+                }else if(data["cod_scl"] == "3"){
                     $('#cod_scl_resultado').val('Estado: ' + "DADA DE BAJA");
                 }
                 $('#plan_resultado').val('Plan: ' + plan);
