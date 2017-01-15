@@ -45,6 +45,13 @@ function buscarSim_libre(){
                 $('#nit_resultado').html(data["NIT"]);
                 $('#nombre_empresa_resultado').val(data["nombre_empresa"]);
                 var plan = data["plan"];
+                if(data["cod_scl"] == "1"){
+                    $('#cod_scl_resultado').val('Estado: ' + "SUSPENDIDA");
+                }else if(data["estado"] == "2"){
+                    $('#cod_scl_resultado').val('Estado: ' + "VIGENTE");
+                }else if(data["estado"] == "3"){
+                    $('#cod_scl_resultado').val('Estado: ' + "DADA DE BAJA");
+                }
                 $('#plan_resultado').val('Plan: ' + plan);
                 var minutos = '';
                 if(plan.indexOf("PM") != -1){
@@ -60,7 +67,6 @@ function buscarSim_libre(){
                 }
                 $('#minutos_resultado').val(minutos);
                 $('#valor_resultado').val('Valor: $' + data["valor"]);
-                $('#cod_scl_resultado').val('Scl: ' + data["cod_scl"]);
                 $('#cod_punto_resultado').val('Punto: ' + data["cod_punto"]);
                 $('#direccion_resultado').val(data["direccion_empresa"]);
                 $('#fecha_activacion_libre_resultado').val(data["fecha_activacion"]);

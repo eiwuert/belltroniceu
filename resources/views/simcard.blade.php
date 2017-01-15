@@ -364,7 +364,7 @@
                                 <input class="center white white_input"  disabled=true type="date" id = "fecha_activacion_libre_resultado"></input>
                             </div>
                             <div class ="gray_dark" style="flex-grow:2" id="cod_scl_container">
-                                <input class="center white white_input"  disabled=true type="text" id = "cod_scl_resultado" placeholder="Cod scl"></input>
+                                <input class="center white white_input"  disabled=true type="text" id = "cod_scl_resultado" placeholder="Estado"></input>
                             </div>
                             <div class ="gray_dark" style="flex-grow:2" id="cod_punto_container">
                                 <input class="center white white_input"  disabled=true type="text" id = "cod_punto_resultado" placeholder="Cod Punto"></input>
@@ -674,7 +674,7 @@
                         {!! Form::file('image', null) !!}
                     </div>
                     <div class="form-group">
-                        {!!Form::select('accion', array('ADD' => 'Agregar', 'UPLOAD' => 'Activar', 'ADDL'=>'Agregar Libres'),null, array('class' => 'data_package'))!!}
+                        {!!Form::select('accion', array('ADD' => 'Agregar', 'UPLOAD' => 'Activar', 'ADDL'=>'Agregar Libres', 'UPDATE_PLAN' => 'Actualizar Planes'),null, array('class' => 'data_package'))!!}
                     </div>
                     <div class="form-group">
                         {!! Form::submit('Subir', array('class' => 'button')) !!}

@@ -67,28 +67,7 @@ class SimcardController extends Controller
             } catch (PDOException $e) {
                 die("database connection failed: ".$e->getMessage());
             }
-            $pdo->exec('SET foreign_key_checks = 0');
-            /*
-            if (($gestor = fopen($file,'r')) !== FALSE) {
-                while (($vars = fgetcsv($gestor, 1000, ";")) !== FALSE) {
-                   $numero = $vars[0];
-                   $plan = $vars[4];
-                   $fecha = $vars[5];
-                   $sim = \App\Libre::find($numero);
-                   if($sim != null){
-                    $sim->fecha_activacion = $fecha;
-                    $sim->plan = $plan;
-                    $sim->save();
-                   }
-                   $sim = \App\Simcard::find($numero);
-                   if($sim != null){
-                    $sim->fecha_activacion = $fecha;
-                    $sim->save();
-                   }
-                }
-            }
-            return \Redirect::route('simcard')->with('result' , 15); 
-            //*/
+            $pdo->exec('SET foreign_key_checks = 0'); 
             $columns = '(numero,ICC,fecha_vencimiento,tipo,nombreSubdistribuidor, fecha_entrega)';
             $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." IGNORE INTO TABLE `simcards`
@@ -125,7 +104,7 @@ class SimcardController extends Controller
                   IGNORE 0 LINES ". $columns);
             $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.fecha_activacion=simcards_temp.fecha_activacion ");
             $pdo->exec("UPDATE simcards SET fecha_vencimiento =  DATE_ADD(fecha_activacion, INTERVAL 6 MONTH) where fecha_activacion is not null and tipo = 1");
-            $pdo->exec("UPDATE simcards SET fecha_vencimiento =  DATE_ADD(fecha_activacion, INTERVAL 1 YEAR) where fecha_activacion is not null and tipo = 2");
+            $pdo->exec("UPDATE simcards SET fecha_vencimiento =  DATE_ADD(fecha_activacion, INTERVAL 3 YEAR) where fecha_activacion is not null and tipo = 2");
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }else if($action == "ADDL"){
             $file = $request->file('image');
@@ -169,6 +148,40 @@ class SimcardController extends Controller
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES ". $columns);
+            return \Redirect::route('simcard')->with('result' ,$affectedRows); 
+        }else if($action == "UPDATE_PLAN"){
+            $file = $request->file('image');
+            if(!file_exists($file)) {
+                die("File not found. Make sure you specified the correct path.");
+            }
+            try {
+                $pdo = \DB::connection()->getPdo();
+            } catch (PDOException $e) {
+                die("database connection failed: ".$e->getMessage());
+            }
+            $pdo->exec('SET foreign_key_checks = 0'); 
+            $affectedRows = 0;
+            if (($gestor = fopen($file,'r')) !== FALSE) {
+                while (($vars = fgetcsv($gestor, 1000, ";")) !== FALSE) {
+                   $numero = $vars[0];
+                   $plan = $vars[1];
+                   $cod_scl = $vars[2];
+                   $sim = \App\Libre::find($numero);
+                   if($sim != null){
+                    $sim->plan = $plan;
+                    // SUSPENDIDA = 1 VIGENTE = 2 DADA DE BAJA = 3  
+                    if($cod_scl == "SUSPENDIDA"){
+                        $sim->cod_scl = 1;    
+                    }else if($cod_scl == "VIGENTE"){
+                        $sim->cod_scl = 2;
+                    }else if($cod_scl == "DADA DE BAJA"){
+                        $sim->cod_scl = 3;
+                    }
+                    $sim->save();
+                    $affectedRows = $affectedRows + 1;
+                   }
+                }
+            }
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }
         return \Redirect::route('simcard', ['result' => []]);
