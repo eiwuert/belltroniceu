@@ -108,7 +108,6 @@ class CarteraController extends Controller
                 $total += $registro->valor_unitario*$registro->cantidad;
                 fwrite($myfile, $registro->fecha . ";" . $registro->descripcion . ";" . $registro->cantidad . ";" . $registro->valor_unitario . ";" . $registro->valor_unitario*$registro->cantidad . "\n");
             }
-            fwrite($myfile, ", TOTAL GENERAL," + $total + " \n");
             fclose($myfile);
             return 1;
         }
