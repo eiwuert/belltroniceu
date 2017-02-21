@@ -16,7 +16,7 @@ $.ajax({
                     data: [data[0][5],data[0][6],data[0][7],data[0][8],data[0][9]]
                 },
                 {
-                    label: "Activas",
+                    label: "Recargadas",
                     fillColor: "rgba(127, 202, 159,.5)",
                     strokeColor: "rgba(127, 202, 159,1)",
                     pointColor: "rgba(127, 202, 159,1)",

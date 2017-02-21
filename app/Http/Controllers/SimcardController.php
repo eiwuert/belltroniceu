@@ -328,19 +328,22 @@ class SimcardController extends Controller
             
             $labelMeses = [$mes4AnteriorLabel,$mes3AnteriorLabel,$mes2AnteriorLabel, $mesAnteriorLabel,$mesActualLabel];
             $sims = \DB::select("SELECT 
-                count(case when Month(sim.fecha_activacion) = ? and Year(sim.fecha_activacion) = ? then numero end) hoyActivas, 
-                count( case when Month(sim.fecha_activacion) = ? and Year(sim.fecha_activacion) = ? then numero end) mesAntesActivas, 
-                count( case when Month(sim.fecha_activacion) = ? and Year(sim.fecha_activacion) = ? then numero end) mes2AntesActivas, 
-                count( case when Month(sim.fecha_activacion) = ? and Year(sim.fecha_activacion) = ? then numero end) mes3AntesActivas, 
-                count( case when Month(sim.fecha_activacion) = ? and Year(sim.fecha_activacion) = ? then numero end) mes4AntesActivas, 
-                count(case when Month(sim.fecha_vencimiento) = ? and Year(sim.fecha_vencimiento) = ? then numero end) hoyVencidas, 
-                count(case when Month(sim.fecha_vencimiento) = ? and Year(sim.fecha_vencimiento) = ? then numero end) mesAntesVencidas,
-                count(case when Month(sim.fecha_vencimiento) = ? and Year(sim.fecha_vencimiento) = ? then numero end) mes2AntesVencidas,
-                count(case when Month(sim.fecha_vencimiento) = ? and Year(sim.fecha_vencimiento) = ? then numero end) mes3AntesVencidas,
-                count(case when Month(sim.fecha_vencimiento) = ? and Year(sim.fecha_vencimiento) = ? then numero end) mes4AntesVencidas
-                FROM simcards sim inner join subdistribuidores sub on sim.nombreSubdistribuidor = sub.nombre inner join users u on sub.emailDistribuidor = u.email where u.email = ? and sim.tipo=1",[$mesActual,$year,$mesAnterior,$year,$mes2Anterior,$year,$mes3Anterior,$year,$mes4Anterior,$year,$mesActual,$year,$mesAnterior,$year,$mes2Anterior,$year,$mes3Anterior,$year,$mes4Anterior,$year,$user->email]);
+                count(case when Month(sim.fecha_vencimiento) = Month(CURDATE()) and Year(sim.fecha_vencimiento) = Year(CURDATE()) then numero end) hoyVencidas, 
+                count(case when Month(sim.fecha_vencimiento) = Month(DATE_ADD(CURDATE(), INTERVAL -1 MONTH)) and Year(sim.fecha_vencimiento) = Year(DATE_ADD(CURDATE(), INTERVAL -1 MONTH)) then numero end) mesAntesVencidas,
+                count(case when Month(sim.fecha_vencimiento) = Month(DATE_ADD(CURDATE(), INTERVAL -2 MONTH)) and Year(sim.fecha_vencimiento) = Year(DATE_ADD(CURDATE(), INTERVAL -2 MONTH)) then numero end) mes2AntesVencidas,
+                count(case when Month(sim.fecha_vencimiento) = Month(DATE_ADD(CURDATE(), INTERVAL -3 MONTH)) and Year(sim.fecha_vencimiento) = Year(DATE_ADD(CURDATE(), INTERVAL -3 MONTH)) then numero end) mes3AntesVencidas,
+                count(case when Month(sim.fecha_vencimiento) = Month(DATE_ADD(CURDATE(), INTERVAL -4 MONTH)) and Year(sim.fecha_vencimiento) = Year(DATE_ADD(CURDATE(), INTERVAL -4 MONTH)) then numero end) mes4AntesVencidas
+                FROM simcards sim inner join subdistribuidores sub on sim.nombreSubdistribuidor = sub.nombre inner join users u on sub.emailDistribuidor = u.email where u.email = ? and sim.tipo=1",[$user->email]);
             
-            $simsPrepago = [$sims[0]->mes4AntesActivas,$sims[0]->mes3AntesActivas,$sims[0]->mes2AntesActivas,$sims[0]->mesAntesActivas,$sims[0]->hoyActivas,$sims[0]->mes4AntesVencidas,$sims[0]->mes3AntesVencidas,$sims[0]->mes2AntesVencidas,$sims[0]->mesAntesVencidas,$sims[0]->hoyVencidas];
+            $recargas = \DB::select("SELECT 
+                count(case when Month(recargas.fecha_recarga) = Month(CURDATE()) and Year(recargas.fecha_recarga) = Year(CURDATE()) then numero end) hoyRecargadas, 
+                count(case when Month(recargas.fecha_recarga) = Month(DATE_ADD(CURDATE(), INTERVAL -1 MONTH)) and Year(recargas.fecha_recarga) = Year(DATE_ADD(CURDATE(), INTERVAL -1 MONTH)) then numero end) mesAntesRecargadas,
+                count(case when Month(recargas.fecha_recarga) = Month(DATE_ADD(CURDATE(), INTERVAL -2 MONTH)) and Year(recargas.fecha_recarga) = Year(DATE_ADD(CURDATE(), INTERVAL -2 MONTH)) then numero end) mes2AntesRecargadas,
+                count(case when Month(recargas.fecha_recarga) = Month(DATE_ADD(CURDATE(), INTERVAL -3 MONTH)) and Year(recargas.fecha_recarga) = Year(DATE_ADD(CURDATE(), INTERVAL -3 MONTH)) then numero end) mes3AntesRecargadas,
+                count(case when Month(recargas.fecha_recarga) = Month(DATE_ADD(CURDATE(), INTERVAL -4 MONTH)) and Year(recargas.fecha_recarga) = Year(DATE_ADD(CURDATE(), INTERVAL -4 MONTH)) then numero end) mes4AntesRecargadas
+                FROM simcards sim inner join subdistribuidores sub on sim.nombreSubdistribuidor = sub.nombre inner join users u on sub.emailDistribuidor = u.email inner join recargas on sim.numero = recargas.telefono where u.email = ? and sim.tipo=1 ",[$user->email]);
+            
+            $simsPrepago = [$recargas[0]->mes4AntesRecargadas,$recargas[0]->mes3AntesRecargadas,$recargas[0]->mes2AntesRecargadas,$recargas[0]->mesAntesRecargadas,$recargas[0]->hoyRecargadas,$sims[0]->mes4AntesVencidas,$sims[0]->mes3AntesVencidas,$sims[0]->mes2AntesVencidas,$sims[0]->mesAntesVencidas,$sims[0]->hoyVencidas];
             
             
             
