@@ -41,15 +41,24 @@ class SimcardController extends Controller
             if($distribuidor == null)
                 $distribuidor = $user->name;
             if(strpos($distribuidor, 'TODOS') === false){
-                 $datos = \DB::select("select users.name, simcards.numero, simcards.ICC, simcards.fecha_vencimiento,nombre_empresa,NIT,direccion_empresa,cod_scl,cod_punto,valor,plan,responsable,libres.cedula,libres.fecha_entrega,direccion_responsable,ciudad_responsable,barrio_responsable,libres.telefono,detalle_llamada,fecha_llamada from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email inner join libres on simcards.numero = libres.numero where users.name = ? order by simcards.fecha_vencimiento",[$distribuidor]);
+                 $datos = \DB::select("select users.name, simcards.numero, simcards.ICC, simcards.fecha_vencimiento,nombre_empresa,NIT,direccion_empresa,cod_scl,cod_punto,valor,plan,responsable,libres.cedula, libres.cod_scl,libres.fecha_entrega,direccion_responsable,ciudad_responsable,barrio_responsable,libres.telefono,detalle_llamada,fecha_llamada from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email inner join libres on simcards.numero = libres.numero where users.name = ? order by simcards.fecha_vencimiento",[$distribuidor]);
             }else{
-                $datos = \DB::select("select users.name, simcards.numero, simcards.ICC,simcards.fecha_vencimiento,nombre_empresa,NIT,direccion_empresa,cod_scl,cod_punto,valor,plan,responsable,libres.cedula,libres.fecha_entrega,direccion_responsable,ciudad_responsable,barrio_responsable,libres.telefono,detalle_llamada,fecha_llamada from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email inner join libres on simcards.numero = libres.numero order by users.name,simcards.fecha_vencimiento");
+                $datos = \DB::select("select users.name, simcards.numero, simcards.ICC,simcards.fecha_vencimiento,nombre_empresa,NIT,direccion_empresa,cod_scl,cod_punto,valor,plan,responsable,libres.cedula,libres.cod_scl,libres.fecha_entrega,direccion_responsable,ciudad_responsable,barrio_responsable,libres.telefono,detalle_llamada,fecha_llamada from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email inner join libres on simcards.numero = libres.numero order by users.name,simcards.fecha_vencimiento");
             }
             
             $myfile = fopen("temp/simcardsLibres.csv", "w");
-            fwrite($myfile, "DISTRIBUIDOR; NUMERO; ICC; FECHA VENCIMIENTO;EMPRESA;NIT;DIRECCION;COD_SCL;COD_PUNTO;VALOR;PLAN;RESPONSABLE;CEDULA;FECHA ENTREGA;DIRECCION RESPONSABLE;CIUDAD RESPONSABLE;BARRIO RESPONSABLE;TELEFONO;DETALLE LLAMADA;FECHA LLAMADA\n");
+            fwrite($myfile, "DISTRIBUIDOR; NUMERO; ICC; FECHA VENCIMIENTO;ESTADO;EMPRESA;NIT;DIRECCION;COD_SCL;COD_PUNTO;VALOR;PLAN;RESPONSABLE;CEDULA;FECHA ENTREGA;DIRECCION RESPONSABLE;CIUDAD RESPONSABLE;BARRIO RESPONSABLE;TELEFONO;DETALLE LLAMADA;FECHA LLAMADA\n");
             foreach($datos as $registro){ 
-                    fwrite($myfile, utf8_decode($registro->name) . ";" . $registro->numero . ";" . $registro->ICC . ";" . $registro->fecha_vencimiento . ";" . utf8_decode($registro->nombre_empresa) . ";" . $registro->NIT . ";" . $registro->direccion_empresa . ";" . $registro->cod_scl . ";" . $registro->cod_punto . ";" . $registro->valor . ";" . preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $registro->plan) . ";" . utf8_decode($registro->responsable) . ";" . $registro->cedula . ";" . $registro->fecha_entrega . ";" . $registro->direccion_responsable. ";" . $registro->ciudad_responsable . ";" . utf8_decode($registro->barrio_responsable) . ";" . $registro->telefono . ";" . $registro->detalle_llamada . ";" . $registro->fecha_llamada  . "\n");
+                    $estado = '';
+                    // SUSPENDIDA = 1 VIGENTE = 2 DADA DE BAJA = 3  
+                    if($registro->cod_scl == 1){
+                        $estado = "SUSPENDIDA";    
+                    }else if($registro->cod_scl == 2){
+                        $estado = "VIGENTE";
+                    }else if($registro->cod_scl == 3){
+                        $estado = "DADA DE BAJA";
+                    }
+                    fwrite($myfile, utf8_decode($registro->name) . ";" . $registro->numero . ";" . $registro->ICC . ";" . $registro->fecha_vencimiento . ";" . $estado . ";" . utf8_decode($registro->nombre_empresa) . ";" . $registro->NIT . ";" . $registro->direccion_empresa . ";" . $registro->cod_scl . ";" . $registro->cod_punto . ";" . $registro->valor . ";" . preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $registro->plan) . ";" . utf8_decode($registro->responsable) . ";" . $registro->cedula . ";" . $registro->fecha_entrega . ";" . $registro->direccion_responsable. ";" . $registro->ciudad_responsable . ";" . utf8_decode($registro->barrio_responsable) . ";" . $registro->telefono . ";" . $registro->detalle_llamada . ";" . $registro->fecha_llamada  . "\n");
             }
             fclose($myfile);
             return 1;
@@ -149,7 +158,7 @@ class SimcardController extends Controller
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES ". $columns);
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
-        }else if($action == "UPDATE_PLAN"){
+        }else if($action == "UPDATE_PLAN"){ // funcion para actualizar planes
             $file = $request->file('image');
             if(!file_exists($file)) {
                 die("File not found. Make sure you specified the correct path.");
