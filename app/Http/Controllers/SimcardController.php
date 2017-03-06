@@ -158,7 +158,7 @@ class SimcardController extends Controller
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES ". $columns);
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
-        }else if($action == "UPDATE_PLAN"){ // funcion para actualizar planes
+        }else if($action == "UPDATE_PLAN"){ 
             $file = $request->file('image');
             if(!file_exists($file)) {
                 die("File not found. Make sure you specified the correct path.");
@@ -168,29 +168,14 @@ class SimcardController extends Controller
             } catch (PDOException $e) {
                 die("database connection failed: ".$e->getMessage());
             }
-            $pdo->exec('SET foreign_key_checks = 0'); 
-            $affectedRows = 0;
-            if (($gestor = fopen($file,'r')) !== FALSE) {
-                while (($vars = fgetcsv($gestor, 1000, ";")) !== FALSE) {
-                   $numero = $vars[0];
-                   $plan = $vars[1];
-                   $cod_scl = $vars[2];
-                   $sim = \App\Libre::find($numero);
-                   if($sim != null){
-                    $sim->plan = $plan;
-                    // SUSPENDIDA = 1 VIGENTE = 2 DADA DE BAJA = 3  
-                    if($cod_scl == "SUSPENDIDA"){
-                        $sim->cod_scl = 1;    
-                    }else if($cod_scl == "VIGENTE"){
-                        $sim->cod_scl = 2;
-                    }else if($cod_scl == "DADA DE BAJA"){
-                        $sim->cod_scl = 3;
-                    }
-                    $sim->save();
-                    $affectedRows = $affectedRows + 1;
-                   }
-                }
-            }
+            $columns = '(numero,plan, cod_scl)';
+            $affectedRows = $pdo->exec("
+                LOAD DATA LOCAL INFILE ".$pdo->quote($file)." REPLACE INTO TABLE `libres_temp`
+                  FIELDS TERMINATED BY ".$pdo->quote(";")."
+                  LINES TERMINATED BY ".$pdo->quote("\n")."
+                  IGNORE 0 LINES". $columns);
+            $affectedRows = $pdo->exec("update libres inner join libres_temp on libres.numero = libres_temp.numero set libres.plan=libres_temp.plan, libres.cod_scl = libres_temp.cod_scl ");
+            $pdo->exec("delete from libres_temp");
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }
         return \Redirect::route('simcard', ['result' => []]);
