@@ -77,7 +77,7 @@ class SimcardController extends Controller
                 die("database connection failed: ".$e->getMessage());
             }
             $pdo->exec('SET foreign_key_checks = 0'); 
-            $columns = '(ICC,numero,fecha_vencimiento,tipo,nombreSubdistribuidor, fecha_entrega)';
+            $columns = '(numero,ICC,fecha_vencimiento,tipo,nombreSubdistribuidor, fecha_entrega)';
             $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." IGNORE INTO TABLE `simcards`
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
