@@ -77,7 +77,7 @@ class SimcardController extends Controller
                 die("database connection failed: ".$e->getMessage());
             }
             $pdo->exec('SET foreign_key_checks = 0'); 
-            $columns = '(numero,ICC,fecha_vencimiento,tipo,nombreSubdistribuidor, fecha_entrega)';
+            $columns = '(ICC,numero,fecha_vencimiento,tipo,nombreSubdistribuidor, fecha_entrega)';
             $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." IGNORE INTO TABLE `simcards`
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
@@ -92,7 +92,7 @@ class SimcardController extends Controller
             $pdo->exec("UPDATE simcards_temp SET nombreSubdistribuidor = REPLACE(REPLACE(nombreSubdistribuidor, '\r', ''), '\n', '');");
             $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.ICC = simcards_temp.ICC, simcards.fecha_vencimiento=simcards_temp.fecha_vencimiento,simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor, simcards.tipo = simcards_temp.tipo, simcards.fecha_activacion = NULL, simcards.fecha_entrega = simcards_temp.fecha_entrega");                  
             $pdo->exec('SET foreign_key_checks = 1');
-            
+            return \DB::table('simcards_temp')->select('*')->get();
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }else if($action == "UPLOAD"){
             $file = $request->file('image');
@@ -113,7 +113,6 @@ class SimcardController extends Controller
                   IGNORE 0 LINES ". $columns);
             $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.fecha_activacion=simcards_temp.fecha_activacion ");
             $pdo->exec("UPDATE simcards SET fecha_vencimiento =  DATE_ADD(fecha_activacion, INTERVAL 6 MONTH) where fecha_activacion is not null and tipo = 1");
-            $pdo->exec("UPDATE simcards SET fecha_vencimiento =  DATE_ADD(fecha_activacion, INTERVAL 3 YEAR) where fecha_activacion is not null and tipo = 2");
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }else if($action == "ADDL"){
             $file = $request->file('image');
