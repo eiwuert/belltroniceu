@@ -92,7 +92,6 @@ class SimcardController extends Controller
             $pdo->exec("UPDATE simcards_temp SET nombreSubdistribuidor = REPLACE(REPLACE(nombreSubdistribuidor, '\r', ''), '\n', '');");
             $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.ICC = simcards_temp.ICC, simcards.fecha_vencimiento=simcards_temp.fecha_vencimiento,simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor, simcards.tipo = simcards_temp.tipo, simcards.fecha_activacion = NULL, simcards.fecha_entrega = simcards_temp.fecha_entrega");                  
             $pdo->exec('SET foreign_key_checks = 1');
-            return \DB::table('simcards_temp')->select('*')->get();
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }else if($action == "UPLOAD"){
             $file = $request->file('image');
