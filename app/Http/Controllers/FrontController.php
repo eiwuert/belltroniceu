@@ -11,6 +11,14 @@ use DB;
 class FrontController extends Controller
 {
    public function simcard(){
+        /* ACTUALIZAR VALORES DE PLANES
+        $pdo = \DB::connection()->getPdo();
+        $affectedRows = $pdo->exec("update libres set valor=32100 where plan = 'PM'");
+        $affectedRows = $pdo->exec("update libres set valor=59000 where plan = 'MM'");
+        $affectedRows = $pdo->exec("update libres set valor=79000 where plan = '1E'");
+        $affectedRows = $pdo->exec("update libres set valor=97000 where plan = '1I'");
+        return $affectedRows;
+        */
         $user =  \Auth::User();
         if(!$user->isContabilidad){
             $distribuidores = [];

@@ -148,7 +148,7 @@ class SimcardController extends Controller
                   
             $pdo->exec("delete recargas.* from recargas inner join simcards on simcards.numero = recargas.telefono inner join simcards_temp on simcards_temp.ICC = simcards.ICC");
             
-            $pdo->exec("UPDATE simcards SET fecha_vencimiento =  DATE_ADD(fecha_activacion, INTERVAL 1 YEAR) where fecha_activacion is not null and tipo = 2");
+            $pdo->exec("UPDATE simcards SET fecha_vencimiento =  DATE_ADD(fecha_activacion, INTERVAL 3 YEAR) where fecha_activacion is not null and tipo = 2");
             $columns = '(@dummy,numero, @dummy,fecha_activacion,NIT, nombre_empresa, direccion_empresa,cod_scl,cod_punto,valor,plan)';
             $affectedRows = $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." REPLACE INTO TABLE `libres`
