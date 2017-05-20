@@ -132,6 +132,8 @@ class SimcardController extends Controller
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES". $columns . "
                   SET tipo = 2");
+        
+            $var = $pdo->exec("delete recargas.* from recargas inner join simcards_temp on simcards_temp.numero = recargas.telefono");
             
             $var = $pdo->exec("delete libres.* from libres inner join simcards_temp on simcards_temp.numero = libres.numero");
             
@@ -146,8 +148,6 @@ class SimcardController extends Controller
                   IGNORE 0 LINES". $columns . "
                   SET tipo = 2");
                   
-            $pdo->exec("delete recargas.* from recargas inner join simcards on simcards.numero = recargas.telefono inner join simcards_temp on simcards_temp.ICC = simcards.ICC");
-            
             $pdo->exec("UPDATE simcards SET fecha_vencimiento =  DATE_ADD(fecha_activacion, INTERVAL 3 YEAR) where fecha_activacion is not null and tipo = 2");
             $columns = '(@dummy,numero, @dummy,fecha_activacion,NIT, nombre_empresa, direccion_empresa,cod_scl,cod_punto,valor,plan)';
             $affectedRows = $pdo->exec("
