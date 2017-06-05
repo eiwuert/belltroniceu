@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Simcard;
+use DB;
 
 class SimcardController extends Controller
 {
@@ -166,13 +167,16 @@ class SimcardController extends Controller
             } catch (PDOException $e) {
                 die("database connection failed: ".$e->getMessage());
             }
-            $columns = '(numero,plan, cod_scl)';
+            $pdo->exec("delete from libres_temp");
+            $columns = '(numero,plan, cod_scl,valor)';
             $affectedRows = $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." REPLACE INTO TABLE `libres_temp`
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES". $columns);
             $affectedRows = $pdo->exec("update libres inner join libres_temp on libres.numero = libres_temp.numero set libres.plan=libres_temp.plan, libres.cod_scl = libres_temp.cod_scl ");
+            $affectedRows = $pdo->exec("update libres inner join libres_temp on libres.plan = libres_temp.plan
+                                        set valor=libres_temp.valor");
             $pdo->exec("delete from libres_temp");
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }

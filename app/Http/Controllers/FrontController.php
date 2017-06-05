@@ -18,7 +18,7 @@ class FrontController extends Controller
         $affectedRows = $pdo->exec("update libres set valor=79000 where plan = '1E'");
         $affectedRows = $pdo->exec("update libres set valor=97000 where plan = '1I'");
         return $affectedRows;
-        */
+        //*/
         $user =  \Auth::User();
         if(!$user->isContabilidad){
             $distribuidores = [];
