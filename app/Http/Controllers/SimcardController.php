@@ -176,7 +176,7 @@ class SimcardController extends Controller
                   IGNORE 0 LINES". $columns);
             $affectedRows = $pdo->exec("update libres inner join libres_temp on libres.numero = libres_temp.numero set libres.plan=libres_temp.plan, libres.cod_scl = libres_temp.cod_scl ");
             $affectedRows = $pdo->exec("update libres inner join libres_temp on libres.plan = libres_temp.plan
-                                        set valor=libres_temp.valor");
+                                        set libres.valor=libres_temp.valor");
             $pdo->exec("delete from libres_temp");
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }
