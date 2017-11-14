@@ -156,7 +156,7 @@ function buscarSim(){
                     $('#tipo-resultado').val('LIBRE');
                 }
                 $('#distribuidor-resultado').html(data[0].name);
-                $('#subdistribuidor-resultado').html(data[0].nombreSubdistribuidor);
+                $('#subdistribuidor-resultado').html(data[0].nombre_subdistribuidor);
                 $('#fecha_vencimiento-resultado').val(data[0].fecha_vencimiento);
                 $('#fecha_activacion-resultado').val(data[0].fecha_activacion);
                 $('#fecha_entrega-resultado').val(data[0].fecha_entrega);
@@ -296,7 +296,7 @@ function seleccionarSim(btnObj){
                     $('#tipo-resultado').val('LIBRE');
                 }
                 $('#distribuidor-resultado').html(data[0].name);
-                $('#subdistribuidor-resultado').html(data[0].nombreSubdistribuidor);
+                $('#subdistribuidor-resultado').html(data[0].nombre_subdistribuidor);
                 $('#fecha_vencimiento-resultado').val(data[0].fecha_vencimiento);
                 $('#fecha_activacion-resultado').val(data[0].fecha_activacion);
                 $.ajax({

@@ -67,7 +67,7 @@ class agregarComisionesSeeder extends Seeder
                              'numero' => $numero,
                              'fecha_vencimiento' => null,
                              'fecha_activacion' =>  null,
-                             'nombreSubdistribuidor' => 'SIN ASIGNAR',
+                             'nombre_subdistribuidor' => 'SIN ASIGNAR',
                              'tipo' => 1,
                              'paquete' => 0,
                              'fecha_entrega' => null

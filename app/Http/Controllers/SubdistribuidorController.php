@@ -15,7 +15,7 @@ class SubdistribuidorController extends Controller
             try{
                 $subdistribuidor = \App\Subdistribuidor::find($request['nombre']);
                 $distribuidor = \DB::select("select users.name distribuidor from subdistribuidores inner join users on subdistribuidores.emailDistribuidor = users.email where subdistribuidores.nombre = ? limit 1", [$subdistribuidor->nombre]);
-                $sims = \DB::select("update simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre set nombreSubdistribuidor = ? where subdistribuidores.nombre = ?", [$distribuidor[0]->distribuidor, $subdistribuidor->nombre]);
+                $sims = \DB::select("update simcards inner join subdistribuidores on simcards.nombre_subdistribuidor = subdistribuidores.nombre set nombre_subdistribuidor = ? where subdistribuidores.nombre = ?", [$distribuidor[0]->distribuidor, $subdistribuidor->nombre]);
                 $subdistribuidor->delete();
                 return 1;
             }catch( Exception $e){

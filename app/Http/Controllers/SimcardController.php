@@ -19,9 +19,9 @@ class SimcardController extends Controller
             if($distribuidor == null)
                 $distribuidor = $user->name;
             if(strpos($distribuidor, 'TODOS') === false){
-                 $datos = \DB::select("select users.name, simcards.numero, simcards.fecha_vencimiento, datediff(simcards.fecha_vencimiento,curdate()) diferencia, simcards.tipo from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where simcards.fecha_vencimiento >= ? and simcards.fecha_vencimiento < ? and simcards.fecha_activacion is null and users.name = ? order by simcards.tipo,datediff(simcards.fecha_vencimiento,curdate())",[$request['fecha_inicial'], $request['fecha_final'],$distribuidor]);
+                 $datos = \DB::select("select users.name, simcards.numero, simcards.fecha_vencimiento, datediff(simcards.fecha_vencimiento,curdate()) diferencia, simcards.tipo from simcards inner join subdistribuidores on simcards.nombre_subdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where simcards.fecha_vencimiento >= ? and simcards.fecha_vencimiento < ? and simcards.fecha_activacion is null and users.name = ? order by simcards.tipo,datediff(simcards.fecha_vencimiento,curdate())",[$request['fecha_inicial'], $request['fecha_final'],$distribuidor]);
             }else{
-                $datos = \DB::select("select users.name, simcards.numero, simcards.fecha_vencimiento, datediff(simcards.fecha_vencimiento,curdate()) diferencia, simcards.tipo from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where simcards.fecha_vencimiento >= ? and simcards.fecha_vencimiento < ? and simcards.fecha_activacion is null order by simcards.tipo,datediff(simcards.fecha_vencimiento,curdate())",[$request['fecha_inicial'], $request['fecha_final']]);
+                $datos = \DB::select("select users.name, simcards.numero, simcards.fecha_vencimiento, datediff(simcards.fecha_vencimiento,curdate()) diferencia, simcards.tipo from simcards inner join subdistribuidores on simcards.nombre_subdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email where simcards.fecha_vencimiento >= ? and simcards.fecha_vencimiento < ? and simcards.fecha_activacion is null order by simcards.tipo,datediff(simcards.fecha_vencimiento,curdate())",[$request['fecha_inicial'], $request['fecha_final']]);
             }
             $myfile = fopen("temp/simcardsVencer.csv", "w");
             fwrite($myfile, "DISTRIBUIDOR;TIPO;NUMERO;FECHA VENCIMIENTO;DIAS PARA VENCER\n");
@@ -42,9 +42,9 @@ class SimcardController extends Controller
             if($distribuidor == null)
                 $distribuidor = $user->name;
             if(strpos($distribuidor, 'TODOS') === false){
-                 $datos = \DB::select("select users.name, simcards.numero, simcards.ICC, simcards.fecha_vencimiento,nombre_empresa,NIT,direccion_empresa,cod_scl,cod_punto,valor,plan,responsable,libres.cedula, libres.cod_scl,libres.fecha_entrega,direccion_responsable,ciudad_responsable,barrio_responsable,libres.telefono,detalle_llamada,fecha_llamada from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email inner join libres on simcards.numero = libres.numero where users.name = ? order by simcards.fecha_vencimiento",[$distribuidor]);
+                 $datos = \DB::select("select users.name, simcards.numero, simcards.ICC, simcards.fecha_vencimiento,nombre_empresa,NIT,direccion_empresa,cod_scl,cod_punto,valor,plan,responsable,libres.cedula, libres.cod_scl,libres.fecha_entrega,direccion_responsable,ciudad_responsable,barrio_responsable,libres.telefono,detalle_llamada,fecha_llamada from simcards inner join subdistribuidores on simcards.nombre_subdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email inner join libres on simcards.numero = libres.numero where users.name = ? order by simcards.fecha_vencimiento",[$distribuidor]);
             }else{
-                $datos = \DB::select("select users.name, simcards.numero, simcards.ICC,simcards.fecha_vencimiento,nombre_empresa,NIT,direccion_empresa,cod_scl,cod_punto,valor,plan,responsable,libres.cedula,libres.cod_scl,libres.fecha_entrega,direccion_responsable,ciudad_responsable,barrio_responsable,libres.telefono,detalle_llamada,fecha_llamada from simcards inner join subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email inner join libres on simcards.numero = libres.numero order by users.name,simcards.fecha_vencimiento");
+                $datos = \DB::select("select users.name, simcards.numero, simcards.ICC,simcards.fecha_vencimiento,nombre_empresa,NIT,direccion_empresa,cod_scl,cod_punto,valor,plan,responsable,libres.cedula,libres.cod_scl,libres.fecha_entrega,direccion_responsable,ciudad_responsable,barrio_responsable,libres.telefono,detalle_llamada,fecha_llamada from simcards inner join subdistribuidores on simcards.nombre_subdistribuidor = subdistribuidores.nombre inner join users on subdistribuidores.emailDistribuidor = users.email inner join libres on simcards.numero = libres.numero order by users.name,simcards.fecha_vencimiento");
             }
             
             $myfile = fopen("temp/simcardsLibres.csv", "w");
@@ -78,7 +78,7 @@ class SimcardController extends Controller
                 die("database connection failed: ".$e->getMessage());
             }
             $pdo->exec('SET foreign_key_checks = 0'); 
-            $columns = '(numero,ICC,fecha_vencimiento,tipo,nombreSubdistribuidor, fecha_entrega)';
+            $columns = '(numero,ICC,fecha_vencimiento,tipo,nombre_subdistribuidor, fecha_entrega)';
             $pdo->exec("
                 LOAD DATA LOCAL INFILE ".$pdo->quote($file)." IGNORE INTO TABLE `simcards`
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
@@ -90,8 +90,8 @@ class SimcardController extends Controller
                   FIELDS TERMINATED BY ".$pdo->quote(";")."
                   LINES TERMINATED BY ".$pdo->quote("\n")."
                   IGNORE 0 LINES ". $columns);
-            $pdo->exec("UPDATE simcards_temp SET nombreSubdistribuidor = REPLACE(REPLACE(nombreSubdistribuidor, '\r', ''), '\n', '');");
-            $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.ICC = simcards_temp.ICC, simcards.fecha_vencimiento=simcards_temp.fecha_vencimiento,simcards.nombreSubdistribuidor = simcards_temp.nombreSubdistribuidor, simcards.tipo = simcards_temp.tipo, simcards.fecha_activacion = NULL, simcards.fecha_entrega = simcards_temp.fecha_entrega");                  
+            $pdo->exec("UPDATE simcards_temp SET nombre_subdistribuidor = REPLACE(REPLACE(nombre_subdistribuidor, '\r', ''), '\n', '');");
+            $pdo->exec("update simcards inner join simcards_temp on simcards.numero = simcards_temp.numero set simcards.ICC = simcards_temp.ICC, simcards.fecha_vencimiento=simcards_temp.fecha_vencimiento,simcards.nombre_subdistribuidor = simcards_temp.nombre_subdistribuidor, simcards.tipo = simcards_temp.tipo, simcards.fecha_activacion = NULL, simcards.fecha_entrega = simcards_temp.fecha_entrega");                  
             $pdo->exec('SET foreign_key_checks = 1');
             return \Redirect::route('simcard')->with('result' ,$affectedRows); 
         }else if($action == "UPLOAD"){
@@ -124,7 +124,7 @@ class SimcardController extends Controller
             } catch (PDOException $e) {
                 die("database connection failed: ".$e->getMessage());
             }
-            $columns = '(nombreSubdistribuidor,numero, ICC,fecha_activacion, @dummy, @dummy, @dummy,@dummy,@dummy,@dummy,@dummy, fecha_entrega)';
+            $columns = '(nombre_subdistribuidor,numero, ICC,fecha_activacion, @dummy, @dummy, @dummy,@dummy,@dummy,@dummy,@dummy, fecha_entrega)';
             $pdo->exec("delete from simcards_temp");
             
             $var = $pdo->exec("
@@ -193,7 +193,7 @@ class SimcardController extends Controller
     {
         if($request->ajax()){
             if($request['dato'] != null){
-                $simcard = \DB::table('simcards')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->join('users','subdistribuidores.emailDistribuidor','=','users.email')->where('numero', '=', $request['dato'])->orWhere('ICC', '=', $request['dato'])->get();
+                $simcard = \DB::table('simcards')->join('subdistribuidores','simcards.nombre_subdistribuidor','=','subdistribuidores.nombre')->join('users','subdistribuidores.emailDistribuidor','=','users.email')->where('numero', '=', $request['dato'])->orWhere('ICC', '=', $request['dato'])->get();
             }else{
                 $simcard = [];
             }
@@ -211,7 +211,7 @@ class SimcardController extends Controller
                    foreach($sims as $simcard){
                        $fecha_entrega = date('Y-m-d H:i:s');
                        $toModify = \App\Simcard::find($simcard->ICC);
-                       $toModify->nombreSubdistribuidor = $request['sub'];
+                       $toModify->nombre_subdistribuidor = $request['sub'];
                        $toModify->fecha_entrega = $fecha_entrega;
                        $toModify->save();
                    }
@@ -232,7 +232,7 @@ class SimcardController extends Controller
                 $sim = \App\Simcard::find($request['ICC']);
                 if($sim != null){
                     $fecha_entrega = date('Y-m-d H:i:s');
-                    $sim->nombreSubdistribuidor = $request['sub'];
+                    $sim->nombre_subdistribuidor = $request['sub'];
                     $sim->fecha_entrega = $fecha_entrega;
                     $sim->save();
                     return 1;
@@ -249,12 +249,12 @@ class SimcardController extends Controller
     {
         if($request->ajax()){
             if($request['dato'] != null){
-                $aux = \DB::table('simcards')->join('subdistribuidores','simcards.nombreSubdistribuidor','=','subdistribuidores.nombre')->join('users','subdistribuidores.emailDistribuidor','=','users.email')->where('numero', '=', $request['dato'])->orWhere('ICC', '=', $request['dato'])->first();
+                $aux = \DB::table('simcards')->join('subdistribuidores','simcards.nombre_subdistribuidor','=','subdistribuidores.nombre')->join('users','subdistribuidores.emailDistribuidor','=','users.email')->where('numero', '=', $request['dato'])->orWhere('ICC', '=', $request['dato'])->first();
                 if($aux != ""){
                     $simcard = \DB::table('libres')->where('numero', '=', $aux->numero)->first();
                     if($simcard != ""){
                         
-                        $simcard->subdistribuidor = $aux->nombreSubdistribuidor;
+                        $simcard->subdistribuidor = $aux->nombre_subdistribuidor;
                     }else{
                         $simcard = [];
                     }
@@ -327,7 +327,7 @@ class SimcardController extends Controller
                 count(case when Month(sim.fecha_vencimiento) = Month(DATE_ADD(CURDATE(), INTERVAL -2 MONTH)) and Year(sim.fecha_vencimiento) = Year(DATE_ADD(CURDATE(), INTERVAL -2 MONTH)) then numero end) mes2AntesVencidas,
                 count(case when Month(sim.fecha_vencimiento) = Month(DATE_ADD(CURDATE(), INTERVAL -3 MONTH)) and Year(sim.fecha_vencimiento) = Year(DATE_ADD(CURDATE(), INTERVAL -3 MONTH)) then numero end) mes3AntesVencidas,
                 count(case when Month(sim.fecha_vencimiento) = Month(DATE_ADD(CURDATE(), INTERVAL -4 MONTH)) and Year(sim.fecha_vencimiento) = Year(DATE_ADD(CURDATE(), INTERVAL -4 MONTH)) then numero end) mes4AntesVencidas
-                FROM simcards sim inner join subdistribuidores sub on sim.nombreSubdistribuidor = sub.nombre inner join users u on sub.emailDistribuidor = u.email where u.email = ? and sim.tipo=1",[$user->email]);
+                FROM simcards sim inner join subdistribuidores sub on sim.nombre_subdistribuidor = sub.nombre inner join users u on sub.emailDistribuidor = u.email where u.email = ? and sim.tipo=1",[$user->email]);
             
             $recargas = \DB::select("SELECT 
                 count(case when Month(recargas.fecha_recarga) = Month(CURDATE()) and Year(recargas.fecha_recarga) = Year(CURDATE()) then numero end) hoyRecargadas, 
@@ -335,7 +335,7 @@ class SimcardController extends Controller
                 count(case when Month(recargas.fecha_recarga) = Month(DATE_ADD(CURDATE(), INTERVAL -2 MONTH)) and Year(recargas.fecha_recarga) = Year(DATE_ADD(CURDATE(), INTERVAL -2 MONTH)) then numero end) mes2AntesRecargadas,
                 count(case when Month(recargas.fecha_recarga) = Month(DATE_ADD(CURDATE(), INTERVAL -3 MONTH)) and Year(recargas.fecha_recarga) = Year(DATE_ADD(CURDATE(), INTERVAL -3 MONTH)) then numero end) mes3AntesRecargadas,
                 count(case when Month(recargas.fecha_recarga) = Month(DATE_ADD(CURDATE(), INTERVAL -4 MONTH)) and Year(recargas.fecha_recarga) = Year(DATE_ADD(CURDATE(), INTERVAL -4 MONTH)) then numero end) mes4AntesRecargadas
-                FROM simcards sim inner join subdistribuidores sub on sim.nombreSubdistribuidor = sub.nombre inner join users u on sub.emailDistribuidor = u.email inner join recargas on sim.numero = recargas.telefono where u.email = ? and sim.tipo=1 ",[$user->email]);
+                FROM simcards sim inner join subdistribuidores sub on sim.nombre_subdistribuidor = sub.nombre inner join users u on sub.emailDistribuidor = u.email inner join recargas on sim.numero = recargas.telefono where u.email = ? and sim.tipo=1 ",[$user->email]);
             
             $simsPrepago = [$recargas[0]->mes4AntesRecargadas,$recargas[0]->mes3AntesRecargadas,$recargas[0]->mes2AntesRecargadas,$recargas[0]->mesAntesRecargadas,$recargas[0]->hoyRecargadas,$sims[0]->mes4AntesVencidas,$sims[0]->mes3AntesVencidas,$sims[0]->mes2AntesVencidas,$sims[0]->mesAntesVencidas,$sims[0]->hoyVencidas];
             
@@ -382,10 +382,10 @@ class SimcardController extends Controller
                 $fecha_final = date('Y-m-d H:i:s');
             }
             if($request['distribuidor'] == null){
-                $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo, count(simcards.numero) cantidad from simcards INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and simcards.fecha_entrega > ? and simcards.fecha_entrega < ? group by simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo",
+                $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo, count(simcards.numero) cantidad from simcards INNER JOIN subdistribuidores on simcards.nombre_subdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and simcards.fecha_entrega > ? and simcards.fecha_entrega < ? group by simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo",
                      [$user->name, $fecha_inicial, $fecha_final]);
             }else{
-                $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo, count(simcards.numero) cantidad from simcards INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and simcards.fecha_entrega > ? and simcards.fecha_entrega < ? group by simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo",
+                $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo, count(simcards.numero) cantidad from simcards INNER JOIN subdistribuidores on simcards.nombre_subdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email where users.name = ? and simcards.fecha_entrega > ? and simcards.fecha_entrega < ? group by simcards.fecha_entrega,subdistribuidores.nombre, simcards.tipo",
                      [$request['distribuidor'], $fecha_inicial, $fecha_final]);
             }
             return $datos;
@@ -404,10 +404,10 @@ class SimcardController extends Controller
             if($user->isAdmin){
                 $distribuidor = $request['distribuidor'];
                 if(strpos($distribuidor, 'TODOS') === false){
-                    $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, users.name, simcards.tipo, simcards.numero,simcards.ICC,simcards.fecha_activacion, simcards.fecha_vencimiento,libres.plan from simcards INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email LEFT JOIN libres on simcards.numero = libres.numero where users.name = ? and simcards.fecha_entrega >= ? and simcards.fecha_entrega <= ? order by simcards.fecha_entrega",
+                    $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, users.name, simcards.tipo, simcards.numero,simcards.ICC,simcards.fecha_activacion, simcards.fecha_vencimiento,libres.plan from simcards INNER JOIN subdistribuidores on simcards.nombre_subdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email LEFT JOIN libres on simcards.numero = libres.numero where users.name = ? and simcards.fecha_entrega >= ? and simcards.fecha_entrega <= ? order by simcards.fecha_entrega",
                          [$distribuidor,$fecha_inicial,$fecha_final]);
                 }else{
-                    $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, users.name, simcards.tipo, simcards.numero,simcards.ICC,simcards.fecha_activacion, simcards.fecha_vencimiento,libres.plan from simcards INNER JOIN subdistribuidores on simcards.nombreSubdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email LEFT JOIN libres on simcards.numero = libres.numero where simcards.fecha_entrega >= ? and simcards.fecha_entrega <= ?  order by simcards.fecha_entrega",
+                    $datos = \DB::select("select simcards.fecha_entrega,subdistribuidores.nombre, users.name, simcards.tipo, simcards.numero,simcards.ICC,simcards.fecha_activacion, simcards.fecha_vencimiento,libres.plan from simcards INNER JOIN subdistribuidores on simcards.nombre_subdistribuidor = subdistribuidores.nombre INNER JOIN users on subdistribuidores.emailDistribuidor = users.email LEFT JOIN libres on simcards.numero = libres.numero where simcards.fecha_entrega >= ? and simcards.fecha_entrega <= ?  order by simcards.fecha_entrega",
                          [$fecha_inicial,$fecha_final]);
                 }
                 $myfile = fopen("temp/asignacionesSimcards.csv", "w");

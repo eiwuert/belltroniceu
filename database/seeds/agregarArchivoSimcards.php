@@ -27,7 +27,7 @@ class agregarArchivoSimcards extends Seeder
                         }
                         if($simc != null){
                             $sim = \App\Simcard::find($simc->ICC);
-                            $sim->nombreSubdistribuidor = $vars[2];
+                            $sim->nombre_subdistribuidor = $vars[2];
                             $sim->fecha_vencimiento = $fecha_vencimiento;
                             $sim->tipo = $vars[4];
                             $sim->save();
@@ -42,7 +42,7 @@ class agregarArchivoSimcards extends Seeder
                              'ICC' => $ICC,
                              'fecha_vencimiento' => $fecha_vencimiento,
                              'fecha_activacion' =>  null,
-                             'nombreSubdistribuidor' => $vars[2],
+                             'nombre_subdistribuidor' => $vars[2],
                              'tipo' => $vars[4],
                              'paquete' => 0,
                              'fecha_entrega' => null
@@ -64,7 +64,7 @@ class agregarArchivoSimcards extends Seeder
                              'ICC' => $ICC,
                              'fecha_vencimiento' => $fecha_vencimiento,
                              'fecha_activacion' =>  null,
-                             'nombreSubdistribuidor' => 'SIN ASIGNAR',
+                             'nombre_subdistribuidor' => 'SIN ASIGNAR',
                              'tipo' => 1,
                              'paquete' => 0,
                              'fecha_entrega' => null
